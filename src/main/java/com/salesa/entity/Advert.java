@@ -1,7 +1,7 @@
 package com.salesa.entity;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Advert {
@@ -9,11 +9,11 @@ public class Advert {
     private int id;
     private String title;
     private String text;
-    private Date modificationDate;
-    private int categoryId;
+    private LocalDateTime modificationDate;
+    private Category categoryId;
     private double price;
     private String currency;
-    private int userId;
+    private User userId;
     private String status;
     private List<Image> images;
 
@@ -41,11 +41,11 @@ public class Advert {
         this.text = text;
     }
 
-    public int getCategoryId() {
+    public Category getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -65,11 +65,11 @@ public class Advert {
         this.currency = currency;
     }
 
-    public int getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
@@ -81,11 +81,11 @@ public class Advert {
         this.status = status;
     }
 
-    public Date getModificationDate() {
+    public LocalDateTime getModificationDate() {
         return modificationDate;
     }
 
-    public void setModificationDate(Date modificationDate) {
+    public void setModificationDate(LocalDateTime modificationDate) {
         this.modificationDate = modificationDate;
     }
 
