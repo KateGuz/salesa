@@ -20,5 +20,6 @@ public class CategoryMapperTest {
         Category category = categoryMapper.mapRow(resultSet, 1);
         assertEquals(1, category.getId());
         assertEquals("room", category.getName());
+        assertEquals((Integer) 0, category.getParentId());
     }
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CategoryJdbcDao {
+public class CategoryJdbcDao implements CategoryDao{
 
     private final String GET_ALL_SQL = "SELECT * FROM category;";
 
