@@ -2,6 +2,7 @@ package com.salesa.controller;
 
 import com.salesa.dao.AdvertDao;
 import com.salesa.dao.CategoryDao;
+import com.salesa.dao.CategoryJdbcDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

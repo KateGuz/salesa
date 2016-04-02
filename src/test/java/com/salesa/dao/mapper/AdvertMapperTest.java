@@ -18,6 +18,7 @@ public class AdvertMapperTest {
         AdvertMapper advertMapper = new AdvertMapper();
         ResultSet resultSet = Mockito.mock(ResultSet.class);
         when(resultSet.getInt("id")).thenReturn(1);
+        when(resultSet.getString("title")).thenReturn("Ad1");
         when(resultSet.getString("text")).thenReturn("text");
         when(resultSet.getInt("categoryId")).thenReturn(2);
         when(resultSet.getDouble("price")).thenReturn(1.1);
@@ -30,6 +31,7 @@ public class AdvertMapperTest {
 
         // then
         assertEquals(1, advert.getId());
+        assertEquals("Ad1", advert.getTitle());
         assertEquals("text", advert.getText());
         assertEquals(2, advert.getCategoryId());
         assertEquals(1.1, advert.getPrice(), 0.1);
