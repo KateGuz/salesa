@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class CategoryMapper implements RowMapper<Category>{
     @Override
-    public Category mapRow(ResultSet resultSet, int i){
+    public Category mapRow(ResultSet resultSet, int i) throws SQLException {
         Category category = new Category();
         try{
             category.setId(resultSet.getInt("id"));

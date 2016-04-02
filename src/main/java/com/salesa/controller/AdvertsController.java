@@ -1,7 +1,6 @@
 package com.salesa.controller;
 
 import com.salesa.dao.AdvertDao;
-import com.salesa.dao.CategoryDao;
 import com.salesa.dao.CategoryJdbcDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdvertsController {
 
     @Autowired
-    private CategoryDao categoryDao;
+    private CategoryJdbcDao categoryJdbcDao;
 
     @Autowired
     private AdvertDao advertDao;
 
     @RequestMapping("/")
     public String home(Model model) {
-        model.addAttribute("categories", categoryDao.getAll());
+        model.addAttribute("categories", categoryJdbcDao.getAll());
         model.addAttribute("adverts", advertDao.getAll());
         return "home";
     }
