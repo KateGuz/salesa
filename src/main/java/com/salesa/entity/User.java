@@ -84,4 +84,19 @@ public class User {
     public void setDislikeAmount(int dislikeAmount) {
         this.dislikeAmount = dislikeAmount;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", avatar=" + avatar +
+                ", status='" + status + '\'' +
+                ", type='" + type + '\'' +
+                ", dislikeAmount=" + dislikeAmount +
+                '}';
+    }
 }
