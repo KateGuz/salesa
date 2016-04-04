@@ -14,7 +14,8 @@ import java.util.List;
 public class AdvertJdbcDao implements AdvertDao {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private static final String GET_ALL_SQL = "SELECT * FROM advert;";
+    @Autowired
+    private String getAllAdverts;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -23,7 +24,7 @@ public class AdvertJdbcDao implements AdvertDao {
     public List<Advert> getAll() {
         long startTime = System.currentTimeMillis();
         log.info("Query adverts information");
-        List<Advert> adverts = jdbcTemplate.query(GET_ALL_SQL, new AdvertMapper());
+        List<Advert> adverts = jdbcTemplate.query(getAllAdverts, new AdvertMapper());
         log.info("Query {} adverts took {} ms", adverts.size(), System.currentTimeMillis() - startTime);
         return adverts;
     }

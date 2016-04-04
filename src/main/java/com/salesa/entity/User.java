@@ -1,14 +1,16 @@
 package com.salesa.entity;
 
+import java.io.InputStream;
+
 public class User {
     private int id;
     private String name;
     private String email;
     private String password;
     private String phone;
-    private Image image;
-    private char status;
-    private char type;
+    private InputStream avatar;
+    private String status;
+    private String type;
     private int dislikeAmount;
 
     public int getId() {
@@ -51,19 +53,27 @@ public class User {
         this.phone = phone;
     }
 
-    public char getStatus() {
+    public InputStream getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(InputStream avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(char status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public char getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(char type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -73,5 +83,20 @@ public class User {
 
     public void setDislikeAmount(int dislikeAmount) {
         this.dislikeAmount = dislikeAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", avatar=" + avatar +
+                ", status='" + status + '\'' +
+                ", type='" + type + '\'' +
+                ", dislikeAmount=" + dislikeAmount +
+                '}';
     }
 }
