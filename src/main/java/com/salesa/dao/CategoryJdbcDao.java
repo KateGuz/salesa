@@ -18,12 +18,13 @@ import java.util.List;
 @Repository
 public class CategoryJdbcDao implements CategoryDao{
 
-    private final String GET_ALL_SQL = "SELECT * FROM category;";
+    @Autowired
+    private String getAllCategories;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public List<Category> getAll() {
-        return jdbcTemplate.query(GET_ALL_SQL, new CategoryMapper());
+        return jdbcTemplate.query(getAllCategories, new CategoryMapper());
     }
 }

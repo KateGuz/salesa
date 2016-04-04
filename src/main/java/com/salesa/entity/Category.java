@@ -4,7 +4,7 @@ package com.salesa.entity;
 public class Category {
     private int id;
     private String name;
-    private Integer parentId;
+    private Category parent;
 
     public int getId() {
         return id;
@@ -22,12 +22,12 @@ public class Category {
         this.name = name;
     }
 
-    public Integer getParentId() {
-        return parentId;
+    public Category getParent() {
+        return parent;
     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public void setParent(Category parent) {
+        this.parent = parent;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", parentId=" + parentId +
+                ", parent=" + parent +
                 '}';
     }
 }

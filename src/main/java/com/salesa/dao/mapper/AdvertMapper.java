@@ -1,6 +1,7 @@
 package com.salesa.dao.mapper;
 
 import com.salesa.entity.Advert;
+import com.salesa.entity.Category;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -11,19 +12,15 @@ public class AdvertMapper implements RowMapper<Advert> {
     @Override
     public Advert mapRow(ResultSet resultSet, int i) throws SQLException {
         Advert advert = new Advert();
-        try {
-            advert.setId(resultSet.getInt("id"));
-            advert.setTitle(resultSet.getString("title"));
-            advert.setText(resultSet.getString("text"));
-            // todo: map date
-            advert.setCategoryId(resultSet.getInt("categoryId"));
-            advert.setPrice(resultSet.getDouble("price"));
-            advert.setCurrency(resultSet.getString("currency"));
-            advert.setUserId(resultSet.getInt("userId"));
-            advert.setStatus(resultSet.getString("status"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+        advert.setId(resultSet.getInt("id"));
+        advert.setTitle(resultSet.getString("title"));
+        advert.setText(resultSet.getString("text"));
+        advert.setModificationDate(resultSet.getTimestamp("modificationDate").toLocalDateTime());
+        advert.setPrice(resultSet.getDouble("price"));
+        advert.setCurrency(resultSet.getString("currency"));
+        advert.setStatus(resultSet.getString("status"));
+
         return advert;
     }
 }
