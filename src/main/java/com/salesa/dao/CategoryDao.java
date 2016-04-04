@@ -5,7 +5,6 @@ import com.salesa.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,11 +21,11 @@ public class CategoryDao {
 
     public List<Category> getAll(){
         List<Category> categories = new ArrayList<>();
-        String query = "select * from category";
+        String query = "SELECT * FROM category";
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            while (resultSet.next()){
                 categories.add(CategoryMapper.map(resultSet));
             }
         } catch (SQLException e) {

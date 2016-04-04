@@ -10,11 +10,12 @@ public class CategoryMapper {
         Category category = new Category();
         try {
             category.setId(resultSet.getInt("id"));
-            category.setName(resultSet.getString("category"));
+            category.setName(resultSet.getString("name"));
             category.setParentId(resultSet.getInt("parentId"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return category;
     }
 }

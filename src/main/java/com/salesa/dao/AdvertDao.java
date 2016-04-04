@@ -1,9 +1,9 @@
 package com.salesa.dao;
 
-import com.salesa.entity.Advert;
+import com.salesa.UserFilter;
 
 import java.util.List;
 
-public interface AdvertDao {
-    List<Advert> getAll();
+public interface AdvertDao<E> {
+    List<E> get(UserFilter userFilter);
 }
