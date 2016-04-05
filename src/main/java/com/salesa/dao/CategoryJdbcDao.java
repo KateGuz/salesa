@@ -7,16 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CategoryJdbcDao implements CategoryDao{
+public class CategoryJdbcDao implements CategoryDao {
 
     @Autowired
     private String getAllCategories;
@@ -25,6 +19,20 @@ public class CategoryJdbcDao implements CategoryDao{
     private JdbcTemplate jdbcTemplate;
 
     public List<Category> getAll() {
-        return jdbcTemplate.query(getAllCategories, new CategoryMapper());
+        List<Category> categories = jdbcTemplate.query(getAllCategories, new CategoryMapper());
+
+        for (Category category : categories) {
+            Category parent = category.getParent();
+            if (parent != null) {
+                int parentId = parent.getId();
+                for (Category parentCategory : categories) {
+                    if (parentId == parentCategory.getId()) {
+                        category.setParent(parentCategory);
+                    }
+                }
+            }
+
+        }
+        return categories;
     }
 }
