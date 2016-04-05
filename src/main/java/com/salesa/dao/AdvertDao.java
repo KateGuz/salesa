@@ -1,9 +1,10 @@
 package com.salesa.dao;
 
-import com.salesa.UserFilter;
+import com.salesa.dao.filter.UserFilter;
+import com.salesa.entity.Advert;
 
 import java.util.List;
 
 public interface AdvertDao<E> {
-    List<E> get(UserFilter userFilter);
+    List<Advert> get(UserFilter userFilter);
 }

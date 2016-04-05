@@ -1,7 +1,7 @@
 package com.salesa.service;
 
-import com.salesa.UserFilter;
-import com.salesa.dao.AdvertJdbcAdvertDao;
+import com.salesa.dao.filter.UserFilter;
+import com.salesa.dao.AdvertJdbcDao;
 import com.salesa.entity.Advert;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,33 +10,19 @@ import java.util.List;
 
 public class AdvertService {
     @Autowired
-    AdvertJdbcAdvertDao advertJdbcDao;
+    AdvertJdbcDao advertJdbcDao;
 
     public List<Advert> get(UserFilter userFilter) {
-        int page = 1;
-        if (userFilter.getPage() > 0) {
-            page = userFilter.getPage();
+        List<Advert> adverts = advertJdbcDao.get(userFilter);
+        List<Advert> result = new ArrayList<>();
+
+        int count = 9;
+        if (adverts.size() < 9) {
+            count = adverts.size();
         }
-        int indexFrom = (page - 1) * 9;
-        int indexTo = page * 9;
-        List<Advert> pageNumberList = advertJdbcDao.get(userFilter);
-        if (indexTo > pageNumberList.size()) {
-            indexTo = pageNumberList.size();
+        for(int i = 0; i < count; i++){
+            result.add(adverts.get(i));
         }
-        List<Advert> returnList = new ArrayList<>();
-        for (int i = indexFrom; i < indexTo; i++) {
-            returnList.add(pageNumberList.get(i));
-        }
-        return returnList;
+        return result;
     }
-
-    public List<Advert> get() {
-        return advertJdbcDao.get();
-    }
-
-    public void setAdvertJdbcDao(AdvertJdbcAdvertDao advertJdbcDao) {
-        this.advertJdbcDao = advertJdbcDao;
-    }
-
-
 }

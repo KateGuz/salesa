@@ -1,6 +1,6 @@
 package com.salesa.controller;
 
-import com.salesa.UserFilter;
+import com.salesa.dao.filter.UserFilter;
 import com.salesa.dao.CategoryDao;
 import com.salesa.service.AdvertService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +16,18 @@ public class AdvertsController {
     private CategoryDao categoryDao;
     @Autowired
     private AdvertService advertService;
+    @Autowired
+    private UserFilter userFilter;
 
-    @RequestMapping(value = "/")
+    @RequestMapping("/")
     public String home(Model model) {
         model.addAttribute("categories", categoryDao.getAll());
-        model.addAttribute("adverts", advertService.get());
+        model.addAttribute("adverts", advertService.get(userFilter));
         return "home";
     }
 
     @RequestMapping(value = "/category/{categoryId}")
     public String category(@PathVariable("categoryId") int categoryId, Model model) {
-        UserFilter userFilter = new UserFilter();
         userFilter.setCategoryId(categoryId);
 
         model.addAttribute("adverts", advertService.get(userFilter));
