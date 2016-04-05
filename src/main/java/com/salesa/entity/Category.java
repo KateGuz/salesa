@@ -6,6 +6,13 @@ public class Category {
     private String name;
     private Category parent;
 
+    public Category() {
+    }
+
+    public Category(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
@@ -28,6 +35,18 @@ public class Category {
 
     public void setParent(Category parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Category category = (Category) o;
+
+        if (id != category.id) return false;
+        return name != null ? name.equals(category.name) : category.name == null;
+
     }
 
     @Override
