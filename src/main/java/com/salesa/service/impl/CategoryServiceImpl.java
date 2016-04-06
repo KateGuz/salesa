@@ -18,4 +18,10 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getAll() {
         return CategoryCache.getInstance().getAll();
     }
+
+    //@PostConstruct annotation initialize(run) method after bean(CategoryServiceImpl) has been created.
+    @PostConstruct
+    public void initialize() {
+        CategoryCache.getInstance().add(categoryJdbcDao.getAll());
+    }
 }
