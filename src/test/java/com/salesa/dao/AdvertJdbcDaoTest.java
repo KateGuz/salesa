@@ -10,7 +10,6 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-
 public class AdvertJdbcDaoTest {
 
     @InjectMocks
@@ -37,5 +36,4 @@ public class AdvertJdbcDaoTest {
         assertEquals(18, (int)namedParametersTwo.get("startPosition"));
 
     }
-
 }

@@ -3,6 +3,7 @@ package com.salesa.filter;
 public class AdvertFilter {
 
     private int page;
+    private int categoryId;
 
     public int getPage() {
         return page;
@@ -10,5 +11,13 @@ public class AdvertFilter {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }

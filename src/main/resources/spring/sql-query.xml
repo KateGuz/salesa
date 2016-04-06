@@ -9,6 +9,14 @@
         <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
                    a.currency, a.status FROM advert as a LIMIT :startPosition, :maxAdvertsPerPage"/>
     </bean>
+    <bean id="getLimitNumberOfAdvertsByCategory" class="java.lang.String">
+        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
+                   a.currency, a.status FROM advert as a WHERE a.categoryId = :categoryId LIMIT :startPosition, :maxAdvertsPerPage"/>
+    </bean>
+    <bean id="getAdvertsByCategory" class="java.lang.String">
+        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
+                   a.currency, a.status FROM advert as a WHERE a.categoryId = :categoryId"/>
+    </bean>
 
     <bean id="getAllAdverts" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,

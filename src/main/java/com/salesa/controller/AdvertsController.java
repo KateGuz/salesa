@@ -1,11 +1,13 @@
 package com.salesa.controller;
 
+
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
 import com.salesa.util.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,8 +40,10 @@ public class AdvertsController {
         log.info("Query adverts information for category with id: " + categoryId);
         AdvertFilter advertFilter = new AdvertFilter();
         advertFilter.setPage(page);
+        advertFilter.setCategoryId(categoryId);
         AdvertPageData advertPageData = advertService.get(advertFilter);
         model.addAttribute("adverts", advertPageData.getAdverts());
+        model.addAttribute("categories", categoryService.getAll());
         return "home";
     }
 }
