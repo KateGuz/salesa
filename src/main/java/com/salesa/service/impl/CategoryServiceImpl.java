@@ -14,14 +14,16 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryJdbcDao categoryJdbcDao;
+    @Autowired
+    private CategoryCache categoryCache;
 
     public List<Category> getAll() {
-        return CategoryCache.getInstance().getAll();
+        return categoryCache.getAll();
     }
 
     //@PostConstruct annotation initialize(run) method after bean(CategoryServiceImpl) has been created.
     @PostConstruct
     public void initialize() {
-        CategoryCache.getInstance().add(categoryJdbcDao.getAll());
+        categoryCache.add(categoryJdbcDao.getAll());
     }
 }

@@ -2,6 +2,8 @@ package com.salesa.cache;
 
 import com.salesa.entity.Category;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,29 +11,31 @@ import java.util.List;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertEquals;
 
-
+ @RunWith(MockitoJUnitRunner.class)
 public class CategoryCacheTest {
     @Test
     public void testAdd() throws Exception {
         //prepare
+        CategoryCache categoryCache = new CategoryCache();
         List<Category> categoryList = new ArrayList<>();
         categoryList.add(new Category());
         categoryList.add(new Category());
         categoryList.add(new Category());
         //when
-        CategoryCache.getInstance().add(categoryList);
+        categoryCache.add(categoryList);
         //then
-        assertNotNull(CategoryCache.getInstance().getAll());
-        assertEquals(3,CategoryCache.getInstance().getAll().size());
+        assertNotNull(categoryCache.getAll());
+        assertEquals(3,categoryCache.getAll().size());
     }
 
     @Test
     public void testGetAll() throws Exception {
         //prepare
+        CategoryCache categoryCache = new CategoryCache();
         List<Category> categoryList = new ArrayList<>();
-        CategoryCache.getInstance().add(categoryList);
+        categoryCache.add(categoryList);
         //when
-        List<Category> all = CategoryCache.getInstance().getAll();
+        List<Category> all = categoryCache.getAll();
         //then
         assertEquals(categoryList, all);
     }
