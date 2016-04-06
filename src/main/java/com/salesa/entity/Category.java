@@ -5,6 +5,7 @@ public class Category {
     private int id;
     private String name;
     private Category parent;
+    private int parentId;
 
     public Category() {
     }
@@ -29,7 +30,7 @@ public class Category {
         this.name = name;
     }
 
-    public Category getParent() {
+     public Category getParent() {
         return parent;
     }
 
@@ -54,7 +55,7 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", parent=" + parent +
+                ", parent=" + parentId +
                 '}';
     }
 }
