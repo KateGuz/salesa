@@ -24,9 +24,9 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/salesa"/>
-        <property name="username" value="root"/>
-        <property name="password" value="root"/>
+        <property name="url" value="jdbc:mysql://eu-cdbr-west-01.cleardb.com:3306/heroku_58583cdd4b7f1d5"/>
+        <property name="username" value="b42826700dd764"/>
+        <property name="password" value="97e0d095"/>
     </bean>
 
 </beans>
