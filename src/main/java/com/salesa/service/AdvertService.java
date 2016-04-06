@@ -1,9 +1,8 @@
 package com.salesa.service;
 
-import com.salesa.entity.Advert;
-
-import java.util.List;
+import com.salesa.filter.AdvertFilter;
+import com.salesa.util.AdvertPageData;
 
 public interface AdvertService {
-    List<Advert> getAll();
+    AdvertPageData get(AdvertFilter advertFilter);
 }
