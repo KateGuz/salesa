@@ -20,7 +20,7 @@ public class CategoryMapper implements RowMapper<Category> {
 
         category.setId(resultSet.getInt("id"));
         category.setName(resultSet.getString("name"));
-        int parentId = resultSet.getInt("parentId");
+        category.setParentId(resultSet.getInt("parentId"));
         // todo : remove mapping logic from here to service or dao
 //        List<Category> allCategories = categoryJdbcDao.getAll();
 //        for (Category aCategory : allCategories) {
