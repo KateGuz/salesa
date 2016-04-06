@@ -1,9 +1,7 @@
 package com.salesa.cache;
 
-import com.salesa.dao.CategoryJdbcDao;
 import com.salesa.entity.Category;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +11,6 @@ import static junit.framework.TestCase.assertEquals;
 
 
 public class CategoryCacheTest {
-    @Mock
-    private CategoryJdbcDao categoryJdbcDao;
     @Test
     public void testAdd() throws Exception {
         //prepare
