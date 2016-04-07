@@ -1,6 +1,8 @@
 package com.salesa.dao;
 
 import com.salesa.dao.mapper.AdvertMapper;
+import com.salesa.dao.util.QueryAndParams;
+import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.util.AdvertPageData;
@@ -17,82 +19,33 @@ import java.util.Map;
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
-
     private final Logger log = LoggerFactory.getLogger(getClass());
-    private static final int MAX_ADVERTS_PER_PAGE = 9;
-
-    @Autowired
-    private String getAllAdverts;
-
-    @Autowired
-    private String getLimitNumberOfAdverts;
-
-    @Autowired
-    private String getLimitNumberOfAdvertsByCategory;
-
-    @Autowired
-    private String getAdvertsByCategory;
+    public static final int MAX_ADVERTS_PER_PAGE = 9;
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Autowired
+    private QueryGenerator queryGenerator;
+
+    @Autowired
+    private String getAdvertsCountSQL;
+
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
+        QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertFilter);
+
+        long startTime = System.currentTimeMillis();
+        log.info("Query adverts information for request {}", advertFilter);
+        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
+        log.info("Query advert for page took {} ms", queryAndParams.query, System.currentTimeMillis() - startTime);
+
+        Integer advertsCount = namedParameterJdbcTemplate.queryForObject(getAdvertsCountSQL, new HashMap<>(), Integer.class);
+
+        int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
         AdvertPageData advertPageData = new AdvertPageData();
-        int categoryId = advertFilter.getCategoryId();
-        List<Advert> adverts;
-        if(categoryId != 0){
-
-            Map<String, Integer> namedParameters = generateQueryParameters(advertFilter);
-            namedParameters.put("categoryId", categoryId);
-
-            long startTime = System.currentTimeMillis();
-            log.info("Query adverts information");
-            adverts = namedParameterJdbcTemplate.query(getLimitNumberOfAdvertsByCategory, namedParameters, new AdvertMapper());
-            log.info("Query {}  took {} ms", getLimitNumberOfAdvertsByCategory, System.currentTimeMillis() - startTime);
-
-            startTime = System.currentTimeMillis();
-            List<Advert> allAdverts = namedParameterJdbcTemplate.query(getAllAdverts, new AdvertMapper());
-            log.info("Query {}  took {} ms", getAllAdverts, System.currentTimeMillis() - startTime);
-
-            if (allAdverts.size() % MAX_ADVERTS_PER_PAGE == 0) {
-                advertPageData.setPageCount(allAdverts.size() / MAX_ADVERTS_PER_PAGE);
-            } else {
-                advertPageData.setPageCount(allAdverts.size() / MAX_ADVERTS_PER_PAGE + 1);
-            }
-
-        }else {
-
-            long startTime = System.currentTimeMillis();
-            log.info("Query adverts information");
-            adverts = namedParameterJdbcTemplate.query(getLimitNumberOfAdverts, generateQueryParameters(advertFilter), new AdvertMapper());
-            log.info("Query {}  took {} ms", getLimitNumberOfAdverts, System.currentTimeMillis() - startTime);
-
-            startTime = System.currentTimeMillis();
-            List<Advert> allAdverts = namedParameterJdbcTemplate.query(getAllAdverts, new AdvertMapper());
-            log.info("Query {}  took {} ms", getAllAdverts, System.currentTimeMillis() - startTime);
-
-            if (allAdverts.size() % MAX_ADVERTS_PER_PAGE == 0) {
-                advertPageData.setPageCount(allAdverts.size() / MAX_ADVERTS_PER_PAGE);
-            } else {
-                advertPageData.setPageCount(allAdverts.size() / MAX_ADVERTS_PER_PAGE + 1);
-            }
-        }
-
         advertPageData.setAdverts(adverts);
-
+        advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
         return advertPageData;
     }
-
-     Map<String, Integer> generateQueryParameters(AdvertFilter advertFilter) {
-        int page = advertFilter.getPage();
-        int startPosition = MAX_ADVERTS_PER_PAGE * (page - 1);
-
-        Map<String, Integer> namedParameters = new HashMap<>();
-        namedParameters.put("startPosition", startPosition);
-        namedParameters.put("maxAdvertsPerPage", MAX_ADVERTS_PER_PAGE);
-
-        return namedParameters;
-    }
-
 }

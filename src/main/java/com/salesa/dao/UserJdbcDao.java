@@ -10,7 +10,7 @@ import java.util.List;
 public class UserJdbcDao implements UserDao {
 
     @Autowired
-    private String getAllUsers;
+    private String getAllUsersSQL;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -18,7 +18,7 @@ public class UserJdbcDao implements UserDao {
     @Override
     public List<User> getAll() {
 
-        return jdbcTemplate.query(getAllUsers, new UserMapper());
+        return jdbcTemplate.query(getAllUsersSQL, new UserMapper());
 
     }
 }
