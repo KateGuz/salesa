@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="icon" type="image/png" href="/img/salesa.png"/>
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
