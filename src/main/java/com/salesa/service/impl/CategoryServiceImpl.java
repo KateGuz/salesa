@@ -1,6 +1,6 @@
 package com.salesa.service.impl;
 
-import com.salesa.dao.CategoryDao;
+import com.salesa.service.cache.CategoryCache;
 import com.salesa.entity.Category;
 import com.salesa.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
-    private CategoryDao categoryDao;
+    private CategoryCache categoryCache;
 
     public List<Category> getAll() {
-        return categoryDao.getAll();
+        return categoryCache.getAll();
     }
 }
