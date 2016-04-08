@@ -31,7 +31,7 @@ public class AdvertsController {
         AdvertFilter advertFilter = new AdvertFilter();
         advertFilter.setPage(page);
         AdvertPageData advertPageData = advertService.get(advertFilter);
-        model.addAttribute("adverts", advertPageData.getAdverts());
+        model.addAttribute("pageData", advertPageData);
         return "home";
     }
 
@@ -42,7 +42,7 @@ public class AdvertsController {
         advertFilter.setPage(page);
         advertFilter.setCategoryId(categoryId);
         AdvertPageData advertPageData = advertService.get(advertFilter);
-        model.addAttribute("adverts", advertPageData.getAdverts());
+        model.addAttribute("pageData", advertPageData);
         model.addAttribute("categories", categoryService.getAll());
         return "home";
     }
