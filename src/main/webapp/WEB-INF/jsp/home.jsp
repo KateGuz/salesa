@@ -104,7 +104,7 @@
                     <p class="status">
                         <c:choose>
                             <c:when test="${advert.status == 'A'}">
-                                <font color="#20b2aa">Активно</font>
+                                <font color="#48c083">Активно</font>
                             </c:when>
                             <c:when test="${advert.status == 'H'}">
                                 Забронировано
