@@ -21,6 +21,14 @@ public class QueryGenerator {
     @Autowired
     private String addPagingTemplateSQL;
 
+    public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
+        this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
+    }
+
+    public void setAddPagingTemplateSQL(String addPagingTemplateSQL) {
+        this.addPagingTemplateSQL = addPagingTemplateSQL;
+    }
+
     public QueryAndParams generateAdvertQuery(AdvertFilter advertFilter) {
         StringBuilder query = new StringBuilder(getAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();
