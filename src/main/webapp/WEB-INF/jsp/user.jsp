@@ -53,75 +53,50 @@
     </ol>
 
 
-    <div class="advert-info-bar col-xs-12">
-        <div class="col-md-3">
-            <div class="advert-img-bar thumbnail">
-
-                <div id="carousel" class="carousel slide">
-
-                    <ol class="carousel-indicators">
-                        <li class="active" data-target="#carousel" data-slide-to="0"></li>
-                        <li data-target="#carousel" data-slide-to="1"></li>
-                        <li data-target="#carousel" data-slide-to="2"></li>
-                    </ol>
-
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="/img/2.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="/img/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="/img/1.png" alt="">
-                        </div>
-                    </div>
-
-                    <a href="#carousel" class="left carousel-control" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a href="#carousel" class="right carousel-control" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-                <div class="user-info col-md-12">
-                    <div class="col-md-4">
-                        <h4>
-                            <div class="glyphicon glyphicon-user"></div>
-                            <a href="/user/0">Linux Torwalds</a>
-                        </h4>
-                        <p>
-                        <div class="glyphicon glyphicon-envelope"></div>
-                        email: Lin_torv@linux.com</p>
-                        <p>
-                        <div class="glyphicon glyphicon-phone"></div>
-                        phone: 099-999-99-99</p>
-
-                    </div>
-                </div>
-
+    <div class="user-info-bar col-xs-12">
+        <div class="col-sm-4 col-md-3">
+            <div class="user-img thumbnail">
+                <img src="/img/2.png" alt="">
             </div>
+            <div>
+                <h4>
+                    <div class="glyphicon glyphicon-user"></div>
+                    <a href="/user/0">Linux Torwalds</a>
+                </h4>
+                <p>
+                <div class="glyphicon glyphicon-envelope"></div>
+                email: Lin_torv@linux.com</p>
+                <p>
+                <div class="glyphicon glyphicon-phone"></div>
+                phone: 099-999-99-99</p>
+                <button class="dislike-btn">Dislike</button>
+            </div>
+            <br>
+
+
         </div>
 
 
-        <div class="col-md-9">
-            <div class="advert-text-bar">
-                <h3>Женский велосипед Azimut Camaro Lady 26 алюминий Shimano</h3>
-                <h4>51.0&nbsp;RUB</h4>
-                <p>есь ассортимент на сайте VELOMAXIMUM.COM.UA
+        <div class="col-sm-8 col-md-9 ">
+            <div class="user-advert-lab">
+                <h4>All user adverts</h4>
+            </div>
+            <div class="advert-list-bar">
+                <ol class="user-advert-list">
+                    <div class="media">
+                        <div class="col-sm-3">
+                            <div class="media-left">
+                                <img class="media-object thumbnail adv-img-list-item" src="/img/1.png" alt="...">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Media heading</h4>
+                                ...
+                            </div>
+                        </div>
+                    </div>
 
-                    Магазин на ул.Паладина 31
+                </ol>
 
-                    -Цены от производителя
-                    -Высылаем НАЛОЖЕННЫМ ПЛАТЕЖОМ по Украине службами "НОВАЯ ПОЧТА","ИНТАЙМ"
-                    -ГАРАНТИЯ на все велосипеды
-
-                    -ДЕЛАЕМ БЕСПЛАТНУЮ ДОСТАВКУ ПО КИЕВУ-</p>
-                <br>
-
-                <font color="#000"><h5>Забронировано</h5></font>
-                <br>
-                <p>2016-04-05T00:00</p>
             </div>
         </div>
         <hr/>

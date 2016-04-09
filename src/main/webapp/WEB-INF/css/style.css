@@ -16,7 +16,6 @@ ul {
     list-style: none;
 }
 
-
 button {
     font-size: 12px !important;
 }
@@ -60,7 +59,6 @@ button {
     border-radius: 4px;
 }
 
-
 .container {
     margin: 0 auto;
     padding: 0 83px 0 83px;
@@ -91,15 +89,15 @@ button {
 }
 
 .img-wrapper {
-height:170px;
-width:270px;
+    height: 170px;
+    width: 270px;
 }
-.img-wrapper img
-{
-max-width:100%;
-max-height:100%;
-margin:auto;
-display:block;
+
+.img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
 }
 
 .fuck-off-ad-block p.status {
@@ -151,8 +149,6 @@ display:block;
     width: 100%;
 }
 
-
-
 .foot {
     height: 104px;
     text-align: center;
@@ -167,7 +163,7 @@ display:block;
     position: relative;
 }
 
-.dropdown-submenu>.dropdown-menu {
+.dropdown-submenu > .dropdown-menu {
     top: 0;
     left: 100%;
     margin-top: -6px;
@@ -177,11 +173,11 @@ display:block;
     border-radius: 0 6px 6px 6px;
 }
 
-.dropdown-submenu:hover>.dropdown-menu {
+.dropdown-submenu:hover > .dropdown-menu {
     display: block;
 }
 
-.dropdown-submenu>a:after {
+.dropdown-submenu > a:after {
     display: block;
     content: " ";
     float: right;
@@ -195,7 +191,7 @@ display:block;
     margin-right: -10px;
 }
 
-.dropdown-submenu:hover>a:after {
+.dropdown-submenu:hover > a:after {
     border-left-color: #fff;
 }
 
@@ -203,10 +199,53 @@ display:block;
     float: none;
 }
 
-.dropdown-submenu.pull-left>.dropdown-menu {
+.dropdown-submenu.pull-left > .dropdown-menu {
     left: -100%;
     margin-left: 10px;
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
+}
+
+.dislike-btn {
+    background-color: #48c083;
+    font-family: Roboto, monospace;
+    font-size: 15%;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    width: 100px;
+    height: 25px;;
+    display: inline-block;
+    text-align: center;
+}
+
+.user-info-bar {
+    /*margin: 0px -15px 0 -15px;*/
+}
+
+.user-img.thumbnail {
+    margin: 0px -15px 0 -15px;
+}
+
+.advert-list-bar {
+    margin: 10px -15px 0 0;
+}
+
+.user-advert-lab h4 {
+    text-align: center;
+    margin: auto;
+}
+
+.adv-img-list-item {
+    width: 175px;;
+    height: 150px;;
+}
+
+.adv-img-list-item .media {
+    margin: 0 -15px 0 -15px;
+    background-color: rgb(228, 228, 228);
+}
+.user-advert-list{
+    margin: 0 0 0 -40px;
 }
