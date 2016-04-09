@@ -20,4 +20,12 @@ public class AdvertFilter {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+
+    @Override
+    public String toString() {
+        return "AdvertFilter{" +
+                "page=" + page +
+                ", categoryId=" + categoryId +
+                '}';
+    }
 }

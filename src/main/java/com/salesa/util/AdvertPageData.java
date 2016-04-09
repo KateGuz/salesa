@@ -18,7 +18,6 @@ public class AdvertPageData {
     }
 
     public List<Advert> getAdverts() {
-
         return adverts;
     }
 

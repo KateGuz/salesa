@@ -13,13 +13,13 @@ import java.util.List;
 public class CategoryJdbcDao implements CategoryDao {
 
     @Autowired
-    private String getAllCategories;
+    private String getAllCategoriesSQL;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public List<Category> getAll() {
-        List<Category> categories = jdbcTemplate.query(getAllCategories, new CategoryMapper());
+        List<Category> categories = jdbcTemplate.query(getAllCategoriesSQL, new CategoryMapper());
 
         for (Category category : categories) {
             Category parent = category.getParent();

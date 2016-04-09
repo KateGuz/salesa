@@ -5,31 +5,27 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="getLimitNumberOfAdverts" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
-                   a.currency, a.status FROM advert as a LIMIT :startPosition, :maxAdvertsPerPage"/>
-    </bean>
-    <bean id="getLimitNumberOfAdvertsByCategory" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
-                   a.currency, a.status FROM advert as a WHERE a.categoryId = :categoryId LIMIT :startPosition, :maxAdvertsPerPage"/>
-    </bean>
-    <bean id="getAdvertsByCategory" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
-                   a.currency, a.status FROM advert as a WHERE a.categoryId = :categoryId"/>
+    <bean id="getAdvertsCountSQL" class="java.lang.String">
+        <constructor-arg value="SELECT count(*) as count FROM advert;"/>
     </bean>
 
-    <bean id="getAllAdverts" class="java.lang.String">
+    <bean id="getAdvertsTemplateSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
-                   a.currency, a.status FROM advert as a;"/>
+                   a.currency, a.status FROM advert as a"/>
     </bean>
-    <bean id="getAllCategories" class="java.lang.String">
+
+    <bean id="addPagingTemplateSQL" class="java.lang.String">
+        <constructor-arg value=" LIMIT :startPosition, :dataAmount"/>
+    </bean>
+
+    <bean id="getAllCategoriesSQL" class="java.lang.String">
         <constructor-arg value="SELECT c.id, c.name, c.parentId FROM category as c;"/>
     </bean>
-    <bean id="getAllUsers" class="java.lang.String">
+    <bean id="getAllUsersSQL" class="java.lang.String">
         <constructor-arg value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar,
         u.status, u.type, u.dislikeAmount FROM user as u;"/>
     </bean>
-    <bean id="getAllImages" class="java.lang.String">
+    <bean id="getAllImagesSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
     </bean>
 </beans>

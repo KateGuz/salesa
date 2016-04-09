@@ -1,10 +1,7 @@
-
-<%@ page import="com.salesa.entity.Advert" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,12 +9,14 @@
     <title>Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link media="all" rel="stylesheet" href="css/style.css" type="text/css"/>
-    <link rel="icon" type="image/png" href="img/salesa.png"/>
-    <link rel="apple-touch-icon" href="img/salesa.png"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <link rel="icon" type="image/png" href="/img/salesa.png"/>
+    <link rel="apple-touch-icon" href="/img/salesa.png"/>
+    <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -61,11 +60,12 @@
                             <c:forEach items="${categories}" var="category">
                                 <c:if test="${category.parent.id == 0}">
                                     <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="#">${category.name}</a>
+                                        <a tabindex="-1" href="/category/${category.id}">${category.name}</a>
                                         <ul class="dropdown-menu">
                                             <c:forEach items="${categories}" var="subCategory">
                                                 <c:if test="${subCategory.parent.id == category.id}">
-                                                    <li><a href="#">${subCategory.name}</a></li>
+                                                    <li><a href="/category/${subCategory.id}">${subCategory.name}</a>
+                                                    </li>
                                                 </c:if>
                                             </c:forEach>
                                         </ul>
@@ -94,47 +94,53 @@
         </div>
     </nav>
     <div class="fuck-off-ad-block">
-        <div class="row">
-            <c:forEach items="${adverts}" var="advert">
-                <c:if test="${advert.status != 'S'}">
-                    <div class="col-sm-4 col-xs-12">
-                        <div class="well">
-                            <p class="status">
-                                <c:choose>
-                                    <c:when test="${advert.status == 'A'}">
-                                        <font color="#20b2aa">Активно</font>
-                                    </c:when>
-                                    <c:when test="${advert.status == 'H'}">
-                                        Забронировано
-                                    </c:when>
-                                </c:choose>
-                            </p>
-                            <div class="img-wrapper">
-                                <img src="img/1.png" alt="advert's photo">
-                            </div>
-                            <div class="wrap-title">
-                                <p class="title">${advert.title}</p>
-                            </div>
-                            <div class="date-price-wrap">
-                                    <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate" type="time" />
-                                    <p class="date"><c:out value="${parsedDate}" /></p>
-                                <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
-                            </div>
-                        </div>
+
+        <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
+            <c:if test="${loop.index  % 3 == 0}">
+                <div class="row">
+            </c:if>
+            <div class="col-sm-4 col-xs-12">
+                <div class="well">
+                    <p class="status">
+                        <c:choose>
+                            <c:when test="${advert.status == 'A'}">
+                                <font color="#48c083">Активно</font>
+                            </c:when>
+                            <c:when test="${advert.status == 'H'}">
+                                Забронировано
+                            </c:when>
+                        </c:choose>
+                    </p>
+                    <div class="img-wrapper">
+                        <img src="/img/1.png" alt="advert's photo">
                     </div>
-                </c:if>
-            </c:forEach>
-        </div>
+                    <div class="wrap-title">
+                        <p class="title">${advert.title}</p>
+                    </div>
+                    <div class="date-price-wrap">
+                        <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate"
+                                       type="time"/>
+                        <p class="date"><c:out value="${parsedDate}"/></p>
+                        <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
+                    </div>
+                </div>
+            </div>
+            <c:if test="${(loop.index + 1) % 3  == 0}">
+                </div>
+            </c:if>
+        </c:forEach>
+
     </div>
 
     <div class="pages">
         <div class="text-center">
             <ul class="pagination">
-                <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                <li>
-                <li><a href="?p=0" data-original-title="" title="">1</a></li>
+                <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
+                    <li><a href="?page=${loop.index}" data-original-title="" title="">${loop.index}</a></li>
+                </c:forEach>
+                <li><a href="?page=${pageData.pageCount}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                 </li>
-                <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
             </ul>
 
         </div>
