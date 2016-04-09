@@ -1,13 +1,13 @@
 package com.salesa.controller;
 
 
+import com.salesa.entity.User;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
 import com.salesa.util.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,5 +45,17 @@ public class AdvertsController {
         model.addAttribute("pageData", advertPageData);
         model.addAttribute("categories", categoryService.getAll());
         return "home";
+    }
+
+    @RequestMapping("/user")
+    public String category(Model model) {
+        User user = new User();
+        user.setName("Linux Torwalds");
+        user.setEmail("Lin_torv@linux.com");
+        user.setPhone("099-999-99-99");
+        model.addAttribute("user", user);
+//        model.addAttribute("adverts", user);
+
+        return "user";
     }
 }
