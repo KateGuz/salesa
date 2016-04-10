@@ -2,6 +2,7 @@ package com.salesa.controller;
 
 
 import com.salesa.entity.Advert;
+import com.salesa.entity.Category;
 import com.salesa.entity.User;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
@@ -62,10 +63,12 @@ public class AdvertsController {
         user.setName("Linux Torwalds");
         user.setEmail("lin_tor@linux.com");
         user.setPhone("0-800-999-99-99");
+        List<Category> all = categoryService.getAll();
+        Category category = all.get(5);
 
         model.addAttribute("pageData", advertPageData);
         model.addAttribute("user", user);
-        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("category", category);
         model.addAttribute("advert", advert);
         return "advert";
     }

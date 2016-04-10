@@ -48,8 +48,7 @@
 
     <ol class="breadcrumb">
         <li><a href="/">Главная</a></li>
-        <li><a href="/category/1">Недвижимость</a></li>
-        <li class="active">Разное</li>
+        <li class="active">${category.name}</li>
     </ol>
     <div class="advert-info-bar col-xs-12">
         <div class="col-md-4">
@@ -89,22 +88,20 @@
 
         <div class="col-md-8">
             <div class="advert-text-bar">
-                <h3>Женский велосипед Azimut Camaro Lady 26 алюминий Shimano</h3>
+                <h3>${advert.title}</h3>
                 <h4>51.0&nbsp;RUB</h4>
-                <p>есь ассортимент на сайте VELOMAXIMUM.COM.UA
-
-                    Магазин на ул.Паладина 31
-
-                    -Цены от производителя
-                    -Высылаем НАЛОЖЕННЫМ ПЛАТЕЖОМ по Украине службами "НОВАЯ ПОЧТА","ИНТАЙМ"
-                    -ГАРАНТИЯ на все велосипеды
-
-                    -ДЕЛАЕМ БЕСПЛАТНУЮ ДОСТАВКУ ПО КИЕВУ-</p>
+                <p>${advert.text}</p>
                 <br>
-
-                <font color="#000"><h5>Забронировано</h5></font>
+                <c:choose>
+                    <c:when test="${advert.status == 'A'}">
+                        <font color="#48c083"><h5>Активно</h5></font>
+                    </c:when>
+                    <c:when test="${advert.status == 'H'}">
+                        <h5>Забронировано </h5>
+                    </c:when>
+                </c:choose>
                 <br>
-                <p>2016-04-05T00:00</p>
+                <p>${advert.modificationDate}</p>
             </div>
         </div>
         <hr/>
@@ -112,14 +109,14 @@
             <div class="col-md-4">
                 <h4>
                     <div class="glyphicon glyphicon-user"></div>
-                    <a href="/user/0">Linux Torwalds</a>
+                    <a href="/user/${user.id}">${user.name}</a>
                 </h4>
                 <p>
                 <div class="glyphicon glyphicon-envelope"></div>
-                email: Lin_torv@linux.com</p>
+                email: ${user.email}</p>
                 <p>
                 <div class="glyphicon glyphicon-phone"></div>
-                phone: 099-999-99-99</p>
+                phone: ${user.phone}</p>
 
             </div>
         </div>
