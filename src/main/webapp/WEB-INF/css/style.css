@@ -88,6 +88,10 @@ button {
     margin-top: 70px;
 }
 
+.fuck-off-ad-block .well:hover {
+    background-color: rgb(240, 240, 240);
+}
+
 .img-wrapper {
     height: 170px;
     width: 270px;
@@ -123,6 +127,10 @@ button {
 
 .pages {
     margin: 97px auto 86px;
+}
+
+.pages-user {
+    margin: 10px auto 40px;
 }
 
 .wrap-title {
@@ -220,16 +228,30 @@ button {
     text-align: center;
 }
 
+.dislike-btn:hover {
+    background-color: #4FCF8E;
+}
+
 .user-info-bar {
-    /*margin: 0px -15px 0 -15px;*/
+    margin: 29px 0 0 0;
 }
 
 .user-img.thumbnail {
     margin: 0px -15px 0 -15px;
 }
 
+.user-img.thumbnail img {
+    height: 250px;
+    width: 250px;
+}
+
 .advert-list-bar {
     margin: 10px -15px 0 0;
+}
+
+.advert-list-bar h4 {
+    color: #48c083;
+    font-size: 18px;
 }
 
 .user-advert-lab h4 {
@@ -243,9 +265,91 @@ button {
 }
 
 .adv-img-list-item .media {
-    margin: 0 -15px 0 -15px;
     background-color: rgb(228, 228, 228);
 }
-.user-advert-list{
+
+.user-advert-list {
     margin: 0 0 0 -40px;
+}
+
+.feedback-form {
+    margin: 0 0 0 15px;
+}
+
+.feedback-btn {
+    background-color: #48c083;
+    font-family: Roboto, monospace;
+    font-size: 15%;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    width: 100px;
+    height: 25px;;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 20px;
+    float: right;
+}
+
+.feedback-btn:hover {
+    background-color: #4FCF8E;
+}
+
+.user-advert-list .media {
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 6px;
+    padding: 15px 0 0 0;
+}
+
+.user-advert-list .media:hover {
+    background-color: rgb(243, 243, 243);
+}
+
+.feedback-list-bar h3 {
+    font-size: 15px;
+    color: #5e5e5e;
+    text-align: center;
+}
+
+.feedback-list-bar h6 {
+    font-size: 10px;
+    color: #5e5e5e;
+    text-align: left;
+}
+
+.feedback-input {
+    width: 100%;
+    min-height: 65px;
+    max-width: inherit;
+    margin: 10px 0 10px auto;
+}
+
+.feedback-form form {
+    margin: 0 0 0 -15px;
+}
+
+.feedback-img-list-item {
+    width: 100px;;
+    height: 100px;
+}
+
+.divider {
+    position: absolute;
+    left: 90%;
+    top: 10%;
+    bottom: 10%;
+    border-left: 1px solid #cccccc;
+}
+
+.divider-vertical {
+    display: inline;
+    height: 100%;
+    width: 1px;
+    border-left: 1px solid #9d9d9d;
+    margin: 5px;
+}
+
+.feedback-list-bar {
+    margin: 0 -15px 0 0;
 }
