@@ -89,7 +89,7 @@
         <div class="col-md-8">
             <div class="advert-text-bar">
                 <h3>${advert.title}</h3>
-                <h4>51.0&nbsp;RUB</h4>
+                <h4>${advert.price}&nbsp;${advert.currency}</h4>
                 <p>${advert.text}</p>
                 <br>
                 <c:choose>
