@@ -1,10 +1,12 @@
 package com.salesa.dao;
 
+import com.salesa.dao.mapper.AdvertDetailsMapper;
 import com.salesa.dao.mapper.AdvertMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
 import com.salesa.filter.AdvertFilter;
+import com.salesa.util.AdvertDetails;
 import com.salesa.util.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
@@ -48,4 +48,5 @@ public class AdvertJdbcDao implements AdvertDao {
         advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
         return advertPageData;
     }
+
 }

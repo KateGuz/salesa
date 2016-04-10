@@ -28,4 +28,7 @@
     <bean id="getAllImagesSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
     </bean>
+    <bean id="getAdvertSQL" class="java.lang.String">
+        <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
+    </bean>
 </beans>

@@ -1,7 +1,6 @@
 package com.salesa.dao.mapper;
 
 import com.salesa.entity.Advert;
-import com.salesa.entity.Category;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
