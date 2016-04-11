@@ -31,7 +31,6 @@ public class AdvertDetailsMapper implements RowMapper<Advert>{
 
         /*category.setId(resultSet.getInt("categoryId"));*/
         category.setName(resultSet.getString("name"));
-        System.out.println(category.getName());
         advert.setCategory(category);
         return advert;
     }
