@@ -1,13 +1,11 @@
 package com.salesa.controller;
 
-
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
 import com.salesa.util.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,4 +44,5 @@ public class AdvertsController {
         model.addAttribute("categories", categoryService.getAll());
         return "home";
     }
+
 }

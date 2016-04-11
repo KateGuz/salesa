@@ -1,7 +1,7 @@
 package com.salesa.controller;
 
+import com.salesa.entity.Advert;
 import com.salesa.service.AdvertService;
-import com.salesa.util.AdvertDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,8 @@ public class AdvertController {
     @RequestMapping("/advert/{advertId}")
     public String advert(@PathVariable("advertId") int advertId, Model model) {
         log.info("Query get advert by id: " + advertId);
-        AdvertDetails advertDetails = advertService.get(advertId);
-        model.addAttribute("advertDetails", advertDetails);
-        System.out.println(advertDetails.getAdvert().getTitle() + " " + advertDetails.getUser().getEmail());
+        Advert advert = advertService.get(advertId);
+        model.addAttribute("advert", advert);
         return "advert";
     }
 }

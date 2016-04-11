@@ -6,7 +6,6 @@ import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
 import com.salesa.filter.AdvertFilter;
-import com.salesa.util.AdvertDetails;
 import com.salesa.util.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +46,12 @@ public class AdvertJdbcDao implements AdvertDao {
         advertPageData.setAdverts(adverts);
         advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
         return advertPageData;
+    }
+
+    @Override
+    public Advert get(int advertId){
+        QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertId);
+        return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new AdvertDetailsMapper());
     }
 
 }

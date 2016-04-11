@@ -25,7 +25,7 @@
         <nav class="navbar navbar-default">
             <div class="row">
                 <div class="navbar-header col-sm-2">
-                    <a class="navbar-brand" href="#">Salesa</a>
+                    <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="form-wrap col-sm-4 col-sm-offset-2">
                     <form class="navbar-form " role="search">
