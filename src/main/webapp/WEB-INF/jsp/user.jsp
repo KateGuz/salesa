@@ -48,8 +48,8 @@
 
 
     <%--<ol class="breadcrumb">--%>
-        <%--<li><a href="/">Главная</a></li>--%>
-        <%--<li class="active">${category.name}</li>--%>
+    <%--<li><a href="/">Главная</a></li>--%>
+    <%--<li class="active">${category.name}</li>--%>
     <%--</ol>--%>
 
     <div class="row">
@@ -75,6 +75,56 @@
 
 
             </div>
+
+            <c:forEach items="${advertPageData.adverts}" var="advert" varStatus="loop">
+                <c:if test="${loop.index  % 3 == 0}">
+                    <div class="row">
+                </c:if>
+                <%--///////////////////////////////////////////--%>
+
+
+                <div class="media">
+                    <div class="col-sm-12">
+                        <div class="media-left">
+                            <img class="media-object thumbnail adv-img-list-item" src="/img/1.png" alt="...">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">${advert.title}</h4>
+                            <p>${advert.text}</p>
+                            ...
+                        </div>
+                        <div class="media-right">
+                            <c:choose>
+                                <c:when test="${advert.status == 'A'}">
+                                    <font color="#48c083">Активно</font>
+                                </c:when>
+                                <c:when test="${advert.status == 'H'}">
+                                    Забронировано
+                                </c:when>
+                                <c:when test="${advert.status == 'S'}">
+                                    <font color="#сссссс">Продано</font>
+                                </c:when>
+                            </c:choose>
+                            <h6>${advert.modificationDate}</h6>
+                            <br>
+                            <br>
+                            <h6>${advert.currency}</h6>
+                        </div>
+                    </div>
+                </div>
+
+
+                <%--//////////////////////////////////////////--%>
+                <c:if test="${(loop.index + 1) % 3  == 0}">
+                    </div>
+                </c:if>
+            </c:forEach>
+
+
+
+
+
+
 
 
             <div class="col-sm-8 col-md-9 ">
@@ -111,7 +161,8 @@
                                     <h6>${advert.currency}</h6>
                                 </div>
                             </div>
-                        </div><div class="media">
+                        </div>
+                        <div class="media">
                             <div class="col-sm-12">
                                 <div class="media-left">
                                     <img class="media-object thumbnail adv-img-list-item" src="/img/1.png" alt="...">
