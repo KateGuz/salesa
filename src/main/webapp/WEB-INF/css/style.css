@@ -31,7 +31,7 @@ button {
     font-weight: bold;
 }
 
-.navbar-form navbar-left {
+.navbar-form  {
     margin-left: auto !important;
     margin-right: auto !important;
 }
@@ -66,7 +66,7 @@ button {
     padding: 0 83px 0 83px;
 }
 
-.container .nav navbar-nav navbar-right {
+.container .nav  {
     margin-top: 10px;
 }
 
@@ -124,7 +124,7 @@ display:block;
 }
 
 .pages {
-    margin: 97px auto 86px;
+    margin-bottom: 97px;
 }
 
 .wrap-title {
@@ -138,8 +138,7 @@ display:block;
     vertical-align: middle;
 }
 
-.date,
-.price {
+.date, .price {
     display: block;
     position: relative;
     width: 50%;
@@ -154,6 +153,7 @@ display:block;
 
 
 .foot {
+    margin-top: 87px;
     height: 104px;
     text-align: center;
 }
@@ -209,4 +209,59 @@ display:block;
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
+}
+
+.advert-info-bar {
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 3px;
+}
+
+.advert-info-bar hr {
+    border: none; /* Убираем границу для браузера Firefox */
+    color: #cccccc; /* Цвет линии для остальных браузеров */
+    background-color: #cccccc; /* Цвет линии для браузера Firefox и Opera */
+    height: 1px; /* Толщина линии */
+
+}
+
+.advert-img-bar {
+    margin: 15px -15px 0 -15px;
+}
+
+.advert-text-bar {
+    margin: 15px 0 0 0;
+    align-content: center;
+}
+
+.advert-text-bar h4.title {
+    /*font-size: 20px;*/
+    color: #48c083;
+    font-weight: bold;
+}
+
+.advert-text-bar h4 {
+    font-size: 18px;
+    color: #000;
+    font-weight: bold;
+}
+
+.advert-text-bar h5 {
+    font-size: 14px;
+}
+
+.user-info {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.advert-img {
+    /*image-resolution: from-image;*/
+    height: inherit;
+}
+
+.separator-box {
+    margin: 50px auto auto auto;
+    background: white;
+    border: 0;
 }

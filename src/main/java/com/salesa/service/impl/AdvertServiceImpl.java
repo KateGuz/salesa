@@ -1,6 +1,7 @@
 package com.salesa.service.impl;
 
 import com.salesa.dao.AdvertDao;
+import com.salesa.entity.Advert;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.util.AdvertPageData;
@@ -18,4 +19,7 @@ public class AdvertServiceImpl implements AdvertService {
         return advertDao.get(advertFilter);
     }
 
+    public Advert get(int advertId){
+        return advertDao.get(advertId);
+    }
 }
