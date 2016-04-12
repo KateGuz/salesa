@@ -54,4 +54,10 @@ public class AdvertJdbcDao implements AdvertDao {
         return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new AdvertDetailsMapper());
     }
 
+    @Override
+    public List<Advert> getByUserId(int userId){
+        QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params,new AdvertMapper());
+    }
+
 }
