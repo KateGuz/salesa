@@ -75,6 +75,18 @@
 
 
             </div>
+            <%--------------------------------------------------------------------%>
+            <c:forEach items="${adverts}" var="advert" varStatus="loop">
+                <c:if test="${loop.index  % 3 == 0}">
+                    <div class="row">
+                </c:if>
+
+                <c:if test="${(loop.index + 1) % 3  == 0}">
+                    </div>
+                </c:if>
+            </c:forEach>
+
+            <%--------------------------------------------------------------------%>
 
             <div class="col-sm-8 col-md-9 ">
                 <div class="user-advert-lab">
@@ -82,93 +94,47 @@
                 </div>
                 <div class="advert-list-bar">
                     <ol class="user-advert-list">
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail adv-img-list-item" src="/img/1.png" alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${advert.title}</h4>
-                                    <p>${advert.text}</p>
-                                    ...
-                                </div>
-                                <div class="media-right">
-                                    <c:choose>
-                                        <c:when test="${advert.status == 'A'}">
-                                            <font color="#48c083">Активно</font>
-                                        </c:when>
-                                        <c:when test="${advert.status == 'H'}">
-                                            Забронировано
-                                        </c:when>
-                                        <c:when test="${advert.status == 'S'}">
-                                            <font color="#сссссс">Продано</font>
-                                        </c:when>
-                                    </c:choose>
-                                    <h6>${advert.modificationDate}</h6>
-                                    <br>
-                                    <br>
-                                    <h6>${advert.currency}</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail adv-img-list-item" src="/img/1.png" alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${advert.title}</h4>
-                                    <p>${advert.text}</p>
-                                    ...
-                                </div>
-                                <div class="media-right">
-                                    <c:choose>
-                                        <c:when test="${advert.status == 'A'}">
-                                            <font color="#48c083">Активно</font>
-                                        </c:when>
-                                        <c:when test="${advert.status == 'H'}">
-                                            Забронировано
-                                        </c:when>
-                                        <c:when test="${advert.status == 'S'}">
-                                            <font color="#сссссс">Продано</font>
-                                        </c:when>
-                                    </c:choose>
-                                    <h6>${advert.modificationDate}</h6>
-                                    <br>
-                                    <br>
-                                    <h6>${advert.currency}</h6>
+                        <c:forEach items="${adverts}" var="advert" varStatus="loop">
+                            <c:if test="${loop.index  % 3 == 0}">
+                                <div class="row">
+                            </c:if>
+                            <%-------------------------------------------------------------%>
+                            <div class="media">
+                                <div class="col-sm-12">
+                                    <div class="media-left">
+                                        <img class="media-object thumbnail adv-img-list-item" src="/img/1.png"
+                                             alt="...">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">${advert.title}</h4>
+                                        <p>${advert.text}</p>
+                                        ...
+                                    </div>
+                                    <div class="media-right">
+                                        <c:choose>
+                                            <c:when test="${advert.status == 'A'}">
+                                                <font color="#48c083">Активно</font>
+                                            </c:when>
+                                            <c:when test="${advert.status == 'H'}">
+                                                Забронировано
+                                            </c:when>
+                                            <c:when test="${advert.status == 'S'}">
+                                                <font color="#сссссс">Продано</font>
+                                            </c:when>
+                                        </c:choose>
+                                        <h6>${advert.modificationDate}</h6>
+                                        <br>
+                                        <br>
+                                        <h6>${advert.currency}</h6>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail adv-img-list-item" src="/img/1.png" alt="...">
+                            <%-------------------------------------------------------------%>
+
+                            <c:if test="${(loop.index + 1) % 3  == 0}">
                                 </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${advert.title}</h4>
-                                    <p>${advert.text}</p>
-                                    ...
-                                </div>
-                                <div class="media-right">
-                                    <c:choose>
-                                        <c:when test="${advert.status == 'A'}">
-                                            <font color="#48c083">Активно</font>
-                                        </c:when>
-                                        <c:when test="${advert.status == 'H'}">
-                                            Забронировано
-                                        </c:when>
-                                        <c:when test="${advert.status == 'S'}">
-                                            <font color="#сссссс">Продано</font>
-                                        </c:when>
-                                    </c:choose>
-                                    <h6>${advert.modificationDate}</h6>
-                                    <br>
-                                    <br>
-                                    <h6>${advert.currency}</h6>
-                                </div>
-                            </div>
-                        </div>
+                            </c:if>
+                        </c:forEach>
 
                     </ol>
                 </div>
@@ -198,65 +164,34 @@
                         </form>
                     </div>
                     <ol class="user-advert-list">
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
-                                         alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${user.name}</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium
-                                        ad,
-                                        aliquid commodi distinctio dolor dolore eos fugit iste laudantium molestiae nam
-                                        necessitatibus perferendis porro quidem rem sequi tempora unde.</p>
-                                    ...
-                                </div>
-                                <div class="media-right">
-                                    <h6 class="media-heading">${advert.modificationDate}</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
-                                         alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${user.name}</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium
-                                        ad,
-                                        aliquid commodi distinctio dolor dolore eos fugit iste laudantium molestiae nam
-                                        necessitatibus perferendis porro quidem rem sequi tempora unde.</p>
-                                    ...
-                                </div>
-                                <div class="media-right">
-                                    <h6 class="media-heading">${advert.modificationDate}</h6>
+                        <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
+                            <c:if test="${loop.index  % 3 == 0}">
+                                <div class="row">
+                            </c:if>
+                            <%-------------------------------------------------------------%>
 
+                            <div class="media">
+                                <div class="col-sm-12">
+                                    <div class="media-left">
+                                        <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
+                                             alt="...">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">${feedback.authorId}</h4>
+                                        <p>${feedback.text}</p>
+                                    </div>
+                                    <div class="media-right">
+                                        <h6 class="media-heading">${feedback.creationDate}</h6>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
-                                         alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${user.name}</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium
-                                        ad,
-                                        aliquid commodi distinctio dolor dolore eos fugit iste laudantium molestiae nam
-                                        necessitatibus perferendis porro quidem rem sequi tempora unde.</p>
-                                    ...
-                                </div>
-                                <div class="media-right">
-                                    <h6 class="media-heading">${advert.modificationDate}</h6>
 
+                            <%-------------------------------------------------------------%>
+
+                            <c:if test="${(loop.index + 1) % 3  == 0}">
                                 </div>
-                            </div>
-                        </div>
+                            </c:if>
+                        </c:forEach>
                     </ol>
                 </div>
 
