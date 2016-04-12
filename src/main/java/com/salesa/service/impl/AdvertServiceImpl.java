@@ -8,6 +8,8 @@ import com.salesa.util.AdvertPageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AdvertServiceImpl implements AdvertService {
@@ -18,8 +20,13 @@ public class AdvertServiceImpl implements AdvertService {
     public AdvertPageData get(AdvertFilter advertFilter) {
         return advertDao.get(advertFilter);
     }
-
+    @Override
     public Advert get(int advertId){
         return advertDao.get(advertId);
+    }
+
+    @Override
+    public List<Advert> getByUserId(int userId){
+        return advertDao.getByUserId(userId);
     }
 }

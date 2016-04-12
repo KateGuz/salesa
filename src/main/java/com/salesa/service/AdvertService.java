@@ -5,7 +5,10 @@ import com.salesa.filter.AdvertFilter;
 import com.salesa.util.AdvertDetails;
 import com.salesa.util.AdvertPageData;
 
+import java.util.List;
+
 public interface AdvertService {
     AdvertPageData get(AdvertFilter advertFilter);
     Advert get(int advertId);
+    List<Advert> getByUserId(int userId);
 }
