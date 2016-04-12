@@ -107,7 +107,7 @@
                                             <h6>${advert.modificationDate}</h6>
                                             <br>
                                             <br>
-                                            <h6>${advert.currency}</h6>
+                                            <h6>${advert.price}&nbsp;${advert.currency}</h6>
                                         </div>
                                     </div>
                                 </a>
