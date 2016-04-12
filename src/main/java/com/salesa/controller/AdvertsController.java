@@ -1,9 +1,6 @@
 package com.salesa.controller;
 
 
-import com.salesa.entity.Advert;
-import com.salesa.entity.Category;
-import com.salesa.entity.User;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 
 @Controller
 public class AdvertsController {
@@ -49,29 +45,5 @@ public class AdvertsController {
         model.addAttribute("pageData", advertPageData);
         model.addAttribute("categories", categoryService.getAll());
         return "home";
-    }
-
-    @RequestMapping("/user")
-    public String category(Model model) {
-        User user = new User();
-        user.setName("Linux Torwalds");
-        user.setEmail("Lin_torv@linux.com");
-        user.setPhone("099-999-99-99");
-        AdvertFilter advertFilter = new AdvertFilter();
-        advertFilter.setPage(1);
-        advertFilter.setCategoryId(5);
-        AdvertPageData advertPageData = advertService.get(advertFilter);
-        List<Advert> adverts = advertPageData.getAdverts();
-        Advert advert = adverts.get(2);
-        List<Category> all = categoryService.getAll();
-        Category category = all.get(5);
-
-        model.addAttribute("user", user);
-        model.addAttribute("advert", advert);
-        model.addAttribute("advertPageData", advertPageData);
-        model.addAttribute("feedbackPageData", advertPageData);
-        model.addAttribute("category", category);
-
-        return "user";
     }
 }
