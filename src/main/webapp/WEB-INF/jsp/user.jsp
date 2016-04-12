@@ -129,14 +129,14 @@
                         <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
 
                             <div class="media">
-                                <a href="/user/${feedback.authorId}">
+                                <a href="/user/${feedback.authorId.id}">
                                     <div class="col-sm-12">
                                         <div class="media-left">
                                             <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
                                                  alt="...">
                                         </div>
                                         <div class="media-body">
-                                            <h4 class="media-heading">${feedback.authorId}</h4>
+                                            <h4 class="media-heading">User id: ${feedback.authorId.id}</h4>
                                             <p>${feedback.text}</p>
                                         </div>
                                         <div class="media-right">
