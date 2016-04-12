@@ -20,7 +20,7 @@ public class FeedbackJdbcDao implements FeedbackDao{
 
     @Override
     public List<Feedback> getByUserId(int userId) {
-        QueryAndParams queryAndParams = queryGenerator.generateUserById(userId);
+        QueryAndParams queryAndParams = queryGenerator.generateFeedbacks(userId);
         return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new FeedbackMapper());
     }
 }

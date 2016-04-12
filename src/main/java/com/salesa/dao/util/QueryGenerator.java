@@ -33,6 +33,7 @@ public class QueryGenerator {
     @Autowired
     private String getFeedbacksByUserId;
 
+
     public void setGetAdvertByIdSQL(String getAdvertByIdSQL) {
         this.getAdvertByIdSQL = getAdvertByIdSQL;
     }
@@ -88,9 +89,9 @@ public class QueryGenerator {
     public QueryAndParams generateAdvertByUserIdQuery(int userId) {
         StringBuilder query = new StringBuilder(getAdvertsByUserIdSQL);
         Map<String, Object> params = new HashMap<>();
-        params.put("u.id", userId);
+        params.put("userId", userId);
         query.append(WHERE_STATEMENT);
-        query.append("u.id = :u.id");
+        query.append("userId = :userId");
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
     }
@@ -106,12 +107,13 @@ public class QueryGenerator {
     }
 
     public QueryAndParams generateFeedbacks(int userId) {
-        StringBuilder query = new StringBuilder(getUserById);
+        StringBuilder query = new StringBuilder(getFeedbacksByUserId);
         Map<String, Object> params = new HashMap<>();
-        params.put("u.id", userId);
+        params.put("userId", userId);
         query.append(WHERE_STATEMENT);
-        query.append("u.id = :u.id");
+        query.append("userId = :userId");
         query.append(END_SEPARATOR);
+        System.out.println(query.toString());
         return new QueryAndParams(query.toString(), params);
     }
 

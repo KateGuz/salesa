@@ -35,7 +35,7 @@
         <constructor-arg value="select a.id, a.title, a.text, a.price, a.currency, a.modificationDate, a.status, a.userId, u.name, u.email, u.phone, c.name from advert as a inner join user as u on u.id = a.userId  inner join category as c on c.id = a.categoryId"/>
     </bean>
     <bean id="getAdvertsByUserIdSQL" class="java.lang.String">
-        <constructor-arg value="select a.id, a.title, a.price, a.currency, a.modificationDate, a.status from advert as a"/>
+        <constructor-arg value="select * from advert as a"/>
     </bean>
     <bean id="getUserById" class="java.lang.String">
         <constructor-arg value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u "/>
