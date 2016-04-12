@@ -16,7 +16,6 @@ ul {
     list-style: none;
 }
 
-
 button {
     font-size: 12px !important;
 }
@@ -31,7 +30,7 @@ button {
     font-weight: bold;
 }
 
-.navbar-form navbar-left {
+.navbar-form {
     margin-left: auto !important;
     margin-right: auto !important;
 }
@@ -60,13 +59,12 @@ button {
     border-radius: 4px;
 }
 
-
 .container {
     margin: 0 auto;
     padding: 0 83px 0 83px;
 }
 
-.container .nav navbar-nav navbar-right {
+.container .nav {
     margin-top: 10px;
 }
 
@@ -91,15 +89,15 @@ button {
 }
 
 .img-wrapper {
-height:170px;
-width:270px;
+    height: 170px;
+    width: 270px;
 }
-.img-wrapper img
-{
-max-width:100%;
-max-height:100%;
-margin:auto;
-display:block;
+
+.img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
 }
 
 .fuck-off-ad-block p.status {
@@ -124,7 +122,7 @@ display:block;
 }
 
 .pages {
-    margin: 97px auto 86px;
+    margin-bottom: 97px;
 }
 
 .wrap-title {
@@ -138,8 +136,7 @@ display:block;
     vertical-align: middle;
 }
 
-.date,
-.price {
+.date, .price {
     display: block;
     position: relative;
     width: 50%;
@@ -151,9 +148,8 @@ display:block;
     width: 100%;
 }
 
-
-
 .foot {
+    margin-top: 87px;
     height: 104px;
     text-align: center;
 }
@@ -167,7 +163,7 @@ display:block;
     position: relative;
 }
 
-.dropdown-submenu>.dropdown-menu {
+.dropdown-submenu > .dropdown-menu {
     top: 0;
     left: 100%;
     margin-top: -6px;
@@ -177,11 +173,11 @@ display:block;
     border-radius: 0 6px 6px 6px;
 }
 
-.dropdown-submenu:hover>.dropdown-menu {
+.dropdown-submenu:hover > .dropdown-menu {
     display: block;
 }
 
-.dropdown-submenu>a:after {
+.dropdown-submenu > a:after {
     display: block;
     content: " ";
     float: right;
@@ -195,7 +191,7 @@ display:block;
     margin-right: -10px;
 }
 
-.dropdown-submenu:hover>a:after {
+.dropdown-submenu:hover > a:after {
     border-left-color: #fff;
 }
 
@@ -203,10 +199,142 @@ display:block;
     float: none;
 }
 
-.dropdown-submenu.pull-left>.dropdown-menu {
+.dropdown-submenu.pull-left > .dropdown-menu {
     left: -100%;
     margin-left: 10px;
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
+}
+
+.advert-info-bar {
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 3px;
+}
+
+.advert-info-bar hr {
+    border: none; /* Убираем границу для браузера Firefox */
+    color: #cccccc; /* Цвет линии для остальных браузеров */
+    background-color: #cccccc; /* Цвет линии для браузера Firefox и Opera */
+    height: 1px; /* Толщина линии */
+
+}
+
+.advert-img-bar {
+    margin: 15px -15px 0 -15px;
+}
+
+.advert-text-bar {
+    margin: 15px 0 0 0;
+    align-content: center;
+}
+
+.advert-text-bar h4.title {
+    /*font-size: 20px;*/
+    color: #48c083;
+    font-weight: bold;
+}
+
+.advert-text-bar h4 {
+    font-size: 18px;
+    color: #000;
+    font-weight: bold;
+}
+
+.advert-text-bar h5 {
+    font-size: 14px;
+}
+
+.user-info {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.advert-img {
+    /*image-resolution: from-image;*/
+    height: inherit;
+}
+
+.separator-box {
+    margin: 50px auto auto auto;
+    background: white;
+    border: 0;
+}
+
+.modal-content {
+    /*height: 335px;*/
+    width: 320px;
+    margin: auto;
+}
+
+.modal-body {
+    position: relative;
+    padding: 15px;
+    margin: 0 25px 0 25px;
+}
+
+.modal-body input {
+    margin: 15px 0 15px 0;
+    border-radius: 8px;
+    border: 1px solid rgb(228, 228, 228);
+    width: 100%;
+    padding: 5px;
+}
+.modal-body input:focus{
+    background-color: #ededed;
+    outline-width: 0;
+}
+
+.modal-body .button {
+    background-color: #48c083;
+    font-family: Roboto, monospace;
+    font-size: 15%;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    width: 100px;
+    height: 25px;;
+    float: right;
+    margin-top: 10px;
+}
+
+.modal-body .button:hover {
+    background-color: #54e097;
+}
+
+.modal-body .button:focus {
+    outline-width: 0;
+}
+
+.modal-body p {
+    margin: 35px 0 15px 0;
+    color: #a0a0a0;
+}
+
+.modal-body a {
+    color: #48c083;
+}
+
+.modal-body a:link,
+.modal-body a:focus {
+    color: #5aee9f;
+    text-decoration: none;
+    outline-width: 0;
+}
+
+.modal-body a:hover {
+    text-decoration: underline;
+}
+
+button.close {
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    padding: 20px;
+}
+
+button.close:focus {
+    outline-width: 0;
 }
