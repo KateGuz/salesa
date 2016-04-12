@@ -1,23 +1,21 @@
 package com.salesa.entity;
 
 
+import java.util.List;
+
 public class Category {
-    private int id;
+    private Integer id;
     private String name;
-    private Category parent;
+    private List<Category> children;
 
     public Category() {
     }
 
-    public Category(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -29,12 +27,12 @@ public class Category {
         this.name = name;
     }
 
-     public Category getParent() {
-        return parent;
+    public List<Category> getChildren() {
+        return children;
     }
 
-    public void setParent(Category parent) {
-        this.parent = parent;
+    public void setChildren(List<Category> children) {
+        this.children = children;
     }
 
     @Override
@@ -44,7 +42,7 @@ public class Category {
 
         Category category = (Category) o;
 
-        if (id != category.id) return false;
+        if (!id.equals(category.id)) return false;
         return name != null ? name.equals(category.name) : category.name == null;
 
     }
@@ -54,7 +52,7 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", parent=" + parent +
+                ", children=" + children +
                 '}';
     }
 }

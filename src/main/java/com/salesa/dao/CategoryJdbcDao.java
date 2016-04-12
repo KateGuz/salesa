@@ -1,6 +1,6 @@
 package com.salesa.dao;
 
-import com.salesa.dao.mapper.CategoryMapper;
+import com.salesa.dao.mapper.CategoryExtractor;
 import com.salesa.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,20 +19,6 @@ public class CategoryJdbcDao implements CategoryDao {
     private JdbcTemplate jdbcTemplate;
 
     public List<Category> getAll() {
-        List<Category> categories = jdbcTemplate.query(getAllCategoriesSQL, new CategoryMapper());
-
-        for (Category category : categories) {
-            Category parent = category.getParent();
-            if (parent != null) {
-                int parentId = parent.getId();
-                for (Category parentCategory : categories) {
-                    if (parentId == parentCategory.getId()) {
-                        category.setParent(parentCategory);
-                    }
-                }
-            }
-
-        }
-        return categories;
+        return jdbcTemplate.query(getAllCategoriesSQL, new CategoryExtractor());
     }
 }
