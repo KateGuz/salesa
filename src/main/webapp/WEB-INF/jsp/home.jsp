@@ -24,10 +24,6 @@
     <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>--%>
 
 </head>
-
-<h4>${user.name}</h4>
-<button href="/user/${user.id}">${user.name}</button>
-
 <body>
 <header>
     <div class="container">
@@ -47,14 +43,14 @@
                 <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#">Связаться с нами</a></li>
-
                         <c:choose>
-                            <c:when test="${user.id == 1}">
-                                <li><a href="/user/${user.id}">${user.name}</a></li>
-                            </c:when>
-                            <c:otherwise>
+                            <c:when test="${empty loggedUser.name}">
                                 <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
                                 </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                <li><a href="/signOut">Sign Out</a></li>
                             </c:otherwise>
                         </c:choose>
                     </ul>
@@ -63,7 +59,6 @@
         </nav>
     </div>
 </header>
-
 
 
 <div class="container">
@@ -118,32 +113,31 @@
 
         <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
             <c:if test="${loop.index  % 3 == 0}">
-                <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0 col-lg-4">
+                <%--<div class="row">--%>
             </c:if>
-            <div class="col-sm-4 col-xs-12">
-                <div class="well">
-                    <p class="status">
-                        <c:choose>
-                            <c:when test="${advert.status == 'A'}">
-                                <font color="#48c083">Активно</font>
-                            </c:when>
-                            <c:when test="${advert.status == 'H'}">
-                                Забронировано
-                            </c:when>
-                        </c:choose>
-                    </p>
-                    <div class="img-wrapper">
-                        <img src="/img/1.png" alt="advert's photo">
-                    </div>
-                    <div class="wrap-title">
-                        <p class="title">${advert.title}</p>
-                    </div>
-                    <div class="date-price-wrap">
-                        <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate"
-                                       type="time"/>
-                        <p class="date"><c:out value="${parsedDate}"/></p>
-                        <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
-                    </div>
+            <div class="well">
+                <p class="status">
+                    <c:choose>
+                        <c:when test="${advert.status == 'A'}">
+                            <font color="#48c083">Активно</font>
+                        </c:when>
+                        <c:when test="${advert.status == 'H'}">
+                            Забронировано
+                        </c:when>
+                    </c:choose>
+                </p>
+                <div class="thumbnail">
+                    <img src="/img/1.png" alt="advert's photo">
+                </div>
+                <div class="wrap-title">
+                    <p class="title">${advert.title}</p>
+                </div>
+                <div class="date-price-wrap">
+                    <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate"
+                                   type="time"/>
+                    <p class="date"><c:out value="${parsedDate}"/></p>
+                    <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
                 </div>
             </div>
             <c:if test="${(loop.index + 1) % 3  == 0}">
@@ -152,7 +146,7 @@
         </c:forEach>
 
     </div>
-
+</div>
     <div class="pages">
         <div class="text-center">
             <ul class="pagination">
@@ -174,7 +168,7 @@
             </div>
         </div>
     </footer>
-</div>
+
 
 
 <div class="modal fade" id="user-security-log" role="dialog">
