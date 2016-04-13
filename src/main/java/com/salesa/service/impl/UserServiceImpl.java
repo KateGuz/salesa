@@ -28,4 +28,9 @@ public class UserServiceImpl implements UserService{
         return feedbackDao.getByUserId(userId);
     }
 
+    @Override
+    public User get(String email) {
+        return userDao.get(email);
+    }
+
 }

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,20 +32,26 @@ public class UserSecurityController {
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
-    private String singIn(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session){
-        log.info("signing in,  " + email + " password " + password);
-
-        User user = new User();
-        //get user by email from DB
+    private String singIn(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model){
+        log.info("signing in,  " + email);
+        User user = userService.get(email);
+        session.setAttribute("loggedUser", user);
+        log.info(user.getName() + " " + user.getEmail());
         //check if password is correct
-        userSecurity.addSession(session.getId(), user);
-        //else -> "Wrong email or password"
-        return "redirect:/";
+        if(password.equals(user.getPassword())){
+            userSecurity.addSession(session.getId(), user);
+            //model.addAttribute("$profile", user);
+            return "redirect:/user/1";
+        }
+        //else -> "Wrong email or password
+        //return "home";
+        return "redirect:/user/2";
     }
 
     @RequestMapping(value = "/signOut", method = RequestMethod.DELETE)
      public String signOut(HttpSession session) {
         session.removeAttribute("loggedUser");
+        userSecurity.deleteSession(session.getId());
         log.info("signing out");
             return "redirect:/";
         }
