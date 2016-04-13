@@ -19,29 +19,50 @@
     </bean>
 
     <bean id="getAllCategoriesSQL" class="java.lang.String">
-        <constructor-arg value="select c2.id as parentId, c2.name as parentName, c1.id as childId, c1.name as childName from category as c1 right join category as c2 on c1.parentId = c2.id where c2.parentId = 0;"/>
+        <constructor-arg
+                value="select c2.id as parentId, c2.name as parentName, c1.id as childId, c1.name as childName
+                from category as c1 right join category as c2 on c1.parentId = c2.id where c2.parentId = 0;"/>
     </bean>
 
     <bean id="getAllUsersSQL" class="java.lang.String">
         <constructor-arg value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar,
         u.status, u.type, u.dislikeAmount FROM user as u;"/>
     </bean>
+
     <bean id="getAllImagesSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
     </bean>
+
     <bean id="getAdvertSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
     </bean>
+
     <bean id="getAdvertByIdSQL" class="java.lang.String">
-        <constructor-arg value="select a.id, a.title, a.text, a.price, a.currency, a.modificationDate, a.status, a.userId, u.name, u.email, u.phone, c.name from advert as a inner join user as u on u.id = a.userId  inner join category as c on c.id = a.categoryId"/>
+        <constructor-arg
+                value="select a.id, a.title, a.text, a.price, a.currency, a.modificationDate, a.status, a.user,
+                u.name, u.email, u.phone, c.name from advert as a inner join user as u on u.id = a.user
+                inner join category as c on c.id = a.categoryId"/>
     </bean>
+
     <bean id="getAdvertsByUserIdSQL" class="java.lang.String">
         <constructor-arg value="select * from advert as a"/>
     </bean>
-    <bean id="getUserById" class="java.lang.String">
-        <constructor-arg value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u "/>
+
+    <bean id="getUserByIdSQL" class="java.lang.String">
+        <constructor-arg
+                value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u "/>
     </bean>
-    <bean id="getFeedbacksByUserId" class="java.lang.String">
-        <constructor-arg value="select * from feedback"/>
+
+    <bean id="getFeedbackByUserIdSQL" class="java.lang.String">
+        <constructor-arg value="select f.text, f.creationDate, f.authorId, u.name as authorName from feedback as f
+                                left join user as u on f.authorId = u.id
+                                where f.userId = :userId;"/>
     </bean>
+
+    <bean id="saveFeedbackSQL" class="java.lang.String">
+        <constructor-arg
+                value="INSERT INTO feedback (text, authorId, userId, creationDate) VALUES(:text, :authorId, :userId, :creationDate);"/>
+    </bean>
+
+
 </beans>

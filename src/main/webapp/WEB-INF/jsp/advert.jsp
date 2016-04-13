@@ -114,10 +114,10 @@
                 </h4>
                 <p>
                 <div class="glyphicon glyphicon-envelope"></div>
-                email: ${advert.user.email}</p>
+                email: ${advert.user.email}
                 <p>
                 <div class="glyphicon glyphicon-phone"></div>
-                phone: ${advert.user.phone}</p>
+                phone: ${advert.user.phone}
             </div>
         </div>
     </div>

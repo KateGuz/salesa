@@ -1,5 +1,6 @@
-package com.salesa.dao;
+package com.salesa.dao.impl;
 
+import com.salesa.dao.UserDao;
 import com.salesa.dao.mapper.UserMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface FeedbackDao {
     List<Feedback> getByUserId(int userId);
+
+    void saveFeedback(Feedback feedback);
 }

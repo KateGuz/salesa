@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,8 @@
     <link rel="icon" type="image/png" href="/img/salesa.png"/>
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
     <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/feedback.js"></script>
 </head>
 
 <body>
@@ -45,13 +47,6 @@
     </div>
 </header>
 <div class="container">
-
-
-    <%--<ol class="breadcrumb">--%>
-    <%--<li><a href="/">Главная</a></li>--%>
-    <%--<li class="active">${category.name}</li>--%>
-    <%--</ol>--%>
-
     <div class="row">
         <div class="col-xs-12">
             <div class="user-info-bar col-sm-4 col-md-3">
@@ -65,10 +60,10 @@
                     </h4>
                     <p>
                     <div class="glyphicon glyphicon-envelope"></div>
-                    email: ${user.email}</p>
+                    email: ${user.email} </p>
                     <p>
                     <div class="glyphicon glyphicon-phone"></div>
-                    phone: ${user.phone}</p>
+                    phone: ${user.phone} </p>
                     <button class="dislike-btn">Dislike</button>
                 </div>
                 <br>
@@ -91,6 +86,8 @@
                                         <div class="media-body">
                                             <h4 class="media-heading">${advert.title}</h4>
                                             <p>${advert.text}</p>
+                                            <br>
+                                            <h6><tags:localDateTime date="${advert.modificationDate}"/></h6>
                                         </div>
                                         <div class="media-right">
                                             <c:choose>
@@ -104,10 +101,9 @@
                                                     <font color="#сссссс">Продано</font>
                                                 </c:when>
                                             </c:choose>
-                                            <h6>${advert.modificationDate}</h6>
                                             <br>
                                             <br>
-                                            <h6>${advert.currency}</h6>
+                                            <h6>${advert.price}<span> </span>${advert.currency}</h6>
                                         </div>
                                     </div>
                                 </a>
@@ -118,29 +114,26 @@
 
 
                 <div class="feedback-list-bar">
-                    <h3>Отзывы пользователя</h3>
+                    <h3>Отзывы о пользователе</h3>
                     <div class="feedback-form row">
-                        <form>
-                            <textarea class="feedback-input" placeholder="Оставте ваш отзыв"></textarea>
-                            <button class="feedback-btn">Send</button>
-                        </form>
+                        <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
+                        <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
                     </div>
                     <ol class="user-advert-list">
                         <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
-
                             <div class="media">
-                                <a href="/user/${feedback.authorId.id}">
+                                <a href="/user/${feedback.author.id}">
                                     <div class="col-sm-12">
                                         <div class="media-left">
                                             <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
                                                  alt="...">
                                         </div>
                                         <div class="media-body">
-                                            <h4 class="media-heading">User id: ${feedback.authorId.id}</h4>
+                                            <h4 class="media-heading">User id: ${feedback.author.id}</h4>
                                             <p>${feedback.text}</p>
                                         </div>
                                         <div class="media-right">
-                                            <h6 class="media-heading">${feedback.creationDate}</h6>
+                                            <h6 class="media-heading"><tags:localDateTime date="${feedback.creationDate}"/></h6>
                                         </div>
                                     </div>
                                 </a>
