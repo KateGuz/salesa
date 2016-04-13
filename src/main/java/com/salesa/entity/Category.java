@@ -6,9 +6,18 @@ import java.util.List;
 public class Category {
     private Integer id;
     private String name;
+    private Category parent;
     private List<Category> children;
 
     public Category() {
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
     }
 
     public Integer getId() {
@@ -52,6 +61,7 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", parentId=" + (parent!= null ? parent.getId() : null) +
                 ", children=" + children +
                 '}';
     }

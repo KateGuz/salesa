@@ -27,7 +27,6 @@ public class QueryGeneratorTest {
         assertEquals(1, queryAndParams.params.get("categoryId"));
         assertEquals(9, queryAndParams.params.get("startPosition"));
         assertEquals(9, queryAndParams.params.get("dataAmount"));
-
     }
 
     @Test

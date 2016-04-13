@@ -33,6 +33,8 @@
         <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
     </bean>
     <bean id="getAdvertByIdSQL" class="java.lang.String">
-        <constructor-arg value="select a.id, a.title, a.text, a.price, a.currency, a.modificationDate, a.status, a.userId, u.name, u.email, u.phone, c.name from advert as a inner join user as u on u.id = a.userId  inner join category as c on c.id = a.categoryId where "/>
+        <constructor-arg value="select a.id, a.title, a.text, a.price, a.currency, a.modificationDate,
+        a.status, a.userId, u.name, u.email, u.phone, a.categoryId from advert as a
+        inner join user as u on u.id = a.userId where "/>
     </bean>
 </beans>
