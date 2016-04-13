@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +101,7 @@
                     </c:when>
                 </c:choose>
                 <br>
-                <p>${advert.modificationDate}</p>
+                <p><tags:localDateTime date="${advert.modificationDate}"/></p>
             </div>
         </div>
         <hr/>

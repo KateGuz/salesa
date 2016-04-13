@@ -76,6 +76,14 @@ public class QueryGenerator {
         query.append("a.id = :a.id");
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
+/*
+        StringBuilder query = new StringBuilder(getAdvertByIdSQL);
+        Map<String, Object> params = new HashMap<>();
+        params.put("a.id", advertId);
+        query.append("a.id = :a.id");
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);*/
+
     }
 
     public QueryAndParams generateAdvertByUserIdQuery(int userId) {

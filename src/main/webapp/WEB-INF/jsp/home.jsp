@@ -3,6 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -125,9 +126,7 @@
                         <p class="title">${advert.title}</p>
                     </div>
                     <div class="date-price-wrap">
-                        <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate"
-                                       type="time"/>
-                        <p class="date"><c:out value="${parsedDate}"/></p>
+                        <p class="date"><tags:localDateTime date="${advert.modificationDate}"/></p>
                         <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
                     </div>
                 </div>
