@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home</title>
-    <meta charset="utf-8">
+    <title>User</title>
+    <%--<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -17,7 +17,8 @@
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
     <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/feedback.js"></script>
+    <script src="/js/feedback.js"></script>--%>
+    <jsp:include page="head-include.jsp"/>
 </head>
 
 <body>
@@ -77,36 +78,38 @@
                     <ol class="user-advert-list">
                         <c:forEach items="${adverts}" var="advert" varStatus="loop">
                             <div class="media">
-                                <a href="/advert/${advert.id}">
-                                    <div class="col-sm-12">
-                                        <div class="media-left">
-                                            <img class="media-object thumbnail adv-img-list-item" src="/img/1.png"
-                                                 alt="...">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">${advert.title}</h4>
-                                            <p>${advert.text}</p>
-                                            <br>
-                                            <h6><tags:localDateTime date="${advert.modificationDate}"/></h6>
-                                        </div>
-                                        <div class="media-right">
-                                            <c:choose>
-                                                <c:when test="${advert.status == 'A'}">
-                                                    <font color="#48c083">Активно</font>
-                                                </c:when>
-                                                <c:when test="${advert.status == 'H'}">
-                                                    Заброни-<br>ровано
-                                                </c:when>
-                                                <c:when test="${advert.status == 'S'}">
-                                                    <font color="#сссссс">Продано</font>
-                                                </c:when>
-                                            </c:choose>
-                                            <br>
-                                            <br>
-                                            <h6>${advert.price}<span> </span>${advert.currency}</h6>
-                                        </div>
+
+                                <div class="col-sm-12">
+                                    <div class="media-left">
+                                        <img class="media-object thumbnail adv-img-list-item" src="/img/1.png"
+                                             alt="...">
                                     </div>
-                                </a>
+                                    <div class="media-body">
+                                        <a href="/advert/${advert.id}">
+                                            <h4 class="media-heading">${advert.title}</h4>
+                                        </a>
+                                        <p>${advert.text}</p>
+                                        <br>
+                                        <h6><tags:localDateTime date="${advert.modificationDate}"/></h6>
+                                    </div>
+                                    <div class="media-right">
+                                        <c:choose>
+                                            <c:when test="${advert.status == 'A'}">
+                                                <font color="#48c083">Активно</font>
+                                            </c:when>
+                                            <c:when test="${advert.status == 'H'}">
+                                                Заброни-<br>ровано
+                                            </c:when>
+                                            <c:when test="${advert.status == 'S'}">
+                                                <font color="#сссссс">Продано</font>
+                                            </c:when>
+                                        </c:choose>
+                                        <br>
+                                        <br>
+                                        <h6>${advert.price}<span> </span>${advert.currency}</h6>
+                                    </div>
+                                </div>
+
                             </div>
                         </c:forEach>
                     </ol>
@@ -133,7 +136,8 @@
                                             <p>${feedback.text}</p>
                                         </div>
                                         <div class="media-right">
-                                            <h6 class="media-heading"><tags:localDateTime date="${feedback.creationDate}"/></h6>
+                                            <h6 class="media-heading"><tags:localDateTime
+                                                    date="${feedback.creationDate}"/></h6>
                                         </div>
                                     </div>
                                 </a>

@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <title>Home</title>
-    <meta charset="utf-8">
+    <%--<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -18,7 +18,8 @@
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
     <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/js/main.js"></script>--%>
+    <jsp:include page="head-include.jsp"/>
 
 </head>
 
