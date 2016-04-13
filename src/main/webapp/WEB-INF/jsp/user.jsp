@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,8 @@
     <link rel="icon" type="image/png" href="/img/salesa.png"/>
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
     <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/feedback.js"></script>
 </head>
 
 <body>
@@ -45,13 +47,6 @@
     </div>
 </header>
 <div class="container">
-
-
-    <%--<ol class="breadcrumb">--%>
-    <%--<li><a href="/">Главная</a></li>--%>
-    <%--<li class="active">${category.name}</li>--%>
-    <%--</ol>--%>
-
     <div class="row">
         <div class="col-xs-12">
             <div class="user-info-bar col-sm-4 col-md-3">
@@ -65,15 +60,13 @@
                     </h4>
                     <p>
                     <div class="glyphicon glyphicon-envelope"></div>
-                    email: ${user.email}</p>
+                    email: ${user.email} </p>
                     <p>
                     <div class="glyphicon glyphicon-phone"></div>
-                    phone: ${user.phone}</p>
+                    phone: ${user.phone} </p>
                     <button class="dislike-btn">Dislike</button>
                 </div>
                 <br>
-
-
             </div>
 
             <div class="col-sm-8 col-md-9 ">
@@ -82,226 +75,102 @@
                 </div>
                 <div class="advert-list-bar">
                     <ol class="user-advert-list">
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail adv-img-list-item" src="/img/1.png" alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${advert.title}</h4>
-                                    <p>${advert.text}</p>
-                                </div>
-                                <div class="media-right">
-                                    <c:choose>
-                                        <c:when test="${advert.status == 'A'}">
-                                            <font color="#48c083">Активно</font>
-                                        </c:when>
-                                        <c:when test="${advert.status == 'H'}">
-                                            Забронировано
-                                        </c:when>
-                                        <c:when test="${advert.status == 'S'}">
-                                            <font color="#сссссс">Продано</font>
-                                        </c:when>
-                                    </c:choose>
-                                    <h6>${advert.modificationDate}</h6>
-                                    <br>
-                                    <br>
-                                    <h6>${advert.currency}</h6>
-                                </div>
+                        <c:forEach items="${adverts}" var="advert" varStatus="loop">
+                            <div class="media">
+                                <a href="/advert/${advert.id}">
+                                    <div class="col-sm-12">
+                                        <div class="media-left">
+                                            <img class="media-object thumbnail adv-img-list-item" src="/img/1.png"
+                                                 alt="...">
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">${advert.title}</h4>
+                                            <p>${advert.text}</p>
+                                            <br>
+                                            <h6><tags:localDateTime date="${advert.modificationDate}"/></h6>
+                                        </div>
+                                        <div class="media-right">
+                                            <c:choose>
+                                                <c:when test="${advert.status == 'A'}">
+                                                    <font color="#48c083">Активно</font>
+                                                </c:when>
+                                                <c:when test="${advert.status == 'H'}">
+                                                    Заброни-<br>ровано
+                                                </c:when>
+                                                <c:when test="${advert.status == 'S'}">
+                                                    <font color="#сссссс">Продано</font>
+                                                </c:when>
+                                            </c:choose>
+                                            <br>
+                                            <br>
+                                            <h6>${advert.price}<span> </span>${advert.currency}</h6>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </div>
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail adv-img-list-item" src="/img/1.png" alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${advert.title}</h4>
-                                    <p>${advert.text}</p>
-                                </div>
-                                <div class="media-right">
-                                    <c:choose>
-                                        <c:when test="${advert.status == 'A'}">
-                                            <font color="#48c083">Активно</font>
-                                        </c:when>
-                                        <c:when test="${advert.status == 'H'}">
-                                            Забронировано
-                                        </c:when>
-                                        <c:when test="${advert.status == 'S'}">
-                                            <font color="#сссссс">Продано</font>
-                                        </c:when>
-                                    </c:choose>
-                                    <h6>${advert.modificationDate}</h6>
-                                    <br>
-                                    <br>
-                                    <h6>${advert.currency}</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail adv-img-list-item" src="/img/1.png" alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${advert.title}</h4>
-                                    <p>${advert.text}</p>
-
-                                </div>
-                                <div class="media-right">
-                                    <c:choose>
-                                        <c:when test="${advert.status == 'A'}">
-                                            <font color="#48c083">Активно</font>
-                                        </c:when>
-                                        <c:when test="${advert.status == 'H'}">
-                                            Забронировано
-                                        </c:when>
-                                        <c:when test="${advert.status == 'S'}">
-                                            <font color="#сссссс">Продано</font>
-                                        </c:when>
-                                    </c:choose>
-                                    <h6>${advert.modificationDate}</h6>
-                                    <br>
-                                    <br>
-                                    <h6>${advert.currency}</h6>
-                                </div>
-                            </div>
-                        </div>
-
+                        </c:forEach>
                     </ol>
                 </div>
 
-
-                <div class="pages-user">
-                    <div class="text-center">
-                        <ul class="pagination">
-                            <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                            <c:forEach begin="1" end="${advertPageData.pageCount}" varStatus="loop">
-                                <li><a href="?page=${loop.index}" data-original-title="" title="">${loop.index}</a></li>
-                            </c:forEach>
-                            <li><a href="?page=${advertPageData.pageCount}" aria-label="Next"><span
-                                    aria-hidden="true">&raquo;</span></a>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
 
                 <div class="feedback-list-bar">
-                    <h3>Отзывы пользователя</h3>
+                    <h3>Отзывы о пользователе</h3>
                     <div class="feedback-form row">
-                        <form>
-                            <textarea class="feedback-input" placeholder="Оставте ваш отзыв"></textarea>
-                            <button class="feedback-btn">Send</button>
-                        </form>
+                        <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
+                        <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
                     </div>
                     <ol class="user-advert-list">
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
-                                         alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${user.name}</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium
-                                        ad,
-                                        aliquid commodi distinctio dolor dolore eos fugit iste laudantium molestiae nam
-                                        necessitatibus perferendis porro quidem rem sequi tempora unde.</p>
-                                    ...
-                                </div>
-                                <div class="media-right">
-                                    <h6 class="media-heading">${advert.modificationDate}</h6>
-                                </div>
+                        <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
+                            <div class="media">
+                                <a href="/user/${feedback.author.id}">
+                                    <div class="col-sm-12">
+                                        <div class="media-left">
+                                            <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
+                                                 alt="...">
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">User id: ${feedback.author.id}</h4>
+                                            <p>${feedback.text}</p>
+                                        </div>
+                                        <div class="media-right">
+                                            <h6 class="media-heading"><tags:localDateTime date="${feedback.creationDate}"/></h6>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </div>
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
-                                         alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${user.name}</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium
-                                        ad,
-                                        aliquid commodi distinctio dolor dolore eos fugit iste laudantium molestiae nam
-                                        necessitatibus perferendis porro quidem rem sequi tempora unde.</p>
-                                    ...
-                                </div>
-                                <div class="media-right">
-                                    <h6 class="media-heading">${advert.modificationDate}</h6>
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="col-sm-12">
-                                <div class="media-left">
-                                    <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
-                                         alt="...">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${user.name}</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium
-                                        ad,
-                                        aliquid commodi distinctio dolor dolore eos fugit iste laudantium molestiae nam
-                                        necessitatibus perferendis porro quidem rem sequi tempora unde.</p>
-                                    ...
-                                </div>
-                                <div class="media-right">
-                                    <h6 class="media-heading">${advert.modificationDate}</h6>
-
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </ol>
                 </div>
-
-                <div class="pages-user">
-                    <div class="text-center">
-                        <ul class="pagination">
-                            <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                            <c:forEach begin="1" end="${feedbackPageData.pageCount}" varStatus="loop">
-                                <li><a href="?page=${loop.index}" data-original-title="" title="">${loop.index}</a></li>
-                            </c:forEach>
-                            <li><a href="?page=${feedbackPageData.pageCount}" aria-label="Next"><span
-                                    aria-hidden="true">&raquo;</span></a>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-
             </div>
-
-
-            <div class="separator-box">
-                <div class="text-center">
-                    <ul class="pagination"></ul>
-                </div>
-            </div>
-
-            <footer>
-                <div class="foot">
-                    <div class="well">
-                        <p>Salesa</p>
-                        <p>All Rigths Reserved</p>
-                    </div>
-                </div>
-            </footer>
         </div>
 
-        <script>
-            var adHeight = $('.img-wrapper').height();
-            if (adHeight < 170) {
-                var margintop = (170 - adHeight) / 2;
-                $('.img-wrapper img').css('margin-top', margintop);
-            }
-        </script>
+
+        <div class="separator-box">
+            <div class="text-center">
+                <ul class="pagination"></ul>
+            </div>
+        </div>
+
+        <footer>
+            <div class="foot">
+                <div class="well">
+                    <p>Salesa</p>
+                    <p>All Rigths Reserved</p>
+                </div>
+            </div>
+        </footer>
+
     </div>
 </div>
 </body>
 
+<script>
+    var adHeight = $('.img-wrapper').height();
+    if (adHeight < 170) {
+        var margintop = (170 - adHeight) / 2;
+        $('.img-wrapper img').css('margin-top', margintop);
+    }
+</script>
 
 </html>

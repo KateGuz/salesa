@@ -9,13 +9,12 @@
     <title>Advert</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
-   <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
-   <link rel="icon" type="image/png" href="/img/salesa.png"/>
-   <link rel="apple-touch-icon" href="/img/salesa.png"/>
-   <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
-   <script src="js/bootstrap.min.js"></script>
-
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
+    <link rel="icon" type="image/png" href="/img/salesa.png"/>
+    <link rel="apple-touch-icon" href="/img/salesa.png"/>
+    <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -47,16 +46,15 @@
 <div class="container">
     <div class="wrap-category">
         <ol class="breadcrumb">
-            <li><a href="/">Главная</a></li>
-            <li><a href="#">${adver.category.name}</a></li>
+            <c:forEach items="${breadcrumbsTree}" var="category">
+                <li><a href="/category/${category.id}">${category.name}</a></li>
+            </c:forEach>
         </ol>
     </div>
     <div class="advert-info-bar col-xs-12">
         <div class="col-md-4">
             <div class="advert-img-bar thumbnail">
-
                 <div id="carousel" class="carousel slide">
-
                     <ol class="carousel-indicators">
                         <li class="active" data-target="#carousel" data-slide-to="0"></li>
                         <li data-target="#carousel" data-slide-to="1"></li>
@@ -114,10 +112,10 @@
                 </h4>
                 <p>
                 <div class="glyphicon glyphicon-envelope"></div>
-                email: ${advert.user.email}</p>
+                email: ${advert.user.email}
                 <p>
                 <div class="glyphicon glyphicon-phone"></div>
-                phone: ${advert.user.phone}</p>
+                phone: ${advert.user.phone}
             </div>
         </div>
     </div>

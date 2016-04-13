@@ -2,7 +2,6 @@ package com.salesa.service;
 
 import com.salesa.entity.Advert;
 import com.salesa.filter.AdvertFilter;
-import com.salesa.util.AdvertDetails;
 import com.salesa.util.AdvertPageData;
 
 import java.util.List;

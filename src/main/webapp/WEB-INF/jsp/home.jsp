@@ -19,9 +19,9 @@
     <script src="/js/jquery-1.12.3.min.js" type="text/javascript" language="JavaScript"></script>
     <script src="/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="/js/main.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
+    <script src="/js/registration.js"></script>
 
-    <%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>--%>
-    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>--%>
 
 </head>
 
@@ -54,6 +54,8 @@
                                 <li><a href="/signOut">Sign Out</a></li>
                             </c:otherwise>
                         </c:choose>
+                        <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -75,19 +77,23 @@
                         </button>
                         <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                             <c:forEach items="${categories}" var="category">
-                                <c:if test="${category.parent.id == 0}">
-                                    <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="/category/${category.id}">${category.name}</a>
-                                        <ul class="dropdown-menu">
-                                            <c:forEach items="${categories}" var="subCategory">
-                                                <c:if test="${subCategory.parent.id == category.id}">
+                                <c:choose>
+                                    <c:when test="${!empty category.children}">
+                                        <li class="dropdown-submenu">
+                                            <a tabindex="-1" href="/category/${category.id}">${category.name}</a>
+                                            <ul class="dropdown-menu">
+                                                <c:forEach items="${category.children}" var="subCategory">
                                                     <li><a href="/category/${subCategory.id}">${subCategory.name}</a>
                                                     </li>
-                                                </c:if>
-                                            </c:forEach>
-                                        </ul>
-                                    </li>
-                                </c:if>
+                                                </c:forEach>
+                                            </ul>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a href="/category/${category.id}">${category.name}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </ul>
                     </div>
@@ -170,37 +176,11 @@
         </div>
     </footer>
 
-
-
-<div class="modal fade" id="user-security-log" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button class="close" type="button" data-dismiss="modal">&times;</button>
-            <div class="modal-body">
-                <form:form>
-                    <h3>Log in </h3>
-                    <hr>
-                    <input type="text" name="log_email" id="log_email" placeholder="Email">
-                    <br>
-                    <input type="text" name="log_password" id="log_password" placeholder="Password">
-                    <br>
-                    <button class="button" id="btn-log">Submit</button>
-                    <br>
-                    <br>
-                    <p>Not yet registered?<a href="#user-security-reg" data-toggle="modal"
-                                             data-target="#user-security-reg"
-                                             data-dismiss="modal">&nbsp;Click here!</a></p>
-                </form:form>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="user-security-reg" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>
             <div class="modal-body">
-
                 <form:form>
                     <h3>Registration</h3>
                     <hr>
@@ -208,7 +188,7 @@
                     <br>
                     <input type="text" name="reg_email" id="reg_email" placeholder="Email">
                     <br>
-                    <input type="password" name="reg_password" id="reg_password" placeholder="Password">
+                    <input type="text" name="reg_password" id="reg_password" placeholder="Password">
                     <br>
                     <button class="button" id="btn-reg">Submit</button>
                     <br>
@@ -223,13 +203,14 @@
 </div>
 
 
-<%--<script>
-var adHeight = $('.img-wrapper').height();
-if (adHeight < 170) {
-var margintop = (170 - adHeight) / 2;
-$('.img-wrapper img').css('margin-top', margintop);
-}
-</script>--%>
+<script>
+    var adHeight = $('.img-wrapper').height();
+    if (adHeight < 170) {
+        var margintop = (170 - adHeight) / 2;
+        $('.img-wrapper img').css('margin-top', margintop);
+    }
+</script>
+
 
 </body>
 

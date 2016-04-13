@@ -64,7 +64,6 @@ button {
     padding: 0 83px 0 83px;
 }
 
-
 .container .nav {
     margin-top: 10px;
 }
@@ -164,11 +163,6 @@ button {
     text-align: center;
 }
 
-/*.well img{
-    left: 50%;
-    position: relative;
-}*/
-
 .dropdown-submenu {
     position: relative;
 }
@@ -216,7 +210,7 @@ button {
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
-/**/
+
 .dislike-btn {
     background-color: #48c083;
     font-family: Roboto, monospace;
@@ -308,9 +302,12 @@ button {
     background-color: rgb(243, 243, 243);
 }
 
+.user-advert-list .media a{
+    color: #5e5e5e;
+}
+
 .feedback-list-bar h3 {
     font-size: 15px;
-    color: #5e5e5e;
     text-align: center;
 }
 
@@ -355,6 +352,7 @@ button {
 .feedback-list-bar {
     margin: 0 -15px 0 0;
 }
+
 .advert-info-bar {
     background-color: rgb(248, 248, 248);
     border: 1px solid rgb(228, 228, 228);
@@ -379,7 +377,6 @@ button {
 }
 
 .advert-text-bar h4.title {
-    /*font-size: 20px;*/
     color: #48c083;
     font-weight: bold;
 }
@@ -400,7 +397,6 @@ button {
 }
 
 .advert-img {
-    /*image-resolution: from-image;*/
     height: inherit;
 }
 
@@ -408,7 +404,7 @@ button {
     margin: 50px auto auto auto;
     background: white;
     border: 0;
-/**/
+
 }
 
 .modal-content {
@@ -483,6 +479,7 @@ button.close {
     background: 0 0;
     border: 0;
     padding: 20px;
+
 }
 
 button.close:focus {

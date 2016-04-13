@@ -6,17 +6,9 @@ import java.time.LocalDateTime;
 public class Feedback {
     private int id;
     private String text;
-    private User authorId;
-    private User userId;
+    private User author;
+    private User user;
     private LocalDateTime creationDate;
-
-    public Feedback(){
-
-    }
-
-    public Feedback(int id){
-        this.id = id;
-    }
 
     public int getId() {
         return id;
@@ -34,20 +26,20 @@ public class Feedback {
         this.text = text;
     }
 
-    public User getAuthorId() {
-        return authorId;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(User authorId) {
-        this.authorId = authorId;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getCreationDate() {
@@ -63,8 +55,8 @@ public class Feedback {
         return "Feedback{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
-                ", authorId=" + authorId +
-                ", userId=" + userId +
+                ", author=" + author +
+                ", user=" + user +
                 ", creationDate=" + creationDate +
                 '}';
     }

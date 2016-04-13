@@ -14,8 +14,7 @@ public class User {
     private String type;
     private int dislikeAmount;
 
-    public User(){
-
+    public User() {
     }
 
     public User(String name, String email, String password) {
