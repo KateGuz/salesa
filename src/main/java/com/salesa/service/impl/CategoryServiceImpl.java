@@ -14,6 +14,6 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryCache categoryCache;
 
     public List<Category> getAll() {
-        return categoryCache.getAll();
+        return categoryCache.getCategoryTree();
     }
 }

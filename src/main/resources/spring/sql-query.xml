@@ -38,6 +38,7 @@
     </bean>
 
     <bean id="getAdvertByIdSQL" class="java.lang.String">
+<<<<<<< HEAD
         <constructor-arg
                 value="select a.id, a.title, a.text, a.price, a.currency, a.modificationDate, a.status, a.user,
                 u.name, u.email, u.phone, c.name from advert as a inner join user as u on u.id = a.user
@@ -51,6 +52,11 @@
     <bean id="getUserByIdSQL" class="java.lang.String">
         <constructor-arg
                 value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u "/>
+=======
+        <constructor-arg value="select a.id, a.title, a.text, a.price, a.currency, a.modificationDate,
+        a.status, a.userId, u.name, u.email, u.phone, a.categoryId from advert as a
+        inner join user as u on u.id = a.userId where "/>
+>>>>>>> user-security
     </bean>
 
     <bean id="getFeedbackByUserIdSQL" class="java.lang.String">

@@ -162,11 +162,6 @@ button {
     text-align: center;
 }
 
-/*.well img{
-    left: 50%;
-    position: relative;
-}*/
-
 .dropdown-submenu {
     position: relative;
 }
@@ -381,7 +376,6 @@ button {
 }
 
 .advert-text-bar h4.title {
-    /*font-size: 20px;*/
     color: #48c083;
     font-weight: bold;
 }
@@ -402,7 +396,6 @@ button {
 }
 
 .advert-img {
-    /*image-resolution: from-image;*/
     height: inherit;
 }
 
@@ -410,5 +403,4 @@ button {
     margin: 50px auto auto auto;
     background: white;
     border: 0;
-> > > > > > > user-page
 }

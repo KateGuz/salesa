@@ -24,6 +24,7 @@ public class CategoryExtractor implements ResultSetExtractor<List<Category>> {
             Category childCategory = new Category();
             childCategory.setId(resultSet.getInt("childId"));
             childCategory.setName(resultSet.getString("childName"));
+            childCategory.setParent(parent);
 
             if (categoryMap.containsKey(parentId)) {
                 Category savedParent = categoryMap.get(parentId);
