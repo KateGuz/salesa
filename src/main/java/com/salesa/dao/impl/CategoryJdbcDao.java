@@ -1,5 +1,6 @@
-package com.salesa.dao;
+package com.salesa.dao.impl;
 
+import com.salesa.dao.CategoryDao;
 import com.salesa.dao.mapper.CategoryExtractor;
 import com.salesa.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;

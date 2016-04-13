@@ -21,7 +21,8 @@ public class AdvertDetailsMapper implements RowMapper<Advert>{
         advert.setCurrency(resultSet.getString("currency"));
         advert.setStatus(resultSet.getString("status"));
 
-        User user = new User(resultSet.getInt("userId"));
+        User user = new User();
+        user.setId(resultSet.getInt("userId"));
         user.setName(resultSet.getString("name"));
         user.setPhone(resultSet.getString("phone"));
         user.setEmail(resultSet.getString("email"));

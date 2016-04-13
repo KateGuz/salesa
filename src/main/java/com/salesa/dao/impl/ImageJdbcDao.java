@@ -1,5 +1,6 @@
-package com.salesa.dao;
+package com.salesa.dao.impl;
 
+import com.salesa.dao.ImageDao;
 import com.salesa.dao.mapper.ImageMapper;
 import com.salesa.entity.Image;
 import org.springframework.beans.factory.annotation.Autowired;

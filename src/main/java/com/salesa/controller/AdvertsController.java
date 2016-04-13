@@ -1,5 +1,6 @@
 package com.salesa.controller;
 
+
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class AdvertsController {
@@ -44,5 +46,4 @@ public class AdvertsController {
         model.addAttribute("categories", categoryService.getAll());
         return "home";
     }
-
 }

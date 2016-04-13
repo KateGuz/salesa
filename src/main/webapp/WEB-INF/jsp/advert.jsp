@@ -9,7 +9,6 @@
     <title>Advert</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="icon" type="image/png" href="/img/salesa.png"/>
@@ -113,10 +112,10 @@
                 </h4>
                 <p>
                 <div class="glyphicon glyphicon-envelope"></div>
-                email: ${advert.user.email}</p>
+                email: ${advert.user.email}
                 <p>
                 <div class="glyphicon glyphicon-phone"></div>
-                phone: ${advert.user.phone}</p>
+                phone: ${advert.user.phone}
             </div>
         </div>
     </div>

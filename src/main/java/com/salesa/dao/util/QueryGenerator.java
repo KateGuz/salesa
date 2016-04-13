@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.salesa.dao.AdvertJdbcDao.*;
+import static com.salesa.dao.impl.AdvertJdbcDao.*;
 
 @Service
 public class QueryGenerator {
@@ -24,9 +24,11 @@ public class QueryGenerator {
     @Autowired
     private String getAdvertByIdSQL;
 
-    public void setGetAdvertByIdSQL(String getAdvertByIdSQL) {
-        this.getAdvertByIdSQL = getAdvertByIdSQL;
-    }
+    @Autowired
+    private String getAdvertsByUserIdSQL;
+
+    @Autowired
+    private String getUserByIdSQL;
 
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
         this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
@@ -70,9 +72,29 @@ public class QueryGenerator {
         StringBuilder query = new StringBuilder(getAdvertByIdSQL);
         Map<String, Object> params = new HashMap<>();
         params.put("a.id", advertId);
+        query.append(WHERE_STATEMENT);
         query.append("a.id = :a.id");
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
     }
 
+    public QueryAndParams generateAdvertByUserIdQuery(int userId) {
+        StringBuilder query = new StringBuilder(getAdvertsByUserIdSQL);
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        query.append(WHERE_STATEMENT);
+        query.append("userId = :userId");
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);
+    }
+
+    public QueryAndParams generateUserById(int userId) {
+        StringBuilder query = new StringBuilder(getUserByIdSQL);
+        Map<String, Object> params = new HashMap<>();
+        params.put("u.id", userId);
+        query.append(WHERE_STATEMENT);
+        query.append("u.id = :u.id");
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);
+    }
 }

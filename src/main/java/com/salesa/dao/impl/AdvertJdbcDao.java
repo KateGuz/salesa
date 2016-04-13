@@ -1,5 +1,6 @@
-package com.salesa.dao;
+package com.salesa.dao.impl;
 
+import com.salesa.dao.AdvertDao;
 import com.salesa.dao.mapper.AdvertDetailsMapper;
 import com.salesa.dao.mapper.AdvertMapper;
 import com.salesa.dao.util.QueryAndParams;
@@ -52,6 +53,12 @@ public class AdvertJdbcDao implements AdvertDao {
     public Advert get(int advertId){
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertId);
         return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new AdvertDetailsMapper());
+    }
+
+    @Override
+    public List<Advert> getByUserId(int userId){
+        QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params,new AdvertMapper());
     }
 
 }
