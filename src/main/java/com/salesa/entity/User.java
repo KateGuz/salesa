@@ -1,5 +1,6 @@
 package com.salesa.entity;
 
+
 import java.io.InputStream;
 
 public class User {
@@ -15,6 +16,12 @@ public class User {
 
     public User(){
 
+    }
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
     public User(int id) {
@@ -107,4 +114,6 @@ public class User {
                 ", dislikeAmount=" + dislikeAmount +
                 '}';
     }
+
+
 }

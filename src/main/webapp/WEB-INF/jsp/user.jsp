@@ -90,7 +90,6 @@
                                 <div class="media-body">
                                     <h4 class="media-heading">${advert.title}</h4>
                                     <p>${advert.text}</p>
-                                    ...
                                 </div>
                                 <div class="media-right">
                                     <c:choose>
@@ -119,7 +118,6 @@
                                 <div class="media-body">
                                     <h4 class="media-heading">${advert.title}</h4>
                                     <p>${advert.text}</p>
-                                    ...
                                 </div>
                                 <div class="media-right">
                                     <c:choose>
@@ -148,7 +146,7 @@
                                 <div class="media-body">
                                     <h4 class="media-heading">${advert.title}</h4>
                                     <p>${advert.text}</p>
-                                    ...
+
                                 </div>
                                 <div class="media-right">
                                     <c:choose>
