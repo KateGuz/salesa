@@ -94,8 +94,9 @@ button {
 }
 
 .img-wrapper {
-    height: 170px;
-    width: 270px;
+    /*height: 170px;*/
+    /*width: 270px;*/
+    margin: auto;
 }
 
 .img-wrapper img {
@@ -429,7 +430,8 @@ button {
     width: 100%;
     padding: 5px;
 }
-.modal-body input:focus{
+
+.modal-body input:focus {
     background-color: #ededed;
     outline-width: 0;
 }
@@ -486,3 +488,4 @@ button.close {
 button.close:focus {
     outline-width: 0;
 }
+

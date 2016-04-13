@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class AdvertsController {
@@ -27,7 +28,7 @@ public class AdvertsController {
     private AdvertService advertService;
 
     @RequestMapping("/")
-    public String home(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+    public String home(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session) {
         model.addAttribute("categories", categoryService.getAll());
         AdvertFilter advertFilter = new AdvertFilter();
         advertFilter.setPage(page);

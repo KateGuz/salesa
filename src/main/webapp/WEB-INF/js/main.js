@@ -4,22 +4,22 @@ $(document).ready(function () {
 
     $('#btn-log').click(function () {
         $.ajax({
-            type: 'GET',
-            url: '/user',
+            type: 'POST',
+            url: '/signIn',
             data: {
                 email: $("#log_email").val(),
                 pass: $("#log_password").val(),
             },
             success: function (res, status, xhr) {
                 //window.location.reload(true);
-                window.location.href = '/'
+                //window.location.href = '/'
             }
         });
     });
     $('#btn-reg').click(function () {
         $.ajax({
             type: 'POST',
-            url: '/user',
+            url: '/signUp',
             dataType: 'html',
             data: {
                 name: $("#reg_name").val(),
