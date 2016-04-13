@@ -13,6 +13,14 @@ public class User {
     private String type;
     private int dislikeAmount;
 
+    public User(){
+
+    }
+
+    public User(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

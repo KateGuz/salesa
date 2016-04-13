@@ -21,6 +21,13 @@ public class QueryGenerator {
     @Autowired
     private String addPagingTemplateSQL;
 
+    @Autowired
+    private String getAdvertByIdSQL;
+
+    public void setGetAdvertByIdSQL(String getAdvertByIdSQL) {
+        this.getAdvertByIdSQL = getAdvertByIdSQL;
+    }
+
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
         this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
     }
@@ -57,6 +64,15 @@ public class QueryGenerator {
         int startPosition = MAX_ADVERTS_PER_PAGE * (page - 1);
         params.put("startPosition", startPosition);
         params.put("dataAmount", MAX_ADVERTS_PER_PAGE);
+    }
+
+    public QueryAndParams generateAdvertQuery(int advertId) {
+        StringBuilder query = new StringBuilder(getAdvertByIdSQL);
+        Map<String, Object> params = new HashMap<>();
+        params.put("a.id", advertId);
+        query.append("a.id = :a.id");
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);
     }
 
 }

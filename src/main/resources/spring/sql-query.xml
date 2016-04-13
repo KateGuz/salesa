@@ -19,13 +19,22 @@
     </bean>
 
     <bean id="getAllCategoriesSQL" class="java.lang.String">
-        <constructor-arg value="SELECT c.id, c.name, c.parentId FROM category as c;"/>
+        <constructor-arg value="select c2.id as parentId, c2.name as parentName, c1.id as childId, c1.name as childName from category as c1 right join category as c2 on c1.parentId = c2.id where c2.parentId = 0;"/>
     </bean>
+
     <bean id="getAllUsersSQL" class="java.lang.String">
         <constructor-arg value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar,
         u.status, u.type, u.dislikeAmount FROM user as u;"/>
     </bean>
     <bean id="getAllImagesSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
+    </bean>
+    <bean id="getAdvertSQL" class="java.lang.String">
+        <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
+    </bean>
+    <bean id="getAdvertByIdSQL" class="java.lang.String">
+        <constructor-arg value="select a.id, a.title, a.text, a.price, a.currency, a.modificationDate,
+        a.status, a.userId, u.name, u.email, u.phone, a.categoryId from advert as a
+        inner join user as u on u.id = a.userId where "/>
     </bean>
 </beans>

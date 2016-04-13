@@ -15,8 +15,7 @@
     <link rel="icon" type="image/png" href="/img/salesa.png"/>
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
     <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
+    <script src="/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -25,7 +24,7 @@
         <nav class="navbar navbar-default">
             <div class="row">
                 <div class="navbar-header col-sm-2">
-                    <a class="navbar-brand" href="#">Salesa</a>
+                    <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="form-wrap col-sm-4 col-sm-offset-2">
                     <form class="navbar-form " role="search">
@@ -58,19 +57,23 @@
                         </button>
                         <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                             <c:forEach items="${categories}" var="category">
-                                <c:if test="${category.parent.id == 0}">
-                                    <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="/category/${category.id}">${category.name}</a>
-                                        <ul class="dropdown-menu">
-                                            <c:forEach items="${categories}" var="subCategory">
-                                                <c:if test="${subCategory.parent.id == category.id}">
+                                <c:choose>
+                                    <c:when test="${!empty category.children}">
+                                        <li class="dropdown-submenu">
+                                            <a tabindex="-1" href="/category/${category.id}">${category.name}</a>
+                                            <ul class="dropdown-menu">
+                                                <c:forEach items="${category.children}" var="subCategory">
                                                     <li><a href="/category/${subCategory.id}">${subCategory.name}</a>
                                                     </li>
-                                                </c:if>
-                                            </c:forEach>
-                                        </ul>
-                                    </li>
-                                </c:if>
+                                                </c:forEach>
+                                            </ul>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a href="/category/${category.id}">${category.name}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </ul>
                     </div>
