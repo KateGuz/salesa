@@ -152,6 +152,9 @@
 
         </div>
     </div>
+
+</div>
+<div class="container">
     <footer>
         <div class="foot">
             <div class="well">
@@ -162,8 +165,7 @@
     </footer>
 </div>
 
-
-<div class="modal fade" id="user-security-log" role="dialog">
+<div class="modal fade hidden" id="user-security-log" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>
@@ -186,7 +188,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="user-security-reg" role="dialog">
+<div class="modal fade hidden" id="user-security-reg" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>

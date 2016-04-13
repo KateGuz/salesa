@@ -1,3 +1,6 @@
+article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+    display: block;
+}
 body {
     font: 12px verdana, sans-serif;
 }
@@ -302,7 +305,7 @@ button {
 }
 
 .user-advert-list .media a{
-    color: #5e5e5e;
+    color: #4FCF8E;
 }
 
 .feedback-list-bar h3 {
@@ -404,3 +407,6 @@ button {
     background: white;
     border: 0;
 }
+
+
+

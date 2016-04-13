@@ -121,6 +121,9 @@
             </div>
         </div>
     </div>
+
+</div>
+<div class="container">
     <footer>
         <div class="foot">
             <div class="well">
@@ -130,15 +133,6 @@
         </div>
     </footer>
 </div>
-
-<script>
-    var adHeight = $('.img-wrapper').height();
-    if (adHeight < 170) {
-        var margintop = (170 - adHeight) / 2;
-        $('.img-wrapper img').css('margin-top', margintop);
-    }
-</script>
-
 </body>
 
 </html>

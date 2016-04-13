@@ -27,7 +27,7 @@
         <nav class="navbar navbar-default">
             <div class="row">
                 <div class="navbar-header col-sm-2">
-                    <a class="navbar-brand" href="#">Salesa</a>
+                    <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="form-wrap col-sm-4 col-sm-offset-2">
                     <form class="navbar-form " role="search">
@@ -95,18 +95,18 @@
                                     <div class="media-right">
                                         <c:choose>
                                             <c:when test="${advert.status == 'A'}">
-                                                <font color="#48c083">Активно</font>
+                                                <font color="#48c083">Активно&nbsp;&nbsp;</font>
                                             </c:when>
                                             <c:when test="${advert.status == 'H'}">
-                                                Заброни-<br>ровано
+                                                Заброни-<br>ровано&nbsp;
                                             </c:when>
                                             <c:when test="${advert.status == 'S'}">
-                                                <font color="#сссссс">Продано</font>
+                                                <font color="#сссссс">Продано&nbsp;</font>
                                             </c:when>
                                         </c:choose>
                                         <br>
                                         <br>
-                                        <h6>${advert.price}<span> </span>${advert.currency}</h6>
+                                        <h6>${advert.price}&nbsp;${advert.currency}</h6>
                                     </div>
                                 </div>
 
@@ -125,22 +125,24 @@
                     <ol class="user-advert-list">
                         <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
                             <div class="media">
-                                <a href="/user/${feedback.author.id}">
-                                    <div class="col-sm-12">
-                                        <div class="media-left">
-                                            <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
-                                                 alt="...">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">User id: ${feedback.author.id}</h4>
-                                            <p>${feedback.text}</p>
-                                        </div>
-                                        <div class="media-right">
-                                            <h6 class="media-heading"><tags:localDateTime
-                                                    date="${feedback.creationDate}"/></h6>
-                                        </div>
+
+                                <div class="col-sm-12">
+                                    <div class="media-left">
+                                        <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
+                                             alt="...">
                                     </div>
-                                </a>
+                                    <div class="media-body">
+                                        <a href="/user/${feedback.author.id}">
+                                            <h4 class="media-heading">User id: ${feedback.author.id}</h4>
+                                        </a>
+                                        <p>${feedback.text}</p>
+                                    </div>
+                                    <div class="media-right">
+                                        <h6 class="media-heading"><tags:localDateTime
+                                                date="${feedback.creationDate}"/></h6>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </c:forEach>
