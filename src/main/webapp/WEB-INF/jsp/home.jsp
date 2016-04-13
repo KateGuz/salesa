@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,18 +15,22 @@
     <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="icon" type="image/png" href="/img/salesa.png"/>
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
-    <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+
+    <script src="/js/jquery-1.12.3.min.js" type="text/javascript" language="JavaScript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+
+    <%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>--%>
 
 </head>
-
 <body>
 <header>
     <div class="container">
         <nav class="navbar navbar-default">
             <div class="row">
                 <div class="navbar-header col-sm-2">
-                    <a class="navbar-brand" href="#">Salesa</a>
+                    <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="form-wrap col-sm-4 col-sm-offset-2">
                     <form class="navbar-form " role="search">
@@ -38,13 +43,24 @@
                 <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#">Связаться с нами</a></li>
-                        <li><a href="#">Вход</a></li>
+                        <c:choose>
+                            <c:when test="${empty loggedUser.name}">
+                                <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                <li><a href="/signOut">Sign Out</a></li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
 </header>
+
+
 <div class="container">
     <nav class="navbar navbar-default sort">
         <div class="row">
@@ -97,32 +113,31 @@
 
         <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
             <c:if test="${loop.index  % 3 == 0}">
-                <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0 col-lg-4">
+                <%--<div class="row">--%>
             </c:if>
-            <div class="col-sm-4 col-xs-12">
-                <div class="well">
-                    <p class="status">
-                        <c:choose>
-                            <c:when test="${advert.status == 'A'}">
-                                <font color="#48c083">Активно</font>
-                            </c:when>
-                            <c:when test="${advert.status == 'H'}">
-                                Забронировано
-                            </c:when>
-                        </c:choose>
-                    </p>
-                    <div class="img-wrapper">
-                        <img src="/img/1.png" alt="advert's photo">
-                    </div>
-                    <div class="wrap-title">
-                        <p class="title">${advert.title}</p>
-                    </div>
-                    <div class="date-price-wrap">
-                        <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate"
-                                       type="time"/>
-                        <p class="date"><c:out value="${parsedDate}"/></p>
-                        <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
-                    </div>
+            <div class="well">
+                <p class="status">
+                    <c:choose>
+                        <c:when test="${advert.status == 'A'}">
+                            <font color="#48c083">Активно</font>
+                        </c:when>
+                        <c:when test="${advert.status == 'H'}">
+                            Забронировано
+                        </c:when>
+                    </c:choose>
+                </p>
+                <div class="thumbnail">
+                    <img src="/img/1.png" alt="advert's photo">
+                </div>
+                <div class="wrap-title">
+                    <p class="title">${advert.title}</p>
+                </div>
+                <div class="date-price-wrap">
+                    <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate"
+                                   type="time"/>
+                    <p class="date"><c:out value="${parsedDate}"/></p>
+                    <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
                 </div>
             </div>
             <c:if test="${(loop.index + 1) % 3  == 0}">
@@ -131,7 +146,7 @@
         </c:forEach>
 
     </div>
-
+</div>
     <div class="pages">
         <div class="text-center">
             <ul class="pagination">
@@ -153,14 +168,66 @@
             </div>
         </div>
     </footer>
+
+
+
+<div class="modal fade" id="user-security-log" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <form:form>
+                    <h3>Log in </h3>
+                    <hr>
+                    <input type="text" name="log_email" id="log_email" placeholder="Email">
+                    <br>
+                    <input type="text" name="log_password" id="log_password" placeholder="Password">
+                    <br>
+                    <button class="button" id="btn-log">Submit</button>
+                    <br>
+                    <br>
+                    <p>Not yet registered?<a href="#user-security-reg" data-toggle="modal"
+                                             data-target="#user-security-reg"
+                                             data-dismiss="modal">&nbsp;Click here!</a></p>
+                </form:form>
+            </div>
+        </div>
+    </div>
 </div>
-<script>
-    var adHeight = $('.img-wrapper').height();
-    if (adHeight < 170) {
-        var margintop = (170 - adHeight) / 2;
-        $('.img-wrapper img').css('margin-top', margintop);
-    }
-</script>
+<div class="modal fade" id="user-security-reg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <form:form>
+                    <h3>Registration</h3>
+                    <hr>
+                    <input type="text" name="reg_name" id="reg_name" placeholder="Name">
+                    <br>
+                    <input type="text" name="reg_email" id="reg_email" placeholder="Email">
+                    <br>
+                    <input type="text" name="reg_password" id="reg_password" placeholder="Password">
+                    <br>
+                    <button class="button" id="btn-reg">Submit</button>
+                    <br>
+                    <br>
+                    <p>Already registered?<a href="#user-security-log" data-toggle="modal"
+                                             data-target="#user-security-log"
+                                             data-dismiss="modal">&nbsp;Click here!</a></p>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%--<script>--%>
+<%--var adHeight = $('.img-wrapper').height();--%>
+<%--if (adHeight < 170) {--%>
+<%--var margintop = (170 - adHeight) / 2;--%>
+<%--$('.img-wrapper img').css('margin-top', margintop);--%>
+<%--}--%>
+<%--</script>--%>
 
 </body>
 
