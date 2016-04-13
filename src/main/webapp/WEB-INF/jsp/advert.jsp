@@ -94,7 +94,7 @@
                 <br>
                 <c:choose>
                     <c:when test="${advert.status == 'A'}">
-                        <font color="#48c083"><h5>Активно</h5></font>
+                        <font color="#48c083"><strong><h5>Активно</h5></strong></font>
                     </c:when>
                     <c:when test="${advert.status == 'H'}">
                         <h5>Забронировано </h5>

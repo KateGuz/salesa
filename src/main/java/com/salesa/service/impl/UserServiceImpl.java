@@ -1,6 +1,5 @@
 package com.salesa.service.impl;
 
-import com.salesa.dao.AdvertDao;
 import com.salesa.dao.FeedbackDao;
 import com.salesa.dao.UserDao;
 import com.salesa.entity.Feedback;
@@ -28,4 +27,5 @@ public class UserServiceImpl implements UserService{
     public List<Feedback> getByUserId(int userId) {
         return feedbackDao.getByUserId(userId);
     }
+
 }
