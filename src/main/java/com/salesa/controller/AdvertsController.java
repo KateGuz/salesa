@@ -3,6 +3,7 @@ package com.salesa.controller;
 
 import com.salesa.entity.User;
 import com.salesa.filter.AdvertFilter;
+import com.salesa.security.UserSecurity;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
 import com.salesa.util.AdvertPageData;
@@ -26,6 +27,7 @@ public class AdvertsController {
 
     @Autowired
     private AdvertService advertService;
+
 
     @RequestMapping("/")
     public String home(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session) {
