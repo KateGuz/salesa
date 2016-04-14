@@ -11,8 +11,7 @@ import java.util.Map;
 @Service
 public class UserSecurity {
 
-    @Autowired
-    public Map<String, User> sessionIdToUser;
+    private Map<String, User> sessionIdToUser = new HashMap<>();
 
     public User getUserBySessionId(String sessionId) {
         return sessionIdToUser.get(sessionId);

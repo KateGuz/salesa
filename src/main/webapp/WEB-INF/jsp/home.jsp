@@ -4,7 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<%--<tags:localDateTime date="${advert.modificationDate}"/>--%>
+<%@ page session="true" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +19,6 @@
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
     <script src="/js/jquery-1.12.3.min.js" type="text/javascript" language="JavaScript"></script>
     <script src="/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/js/main.js" type="text/javascript"></script>
     <script src="/js/registration.js"></script>
 </head>
 <body>
@@ -117,6 +117,7 @@
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0 col-lg-4">
             </c:if>
             <div class="well">
+                <a href="/advert/${advert.id}">
                 <p class="status">
                     <c:choose>
                         <c:when test="${advert.status == 'A'}">
@@ -139,6 +140,7 @@
                     <p class="date"><tags:localDateTime date="${advert.modificationDate}"/></p>
                     <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
                 </div>
+                </a>
             </div>
             <c:if test="${(loop.index + 1) % 3  == 0}">
                 </div>

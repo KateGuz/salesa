@@ -28,4 +28,9 @@ public class UserServiceImpl implements UserService{
         return feedbackDao.getByUserId(userId);
     }
 
+    @Override
+    public int save(User user) {
+        return userDao.save(user);
+    }
+
 }

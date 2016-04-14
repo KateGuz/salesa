@@ -14,6 +14,8 @@ import static com.salesa.dao.impl.AdvertJdbcDao.*;
 public class QueryGenerator {
     private static final char END_SEPARATOR = ';';
     private static final String WHERE_STATEMENT = " WHERE ";
+    private static final String AND_STATEMENT = " AND ";
+
 
     @Autowired
     private String getAdvertsTemplateSQL;
@@ -44,7 +46,7 @@ public class QueryGenerator {
 
         // category
         if (advertFilter.getCategoryId() != 0) {
-            query.append(WHERE_STATEMENT);
+            query.append(AND_STATEMENT);
             addCategoryFiltering(advertFilter.getCategoryId(), query, params);
         }
 
@@ -76,13 +78,6 @@ public class QueryGenerator {
         query.append("a.id = :a.id");
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
-/*
-        StringBuilder query = new StringBuilder(getAdvertByIdSQL);
-        Map<String, Object> params = new HashMap<>();
-        params.put("a.id", advertId);
-        query.append("a.id = :a.id");
-        query.append(END_SEPARATOR);
-        return new QueryAndParams(query.toString(), params);*/
 
     }
 
