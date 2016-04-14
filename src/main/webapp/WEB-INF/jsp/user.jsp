@@ -77,7 +77,7 @@
                 <div class="advert-list-bar">
                     <ol class="user-advert-list">
                         <c:forEach items="${adverts}" var="advert" varStatus="loop">
-                            <div class="media">
+                            <div class="media well">
 
                                 <div class="col-sm-12">
                                     <div class="media-left">
@@ -133,14 +133,16 @@
                                     </div>
                                     <div class="media-body">
                                         <a href="/user/${feedback.author.id}">
-                                            <h4 class="media-heading">User id: ${feedback.author.id}</h4>
+                                            <h4 class="media-heading">${feedback.author.name}</h4>
                                         </a>
                                         <p>${feedback.text}</p>
+                                        <br>
+                                        <div style="margin: 0 0 10px 0;">
+                                            <h6 class="media-heading">
+                                                <tags:localDateTime date="${feedback.creationDate}"/></h6>
+                                        </div>
                                     </div>
-                                    <div class="media-right">
-                                        <h6 class="media-heading"><tags:localDateTime
-                                                date="${feedback.creationDate}"/></h6>
-                                    </div>
+
                                 </div>
 
                             </div>
