@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home</title>
-    <meta charset="utf-8">
+    <title>User</title>
+    <%--<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -17,160 +17,229 @@
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
     <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/feedback.js"></script>
+    <script src="/js/feedback.js"></script>--%>
+    <jsp:include page="head-include.jsp"/>
 </head>
 
 <body>
-<header>
-    <div class="container">
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
         <nav class="navbar navbar-default">
             <div class="row">
                 <div class="navbar-header col-sm-2">
-                    <a class="navbar-brand" href="#">Salesa</a>
+                    <a class="navbar-brand" href="/">Salesa</a>
                 </div>
-                <div class="form-wrap col-sm-4 col-sm-offset-2">
+                <div class="col-sm-4">
                     <form class="navbar-form " role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Искать...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default go" type="submit">Поиск</button>
+                            </span>
                         </div>
-                        <button type="submit" class="go">Поиск</button>
                     </form>
                 </div>
-                <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Связаться с нами</a></li>
-                        <li><a href="#">Вход</a></li>
-                    </ul>
+
+                <div class=" col-sm-6">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Валюта<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">USD</a></li>
+                                    <li><a href="#">UAH</a></li>
+                                    <li><a href="#">CHF</a></li>
+                                    <li><a href="#">RUB</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Связаться с нами</a></li>
+                            <li><a href="#user-security-log" data-toggle="modal"
+                                   data-target="#user-security-log">Вход</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
     </div>
-</header>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="user-info-bar col-sm-4 col-md-3">
-                <div class="user-img thumbnail">
-                    <img src="https://placehold.it/250x250" alt="avatar">
-                </div>
-                <div>
-                    <h4>
-                        <div class="glyphicon glyphicon-user"></div>
-                        ${user.name}
-                    </h4>
-                    <p>
-                    <div class="glyphicon glyphicon-envelope"></div>
-                    email: ${user.email} </p>
-                    <p>
-                    <div class="glyphicon glyphicon-phone"></div>
-                    phone: ${user.phone} </p>
-                    <button class="dislike-btn">Dislike</button>
-                </div>
-                <br>
-            </div>
+</div>
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
 
-            <div class="col-sm-8 col-md-9 ">
-                <div class="user-advert-lab">
-                    <h4>Обьявления пользователя</h4>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="user-info-bar col-sm-4 col-md-3">
+
+                    <div class="user-img thumbnail">
+                        <img src="https://placehold.it/250x250" alt="avatar">
+                    </div>
+                    <div>
+                        <h4>
+                            <div class="glyphicon glyphicon-user"></div>
+                            ${user.name}
+                        </h4>
+                        <p>
+                        <div class="glyphicon glyphicon-envelope"></div>
+                        ${user.email} </p>
+                        <p>
+                        <div class="glyphicon glyphicon-phone"></div>
+                        ${user.phone} </p>
+                        <button class="dislike-btn">
+                            <i class="glyphicon glyphicon-thumbs-down"> Dislike</i></button>
+                    </div>
+                    <br>
                 </div>
-                <div class="advert-list-bar">
-                    <ol class="user-advert-list">
-                        <c:forEach items="${adverts}" var="advert" varStatus="loop">
-                            <div class="media">
-                                <a href="/advert/${advert.id}">
+
+                <div class="col-sm-8 col-md-9 ">
+                    <div class="user-advert-lab">
+                        <h4>Обьявления пользователя</h4>
+                    </div>
+                    <div class="advert-list-bar">
+                        <ol class="user-advert-list">
+                            <c:forEach items="${adverts}" var="advert" varStatus="loop">
+                                <div class="media">
                                     <div class="col-sm-12">
+                                        <h6 id="user-advert-status">
+                                            <c:choose>
+                                                <c:when test="${advert.status == 'A'}">
+                                                    <font color="#48c083">Активно&nbsp;&nbsp;</font>
+                                                </c:when>
+                                                <c:when test="${advert.status == 'H'}">
+                                                    Забронировано&nbsp;
+                                                </c:when>
+                                                <c:when test="${advert.status == 'S'}">
+                                                    <font color="#сссссс">Продано&nbsp;</font>
+                                                </c:when>
+                                            </c:choose>
+                                        </h6>
+                                        <h6 id="user-advert-price">${advert.price}&nbsp;${advert.currency}</h6>
+                                        <br>
+                                        <hr class="user-advert-status-hr">
+
                                         <div class="media-left">
-                                            <img class="media-object thumbnail adv-img-list-item" src="/img/1.png"
-                                                 alt="...">
+                                            <img class="media-object thumbnail adv-img-list-item" src="/img/1.png">
                                         </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">${advert.title}</h4>
+                                        <div class=" media-right">
+                                            <a href="/advert/${advert.id}">
+                                                <h4 class="media-heading">${advert.title}</h4>
+                                            </a>
                                             <p>${advert.text}</p>
                                             <br>
                                             <h6><tags:localDateTime date="${advert.modificationDate}"/></h6>
                                         </div>
-                                        <div class="media-right">
-                                            <c:choose>
-                                                <c:when test="${advert.status == 'A'}">
-                                                    <font color="#48c083">Активно</font>
-                                                </c:when>
-                                                <c:when test="${advert.status == 'H'}">
-                                                    Заброни-<br>ровано
-                                                </c:when>
-                                                <c:when test="${advert.status == 'S'}">
-                                                    <font color="#сссссс">Продано</font>
-                                                </c:when>
-                                            </c:choose>
-                                            <br>
-                                            <br>
-                                            <h6>${advert.price}<span> </span>${advert.currency}</h6>
-                                        </div>
+
+
                                     </div>
-                                </a>
-                            </div>
-                        </c:forEach>
-                    </ol>
-                </div>
 
-
-                <div class="feedback-list-bar">
-                    <h3>Отзывы о пользователе</h3>
-                    <div class="feedback-form row">
-                        <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
-                        <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
+                                </div>
+                            </c:forEach>
+                        </ol>
                     </div>
-                    <ol class="user-advert-list">
-                        <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
-                            <div class="media">
-                                <a href="/user/${feedback.author.id}">
-                                    <div class="col-sm-12">
-                                        <div class="media-left">
-                                            <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
-                                                 alt="...">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">User id: ${feedback.author.id}</h4>
-                                            <p>${feedback.text}</p>
-                                        </div>
-                                        <div class="media-right">
-                                            <h6 class="media-heading"><tags:localDateTime date="${feedback.creationDate}"/></h6>
+
+
+                    <div class="feedback-list-bar">
+                        <h3>Отзывы о пользователе</h3>
+                         <c:choose>
+                             <c:when test="${empty loggedUser}">
+                             </c:when>
+                             <c:otherwise>
+                                 <div class="feedback-form row">
+                                     <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
+                                     <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
+                                 </div>
+                             </c:otherwise>
+                         </c:choose>
+
+
+                        <ol class="user-advert-list">
+                            <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
+                                <div class="media well">
+                                    <div class="media-left">
+                                        <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png">
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="/user/${feedback.author.id}">
+                                            <h4 class="media-heading">${feedback.author.name}</h4>
+                                        </a>
+                                        <p>${feedback.text}</p>
+                                        <br>
+                                        <div>
+                                            <h6 class="media-heading">
+                                                <tags:localDateTime date="${feedback.creationDate}"/></h6>
                                         </div>
                                     </div>
-                                </a>
-                            </div>
-
-                        </c:forEach>
-                    </ol>
+                                </div>
+                            </c:forEach>
+                        </ol>
+                    </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="separator-box">
-            <div class="text-center">
-                <ul class="pagination"></ul>
-            </div>
-        </div>
-
-        <footer>
-            <div class="foot">
-                <div class="well">
-                    <p>Salesa</p>
-                    <p>All Rigths Reserved</p>
+            <div class="separator-box">
+                <div class="text-center">
+                    <ul class="pagination"></ul>
                 </div>
             </div>
-        </footer>
 
+            <footer>
+                <div class="foot">
+                    <div class="well">
+                        <p>Salesa</p>
+                        <p>All Rigths Reserved</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="user-security-log" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <form:form>
+                    <h3>Log in </h3>
+                    <hr>
+                    <input type="text" name="log_email" id="log_email" placeholder="Email">
+                    <br>
+                    <input type="text" name="log_password" id="log_password" placeholder="Password">
+                    <br>
+                    <button class="button" id="btn-log">Submit</button>
+                    <br>
+                    <br>
+                    <p>Not yet registered?<a href="#user-security-reg" data-toggle="modal"
+                                             data-target="#user-security-reg"
+                                             data-dismiss="modal">&nbsp;Click here!</a></p>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="user-security-reg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <form:form>
+                    <h3>Registration</h3>
+                    <hr>
+                    <input type="text" name="reg_name" id="reg_name" placeholder="Name">
+                    <br>
+                    <input type="text" name="reg_email" id="reg_email" placeholder="Email">
+                    <br>
+                    <input type="text" name="reg_password" id="reg_password" placeholder="Password">
+                    <br>
+                    <button class="button" id="btn-reg">Submit</button>
+                    <br>
+                    <br>
+                    <p>Already registered?<a href="#user-security-log" data-toggle="modal"
+                                             data-target="#user-security-log"
+                                             data-dismiss="modal">&nbsp;Click here!</a></p>
+                </form:form>
+            </div>
+        </div>
     </div>
 </div>
 </body>
-
-<script>
-    var adHeight = $('.img-wrapper').height();
-    if (adHeight < 170) {
-        var margintop = (170 - adHeight) / 2;
-        $('.img-wrapper img').css('margin-top', margintop);
-    }
-</script>
-
 </html>
