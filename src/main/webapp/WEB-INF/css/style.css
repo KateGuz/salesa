@@ -1,6 +1,7 @@
 article, aside, details, figcaption, figure, footer, header, menu, nav, section {
     display: block;
 }
+
 body {
     font: 12px verdana, sans-serif;
 }
@@ -9,8 +10,9 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+a:hover,a:focus {
     text-decoration: underline;
+    outline: none;
 }
 
 ul {
@@ -21,6 +23,10 @@ ul {
 
 button {
     font-size: 12px !important;
+}
+button:focus,
+button::selection{
+    outline: none;
 }
 
 .dropdown {
@@ -38,9 +44,13 @@ button {
     margin-right: auto !important;
 }
 
+input.form-control {
+    height: 30px;
+}
+
 .go {
     color: #fff;
-    background-color: #acacac;
+    background-color: #48c083;
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -48,18 +58,12 @@ button {
     font-weight: 400;
     line-height: 1.42857143;
     text-align: center;
-    white-space: nowrap;
     vertical-align: middle;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
+    outline: none;
 }
 
 .container {
@@ -136,10 +140,17 @@ button {
     margin: 10px auto 40px;
 }
 
+.status {
+    font-weight: bold;
+    text-align: right;
+}
+
 .wrap-title {
     height: 75px;
     width: 100%;
     display: table;
+    color: #48c083;
+    text-align: center;
 }
 
 .wrap-title p {
@@ -147,16 +158,35 @@ button {
     vertical-align: middle;
 }
 
-.date, .price {
+.date {
     display: block;
     position: relative;
     width: 50%;
     float: left;
+    color: #9d9d9d;
+    font-size: x-small;
+}
+
+.price {
+    float: right;
+    font-weight: bold;
 }
 
 .date-price-wrap {
     height: 15px;
     width: 100%;
+}
+
+.display-block a,
+.display-block a:active,
+.display-block a:hover,
+.display-block a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.display-block .well:hover {
+    background-color: rgb(228, 228, 228);
 }
 
 .foot {
@@ -214,9 +244,10 @@ button {
 }
 
 .dislike-btn {
-    background-color: #48c083;
+    background-color: #db5450;
     font-family: Roboto, monospace;
     font-size: 15%;
+    text-transform: uppercase;
     border: 0;
     border-radius: 6px;
     color: white;
@@ -227,7 +258,12 @@ button {
 }
 
 .dislike-btn:hover {
-    background-color: #4FCF8E;
+    background-color: #f04238;
+}
+
+.dislike-btn:visited,
+.dislike-btn:focus {
+    outline: none;
 }
 
 .user-info-bar {
@@ -293,25 +329,28 @@ button {
 .feedback-btn:hover {
     background-color: #4FCF8E;
 }
+.feedback-btn:focus {
+    outline: none;
+}
 
 .user-advert-list .media {
     background-color: rgb(248, 248, 248);
     border: 1px solid rgb(210, 210, 210);
     border-radius: 6px;
-    padding: 15px 0 0 0;
 }
 
 .user-advert-list .media:hover {
     background-color: rgb(243, 243, 243);
 }
 
-.user-advert-list .media a{
+.user-advert-list .media a {
     color: #4FCF8E;
 }
 
 .feedback-list-bar h3 {
-    font-size: 15px;
+    font-size: 18px;
     text-align: center;
+    padding: 0 0 15px 0;
 }
 
 .feedback-list-bar h6 {
@@ -354,12 +393,6 @@ button {
 
 .feedback-list-bar {
     margin: 0 -15px 0 0;
-}
-
-.advert-info-bar {
-    background-color: rgb(248, 248, 248);
-    border: 1px solid rgb(228, 228, 228);
-    border-radius: 3px;
 }
 
 .advert-info-bar hr {
@@ -409,7 +442,56 @@ button {
     border: 0;
 }
 
-  #thumbnail .thumbnail {
-      background-color: #f9f9f9;
-  }
+#thumbnail .thumbnail {
+    background-color: #f9f9f9;
+}
 
+.btn-group p {
+    margin: 6px 10px 0 0;
+    float: left;
+}
+
+nav.category-filter-row {
+    padding: 7px;
+    margin: 0 0 20px 0;
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 4px;
+}
+
+.btn-group.nav.navbar-nav {
+    padding: 0 10px 0 0;
+}
+
+ul.dropdown-menu {
+    min-width: 100%;
+}
+
+ul.nav.navbar-right {
+    display: inline-flex;
+}
+#user-advert-status {
+    display: inline-block;
+    text-align: left;
+    float: left;
+}
+
+#user-advert-status h6 {
+    color: #c7254e;;
+}
+
+#user-advert-price {
+    display: inline-block;
+    text-align: right;
+    float: right;
+    font-weight: bold;
+}
+
+.user-advert-status-hr {
+    margin-bottom: 10px;
+    border: 1px solid #e7e7e7;
+}
+
+img.media-object.thumbnail.feedback-img-list-item {
+    margin: auto;
+}

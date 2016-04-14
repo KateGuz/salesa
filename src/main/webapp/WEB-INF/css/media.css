@@ -7,6 +7,10 @@
         width: 100%;
         margin: 0;
     }
+    .test {
+         margin: 70px;;
+         margin: 0;;
+     }
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -15,7 +19,10 @@
         width: 100%;
         margin: 0;
     }
-
+    .test {
+        margin: 70px;;
+        margin: 0;;
+    }
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -24,12 +31,22 @@
         width: 100%;
         margin: 0;
     }
+    .test {
+        margin: 40px;;
+        margin: 0;;
+    }
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     .size {
-        width: 95%;
-        margin: 0 25px;
+        width: 75%;
+        margin: 0 115px;
+        /*width: 95%;*/
+        /*margin: 0 25px;*/
+    }
+    .test {
+        margin: 15px;
+        margin: 0;
     }
 }

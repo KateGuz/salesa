@@ -29,21 +29,35 @@
                 <div class="navbar-header col-sm-2">
                     <a class="navbar-brand" href="/">Salesa</a>
                 </div>
-                <div class="form-wrap col-sm-4 col-sm-offset-2">
+                <div class="col-sm-4">
                     <form class="navbar-form " role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Искать...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default go" type="submit">Поиск</button>
+                            </span>
                         </div>
-                        <button type="submit" class="go">Поиск</button>
                     </form>
                 </div>
-                <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Связаться с нами</a></li>
-                        <li><a href="#user-security-log" data-toggle="modal"
-                               data-target="#user-security-log">Вход</a>
-                        </li>
-                    </ul>
+
+                <div class=" col-sm-6">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Валюта<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">USD</a></li>
+                                    <li><a href="#">UAH</a></li>
+                                    <li><a href="#">CHF</a></li>
+                                    <li><a href="#">RUB</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Связаться с нами</a></li>
+                            <li><a href="#user-security-log" data-toggle="modal"
+                                   data-target="#user-security-log">Вход</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -55,6 +69,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="user-info-bar col-sm-4 col-md-3">
+
                     <div class="user-img thumbnail">
                         <img src="https://placehold.it/250x250" alt="avatar">
                     </div>
@@ -65,11 +80,12 @@
                         </h4>
                         <p>
                         <div class="glyphicon glyphicon-envelope"></div>
-                        email: ${user.email} </p>
+                        ${user.email} </p>
                         <p>
                         <div class="glyphicon glyphicon-phone"></div>
-                        phone: ${user.phone} </p>
-                        <button class="dislike-btn">Dislike</button>
+                        ${user.phone} </p>
+                        <button class="dislike-btn">
+                            <i class="glyphicon glyphicon-thumbs-down"> Dislike</i></button>
                     </div>
                     <br>
                 </div>
@@ -81,14 +97,29 @@
                     <div class="advert-list-bar">
                         <ol class="user-advert-list">
                             <c:forEach items="${adverts}" var="advert" varStatus="loop">
-                                <div class="media well">
-
+                                <div class="media">
                                     <div class="col-sm-12">
+                                        <h6 id="user-advert-status">
+                                            <c:choose>
+                                                <c:when test="${advert.status == 'A'}">
+                                                    <font color="#48c083">Активно&nbsp;&nbsp;</font>
+                                                </c:when>
+                                                <c:when test="${advert.status == 'H'}">
+                                                    Забронировано&nbsp;
+                                                </c:when>
+                                                <c:when test="${advert.status == 'S'}">
+                                                    <font color="#сссссс">Продано&nbsp;</font>
+                                                </c:when>
+                                            </c:choose>
+                                        </h6>
+                                        <h6 id="user-advert-price">${advert.price}&nbsp;${advert.currency}</h6>
+                                        <br>
+                                        <hr class="user-advert-status-hr">
+
                                         <div class="media-left">
-                                            <img class="media-object thumbnail adv-img-list-item" src="/img/1.png"
-                                                 alt="...">
+                                            <img class="media-object thumbnail adv-img-list-item" src="/img/1.png">
                                         </div>
-                                        <div class="media-body">
+                                        <div class=" media-right">
                                             <a href="/advert/${advert.id}">
                                                 <h4 class="media-heading">${advert.title}</h4>
                                             </a>
@@ -96,22 +127,8 @@
                                             <br>
                                             <h6><tags:localDateTime date="${advert.modificationDate}"/></h6>
                                         </div>
-                                        <div class="media-right">
-                                            <c:choose>
-                                                <c:when test="${advert.status == 'A'}">
-                                                    <font color="#48c083">Активно&nbsp;&nbsp;</font>
-                                                </c:when>
-                                                <c:when test="${advert.status == 'H'}">
-                                                    Заброни-<br>ровано&nbsp;
-                                                </c:when>
-                                                <c:when test="${advert.status == 'S'}">
-                                                    <font color="#сссссс">Продано&nbsp;</font>
-                                                </c:when>
-                                            </c:choose>
-                                            <br>
-                                            <br>
-                                            <h6>${advert.price}&nbsp;${advert.currency}</h6>
-                                        </div>
+
+
                                     </div>
 
                                 </div>
@@ -122,41 +139,41 @@
 
                     <div class="feedback-list-bar">
                         <h3>Отзывы о пользователе</h3>
-                        <div class="feedback-form row">
-                            <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
-                            <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
-                        </div>
+                         <c:choose>
+                             <c:when test="${empty loggedUser}">
+                             </c:when>
+                             <c:otherwise>
+                                 <div class="feedback-form row">
+                                     <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
+                                     <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
+                                 </div>
+                             </c:otherwise>
+                         </c:choose>
+
+
                         <ol class="user-advert-list">
                             <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
-                                <div class="media">
-
-                                    <div class="col-sm-12">
-                                        <div class="media-left">
-                                            <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png"
-                                                 alt="...">
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="/user/${feedback.author.id}">
-                                                <h4 class="media-heading">${feedback.author.name}</h4>
-                                            </a>
-                                            <p>${feedback.text}</p>
-                                            <br>
-                                            <div style="margin: 0 0 10px 0;">
-                                                <h6 class="media-heading">
-                                                    <tags:localDateTime date="${feedback.creationDate}"/></h6>
-                                            </div>
-                                        </div>
-
+                                <div class="media well">
+                                    <div class="media-left">
+                                        <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png">
                                     </div>
-
+                                    <div class="media-body">
+                                        <a href="/user/${feedback.author.id}">
+                                            <h4 class="media-heading">${feedback.author.name}</h4>
+                                        </a>
+                                        <p>${feedback.text}</p>
+                                        <br>
+                                        <div>
+                                            <h6 class="media-heading">
+                                                <tags:localDateTime date="${feedback.creationDate}"/></h6>
+                                        </div>
+                                    </div>
                                 </div>
-
                             </c:forEach>
                         </ol>
                     </div>
                 </div>
             </div>
-
 
             <div class="separator-box">
                 <div class="text-center">
