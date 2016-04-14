@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<%--<tags:localDateTime date="${advert.modificationDate}"/>--%>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +18,6 @@
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
     <script src="/js/jquery-1.12.3.min.js" type="text/javascript" language="JavaScript"></script>
     <script src="/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/js/main.js" type="text/javascript"></script>
     <script src="/js/registration.js"></script>
 </head>
 <body>
@@ -203,7 +202,7 @@
                     <hr>
                     <input type="text" name="reg_name" id="reg_name" placeholder="Name">
                     <br>
-                    <input type="text" name="reg_email" id="reg_email" placeholder="Email">
+                    <input type="password" name="reg_email" id="reg_email" placeholder="Email">
                     <br>
                     <input type="text" name="reg_password" id="reg_password" placeholder="Password">
                     <br>

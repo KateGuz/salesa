@@ -56,7 +56,7 @@
 
     <bean id="getUserByEmailSQL" class="java.lang.String">
         <constructor-arg
-                value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u where u.email = :email"/>
+                value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u WHERE email = :email"/>
     </bean>
 
     <bean id="getFeedbackByUserIdSQL" class="java.lang.String">

@@ -5,6 +5,8 @@ import com.salesa.dao.mapper.UserMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,6 +19,7 @@ import java.util.Map;
 
 @Repository
 public class UserJdbcDao implements UserDao {
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -45,13 +48,7 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public User get(String email){
-        /*StringBuilder query = new StringBuilder(getUserByEmailSQL);
-        Map<String, Object> params = new HashMap<>();
-        params.put("email", email);
-        query.append("email = :email");
-        return namedParameterJdbcTemplate.queryForObject(query, params, new UserMapper());*/
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue(":email", email);
-        return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, mapSqlParameterSource,new UserMapper());
+        log.info("getting user by email " + email);
+        return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, new MapSqlParameterSource("email", email),new UserMapper());
     }
 }

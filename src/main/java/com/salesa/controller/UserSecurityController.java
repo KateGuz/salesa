@@ -6,12 +6,16 @@ import com.salesa.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -26,27 +30,34 @@ public class UserSecurityController {
     private UserSecurity userSecurity;
 
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    private String singUp(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("password") String password,HttpSession session){
+    private String singUp(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("pass") String password,HttpSession session){
         log.info("signing up, name " + name + " email " + email + " password " + password);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
-    private String singIn(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model){
+    public ResponseEntity<Void> singIn(@RequestParam("email") String email, @RequestParam("pass") String password, HttpSession session) {
+        log.info("signing in,  " + email + " password " + password);
+
+        User user = userService.get(email);
+        userSecurity.addSession(session.getId(), user);
+        session.setAttribute("loggedUser", user);
+        ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
+        return result;
+    }
+
+   /* @RequestMapping(value = "/signIn", method = RequestMethod.POST)
+    public String signIn(@RequestParam("email") String email, @RequestParam("pass") String pass, HttpSession session) {
         log.info("signing in,  " + email);
         User user = userService.get(email);
-        session.setAttribute("loggedUser", user);
-        log.info(user.getName() + " " + user.getEmail());
         //check if password is correct
-        if(password.equals(user.getPassword())){
+        if(pass.equals(user.getPassword())) {
             userSecurity.addSession(session.getId(), user);
-            //model.addAttribute("$profile", user);
-            return "redirect:/user/1";
+            session.setAttribute("loggedUser", user);
         }
         //else -> "Wrong email or password
-        //return "home";
-        return "redirect:/user/2";
-    }
+        return "redirect:/";
+    }*/
 
     @RequestMapping(value = "/signOut", method = RequestMethod.DELETE)
      public String signOut(HttpSession session) {
