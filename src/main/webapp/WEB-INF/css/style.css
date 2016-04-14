@@ -236,6 +236,7 @@ button {
 
 .user-img.thumbnail {
     margin: 0px -15px 0 -15px;
+
 }
 
 .user-img.thumbnail img {
@@ -408,5 +409,7 @@ button {
     border: 0;
 }
 
-
+  #thumbnail .thumbnail {
+      background-color: #f9f9f9;
+  }
 

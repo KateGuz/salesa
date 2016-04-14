@@ -24,8 +24,8 @@
 </head>
 
 <body>
-<header>
-    <div class="container">
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
         <nav class="navbar navbar-default">
             <div class="row">
                 <div class="navbar-header col-sm-2">
@@ -42,103 +42,109 @@
                 <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#">Связаться с нами</a></li>
-                        <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                        <li><a href="#user-security-log" data-toggle="modal"
+                               data-target="#user-security-log">Вход</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
-</header>
-<div class="container">
-    <nav class="navbar navbar-default sort">
-        <div class="row">
-            <div class="category-ul-wrap col-sm-2 ">
-                <ul class="nav navbar-nav">
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Категории
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                            <c:forEach items="${categories}" var="category">
-                                <c:choose>
-                                    <c:when test="${!empty category.children}">
-                                        <li class="dropdown-submenu">
-                                            <a tabindex="-1" href="/category/${category.id}">${category.name}</a>
-                                            <ul class="dropdown-menu">
-                                                <c:forEach items="${category.children}" var="subCategory">
-                                                    <li><a href="/category/${subCategory.id}">${subCategory.name}</a>
-                                                    </li>
-                                                </c:forEach>
-                                            </ul>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li><a href="/category/${category.id}">${category.name}</a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </ul>
-            </div>
-            <div class="sort-ul-wrap col-sm-7 col-sm-offset-3">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <p>Сортировать по:</p>
-                    </li>
-                    <li>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">Новые</button>
-                            <button type="button" class="btn btn-default">Самые дешевые</button>
-                            <button type="button" class="btn btn-default">Самые дорогие</button>
-                            <button type="button" class="btn btn-default">Активные</button>
+</div>
+
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
+        <nav class="navbar navbar-default sort">
+            <div class="row">
+                <div class="category-ul-wrap col-sm-2 ">
+                    <ul class="nav navbar-nav">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Категории
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                <c:forEach items="${categories}" var="category">
+                                    <c:choose>
+                                        <c:when test="${!empty category.children}">
+                                            <li class="dropdown-submenu">
+                                                <a tabindex="-1" href="/category/${category.id}">${category.name}</a>
+                                                <ul class="dropdown-menu">
+                                                    <c:forEach items="${category.children}" var="subCategory">
+                                                        <li>
+                                                            <a href="/category/${subCategory.id}">${subCategory.name}</a>
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li><a href="/category/${category.id}">${category.name}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </ul>
                         </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="fuck-off-ad-block">
-
-        <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
-            <c:if test="${loop.index  % 3 == 0}">
-                <div class="row">
-            </c:if>
-            <div class="col-sm-4 col-xs-12">
-                <div class="well">
-                    <p class="status">
-                        <c:choose>
-                            <c:when test="${advert.status == 'A'}">
-                                <font color="#48c083">Активно</font>
-                            </c:when>
-                            <c:when test="${advert.status == 'H'}">
-                                Забронировано
-                            </c:when>
-                        </c:choose>
-                    </p>
-                    <div class="img-wrapper">
-                        <img src="/img/1.png" alt="advert's photo">
-                    </div>
-                    <div class="wrap-title">
-                        <p class="title">${advert.title}</p>
-                    </div>
-                    <div class="date-price-wrap">
-                        <p class="date"><tags:localDateTime date="${advert.modificationDate}"/></p>
-                        <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
-                    </div>
+                    </ul>
+                </div>
+                <div class="sort-ul-wrap col-sm-7 col-sm-offset-3">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <p>Сортировать по:</p>
+                        </li>
+                        <li>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default">Новые</button>
+                                <button type="button" class="btn btn-default">Самые дешевые</button>
+                                <button type="button" class="btn btn-default">Самые дорогие</button>
+                                <button type="button" class="btn btn-default">Активные</button>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <c:if test="${(loop.index + 1) % 3  == 0}">
-                </div>
-            </c:if>
-        </c:forEach>
-
+        </nav>
     </div>
+</div>
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
 
+    <div class="size">
+        <div class="row">
+            <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
+                <div id="thumbnail" class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-0 col-lg-4">
+                    <div class="well">
+                        <p class="status">
+                            <c:choose>
+                                <c:when test="${advert.status == 'A'}">
+                                    <font color="#48c083">Активно</font>
+                                </c:when>
+                                <c:when test="${advert.status == 'H'}">
+                                    Забронировано
+                                </c:when>
+                            </c:choose>
+                            &nbsp;
+                        </p>
+                        <div class="thumbnail">
+                            <img src="/img/1.png" alt="advert's photo">
+                        </div>
+                        <div class="wrap-title">
+                            <p class="title">${advert.title}</p>
+                        </div>
+                        <div class="date-price-wrap">
+                            <p class="date"><tags:localDateTime date="${advert.modificationDate}"/></p>
+                            <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
     <div class="pages">
         <div class="text-center">
             <ul class="pagination">
@@ -152,9 +158,6 @@
 
         </div>
     </div>
-
-</div>
-<div class="container">
     <footer>
         <div class="foot">
             <div class="well">
@@ -165,7 +168,7 @@
     </footer>
 </div>
 
-<div class="modal fade hidden" id="user-security-log" role="dialog">
+<div class="modal fade " id="user-security-log" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>
@@ -188,7 +191,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade hidden" id="user-security-reg" role="dialog">
+<div class="modal fade " id="user-security-reg" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>
@@ -213,16 +216,6 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    var adHeight = $('.img-wrapper').height();
-    if (adHeight < 170) {
-        var margintop = (170 - adHeight) / 2;
-        $('.img-wrapper img').css('margin-top', margintop);
-    }
-</script>
-
 </body>
 
 </html>

@@ -3,29 +3,33 @@
 
 /* Extra small devices (phones, less than 768px) */
 @media (min-width: 480px) {
-
-    .container{
-        width: 480px;
+    .size {
+        width: 100%;
+        margin: 0;
     }
 }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-
-    .container{
-        width: 780px;
+    .size {
+        width: 100%;
+        margin: 0;
     }
+
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-      .container{
-          width: 1030px;
-      }
+    .size {
+        width: 100%;
+        margin: 0;
+    }
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-    .container{
-        width: 1200px;
+    .size {
+        width: 95%;
+        margin: 0 25px;
     }
 }
