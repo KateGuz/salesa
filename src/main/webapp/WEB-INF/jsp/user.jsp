@@ -3,6 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +40,16 @@
                 <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#">Связаться с нами</a></li>
-                        <li><a href="#">Вход</a></li>
+                        <c:choose>
+                            <c:when test="${empty loggedUser.name}">
+                                <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                <li><a href="/signOut">Sign Out</a></li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                 </div>
             </div>
@@ -129,7 +139,7 @@
                                                  alt="...">
                                         </div>
                                         <div class="media-body">
-                                            <h4 class="media-heading">User id: ${feedback.author.id}</h4>
+                                                <h4 class="media-heading">${feedback.author.name}</h4>
                                             <p>${feedback.text}</p>
                                         </div>
                                         <div class="media-right">

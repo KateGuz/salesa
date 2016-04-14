@@ -6,12 +6,12 @@
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean id="getAdvertsCountSQL" class="java.lang.String">
-        <constructor-arg value="SELECT count(*) as count FROM advert;"/>
+        <constructor-arg value="SELECT count(*) as count FROM advert WHERE status != 'S'"/>
     </bean>
 
     <bean id="getAdvertsTemplateSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
-                   a.currency, a.status FROM advert as a"/>
+                   a.currency, a.status FROM advert as a WHERE status != 'S'"/>
     </bean>
 
     <bean id="addPagingTemplateSQL" class="java.lang.String">
@@ -65,4 +65,15 @@
                 value="INSERT INTO feedback (text, authorId, userId, creationDate) VALUES(:text, :authorId, :userId, :creationDate);"/>
     </bean>
 
+    <bean id="saveUserSQL" class="java.lang.String">
+        <constructor-arg
+                value="INSERT INTO user (name, email, password) VALUES(:name, :email, :password);"/>
+    </bean>
+
+    <bean id="getUserByEmailSQL" class="java.lang.String">
+        <constructor-arg
+                value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u WHERE u.email = :email;"/>
+    </bean>
+
 </beans>
+

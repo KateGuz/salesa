@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ page session="true" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,17 +13,14 @@
     <title>Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="icon" type="image/png" href="/img/salesa.png"/>
     <link rel="apple-touch-icon" href="/img/salesa.png"/>
-    <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/main.js"></script>
-
+    <script src="/js/jquery-1.12.3.min.js" type="text/javascript" language="JavaScript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/registration.js"></script>
 </head>
-
 <body>
 <header>
     <div class="container">
@@ -41,14 +40,24 @@
                 <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#">Связаться с нами</a></li>
-                        <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
-                        </li>
+                        <c:choose>
+                            <c:when test="${empty loggedUser.name}">
+                                <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                <li><a href="/signOut">Sign Out</a></li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
 </header>
+
+
 <div class="container">
     <nav class="navbar navbar-default sort">
         <div class="row">
@@ -105,31 +114,33 @@
 
         <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
             <c:if test="${loop.index  % 3 == 0}">
-                <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0 col-lg-4">
             </c:if>
-            <div class="col-sm-4 col-xs-12">
-                <div class="well">
-                    <p class="status">
-                        <c:choose>
-                            <c:when test="${advert.status == 'A'}">
-                                <font color="#48c083">Активно</font>
-                            </c:when>
-                            <c:when test="${advert.status == 'H'}">
-                                Забронировано
-                            </c:when>
-                        </c:choose>
-                    </p>
-                    <div class="img-wrapper">
-                        <img src="/img/1.png" alt="advert's photo">
-                    </div>
-                    <div class="wrap-title">
-                        <p class="title">${advert.title}</p>
-                    </div>
-                    <div class="date-price-wrap">
-                        <p class="date"><tags:localDateTime date="${advert.modificationDate}"/></p>
-                        <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
-                    </div>
+            <div class="well">
+                <a href="/advert/${advert.id}">
+                <p class="status">
+                    <c:choose>
+                        <c:when test="${advert.status == 'A'}">
+                            <font color="#48c083">Активно</font>
+                        </c:when>
+                        <c:when test="${advert.status == 'H'}">
+                            Забронировано
+                        </c:when>
+                    </c:choose>
+                </p>
+                <div class="thumbnail">
+                    <img src="/img/1.png" alt="advert's photo">
                 </div>
+                <div class="wrap-title">
+                    <p class="title">${advert.title}</p>
+                </div>
+                <div class="date-price-wrap">
+                    <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate"
+                                   type="time"/>
+                    <p class="date"><tags:localDateTime date="${advert.modificationDate}"/></p>
+                    <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
+                </div>
+                </a>
             </div>
             <c:if test="${(loop.index + 1) % 3  == 0}">
                 </div>
@@ -137,29 +148,28 @@
         </c:forEach>
 
     </div>
+</div>
+<div class="pages">
+    <div class="text-center">
+        <ul class="pagination">
+            <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+            <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
+                <li><a href="?page=${loop.index}" data-original-title="" title="">${loop.index}</a></li>
+            </c:forEach>
+            <li><a href="?page=${pageData.pageCount}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+        </ul>
 
-    <div class="pages">
-        <div class="text-center">
-            <ul class="pagination">
-                <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
-                    <li><a href="?page=${loop.index}" data-original-title="" title="">${loop.index}</a></li>
-                </c:forEach>
-                <li><a href="?page=${pageData.pageCount}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-                </li>
-            </ul>
-
+    </div>
+</div>
+<footer>
+    <div class="foot">
+        <div class="well">
+            <p>Salesa</p>
+            <p>All Rigths Reserved</p>
         </div>
     </div>
-    <footer>
-        <div class="foot">
-            <div class="well">
-                <p>Salesa</p>
-                <p>All Rigths Reserved</p>
-            </div>
-        </div>
-    </footer>
-</div>
+</footer>
 
 
 <div class="modal fade" id="user-security-log" role="dialog">
@@ -211,14 +221,6 @@
     </div>
 </div>
 
-
-<script>
-    var adHeight = $('.img-wrapper').height();
-    if (adHeight < 170) {
-        var margintop = (170 - adHeight) / 2;
-        $('.img-wrapper img').css('margin-top', margintop);
-    }
-</script>
 
 </body>
 
