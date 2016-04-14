@@ -139,7 +139,7 @@
                                                  alt="...">
                                         </div>
                                         <div class="media-body">
-                                            <h4 class="media-heading">User id: ${feedback.author.id}</h4>
+                                                <h4 class="media-heading">${feedback.author.name}</h4>
                                             <p>${feedback.text}</p>
                                         </div>
                                         <div class="media-right">
