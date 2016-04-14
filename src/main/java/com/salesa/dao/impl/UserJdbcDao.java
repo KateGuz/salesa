@@ -58,4 +58,9 @@ UserJdbcDao implements UserDao {
         namedParameterJdbcTemplate.update(saveUserSQL, params);
         return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, new MapSqlParameterSource("email", user.getEmail()), new UserMapper()).getId();
     }
+
+    @Override
+    public User get(String email) {
+        return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, new MapSqlParameterSource("email", email), new UserMapper());
+    }
 }

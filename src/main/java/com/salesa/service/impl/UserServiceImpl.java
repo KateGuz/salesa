@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService{
         return userDao.save(user);
     }
 
+    @Override
+    public User get(String email) {
+        return userDao.get(email);
+    }
+
 }

@@ -8,4 +8,5 @@ public interface UserDao {
     List<User> getAll();
     User get(int userId);
     int save(User user);
+    User get(String email);
 }
