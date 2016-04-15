@@ -29,6 +29,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+
+    public int save(User user) {
+        return userDao.save(user);
+    }
+
+    @Override
     public User get(String email) {
         return userDao.get(email);
     }

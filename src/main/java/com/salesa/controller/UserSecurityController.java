@@ -9,13 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -30,9 +26,18 @@ public class UserSecurityController {
     private UserSecurity userSecurity;
 
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    private String singUp(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("pass") String password,HttpSession session){
+
+    public ResponseEntity<Void> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "pass") String password, HttpSession session) {
         log.info("signing up, name " + name + " email " + email + " password " + password);
-        return "redirect:/";
+        User user = new User();
+        user.setEmail(email);
+        user.setName(name);
+        user.setPassword(password);
+        user.setId(userService.save(user));
+        userSecurity.addSession(session.getId(), user);
+        session.setAttribute("loggedUser", user);
+        ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
+        return result;
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
@@ -59,11 +64,12 @@ public class UserSecurityController {
         return "redirect:/";
     }*/
 
-    @RequestMapping(value = "/signOut", method = RequestMethod.DELETE)
-     public String signOut(HttpSession session) {
+//delete?
+    @RequestMapping(value = "/signOut", method = RequestMethod.GET)
+    public String signOut(HttpSession session) {
         session.removeAttribute("loggedUser");
         userSecurity.deleteSession(session.getId());
         log.info("signing out");
-            return "redirect:/";
-        }
+        return "redirect:/";
+    }
 }

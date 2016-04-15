@@ -1,6 +1,7 @@
 package com.salesa.dao.impl;
 
 import com.salesa.dao.UserDao;
+import com.salesa.dao.mapper.FeedbackMapper;
 import com.salesa.dao.mapper.UserMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 @Repository
 public class UserJdbcDao implements UserDao {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -30,10 +31,14 @@ public class UserJdbcDao implements UserDao {
     private String getAllUsersSQL;
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private String saveUserSQL;
 
     @Autowired
     private String getUserByEmailSQL;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
 
     @Override
     public List<User> getAll() {
@@ -41,14 +46,23 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public User get(int userId){
+    public User get(int userId) {
         QueryAndParams queryAndParams = queryGenerator.generateUserById(userId);
         return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new UserMapper());
     }
 
+    public int save(User user) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", user.getName());
+        params.put("email", user.getEmail());
+        params.put("password", user.getPassword());
+
+        namedParameterJdbcTemplate.update(saveUserSQL, params);
+        return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, new MapSqlParameterSource("email", user.getEmail()), new UserMapper()).getId();
+    }
+
     @Override
-    public User get(String email){
-        log.info("getting user by email " + email);
-        return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, new MapSqlParameterSource("email", email),new UserMapper());
+    public User get(String email) {
+        return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, new MapSqlParameterSource("email", email), new UserMapper());
     }
 }

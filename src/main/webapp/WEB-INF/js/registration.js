@@ -26,8 +26,8 @@ $(document).ready(function () {
                 email: $("#reg_email").val(),
                 pass: $("#reg_password").val(),
             },
-            success: function (res, status, xhr) {
-                //alert(xhr.getResponseHeader("info"));
+            success: function () {
+                alert("Вы зарегистрированы. Спасибо");
             }
         });
     });

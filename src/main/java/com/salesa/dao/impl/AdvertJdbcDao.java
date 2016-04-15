@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
@@ -40,7 +41,15 @@ public class AdvertJdbcDao implements AdvertDao {
         List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
         log.info("Query advert for page took {} ms", queryAndParams.query, System.currentTimeMillis() - startTime);
 
-        Integer advertsCount = namedParameterJdbcTemplate.queryForObject(getAdvertsCountSQL, new HashMap<>(), Integer.class);
+        Integer advertsCount;
+        Map<String, Object> paramMap = new HashMap<>();
+        if(advertFilter.getCategoryId() > 0) {
+            paramMap.put("categoryId", advertFilter.getCategoryId());
+            String andStatement = " AND categoryId = :categoryId;";
+            advertsCount = namedParameterJdbcTemplate.queryForObject(getAdvertsCountSQL + andStatement, paramMap, Integer.class);
+        } else {
+            advertsCount = namedParameterJdbcTemplate.queryForObject(getAdvertsCountSQL, new HashMap<>(), Integer.class);
+        }
 
         int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
         AdvertPageData advertPageData = new AdvertPageData();
