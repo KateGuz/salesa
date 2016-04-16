@@ -19,6 +19,8 @@
     <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/feedback.js"></script>
+    <script src="/js/registrarion.js"></script>
+
 </head>
 
 <body>
@@ -27,7 +29,7 @@
         <nav class="navbar navbar-default">
             <div class="row">
                 <div class="navbar-header col-sm-2">
-                    <a class="navbar-brand" href="#">Salesa</a>
+                    <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="form-wrap col-sm-4 col-sm-offset-2">
                     <form class="navbar-form " role="search">
@@ -126,6 +128,9 @@
                 <div class="feedback-list-bar">
                     <h3>Отзывы о пользователе</h3>
                     <div class="feedback-form row">
+                        <div class="alert alert-info" role="alert">
+                            <p>Оставлять отзывы могут только зарегистрированные пользователи <a href="/signIn">go</a> </p>
+                        </div>
                         <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
                         <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
                     </div>

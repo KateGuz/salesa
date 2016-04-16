@@ -2,6 +2,7 @@ package com.salesa.controller;
 
 import com.salesa.entity.Feedback;
 import com.salesa.entity.User;
+import com.salesa.security.UserSecurity;
 import com.salesa.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,10 +23,16 @@ import java.time.LocalDateTime;
 public class FeedbackController {
 
     @Autowired
+    private UserSecurity userSecurity;
+
+    @Autowired
     private FeedbackService feedbackService;
 
     @RequestMapping(value = "/feedback/{userId}", method = RequestMethod.POST)
     public ResponseEntity<Void> saveFeedback(HttpServletRequest httpServletRequest, @PathVariable Integer userId) throws IOException {
+        if(userSecurity.getUserBySessionId(httpServletRequest.getSession().getId())== null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpServletRequest.getInputStream()));
         String feedbackText = bufferedReader.readLine();
 

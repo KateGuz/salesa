@@ -25,7 +25,7 @@ public class UserSecurityController {
     @Autowired
     private UserSecurity userSecurity;
 
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    @RequestMapping(value = "/signUp", method = { RequestMethod.GET, RequestMethod.POST })
 
     public ResponseEntity<Void> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "pass") String password, HttpSession session) {
         log.info("signing up, name " + name + " email " + email + " password " + password);
@@ -43,26 +43,16 @@ public class UserSecurityController {
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
     public ResponseEntity<Void> singIn(@RequestParam("email") String email, @RequestParam("pass") String password, HttpSession session) {
         log.info("signing in,  " + email + " password " + password);
-
         User user = userService.get(email);
+        if (user.equals(null) || !user.getPassword().equals(password)) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
         userSecurity.addSession(session.getId(), user);
         session.setAttribute("loggedUser", user);
         ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
         return result;
     }
 
-   /* @RequestMapping(value = "/signIn", method = RequestMethod.POST)
-    public String signIn(@RequestParam("email") String email, @RequestParam("pass") String pass, HttpSession session) {
-        log.info("signing in,  " + email);
-        User user = userService.get(email);
-        //check if password is correct
-        if(pass.equals(user.getPassword())) {
-            userSecurity.addSession(session.getId(), user);
-            session.setAttribute("loggedUser", user);
-        }
-        //else -> "Wrong email or password
-        return "redirect:/";
-    }*/
 
 //delete?
     @RequestMapping(value = "/signOut", method = RequestMethod.GET)
