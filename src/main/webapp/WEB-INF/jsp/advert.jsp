@@ -9,146 +9,213 @@
 <html lang="en">
 <head>
     <title>Advert</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
-    <link rel="icon" type="image/png" href="/img/salesa.png"/>
-    <link rel="apple-touch-icon" href="/img/salesa.png"/>
-    <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-
+    <jsp:include page="head-include.jsp"/>
 </head>
 
 <body>
-<header>
-    <div class="container">
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
         <nav class="navbar navbar-default">
             <div class="row">
                 <div class="navbar-header col-sm-2">
                     <a class="navbar-brand" href="/">Salesa</a>
                 </div>
-                <div class="form-wrap col-sm-4 col-sm-offset-2">
+                <div class="col-sm-4">
                     <form class="navbar-form " role="search">
-                        <div class="form-group">
+                        <div class="input-group">
                             <input type="text" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default go" type="submit">Поиск</button>
+                            </span>
                         </div>
-                        <button type="submit" class="go">Поиск</button>
                     </form>
                 </div>
-                <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Связаться с нами</a></li>
-                        <c:choose>
-                            <c:when test="${empty loggedUser.name}">
-                                <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
-                                <li><a href="/signOut">Sign Out</a></li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
+                <div class=" col-sm-6">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#btn-send" data-toggle="modal" data-target="#contactUs">Связаться с нами</a></li>
+                            <c:choose>
+                                <c:when test="${empty loggedUser.name}">
+                                    <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                    <li><a href="/signOut">Выйти</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
     </div>
-</header>
-<div class="container">
-    <div class="wrap-category">
-        <ol class="breadcrumb">
-            <c:forEach items="${breadcrumbsTree}" var="category">
-                <li><a href="/category/${category.id}">${category.name}</a></li>
-            </c:forEach>
-        </ol>
-    </div>
-    <div class="advert-info-bar col-xs-12">
-        <div class="col-md-4">
-            <div class="advert-img-bar thumbnail">
-                <div id="carousel" class="carousel slide">
-                    <ol class="carousel-indicators">
-                        <li class="active" data-target="#carousel" data-slide-to="0"></li>
-                        <li data-target="#carousel" data-slide-to="1"></li>
-                        <li data-target="#carousel" data-slide-to="2"></li>
-                    </ol>
+</div>
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
+        <div class="wrap-category">
+            <ol class="breadcrumb">
+                <c:forEach items="${breadcrumbsTree}" var="category">
+                    <%--<li><a href="/">Главная</a></li>--%>
+                    <li><a href="/category/${category.id}">${category.name}</a></li>
+                </c:forEach>
+            </ol>
+        </div>
+        <div class="advert-info-bar col-xs-12 well">
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <div class="advert-img-bar thumbnail">
+                        <div id="carousel" class="carousel slide">
+                            <ol class="carousel-indicators">
+                                <li class="active" data-target="#carousel" data-slide-to="0"></li>
+                                <li data-target="#carousel" data-slide-to="1"></li>
+                                <li data-target="#carousel" data-slide-to="2"></li>
+                            </ol>
 
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="/img/2.png" alt="">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="/img/2.png" alt="">
+                                </div>
+                                <div class="item">
+                                    <img src="/img/3.png" alt="">
+                                </div>
+                                <div class="item">
+                                    <img src="/img/1.png" alt="">
+                                </div>
+                            </div>
+
+                            <a href="#carousel" class="left carousel-control" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a href="#carousel" class="right carousel-control" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
                         </div>
-                        <div class="item">
-                            <img src="/img/3.png" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="/img/1.png" alt="">
-                        </div>
+
                     </div>
-
-                    <a href="#carousel" class="left carousel-control" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a href="#carousel" class="right carousel-control" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
                 </div>
 
-            </div>
-        </div>
-
-
-        <div class="col-md-8">
-            <div class="advert-text-bar">
-                <h4 class="title">${advert.title}</h4>
-                <h4>${advert.price}&nbsp;${advert.currency}</h4>
-                <p>${advert.text}</p>
-                <br>
-                <c:choose>
-                    <c:when test="${advert.status == 'A'}">
-                        <font color="#48c083"><strong><h5>Активно</h5></strong></font>
-                    </c:when>
-                    <c:when test="${advert.status == 'H'}">
-                        <h5>Забронировано </h5>
-                    </c:when>
-                </c:choose>
-                <br>
-                <p><tags:localDateTime date="${advert.modificationDate}"/></p>
-            </div>
-        </div>
-        <hr/>
-        <div class="user-info col-md-12">
-            <div class="col-md-4">
-                <h4>
-                    <div class="glyphicon glyphicon-user"></div>
-                    <a href="/user/${advert.user.id}">${advert.user.name}</a>
-                </h4>
-                <p>
-                <div class="glyphicon glyphicon-envelope"></div>
-                email: ${advert.user.email}
-                <p>
-                <div class="glyphicon glyphicon-phone"></div>
-                phone: ${advert.user.phone}
+                <div class="col-sm-8 col-md-8">
+                    <div class="advert-text-bar">
+                        <h4 class="title">${advert.title}</h4>
+                        <h4>${advert.price}&nbsp;${advert.currency}</h4>
+                        <p>${advert.text}</p>
+                        <br>
+                        <c:choose>
+                            <c:when test="${advert.status == 'A'}">
+                                <font color="#48c083"><h5>Активно</h5></font>
+                            </c:when>
+                            <c:when test="${advert.status == 'H'}">
+                                <h5>Забронировано </h5>
+                            </c:when>
+                        </c:choose>
+                        <br>
+                        <p><tags:localDateTime date="${advert.modificationDate}"/></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="col-sm-12">
+                    <div style="text-align: center" class="col-xs-4">
+                        <h4>
+                            <div class="glyphicon glyphicon-user"></div>
+                            <a href="/user/${advert.user.id}">${advert.user.name}</a>
+                        </h4>
+                        <p>
+                        <div class="glyphicon glyphicon-envelope"></div>
+                        email: ${advert.user.email}
+                        <p>
+                        <div class="glyphicon glyphicon-phone"></div>
+                        phone: ${advert.user.phone}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <footer>
-        <div class="foot">
-            <div class="well">
-                <p>Salesa</p>
-                <p>All Rigths Reserved</p>
+</div>
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
+        <footer>
+            <div class="foot">
+                <div class="well">
+                    <p>Salesa</p>
+                    <p>All Rigths Reserved</p>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 </div>
 
-<script>
-    var adHeight = $('.img-wrapper').height();
-    if (adHeight < 170) {
-        var margintop = (170 - adHeight) / 2;
-        $('.img-wrapper img').css('margin-top', margintop);
-    }
-</script>
+<div class="modal fade " id="user-security-log" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <form:form>
+                    <h3>Вход на сайт </h3>
+                    <hr>
+                    <input type="text" name="email" id="email" placeholder="Email">
+                    <br>
+                    <input type="password" name="password" id="password" placeholder="Password">
+                    <br>
+                    <button class="button" id="btn-log">Submit</button>
+                    <br>
+                    <br>
+                    <p>Еще не зарегистрированы?<a href="#user-security-reg" data-toggle="modal"
+                                                  data-target="#user-security-reg"
+                                                  data-dismiss="modal">&nbsp;Зарегистрироваться</a></p>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="user-security-reg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <form:form>
+                    <h3>Регистрация</h3>
+                    <hr>
+                    <input type="text" name="name" id="name" placeholder="Name">
+                    <br>
+                    <input type="text" name="email" id="email" placeholder="Email">
+                    <br>
+                    <input type="password" name="password" id="password" placeholder="Password">
+                    <br>
+                    <button class="button" id="btn-reg">Submit</button>
+                    <br>
+                    <br>
+                    <p>Уже зарегистрированы?<a href="#user-security-log" data-toggle="modal"
+                                               data-target="#user-security-log"
+                                               data-dismiss="modal">&nbsp;Войти на сайт</a></p>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade " id="contactUs" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <form:form>
+                    <h3>Обратная связь</h3>
+                    <hr>
+                    <input type="text" name="name" id="name" placeholder="Имя">
+                    <br>
+                    <input type="text" name="email" id="email" placeholder="электронный адрес">
+                    <br>
+                    <input type="text" name="subject" id="subject" placeholder="Тема">
+                    <br>
+                    <textarea rows="5"  name="message" id="message" placeholder="Сообщение"></textarea>
+                    <br>
+                    <button class="button" id="btn-send">Отправить</button>
+                    <br>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-
 </html>

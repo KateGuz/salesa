@@ -25,8 +25,7 @@ public class UserSecurityController {
     @Autowired
     private UserSecurity userSecurity;
 
-    @RequestMapping(value = "/signUp", method = { RequestMethod.GET, RequestMethod.POST })
-
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     public ResponseEntity<Void> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "pass") String password, HttpSession session) {
         log.info("signing up, name " + name + " email " + email + " password " + password);
         User user = new User();
@@ -43,9 +42,11 @@ public class UserSecurityController {
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
     public ResponseEntity<Void> singIn(@RequestParam("email") String email, @RequestParam("pass") String password, HttpSession session) {
         log.info("signing in,  " + email + " password " + password);
+
         User user = userService.get(email);
-        if (user.equals(null) || !user.getPassword().equals(password)) {
-            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        if (user.getPassword().equals(password)) {
+        ResponseEntity<Void> result = new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+            return result;
         }
         userSecurity.addSession(session.getId(), user);
         session.setAttribute("loggedUser", user);
@@ -53,8 +54,6 @@ public class UserSecurityController {
         return result;
     }
 
-
-//delete?
     @RequestMapping(value = "/signOut", method = RequestMethod.GET)
     public String signOut(HttpSession session) {
         session.removeAttribute("loggedUser");
@@ -62,4 +61,5 @@ public class UserSecurityController {
         log.info("signing out");
         return "redirect:/";
     }
+
 }

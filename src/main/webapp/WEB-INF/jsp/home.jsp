@@ -10,58 +10,53 @@
 <html lang="en">
 <head>
     <title>Home</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
-    <link rel="icon" type="image/png" href="/img/salesa.png"/>
-    <link rel="apple-touch-icon" href="/img/salesa.png"/>
-    <script src="/js/jquery-1.12.3.min.js" type="text/javascript" language="JavaScript"></script>
-    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/js/registration.js"></script>
+    <jsp:include page="head-include.jsp"/>
 </head>
 <body>
-<header>
-    <div class="container">
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
         <nav class="navbar navbar-default">
             <div class="row">
                 <div class="navbar-header col-sm-2">
                     <a class="navbar-brand" href="/">Salesa</a>
                 </div>
-                <div class="form-wrap col-sm-4 col-sm-offset-2">
+                <div class="col-sm-4">
                     <form class="navbar-form " role="search">
-                        <div class="form-group">
+                        <div class="input-group">
                             <input type="text" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default go" type="submit">Поиск</button>
+                            </span>
                         </div>
-                        <button type="submit" class="go">Поиск</button>
                     </form>
                 </div>
-                <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Связаться с нами</a></li>
-                        <c:choose>
-                            <c:when test="${empty loggedUser.name}">
-                                <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
-                                <li><a href="/signOut">Sign Out</a></li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
+                <div class=" col-sm-6">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#btn-send" data-toggle="modal" data-target="#contactUs">Связаться с нами</a></li>
+                            <c:choose>
+                                <c:when test="${empty loggedUser.name}">
+                                    <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                    <li><a href="/signOut">Выйти</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
     </div>
-</header>
+</div>
 
-
-<div class="container">
-    <nav class="navbar navbar-default sort">
-        <div class="row">
-            <div class="category-ul-wrap col-sm-2 ">
-                <ul class="nav navbar-nav">
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
+        <nav class="category-filter-row">
+            <div class="row">
+                <div class="col-sm-2">
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -73,10 +68,12 @@
                                 <c:choose>
                                     <c:when test="${!empty category.children}">
                                         <li class="dropdown-submenu">
-                                            <a tabindex="-1" href="/category/${category.id}">${category.name}</a>
+                                            <a tabindex="-1"
+                                               href="/category/${category.id}">${category.name}</a>
                                             <ul class="dropdown-menu">
                                                 <c:forEach items="${category.children}" var="subCategory">
-                                                    <li><a href="/category/${subCategory.id}">${subCategory.name}</a>
+                                                    <li>
+                                                        <a href="/category/${subCategory.id}">${subCategory.name}</a>
                                                     </li>
                                                 </c:forEach>
                                             </ul>
@@ -90,136 +87,168 @@
                             </c:forEach>
                         </ul>
                     </div>
-                </ul>
-            </div>
-            <div class="sort-ul-wrap col-sm-7 col-sm-offset-3">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <p>Сортировать по:</p>
-                    </li>
-                    <li>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">Новые</button>
-                            <button type="button" class="btn btn-default">Самые дешевые</button>
-                            <button type="button" class="btn btn-default">Самые дорогие</button>
-                            <button type="button" class="btn btn-default">Активные</button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="fuck-off-ad-block">
-
-        <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
-            <c:if test="${loop.index  % 3 == 0}">
-                <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0 col-lg-4">
-            </c:if>
-            <div class="well">
-                <a href="/advert/${advert.id}">
-                <p class="status">
-                    <c:choose>
-                        <c:when test="${advert.status == 'A'}">
-                            <font color="#48c083">Активно</font>
-                        </c:when>
-                        <c:when test="${advert.status == 'H'}">
-                            Забронировано
-                        </c:when>
-                    </c:choose>
-                </p>
-                <div class="thumbnail">
-                    <img src="/img/1.png" alt="advert's photo">
                 </div>
-                <div class="wrap-title">
-                    <p class="title">${advert.title}</p>
-                </div>
-                <div class="date-price-wrap">
-                    <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate"
-                                   type="time"/>
-                    <p class="date"><tags:localDateTime date="${advert.modificationDate}"/></p>
-                    <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
+                <div class="col-sm-10">
+                    <div class="btn-group nav navbar-nav navbar-right">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Валюта <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">USD</a></li>
+                            <li><a href="#">UAH</a></li>
+                            <li><a href="#">CHF</a></li>
+                            <li><a href="#">RUB</a></li>
+                        </ul>
+                        <button type="button" class="btn btn-default">Новые</button>
+                        <button type="button" class="btn btn-default">Самые дешевые</button>
+                        <button type="button" class="btn btn-default">Самые дорогие</button>
+                        <button type="button" class="btn btn-default">Активные</button>
+                    </div>
                 </div>
                 </a>
             </div>
-            <c:if test="${(loop.index + 1) % 3  == 0}">
+        </nav>
+    </div>
+</div>
+
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
+        <div class="row">
+            <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
+                <div class="display-block">
+                    <div id="thumbnail" class="col-xxs-12 col-xs-6 col-sm-4  col-md-4  col-lg-4">
+                        <div class="test">
+                            <a href="/advert/${advert.id}">
+                                <div class="well">
+                                    <p class="status">
+                                        <c:choose>
+                                            <c:when test="${advert.status == 'A'}">
+                                                <font color="#48c083">Активно</font>
+                                            </c:when>
+                                            <c:when test="${advert.status == 'H'}">
+                                                Забронировано
+                                            </c:when>
+                                        </c:choose>
+                                        &nbsp;
+                                    </p>
+                                    <div class="thumbnail">
+                                        <img src="/img/1.png" alt="advert's photo">
+                                    </div>
+                                    <div class="wrap-title">
+                                        <p class="title">${advert.title}</p>
+                                    </div>
+                                    <div class="date-price-wrap">
+                                        <p class="date"><tags:localDateTime date="${advert.modificationDate}"/></p>
+                                        <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </c:if>
-        </c:forEach>
-
-    </div>
-</div>
-<div class="pages">
-    <div class="text-center">
-        <ul class="pagination">
-            <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-            <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
-                <li><a href="?page=${loop.index}" data-original-title="" title="">${loop.index}</a></li>
             </c:forEach>
-            <li><a href="?page=${pageData.pageCount}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-            </li>
-        </ul>
-
-    </div>
-</div>
-<footer>
-    <div class="foot">
-        <div class="well">
-            <p>Salesa</p>
-            <p>All Rigths Reserved</p>
         </div>
     </div>
-</footer>
+</div>
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="pages">
+        <div class="size">
+            <div class="text-center">
+                <ul class="pagination">
+                    <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
+                        <li><a href="?page=${loop.index}" data-original-title="" title="">${loop.index}</a></li>
+                    </c:forEach>
+                    <li><a href="?page=${pageData.pageCount}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="size">
+        <footer>
+            <div class="foot">
+                <div class="well">
+                    <p>Salesa</p>
+                    <p>All Rigths Reserved</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
 
-
-<div class="modal fade" id="user-security-log" role="dialog">
+<div class="modal fade " id="user-security-log" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>
             <div class="modal-body">
                 <form:form>
-                    <h3>Log in </h3>
+                    <h3>Вход на сайт </h3>
                     <hr>
-                    <input type="text" name="log_email" id="log_email" placeholder="Email">
+                    <input type="text" name="email" id="email" placeholder="Email">
                     <br>
-                    <input type="text" name="log_password" id="log_password" placeholder="Password">
+                    <input type="password" name="password" id="password" placeholder="Password">
                     <br>
                     <button class="button" id="btn-log">Submit</button>
                     <br>
                     <br>
-                    <p>Not yet registered?<a href="#user-security-reg" data-toggle="modal"
+                    <p>Еще не зарегистрированы?<a href="#user-security-reg" data-toggle="modal"
                                              data-target="#user-security-reg"
-                                             data-dismiss="modal">&nbsp;Click here!</a></p>
+                                             data-dismiss="modal">&nbsp;Зарегистрироваться</a></p>
                 </form:form>
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="user-security-reg" role="dialog">
+<div class="modal fade " id="user-security-reg" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>
             <div class="modal-body">
                 <form:form>
-                    <h3>Registration</h3>
+                    <h3>Регистрация</h3>
                     <hr>
-                    <input type="text" name="reg_name" id="reg_name" placeholder="Name">
+                    <input type="text" name="name" id="name" placeholder="Name">
                     <br>
-                    <input type="password" name="reg_email" id="reg_email" placeholder="Email">
+                    <input type="text" name="email" id="email" placeholder="Email">
                     <br>
-                    <input type="text" name="reg_password" id="reg_password" placeholder="Password">
+                    <input type="password" name="password" id="password" placeholder="Password">
                     <br>
                     <button class="button" id="btn-reg">Submit</button>
                     <br>
                     <br>
-                    <p>Already registered?<a href="#user-security-log" data-toggle="modal"
+                    <p>Уже зарегистрированы?<a href="#user-security-log" data-toggle="modal"
                                              data-target="#user-security-log"
-                                             data-dismiss="modal">&nbsp;Click here!</a></p>
+                                             data-dismiss="modal">&nbsp;Войти на сайт</a></p>
                 </form:form>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade " id="contactUs" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <form:form>
+                    <h3>Обратная связь</h3>
+                    <hr>
+                    <input type="text" name="name" id="name" placeholder="Имя">
+                    <br>
+                    <input type="text" name="email" id="email" placeholder="электронный адрес">
+                    <br>
+                    <input type="text" name="subject" id="subject" placeholder="Тема">
+                    <br>
+                    <textarea rows="5"  name="message" id="message" placeholder="Сообщение"></textarea>
+                    <br>
+                    <button class="button" id="btn-send">Send</button>
+                    <br>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 

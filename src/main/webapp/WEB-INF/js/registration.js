@@ -7,8 +7,8 @@ $(document).ready(function () {
             type: 'POST',
             url: '/signIn',
             data: {
-                email: $("#log_email").val(),
-                pass: $("#log_password").val(),
+                email: $("#email").val(),
+                pass: $("#password").val(),
             },
             success: function (res, status, xhr) {
                 //window.location.reload(true);
@@ -22,9 +22,9 @@ $(document).ready(function () {
             url: '/signUp',
             dataType: 'html',
             data: {
-                name: $("#reg_name").val(),
-                email: $("#reg_email").val(),
-                pass: $("#reg_password").val(),
+                name: $("#name").val(),
+                email: $("#email").val(),
+                pass: $("#password").val(),
             },
             success: function () {
                 alert("Вы зарегистрированы. Спасибо");
@@ -32,3 +32,5 @@ $(document).ready(function () {
         });
     });
 });
+
+
