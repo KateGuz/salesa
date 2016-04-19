@@ -35,8 +35,7 @@ public class UserSecurityController {
         user.setId(userService.save(user));
         userSecurity.addSession(session.getId(), user);
         session.setAttribute("loggedUser", user);
-        ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
-        return result;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
@@ -44,7 +43,7 @@ public class UserSecurityController {
         log.info("signing in,  " + email + " password " + password);
 
         User user = userService.get(email);
-        if (user.getPassword().equals(password)) {
+        if (!(user.getPassword().equals(password))) {
         ResponseEntity<Void> result = new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
             return result;
         }

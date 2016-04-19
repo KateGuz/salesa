@@ -235,19 +235,23 @@ input.form-control {
 }
 
 /*pagination*/
-.pages {
-    margin-bottom: 97px;
-}
 
 .pages-user {
     margin: 10px auto 40px;
 }
 /*footer*/
 .foot {
-    margin-top: 87px;
+    margin-top: 20px;
     height: 104px;
     text-align: center;
 }
+
+.breadcrumb>li+li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: ">";
+}
+
 /*user-page*/
 .dislike-btn {
     background-color: #db5450;
@@ -273,7 +277,7 @@ input.form-control {
 }
 
 .user-info-bar {
-    margin: 29px 0 0 0;
+    margin: 10px 0 0 0;
 }
 
 .user-img.thumbnail {
@@ -447,7 +451,7 @@ input.form-control {
 }
 
 .separator-box {
-    margin: 50px auto auto auto;
+    margin: 50px auto -40px auto;
     background: white;
     border: 0;
 
@@ -484,7 +488,7 @@ textarea {
 
 
 .modal-body textarea {
-    margin: 15px 0 15px 0;
+    margin: 15px 0 10px 0;
     border-radius: 8px;
     border: 1px solid rgb(228, 228, 228);
     width: 100%;
@@ -510,7 +514,7 @@ textarea {
 }
 
 .btn-send{
-
+    margin-top: -1px !important;
 }
 
 .modal-body .button:hover {

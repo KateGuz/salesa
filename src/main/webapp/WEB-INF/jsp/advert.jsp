@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page session="true" %>
 
@@ -33,7 +34,6 @@
                 <div class=" col-sm-6">
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#btn-send" data-toggle="modal" data-target="#contactUs">Связаться с нами</a></li>
                             <c:choose>
                                 <c:when test="${empty loggedUser.name}">
                                     <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
@@ -56,7 +56,6 @@
         <div class="wrap-category">
             <ol class="breadcrumb">
                 <c:forEach items="${breadcrumbsTree}" var="category">
-                    <%--<li><a href="/">Главная</a></li>--%>
                     <li><a href="/category/${category.id}">${category.name}</a></li>
                 </c:forEach>
             </ol>
@@ -91,6 +90,18 @@
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </div>
+                        <div style="text-align: center" class="col-sm-12">
+                            <h4>
+                                <div class="glyphicon glyphicon-user"></div>
+                                <a href="/user/${advert.user.id}">${advert.user.name}</a>
+                            </h4>
+                            <p>
+                            <div class="glyphicon glyphicon-envelope"></div>
+                            email: ${advert.user.email}
+                            <p>
+                            <div class="glyphicon glyphicon-phone"></div>
+                            phone: ${advert.user.phone}
+                        </div>
 
                     </div>
                 </div>
@@ -103,10 +114,10 @@
                         <br>
                         <c:choose>
                             <c:when test="${advert.status == 'A'}">
-                                <font color="#48c083"><h5>Активно</h5></font>
+                                <font color="#48c083"><strong><h5>Активно</h5></strong></font>
                             </c:when>
                             <c:when test="${advert.status == 'H'}">
-                                <h5>Забронировано </h5>
+                                <h5><strong>Забронировано</strong> </h5>
                             </c:when>
                         </c:choose>
                         <br>
@@ -114,20 +125,7 @@
                     </div>
                 </div>
                 <hr>
-                <div class="col-sm-12">
-                    <div style="text-align: center" class="col-xs-4">
-                        <h4>
-                            <div class="glyphicon glyphicon-user"></div>
-                            <a href="/user/${advert.user.id}">${advert.user.name}</a>
-                        </h4>
-                        <p>
-                        <div class="glyphicon glyphicon-envelope"></div>
-                        email: ${advert.user.email}
-                        <p>
-                        <div class="glyphicon glyphicon-phone"></div>
-                        phone: ${advert.user.phone}
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -176,11 +174,11 @@
                 <form:form>
                     <h3>Регистрация</h3>
                     <hr>
-                    <input type="text" name="name" id="name" placeholder="Name">
+                    <input type="text" name="name" id="reg-name" placeholder="Name">
                     <br>
-                    <input type="text" name="email" id="email" placeholder="Email">
+                    <input type="text" name="email" id="reg-email" placeholder="Email">
                     <br>
-                    <input type="password" name="password" id="password" placeholder="Password">
+                    <input type="password" name="password" id="reg-password" placeholder="Password">
                     <br>
                     <button class="button" id="btn-reg">Submit</button>
                     <br>
@@ -194,28 +192,5 @@
     </div>
 </div>
 
-<div class="modal fade " id="contactUs" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button class="close" type="button" data-dismiss="modal">&times;</button>
-            <div class="modal-body">
-                <form:form>
-                    <h3>Обратная связь</h3>
-                    <hr>
-                    <input type="text" name="name" id="name" placeholder="Имя">
-                    <br>
-                    <input type="text" name="email" id="email" placeholder="электронный адрес">
-                    <br>
-                    <input type="text" name="subject" id="subject" placeholder="Тема">
-                    <br>
-                    <textarea rows="5"  name="message" id="message" placeholder="Сообщение"></textarea>
-                    <br>
-                    <button class="button" id="btn-send">Отправить</button>
-                    <br>
-                </form:form>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 </html>

@@ -30,16 +30,13 @@ public class FeedbackController {
 
     @RequestMapping(value = "/feedback/{userId}", method = RequestMethod.POST)
     public ResponseEntity<Void> saveFeedback(HttpServletRequest httpServletRequest, @PathVariable Integer userId) throws IOException {
-        if(userSecurity.getUserBySessionId(httpServletRequest.getSession().getId())== null){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpServletRequest.getInputStream()));
         String feedbackText = bufferedReader.readLine();
 
         ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
         Feedback feedback = new Feedback();
         feedback.setUser(new User(userId));
-        feedback.setAuthor(new User(1));
+        feedback.setAuthor(userSecurity.getUserBySessionId(httpServletRequest.getSession().getId()));
         feedback.setCreationDate(LocalDateTime.now());
         feedback.setText(feedbackText);
 

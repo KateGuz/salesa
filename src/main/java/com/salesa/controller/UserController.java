@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,7 @@ public class UserController {
         User user = userService.get(userId);
         List<Advert> adverts = advertService.getByUserId(userId);
         List<Feedback> feedbacks = userService.getByUserId(userId);
+        Collections.reverse(feedbacks);
         model.addAttribute("user", user);
         model.addAttribute("adverts", adverts);
         model.addAttribute("feedbacks", feedbacks);

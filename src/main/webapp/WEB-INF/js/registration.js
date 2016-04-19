@@ -1,6 +1,11 @@
 $(document).ready(function () {
 
     console.log("DOCUMENT READY");
+/*
+    var iframe = document.createElement("IFRAME");
+    iframe.setAttribute("src", 'data:text/plain,');
+    document.documentElement.appendChild(iframe);*/
+
 
     $('#btn-log').click(function () {
         $.ajax({
@@ -22,15 +27,21 @@ $(document).ready(function () {
             url: '/signUp',
             dataType: 'html',
             data: {
-                name: $("#name").val(),
-                email: $("#email").val(),
-                pass: $("#password").val(),
+                name: $("#reg-name").val(),
+                email: $("#reg-email").val(),
+                pass: $("#reg-password").val(),
             },
-            success: function () {
-                alert("Вы зарегистрированы. Спасибо");
+            success: function (res, status, xhr) {
+            window.location.reload(),
+               alert("Вы зарегистрированы. Спасибо");
             }
         });
     });
+    /*window.frames[0].window.
+    iframe.parentNode.removeChild(iframe);*/
 });
+
+
+
 
 
