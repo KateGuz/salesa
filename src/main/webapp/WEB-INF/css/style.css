@@ -551,12 +551,15 @@ button.close {
     background: 0 0;
     border: 0;
     padding: 20px;
-
 }
 
 button.close:focus {
     outline-width: 0;
 }
+
+/*#success-reg {
+    display: none;
+}*/
 
 #thumbnail .thumbnail {
     background-color: #f9f9f9;

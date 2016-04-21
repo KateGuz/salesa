@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService{
         return userDao.get(email);
     }
 
+    @Override
+    public String getEmail(String email) {
+        return get(email).getEmail();
+    }
+
 }

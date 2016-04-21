@@ -33,6 +33,16 @@
                 <div class=" col-sm-6">
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Валюта<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">USD</a></li>
+                                    <li><a href="#">UAH</a></li>
+                                    <li><a href="#">CHF</a></li>
+                                    <li><a href="#">RUB</a></li>
+                                </ul>
+                            </li>
                             <c:choose>
                                 <c:when test="${empty loggedUser.name}">
                                     <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
@@ -89,16 +99,7 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="btn-group nav navbar-nav navbar-right">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Валюта <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">USD</a></li>
-                            <li><a href="#">UAH</a></li>
-                            <li><a href="#">CHF</a></li>
-                            <li><a href="#">RUB</a></li>
-                        </ul>
-                        <button type="button" class="btn btn-default">Новые</button>
+                        <button type="button" class="btn btn-danger">this is sparta!!!11</button>
                         <button type="button" class="btn btn-default">Самые дешевые</button>
                         <button type="button" class="btn btn-default">Самые дорогие</button>
                         <button type="button" class="btn btn-default">Активные</button>
@@ -181,7 +182,6 @@
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>
             <div class="modal-body">
-                <form:form>
                     <h3>Вход на сайт </h3>
                     <hr>
                     <input type="text" name="email" id="email" placeholder="Email">
@@ -194,7 +194,6 @@
                     <p>Еще не зарегистрированы?<a href="#user-security-reg" data-toggle="modal"
                                              data-target="#user-security-reg"
                                              data-dismiss="modal">&nbsp;Зарегистрироваться</a></p>
-                </form:form>
             </div>
         </div>
     </div>
@@ -204,7 +203,6 @@
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>
             <div class="modal-body">
-                <form:form>
                     <h3>Регистрация</h3>
                     <hr>
                     <input type="text" name="name" id="reg-name" placeholder="Name">
@@ -219,7 +217,17 @@
                     <p>Уже зарегистрированы?<a href="#user-security-log" data-toggle="modal"
                                              data-target="#user-security-log"
                                              data-dismiss="modal">&nbsp;Войти на сайт</a></p>
-                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="success-reg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <p>Вы зарегистрированы. Спасибо!</p>
+                <button class="button" id="btn-ok">Ok</button>
             </div>
         </div>
     </div>

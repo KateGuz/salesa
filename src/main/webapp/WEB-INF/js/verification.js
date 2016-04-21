@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     $('#email').blur(function() {
+
         if($(this).val() != '') {
             var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
             if(pattern.test($(this).val())){
@@ -18,3 +19,4 @@ $(document).ready(function() {
         }
     });
 });
+

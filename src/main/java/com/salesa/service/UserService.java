@@ -10,4 +10,5 @@ public interface UserService {
     List<Feedback> getByUserId(int userId);
     int save(User user);
     User get(String email);
+    String getEmail(String email);
 }

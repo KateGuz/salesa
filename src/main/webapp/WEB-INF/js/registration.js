@@ -1,12 +1,4 @@
 $(document).ready(function () {
-
-    console.log("DOCUMENT READY");
-/*
-    var iframe = document.createElement("IFRAME");
-    iframe.setAttribute("src", 'data:text/plain,');
-    document.documentElement.appendChild(iframe);*/
-
-
     $('#btn-log').click(function () {
         $.ajax({
             type: 'POST',
@@ -16,8 +8,7 @@ $(document).ready(function () {
                 pass: $("#password").val(),
             },
             success: function (res, status, xhr) {
-                //window.location.reload(true);
-                //window.location.href = '/'
+                location.reload();
             }
         });
     });
@@ -32,16 +23,27 @@ $(document).ready(function () {
                 pass: $("#reg-password").val(),
             },
             success: function (res, status, xhr) {
-            window.location.reload(),
-               alert("Вы зарегистрированы. Спасибо");
+                $('#success-reg').show();
+                console.log("show");
+                $('#btn-ok').click(function () {
+                    $('#success-reg').hide();
+                    console.log("hide");
+                });
+               /*showMessage();*/
+                location.reload();
+
             }
         });
     });
-    /*window.frames[0].window.
-    iframe.parentNode.removeChild(iframe);*/
+    function showMessage(){
+        $('#success-reg').show();
+        console.log("success!");
+    }
+
+    function hideMessage(){
+        $('#btn-ok').click(function () {
+            $('#success-reg').hide();
+        });
+    }
 });
-
-
-
-
 

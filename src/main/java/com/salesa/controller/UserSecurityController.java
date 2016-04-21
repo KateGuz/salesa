@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -35,7 +37,8 @@ public class UserSecurityController {
         user.setId(userService.save(user));
         userSecurity.addSession(session.getId(), user);
         session.setAttribute("loggedUser", user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
+        return result;
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
@@ -59,6 +62,15 @@ public class UserSecurityController {
         userSecurity.deleteSession(session.getId());
         log.info("signing out");
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/validateEmail", method = RequestMethod.POST)
+    public String validate(HttpServletRequest request) {
+        String mail = request.getParameter("email");
+        if(userService.getEmail(mail) == mail){
+            return "";
+        }
+        return "";
     }
 
 }
