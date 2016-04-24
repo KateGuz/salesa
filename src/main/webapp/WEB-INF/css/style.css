@@ -457,6 +457,10 @@ input.form-control {
 
 }
 
+.modal{
+    display: none;
+}
+
 .modal-content {
     /*height: 335px;*/
     width: 320px;
@@ -528,6 +532,7 @@ textarea {
 .modal-body p {
     margin: 35px 0 15px 0;
     color: #a0a0a0;
+
 }
 
 .modal-body a {
@@ -545,6 +550,7 @@ textarea {
     text-decoration: underline;
 }
 
+
 button.close {
     -webkit-appearance: none;
     cursor: pointer;
@@ -557,9 +563,14 @@ button.close:focus {
     outline-width: 0;
 }
 
-/*#success-reg {
-    display: none;
-}*/
+.wrap-modal .modal-body{
+    margin: 15px !important;
+}
+
+.wrap-modal .modal-body p {
+    margin: 0 25px 0 25px !important;
+    text-align: center !important;
+}
 
 #thumbnail .thumbnail {
     background-color: #f9f9f9;
@@ -598,6 +609,7 @@ ul.nav.navbar-right {
 #user-advert-status h6 {
     color: #c7254e;;
 }
+
 
 #user-advert-price {
     display: inline-block;

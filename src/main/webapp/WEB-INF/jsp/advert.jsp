@@ -18,7 +18,7 @@
     <div class="size">
         <nav class="navbar navbar-default">
             <div class="row">
-                <div class="navbar-header col-sm-2">
+                <div class="navbar-header col-sm-4">
                     <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="col-sm-4">
@@ -31,7 +31,7 @@
                         </div>
                     </form>
                 </div>
-                <div class=" col-sm-6">
+                <div class=" col-sm-4">
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
@@ -50,8 +50,8 @@
                                     </li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
-                                    <li><a href="/signOut">Выйти</a></li>
+                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                    <li class="out"><a href="/signOut">Выйти</a></li>
                                 </c:otherwise>
                             </c:choose>
                         </ul>
@@ -153,7 +153,9 @@
     </div>
 </div>
 
-<div class="modal fade " id="user-security-log" role="dialog">
+<jsp:include page="forms.jsp"/>
+
+<%--<div class="modal fade " id="user-security-log" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <button class="close" type="button" data-dismiss="modal">&times;</button>
@@ -196,6 +198,6 @@
             </div>
         </div>
     </div>
-</div>
+</div>--%>
 </body>
 </html>

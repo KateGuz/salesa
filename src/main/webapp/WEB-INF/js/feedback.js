@@ -3,9 +3,13 @@ function addFeedback(userId) {
     var feedbackTextArea = $(".feedback-input");
     var feedbackText = feedbackTextArea.val();
     $.post(url, feedbackText, function () {
-        alert("Ваш отзыв добавлен. Спасибо");
+        $('#feedback-ok').modal('show');
+        setTimeout(hideModal, 2500);
         feedbackTextArea.val("");
         location.reload();
     });
+    function hideModal(){
+        $('#feedback-ok ').modal('hide');
+    }
 }
 

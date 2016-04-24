@@ -1,14 +1,21 @@
+
 $(document).ready(function () {
     $('#btn-log').click(function () {
         $.ajax({
             type: 'POST',
             url: '/signIn',
+            dataType: 'json',
             data: {
                 email: $("#email").val(),
-                pass: $("#password").val(),
+                pass: $("#password").val()
             },
-            success: function (res, status, xhr) {
-                location.reload();
+            success: function (loggedUser) {
+                console.log(loggedUser.id);
+               $('.userLink').html(loggedUser.name);
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
             }
         });
     });
@@ -20,30 +27,17 @@ $(document).ready(function () {
             data: {
                 name: $("#reg-name").val(),
                 email: $("#reg-email").val(),
-                pass: $("#reg-password").val(),
+                pass: $("#reg-password").val()
             },
-            success: function (res, status, xhr) {
-                $('#success-reg').show();
-                console.log("show");
-                $('#btn-ok').click(function () {
-                    $('#success-reg').hide();
-                    console.log("hide");
-                });
-               /*showMessage();*/
-                location.reload();
-
+            success: function () {
+                $('#success-reg').modal('show');
+                setTimeout(hideModal, 2000);
             }
-        });
+        })
     });
-    function showMessage(){
-        $('#success-reg').show();
-        console.log("success!");
-    }
 
-    function hideMessage(){
-        $('#btn-ok').click(function () {
-            $('#success-reg').hide();
-        });
+    function hideModal(){
+        $('#success-reg').modal('hide');
     }
 });
 
