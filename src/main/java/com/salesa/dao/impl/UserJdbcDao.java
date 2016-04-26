@@ -37,6 +37,9 @@ public class UserJdbcDao implements UserDao {
     private String getUserByEmailSQL;
 
     @Autowired
+    private String updateUsersDislikes;
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
 
@@ -64,5 +67,15 @@ public class UserJdbcDao implements UserDao {
     @Override
     public User get(String email) {
         return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, new MapSqlParameterSource("email", email), new UserMapper());
+    }
+
+    @Override
+    public int updateUsersDislike(User user) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("dislike", user.getDislikeAmount());
+        params.put("email", user.getEmail());
+
+        namedParameterJdbcTemplate.update(updateUsersDislikes, params);
+        return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, new MapSqlParameterSource("email", user.getEmail()), new UserMapper()).getId();
     }
 }

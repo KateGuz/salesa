@@ -80,7 +80,7 @@
                         <p>
                         <div class="glyphicon glyphicon-phone"></div>
                         ${user.phone} </p>
-                        <button class="dislike-btn">
+                        <button class="dislike-btn" onclick="addDislike(${user.id})">
                             <i class="glyphicon glyphicon-thumbs-down"> Dislike</i></button>
                     </div>
                     <br>

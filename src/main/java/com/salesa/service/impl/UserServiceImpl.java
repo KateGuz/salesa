@@ -44,4 +44,9 @@ public class UserServiceImpl implements UserService{
         return get(email).getEmail();
     }
 
+    @Override
+    public int updateUsersDislike(User user) {
+        return userDao.updateUsersDislike(user);
+    }
+
 }
