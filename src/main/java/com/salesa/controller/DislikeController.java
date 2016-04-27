@@ -18,18 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 public class DislikeController {
 
     @Autowired
-    private UserSecurity userSecurity;
-
-    @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/dislike/{userId}", method = RequestMethod.POST)
-    public ResponseEntity<Void> saveDislike(HttpServletRequest request, @PathVariable Integer userId) {
+    public ResponseEntity<Void> saveDislike(@PathVariable Integer userId) {
         ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
         User user = userService.get(userId);
         int dislikeAmount = user.getDislikeAmount() + 1;
         user.setDislikeAmount(dislikeAmount);
         userService.updateUsersDislike(user);
+        System.out.println(user);
         return result;
     }
 }

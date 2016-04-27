@@ -45,8 +45,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public int updateUsersDislike(User user) {
-        return userDao.updateUsersDislike(user);
+    public void updateUsersDislike(User user) {
+        userDao.updateUsersDislike(user);
     }
 
 }

@@ -1,13 +1,10 @@
 package com.salesa.dao.impl;
 
 import com.salesa.dao.UserDao;
-import com.salesa.dao.mapper.FeedbackMapper;
 import com.salesa.dao.mapper.UserMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -37,7 +34,7 @@ public class UserJdbcDao implements UserDao {
     private String getUserByEmailSQL;
 
     @Autowired
-    private String updateUsersDislikes;
+    private String updateUsersDislikesSQL;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -70,12 +67,11 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public int updateUsersDislike(User user) {
+    public void updateUsersDislike(User user) {
         Map<String, Object> params = new HashMap<>();
         params.put("dislike", user.getDislikeAmount());
         params.put("email", user.getEmail());
 
-        namedParameterJdbcTemplate.update(updateUsersDislikes, params);
-        return namedParameterJdbcTemplate.queryForObject(getUserByEmailSQL, new MapSqlParameterSource("email", user.getEmail()), new UserMapper()).getId();
+        namedParameterJdbcTemplate.update(updateUsersDislikesSQL, params);
     }
 }
