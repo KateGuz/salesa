@@ -70,6 +70,10 @@
                 value="INSERT INTO user (name, email, password) VALUES(:name, :email, :password);"/>
     </bean>
 
+    <bean id="updateUsersDislikesSQL" class="java.lang.String">
+        <constructor-arg value="UPDATE user SET dislikeAmount=:dislike WHERE email=:email;"/>
+    </bean>
+
     <bean id="getUserByEmailSQL" class="java.lang.String">
         <constructor-arg
                 value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u WHERE u.email = :email;"/>
