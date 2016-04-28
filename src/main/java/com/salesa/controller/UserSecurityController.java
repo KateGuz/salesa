@@ -28,7 +28,8 @@ public class UserSecurityController {
     private UserSecurity userSecurity;
 
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    public ResponseEntity<Void> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "pass") String password, HttpSession session) {
+    public ResponseEntity<Void> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email,
+                                       @RequestParam(name = "pass") String password, HttpSession session) {
         log.info("signing up, name " + name + " email " + email + " password " + password);
         User user = new User();
         user.setEmail(email);

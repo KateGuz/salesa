@@ -23,4 +23,6 @@
     <mvc:resources mapping="/js/**" location="/WEB-INF/js/" />
     <mvc:resources mapping="/fonts/**" location="/WEB-INF/fonts/" />
     <mvc:annotation-driven />
+
+    <!--<mvc:default-servlet-handler />-->
 </beans>
