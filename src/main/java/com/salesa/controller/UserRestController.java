@@ -3,6 +3,8 @@ package com.salesa.controller;
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 public class UserRestController {
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserSecurity userSecurity;
     @Autowired
@@ -21,6 +24,7 @@ public class UserRestController {
     @RequestMapping(value = "/signIn", method = RequestMethod.PUT)
     public String signInREST(@RequestParam("email") String email,
                              @RequestParam("pass") String pass, HttpSession session) {
+        log.info("Received request for api: Sign In - email:[" + email + "], password:[" + pass + "].");
         User user = userService.get(email);
         if (user != null && user.getPassword().equals(pass)) {
             userSecurity.addSession(session.getId(), user);
@@ -31,11 +35,12 @@ public class UserRestController {
 
     @RequestMapping(value = "/signUp", method = RequestMethod.PUT)
     public String signUpREST(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email,
-                             @RequestParam(name = "pass") String password, HttpSession session) {
+                             @RequestParam(name = "pass") String pass, HttpSession session) {
+        log.info("Received request for api: Sign Up - name:[" + name +"], email:[" + email + "], password:[" + pass + "].");
         User user = new User();
         user.setEmail(email);
         user.setName(name);
-        user.setPassword(password);
+        user.setPassword(pass);
         user.setId(userService.save(user));
         userSecurity.addSession(session.getId(), user);
         return "Sign Up is successful. Welcome dear " + user.getName();

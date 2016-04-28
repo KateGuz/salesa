@@ -6,11 +6,14 @@ import com.salesa.service.UserService;
 import com.salesa.service.cache.CategoryCache;
 import com.salesa.util.CategoryParcer;
 import com.salesa.util.UserParcer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CategoryRestController {
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private CategoryCache categoryCache;
     @Autowired
@@ -25,6 +28,7 @@ public class CategoryRestController {
             headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
             produces = {"application/xml", "application/json"})
     public String getCategory(@PathVariable("id") int id, @RequestHeader("accept") String header) {
+        log.info("Received request for api: list of categories.");
         Category categoryById = categoryCache.getCategoryById(id);
         if (header.contains("/json")) {
             return categoryParcer.toJSON(categoryById);
@@ -40,6 +44,7 @@ public class CategoryRestController {
             headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
             produces = {"application/xml", "application/json"})
     public String userInfoJSON(@PathVariable("id") int id, @RequestHeader("accept") String header) {
+        log.info("Received request for api: user information");
         User user = userService.get(id);
         user.setPassword(null);
 
