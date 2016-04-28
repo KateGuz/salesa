@@ -21,7 +21,7 @@ public class CategoryRestController {
     private UserParcer userParcer;
 
 
-    @RequestMapping(value = "/cat/{id}", method = RequestMethod.GET,
+    @RequestMapping(value = "/api/category/{id}", method = RequestMethod.GET,
             headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
             produces = {"application/xml", "application/json"})
     public String getCategory(@PathVariable("id") int id, @RequestHeader("accept") String header) {
@@ -36,7 +36,7 @@ public class CategoryRestController {
         }
     }
 
-    @RequestMapping(value = "/us/{id}", method = RequestMethod.GET,
+    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET,
             headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
             produces = {"application/xml", "application/json"})
     public String userInfoJSON(@PathVariable("id") int id, @RequestHeader("accept") String header) {
