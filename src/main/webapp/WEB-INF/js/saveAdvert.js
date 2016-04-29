@@ -6,7 +6,7 @@ $(document).ready(function (userId) {
                 price: $('#price').val(),
                 currency: $('#currency').val(),
                 text: $('#description').val(),
-                category: $('#category').val(),
+                categoryId: $('#category').val(),
                 status: $('#status').val()
             };
             $.ajax({
