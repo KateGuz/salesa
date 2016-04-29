@@ -89,7 +89,7 @@
                             <c:when test="${empty loggedUser}">
                             </c:when>
                             <c:when test="${loggedUser.id == user.id}">
-                                <button class="create"><a href="/addAdvert/"><strong>Ad advert</strong></a></button>
+                                <a href="/addAdvert/"><button class="create"><strong>Ad advert</strong></button></a>
                             </c:when>
                             <c:otherwise>
                                 <button class="dislike-btn" onclick="addDislike(${user.id})">
