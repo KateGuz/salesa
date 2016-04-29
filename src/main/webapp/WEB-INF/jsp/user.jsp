@@ -92,11 +92,11 @@
                                 <button class="create"><a href="/addAdvert/"><strong>Ad advert</strong></a></button>
                             </c:when>
                             <c:otherwise>
-                                <button class="dislike-btn">
-                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
-                                </button>
+                                <button class="dislike-btn" onclick="addDislike(${user.id})">
+                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i></button>
                             </c:otherwise>
                         </c:choose>
+
                     </div>
                     <br>
                 </div>

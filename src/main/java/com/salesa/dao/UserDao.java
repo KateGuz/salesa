@@ -9,4 +9,5 @@ public interface UserDao {
     User get(int userId);
     int save(User user);
     User get(String email);
+    void updateUsersDislike(User user);
 }
