@@ -50,8 +50,7 @@ public class AddAdvertController {
     public ResponseEntity<Void> adAdvert(HttpServletRequest httpServletRequest, HttpSession session) throws IOException {
         /*, @RequestParam(name = "title") String title, @RequestParam(name = "text") String text, @RequestParam(name = "category") Integer categoryId, @RequestParam(name = "price") double price, @RequestParam(name = "currency")String currency, @RequestParam(name = "status") String status*/
         String title = httpServletRequest.getParameter("title");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpServletRequest.getInputStream()));
-        String text = bufferedReader.readLine();
+        String text = httpServletRequest.getParameter("text");
         double price = Double.parseDouble(httpServletRequest.getParameter("price"));
         String currency = httpServletRequest.getParameter("currency");
         String status = httpServletRequest.getParameter("status");
