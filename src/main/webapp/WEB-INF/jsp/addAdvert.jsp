@@ -104,7 +104,7 @@
                                             <select id="currency" required>
                                                 <option>USD</option>
                                                 <option>UAH</option>
-                                                <option>EURO</option>
+                                                <option>EUR</option>
                                             </select>
                                         </div>
                                     </div>

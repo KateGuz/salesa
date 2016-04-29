@@ -16,30 +16,10 @@ $(document).ready(function (userId) {
                     /*dataType    : 'json'*/
                   /*  encode          : true*/
                 })
-                .success(function(data) {
-                    console.log(data);
+                .success(function(userId) {
+                    top.location.href = '/user/' + userId ;
                 });
             event.preventDefault();
         });
 
-    /*$('.save').click(function () {
-        $.ajax({
-            url: '/addAdvert',
-            type: 'POST',
-            data: {
-                title: $('#title').val(),
-                price: $('#price').val(),
-                currency: $('#currency').val(),
-                text: $('#description').val(),
-                category: $('#category').val(),
-                status: $('#status').val()
-            },
-            success: function(){
-                console.log("kozaebis'!");
-            },
-            error(){
-                console.log(" ah tu j bliat'!");
-            }
-        });
-    });*/
 })
