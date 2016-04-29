@@ -10,4 +10,5 @@ public interface AdvertService {
     AdvertPageData get(AdvertFilter advertFilter);
     Advert get(int advertId);
     List<Advert> getByUserId(int userId);
+    AdvertPageData getAll(AdvertFilter advertFilter);
 }

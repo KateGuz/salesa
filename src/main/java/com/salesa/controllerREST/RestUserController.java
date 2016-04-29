@@ -1,4 +1,4 @@
-package com.salesa.controller;
+package com.salesa.controllerREST;
 
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class UserRestController {
+public class RestUserController {
     private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserSecurity userSecurity;

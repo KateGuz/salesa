@@ -1,5 +1,6 @@
 package com.salesa.controller;
 
+import com.salesa.controllerREST.RestUserController;
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.UserService;
@@ -15,19 +16,19 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 
-public class UserRestControllerTest {
+public class RestUserControllerTest {
     @Mock
     private UserSecurity userSecurity;
     @Mock
     private UserService userService;
     @InjectMocks
-    private UserRestController userRestController = new UserRestController();
+    private RestUserController restUserController = new RestUserController();
     private MockMvc mvc;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mvc = MockMvcBuilders.standaloneSetup(userRestController).build();
+        mvc = MockMvcBuilders.standaloneSetup(restUserController).build();
     }
 
     @Test

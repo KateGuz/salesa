@@ -5,6 +5,11 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+    <bean id="getAllAdvertsSQL" class="java.lang.String">
+        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price, a.categoryId,
+        a.currency, a.userId, a.status FROM advert as a"/>
+    </bean>
+
     <bean id="getAdvertsCountSQL" class="java.lang.String">
         <constructor-arg value="SELECT count(*) as count FROM advert WHERE status != 'S'"/>
     </bean>
