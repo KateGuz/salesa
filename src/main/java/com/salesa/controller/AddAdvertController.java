@@ -24,7 +24,7 @@ import java.net.URI;
 import java.time.LocalDateTime;
 
 @Controller
-public class AddAdvertController {
+public class    AddAdvertController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
