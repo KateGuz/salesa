@@ -47,11 +47,14 @@
                             </li>
                             <c:choose>
                                 <c:when test="${empty loggedUser.name}">
-                                    <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                    <li class="userLink"><a href="#user-security-log" data-toggle="modal"
+                                                            data-target="#user-security-log">Вход</a>
                                     </li>
+                                    <li class="out"></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a>
+                                    </li>
                                     <li class="out"><a href="/signOut">Выйти</a></li>
                                 </c:otherwise>
                             </c:choose>
@@ -66,11 +69,11 @@
     <div class="size">
         <div class="row">
             <div class="col-xs-12">
-                <div class="user-info-bar col-sm-4 col-md-3">
+                <div class="user-info-bar col-sm-4 col-md-4">
                     <div class="user-img thumbnail">
-                        <img src="https://placehold.it/250x250" alt="avatar">
+                        <img src="/img/mock-user.png" alt="avatar">
                     </div>
-                    <div>
+                    <div style="text-align: center">
                         <h4>
                             <div class="glyphicon glyphicon-user"></div>
                             ${user.name}
@@ -81,13 +84,24 @@
                         <p>
                         <div class="glyphicon glyphicon-phone"></div>
                         ${user.phone} </p>
-                        <button class="dislike-btn">
-                            <i class="glyphicon glyphicon-thumbs-down"> Dislike</i></button>
+
+                        <c:choose>
+                            <c:when test="${empty loggedUser}">
+                            </c:when>
+                            <c:when test="${loggedUser.id == user.id}">
+                                <button class="create"><a href="/addAdvert/"><strong>Ad advert</strong></a></button>
+                            </c:when>
+                            <c:otherwise>
+                                <button class="dislike-btn">
+                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <br>
                 </div>
 
-                <div class="col-sm-8 col-md-9 ">
+                <div class="col-sm-8 col-md-8">
                     <div class="advert-list-bar">
                         <ol class="user-advert-list">
                             <c:forEach items="${adverts}" var="advert" varStatus="loop">
@@ -111,7 +125,8 @@
                                         <hr class="user-advert-status-hr">
 
                                         <div class="media-left">
-                                            <img class="media-object thumbnail adv-img-list-item" src="/img/1.png">
+                                            <img class="media-object thumbnail adv-img-list-item"
+                                                 src="/img/1.png">
                                         </div>
                                         <div class=" media-right">
                                             <a href="/advert/${advert.id}">
@@ -119,7 +134,8 @@
                                             </a>
                                             <p>${advert.text}</p>
                                             <br>
-                                            <h6><tags:localDateTime date="${advert.modificationDate}"/></h6>
+                                            <h6><tags:localDateTime
+                                                    date="${advert.modificationDate}"/></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -138,10 +154,13 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <div class="feedback-form row">
-                                    <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
-                                    <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
+                                <div class="row">
+                                    <div class="feedback-form">
+                                        <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
+                                        <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
+                                    </div>
                                 </div>
+
                             </c:otherwise>
                         </c:choose>
 
@@ -188,59 +207,7 @@
 </div>
 
 <jsp:include page="forms.jsp"/>
-<%--<div class="modal fade " id="user-security-log" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button class="close" type="button" data-dismiss="modal">&times;</button>
-            <div class="modal-body">
-                <h3>Вход на сайт </h3>
-                <hr>
-                <input type="text" name="email" id="email" placeholder="Email">
-                <br>
-                <input type="password" name="password" id="password" placeholder="Password">
-                <br>
-                <button class="button" id="btn-log">Submit</button>
-                <br>
-                <br>
-                <p>Еще не зарегистрированы?<a href="#user-security-reg" data-toggle="modal"
-                                              data-target="#user-security-reg"
-                                              data-dismiss="modal">&nbsp;Зарегистрироваться</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade " id="user-security-reg" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button class="close" type="button" data-dismiss="modal">&times;</button>
-            <div class="modal-body">
-                <h3>Регистрация</h3>
-                <hr>
-                <input type="text" name="name" id="reg-name" placeholder="Name">
-                <br>
-                <input type="text" name="email" id="reg-email" placeholder="Email">
-                <br>
-                <input type="password" name="password" id="reg-password" placeholder="Password">
-                <br>
-                <button class="button" id="btn-reg">Submit</button>
-                <br>
-                <br>
-                <p>Уже зарегистрированы?<a href="#user-security-log" data-toggle="modal"
-                                           data-target="#user-security-log"
-                                           data-dismiss="modal">&nbsp;Войти на сайт</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="wrap-modal">
-    <div class="modal fade" id="success-reg" role="dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <p>Вы зарегистрированы. Спасибо!</p>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="wrap-modal">
     <div class="modal fade" id="feedback-ok" role="dialog">
         <div class="modal-content">
@@ -249,6 +216,6 @@
             </div>
         </div>
     </div>
-</div>--%>
+</div>
 </body>
 </html>

@@ -20,6 +20,7 @@ import java.util.Map;
 
 @Repository
 public class UserJdbcDao implements UserDao {
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -52,6 +53,7 @@ public class UserJdbcDao implements UserDao {
     }
 
     public int save(User user) {
+        log.info("Query save user with email: ", user.getEmail());
         Map<String, Object> params = new HashMap<>();
         params.put("name", user.getName());
         params.put("email", user.getEmail());

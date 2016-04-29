@@ -29,7 +29,7 @@ public class UserSecurityController {
     private UserSecurity userSecurity;
 
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    public ResponseEntity<Object> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "pass") String password, HttpSession session) {
+    public ResponseEntity<String> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "pass") String password, HttpSession session) {
         log.info("signing up, name " + name + " email " + email + " password " + password);
         User user = new User();
         user.setEmail(email);
@@ -43,13 +43,12 @@ public class UserSecurityController {
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
-    public ResponseEntity<Object> singIn(@RequestParam("email") String email, @RequestParam("pass") String password, HttpSession session) {
+    public ResponseEntity<String> singIn(@RequestParam("email") String email, @RequestParam("pass") String password, HttpSession session) {
         log.info("signing in,  " + email + " password " + password);
 
         User user = userService.get(email);
         if (!(user.getPassword().equals(password))) {
-        ResponseEntity<Object> result = new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            return result;
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         userSecurity.addSession(session.getId(), user);
         session.setAttribute("loggedUser", user);

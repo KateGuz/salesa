@@ -12,6 +12,10 @@ public class Category {
     public Category() {
     }
 
+    public Category(Integer categoryId) {
+        id = categoryId;
+    }
+
     public Category getParent() {
         return parent;
     }

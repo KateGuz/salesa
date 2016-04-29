@@ -1,6 +1,11 @@
 
 $(document).ready(function () {
-    $('#btn-log').click(function () {
+        $('#btn-log').click(function () {
+        if($("#email").val() === '' || $("#password").val() === ''){
+            $('#btn-log').on("click",function(e){
+                e.preventDefault;
+            });
+        }
         $.ajax({
             type: 'POST',
             url: '/signIn',
@@ -10,16 +15,22 @@ $(document).ready(function () {
                 pass: $("#password").val()
             },
             success: function (loggedUser) {
-                console.log(loggedUser.id);
-               $('.userLink').html(loggedUser.name);
-
+                $('.userLink').html(`<a href="/user/${loggedUser.id}">${loggedUser.name}</a>`);
+                $('.out').html(`<a href="/signOut">Выйти</a>`).show();
+                $('.alert').hide();
+                $('.feedback-form').show();/*bug, doesn't work*/
             },
-            error: function (reponse) {
-                alert("error : " + reponse);
+            error: function () {
+                message($('#error'));
             }
         });
     });
     $('#btn-reg').click(function () {
+        if($("#reg-name").val() === '' || $("#reg-email").val() === '' || $("#reg-password").val() === '') {
+            $('#btn-log').on("click", function (e) {
+                e.preventDefault;
+            });
+        }
         $.ajax({
             type: 'POST',
             url: '/signUp',
@@ -29,15 +40,19 @@ $(document).ready(function () {
                 email: $("#reg-email").val(),
                 pass: $("#reg-password").val()
             },
-            success: function () {
-                $('#success-reg').modal('show');
-                setTimeout(hideModal, 2000);
+            success: function (loggedUser) {
+                message($('#success-reg'));
+                $('.userLink').html(`<a href="/user/${loggedUser.id}">${loggedUser.name}</a>`);
+                $('.out').html(`<a href="/signOut">Выйти</a>`).show();
+            },
+            error: function () {
+                message($('#error'));
             }
         })
     });
 
-    function hideModal(){
-        $('#success-reg').modal('hide');
+    function message(a){
+        a.modal('show');
+        setTimeout(function() {a.modal('hide')}, 2000);
     }
-});
-
+})

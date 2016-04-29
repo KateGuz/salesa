@@ -46,8 +46,9 @@
                             </li>
                             <c:choose>
                                 <c:when test="${empty loggedUser.name}">
-                                    <li><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                    <li class="userLink"><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
                                     </li>
+                                    <li class="out"></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
@@ -155,49 +156,5 @@
 
 <jsp:include page="forms.jsp"/>
 
-<%--<div class="modal fade " id="user-security-log" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button class="close" type="button" data-dismiss="modal">&times;</button>
-            <div class="modal-body">
-                <h3>Вход на сайт </h3>
-                <hr>
-                <input type="text" name="email" id="email" placeholder="Email">
-                <br>
-                <input type="password" name="password" id="password" placeholder="Password">
-                <br>
-                <button class="button" id="btn-log">Submit</button>
-                <br>
-                <br>
-                <p>Еще не зарегистрированы?<a href="#user-security-reg" data-toggle="modal"
-                                              data-target="#user-security-reg"
-                                              data-dismiss="modal">&nbsp;Зарегистрироваться</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade " id="user-security-reg" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button class="close" type="button" data-dismiss="modal">&times;</button>
-            <div class="modal-body">
-                <h3>Регистрация</h3>
-                <hr>
-                <input type="text" name="name" id="reg-name" placeholder="Name">
-                <br>
-                <input type="text" name="email" id="reg-email" placeholder="Email">
-                <br>
-                <input type="password" name="password" id="reg-password" placeholder="Password">
-                <br>
-                <button class="button" id="btn-reg">Submit</button>
-                <br>
-                <br>
-                <p>Уже зарегистрированы?<a href="#user-security-log" data-toggle="modal"
-                                           data-target="#user-security-log"
-                                           data-dismiss="modal">&nbsp;Войти на сайт</a></p>
-            </div>
-        </div>
-    </div>
-</div>--%>
 </body>
 </html>
