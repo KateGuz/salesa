@@ -13,16 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 
 @Controller
@@ -48,10 +44,8 @@ public class AddAdvertController {
 
     @RequestMapping(value = "/addAdvert/", method = RequestMethod.POST)
     public ResponseEntity<Void> adAdvert(HttpServletRequest httpServletRequest, HttpSession session) throws IOException {
-        /*, @RequestParam(name = "title") String title, @RequestParam(name = "text") String text, @RequestParam(name = "category") Integer categoryId, @RequestParam(name = "price") double price, @RequestParam(name = "currency")String currency, @RequestParam(name = "status") String status*/
         String title = httpServletRequest.getParameter("title");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpServletRequest.getInputStream()));
-        String text = bufferedReader.readLine();
+        String text = httpServletRequest.getParameter("text");
         double price = Double.parseDouble(httpServletRequest.getParameter("price"));
         String currency = httpServletRequest.getParameter("currency");
         String status = httpServletRequest.getParameter("status");
