@@ -79,6 +79,11 @@
                 value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u WHERE u.email = :email;"/>
     </bean>
 
+    <bean id="saveAdvertSQL" class="java.lang.String">
+        <constructor-arg
+                value="INSERT INTO advert (title, text, categoryId, price, currency, status, modificationDate, userId) VALUES(:title, :text, :categoryId, :price, :currency, :status, :modificationDate, :userId);"/>
+    </bean>
+
 </beans>
 
 

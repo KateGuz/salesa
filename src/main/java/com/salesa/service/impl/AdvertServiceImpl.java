@@ -30,4 +30,10 @@ public class AdvertServiceImpl implements AdvertService {
     public List<Advert> getByUserId(int userId){
         return advertDao.getByUserId(userId);
     }
+
+    @Override
+    public int saveAdvert(Advert advert){
+        advertDao.saveAdvert(advert);
+        return advert.getId();
+    }
 }
