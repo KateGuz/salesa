@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface AdvertService {
     AdvertPageData get(AdvertFilter advertFilter);
+    AdvertPageData getActive(AdvertFilter advertFilter);
+    AdvertPageData getByLowestPrice(AdvertFilter advertFilter);
     Advert get(int advertId);
     List<Advert> getByUserId(int userId);
 }

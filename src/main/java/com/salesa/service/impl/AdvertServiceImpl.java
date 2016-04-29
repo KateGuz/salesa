@@ -21,6 +21,17 @@ public class AdvertServiceImpl implements AdvertService {
     public AdvertPageData get(AdvertFilter advertFilter) {
         return advertDao.get(advertFilter);
     }
+
+    @Override
+    public AdvertPageData getActive(AdvertFilter advertFilter) {
+        return advertDao.getActiveAdverts(advertFilter);
+    }
+
+    @Override
+    public AdvertPageData getByLowestPrice(AdvertFilter advertFilter) {
+        return advertDao.getFilteredAdvertsByPrice(advertFilter);
+    }
+
     @Override
     public Advert get(int advertId){
         return advertDao.get(advertId);

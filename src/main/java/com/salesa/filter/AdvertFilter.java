@@ -4,6 +4,15 @@ public class AdvertFilter {
 
     private int page;
     private int categoryId;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getPage() {
         return page;
@@ -26,6 +35,7 @@ public class AdvertFilter {
         return "AdvertFilter{" +
                 "page=" + page +
                 ", categoryId=" + categoryId +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

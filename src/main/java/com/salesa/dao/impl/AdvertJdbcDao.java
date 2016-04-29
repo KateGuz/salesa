@@ -32,6 +32,16 @@ public class AdvertJdbcDao implements AdvertDao {
     @Autowired
     private String getAdvertsCountSQL;
 
+    @Autowired
+    private String filterByActiveAdvertsSQL;
+
+    @Autowired
+    private String filterByPrice;
+
+    @Autowired
+    private String filterByPriceDesc;
+
+
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertFilter);
@@ -57,6 +67,32 @@ public class AdvertJdbcDao implements AdvertDao {
         advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
         return advertPageData;
     }
+
+    @Override
+    public AdvertPageData getActiveAdverts(AdvertFilter advertFilter) {
+        log.info("Query adverts information for request {}", advertFilter);
+        List<Advert> adverts = namedParameterJdbcTemplate.query(filterByActiveAdvertsSQL, new AdvertMapper());
+        AdvertPageData advertPageData = new AdvertPageData();
+        advertPageData.setAdverts(adverts);
+        return advertPageData;
+    }
+
+    @Override
+    public AdvertPageData getFilteredAdvertsByPrice(AdvertFilter advertFilter) {
+        List<Advert> adverts = namedParameterJdbcTemplate.query(filterByPrice, new AdvertMapper());
+        AdvertPageData advertPageData = new AdvertPageData();
+        advertPageData.setAdverts(adverts);
+        return advertPageData;
+    }
+
+    @Override
+    public AdvertPageData getFilteredAdvertsByPriceDesc(AdvertFilter advertFilter) {
+        List<Advert> adverts = namedParameterJdbcTemplate.query(filterByPriceDesc, new AdvertMapper());
+        AdvertPageData advertPageData = new AdvertPageData();
+        advertPageData.setAdverts(adverts);
+        return advertPageData;
+    }
+
 
     @Override
     public Advert get(int advertId){

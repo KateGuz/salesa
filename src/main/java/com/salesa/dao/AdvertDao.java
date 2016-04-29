@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface AdvertDao {
     AdvertPageData get(AdvertFilter advertFilter);
+    AdvertPageData getActiveAdverts(AdvertFilter advertFilter);
+    AdvertPageData getFilteredAdvertsByPrice(AdvertFilter advertFilter);
+    AdvertPageData getFilteredAdvertsByPriceDesc(AdvertFilter advertFilter);
     Advert get(int advertId);
     List<Advert> getByUserId(int userId);
 }
