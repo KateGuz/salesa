@@ -1,6 +1,7 @@
 package com.salesa.controller;
 
 
+import com.salesa.entity.Advert;
 import com.salesa.entity.User;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.security.UserSecurity;
@@ -14,9 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class AdvertsController {
@@ -28,6 +31,26 @@ public class AdvertsController {
     @Autowired
     private AdvertService advertService;
 
+    @RequestMapping("?page={page}&sort={status}")
+    public String filteringByStatus(@PathVariable int page, @PathVariable String status, Model model) {
+        model.addAttribute("categories", categoryService.getAll());
+        AdvertFilter advertFilter = new AdvertFilter();
+        advertFilter.setPage(page);
+        advertFilter.setStatus(status);
+        AdvertPageData advertPageData = advertService.getActive(advertFilter);
+        model.addAttribute("pageData", advertPageData);
+        return "home";
+    }
+
+    @RequestMapping("/sort=priceAsc")
+    public String filteringByLowestPrise(@RequestParam(name = "page", defaultValue = "1") int page, Model model){
+        AdvertFilter advertFilter = new AdvertFilter();
+        advertFilter.setPage(page);
+        AdvertPageData advertPageData = advertService.getByLowestPrice(advertFilter);
+        model.addAttribute("pageData", advertPageData);
+        model.addAttribute("categories", categoryService.getAll());
+        return "home";
+    }
 
     @RequestMapping("/")
     public String home(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session) {

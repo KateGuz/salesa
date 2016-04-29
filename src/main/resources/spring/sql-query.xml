@@ -14,6 +14,19 @@
                    a.currency, a.status FROM advert as a WHERE status != 'S'"/>
     </bean>
 
+    <bean id="filterByActiveAdvertsSQL" class="java.lang.String">
+        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
+                   a.currency, a.status FROM advert as a WHERE status = 'A';"/>
+    </bean>
+
+    <bean id="filterByPrice" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM advert ORDER BY price;"/>
+    </bean>
+
+    <bean id="filterByPriceDesc" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM advert ORDER BY price DESC;"/>
+    </bean>
+
     <bean id="addPagingTemplateSQL" class="java.lang.String">
         <constructor-arg value=" LIMIT :startPosition, :dataAmount"/>
     </bean>

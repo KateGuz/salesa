@@ -16,7 +16,7 @@
     <script src="/js/verification.js"></script>
     <script src="/js/feedback.js"></script>
     <script src="/js/dislike.js"></script>
-
+    <script src="/js/filtering.js"></script>
 </head>
 <body>
 

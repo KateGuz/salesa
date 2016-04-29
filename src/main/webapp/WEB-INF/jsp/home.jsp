@@ -98,11 +98,11 @@
                     </div>
                 </div>
                 <div class="col-sm-10">
-                    <div class="btn-group nav navbar-nav navbar-right">
+                    <div class="btn-group nav navbar-nav navbar-right" items="${pageData.adverts}" var="advert">
                         <button type="button" class="btn btn-danger">this is sparta!!!11</button>
-                        <button type="button" class="btn btn-default">Самые дешевые</button>
-                        <button type="button" class="btn btn-default">Самые дорогие</button>
-                        <button type="button" class="btn btn-default">Активные</button>
+                        <button type="button" class="btn btn-default" onclick="filteringByPrice()">Самые дешевые</button>
+                        <button type="button" class="btn btn-default" onclick="filteringByPriceDesc()">Самые дорогие</button>
+                        <button type="button" class="btn btn-default" onclick="filteringByStatus(${advert.status})">Активные</button>
                     </div>
                 </div>
                 </a>

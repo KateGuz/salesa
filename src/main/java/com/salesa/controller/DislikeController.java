@@ -27,7 +27,6 @@ public class DislikeController {
         int dislikeAmount = user.getDislikeAmount() + 1;
         user.setDislikeAmount(dislikeAmount);
         userService.updateUsersDislike(user);
-        System.out.println(user);
         return result;
     }
 }
