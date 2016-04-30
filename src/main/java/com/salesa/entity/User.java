@@ -1,6 +1,5 @@
 package com.salesa.entity;
 
-
 import java.io.InputStream;
 
 public class User {

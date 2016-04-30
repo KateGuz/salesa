@@ -39,7 +39,6 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-
     public List<Category> getChildren() {
         return children;
     }
@@ -65,7 +64,7 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", parentId=" + (parent!= null ? parent.getId() : null) +
+                ", parentId=" + (parent != null ? parent.getId() : null) +
                 ", children=" + children +
                 '}';
     }

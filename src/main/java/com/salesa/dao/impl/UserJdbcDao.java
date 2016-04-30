@@ -5,6 +5,8 @@ import com.salesa.dao.mapper.UserMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @Repository
 public class UserJdbcDao implements UserDao {

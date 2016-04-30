@@ -30,6 +30,9 @@ public class UserSecurityController {
 
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     public ResponseEntity<String> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "pass") String password, HttpSession session) {
+        if (name.equals("") || email.equals("") || password.equals("")) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         log.info("signing up, name " + name + " email " + email + " password " + password);
         User user = new User();
         user.setEmail(email);

@@ -16,6 +16,7 @@
     <context:component-scan base-package="com.salesa.dao"/>
     <context:component-scan base-package="com.salesa.service"/>
     <context:component-scan base-package="com.salesa.security"/>
+    <context:component-scan base-package="com.salesa.util"/>
 
     <task:annotation-driven executor="salesaExecutor" scheduler="taskScheduler"/>
     <task:executor id="salesaExecutor" pool-size="1"/>
