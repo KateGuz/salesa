@@ -4,8 +4,8 @@ import com.salesa.entity.Category;
 import com.salesa.entity.User;
 import com.salesa.service.UserService;
 import com.salesa.service.cache.CategoryCache;
-import com.salesa.util.CategoryParcer;
-import com.salesa.util.UserParcer;
+import com.salesa.util.CategoryParser;
+import com.salesa.util.UserParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,9 @@ public class RestCategoryController {
     @Autowired
     private UserService userService;
     @Autowired
-    private CategoryParcer categoryParcer;
+    private CategoryParser categoryParcer;
     @Autowired
-    private UserParcer userParcer;
+    private UserParser userParser;
 
 
     @RequestMapping(value = "/api/category/{id}", method = RequestMethod.GET,
@@ -49,10 +49,10 @@ public class RestCategoryController {
         user.setPassword(null);
 
         if (header.contains("/json")) {
-            return userParcer.toJSON(user);
+            return userParser.toJSON(user);
         }
         if (header.contains("/xml")) {
-            return userParcer.toXML(user);
+            return userParser.toXML(user);
         } else {
             return user.toString();
         }

@@ -4,7 +4,7 @@ import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.util.AdvertPageData;
-import com.salesa.util.AdvetsParcer;
+import com.salesa.util.AdvetsParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class RestAdvertsController {
     @Autowired
     private AdvertService advertService;
     @Autowired
-    private AdvetsParcer advetsParcer;
+    private AdvetsParser advetsParser;
 
     @RequestMapping(value = "/api/adverts", method = RequestMethod.GET,
             headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
@@ -34,10 +34,10 @@ public class RestAdvertsController {
             return "There are not adverts on this page.";
         }
         if (header.contains("/json")) {
-            return advetsParcer.toJSON(advertPageData, page);
+            return advetsParser.toJSON(advertPageData, page);
         }
         if (header.contains("/xml")) {
-            return advetsParcer.toXML(advertPageData, page);
+            return advetsParser.toXML(advertPageData, page);
         } else {
             List<AdvertRest> advertRests = advertPageData.getAdvertRests();
             StringBuilder stringBuilder = new StringBuilder();

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Component
-public class AdvetsParcer {
+public class AdvetsParser {
     @Autowired
     private JsonMapper jsonMapper;
 

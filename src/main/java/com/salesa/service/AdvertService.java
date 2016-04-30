@@ -11,4 +11,5 @@ public interface AdvertService {
     Advert get(int advertId);
     List<Advert> getByUserId(int userId);
     AdvertPageData getAll(AdvertFilter advertFilter);
+    int saveAdvert(Advert advert);
 }

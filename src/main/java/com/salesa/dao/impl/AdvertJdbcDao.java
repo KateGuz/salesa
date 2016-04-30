@@ -13,6 +13,7 @@ import com.salesa.util.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +34,9 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Autowired
     private String getAdvertsCountSQL;
+
+    @Autowired
+    private String saveAdvertSQL;
 
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
@@ -84,6 +88,24 @@ public class AdvertJdbcDao implements AdvertDao {
         advertPageData.setAdvertRests(advertRests);
         advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
         return advertPageData;
+    }
+
+    @Override
+    public int saveAdvert(Advert advert){
+        log.info("advert " + advert);
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("title", advert.getTitle());
+        mapSqlParameterSource.addValue("text", advert.getText());
+        mapSqlParameterSource.addValue("categoryId", advert.getCategory().getId());
+        mapSqlParameterSource.addValue("price", advert.getPrice());
+        mapSqlParameterSource.addValue("currency", advert.getCurrency());
+        mapSqlParameterSource.addValue("status", advert.getStatus());
+        mapSqlParameterSource.addValue("modificationDate", advert.getModificationDate());
+        mapSqlParameterSource.addValue("userId", advert.getUser().getId());
+
+        namedParameterJdbcTemplate.update(saveAdvertSQL, mapSqlParameterSource);
+        return advert.getId();
+
     }
 
 }

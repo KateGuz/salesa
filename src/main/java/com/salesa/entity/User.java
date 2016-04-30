@@ -1,12 +1,7 @@
 package com.salesa.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.InputStream;
 
-@JsonAutoDetect
 public class User {
     private int id;
     private String name;
@@ -70,7 +65,7 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    @JsonIgnore
+
     public InputStream getAvatar() {
         return avatar;
     }

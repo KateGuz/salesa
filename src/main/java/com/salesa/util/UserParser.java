@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserParcer {
+public class UserParser {
     @Autowired
     private JsonMapper jsonMapper;
 

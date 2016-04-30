@@ -1,6 +1,5 @@
 package com.salesa.util;
 
-
 import com.salesa.entity.Category;
 import com.salesa.entity.CategoryRest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Component
-public class CategoryParcer {
+public class CategoryParser {
     @Autowired
     private JsonMapper jsonMapper;
 
