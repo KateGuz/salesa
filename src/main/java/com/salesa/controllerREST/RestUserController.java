@@ -1,4 +1,5 @@
 package com.salesa.controllerREST;
+/*
 
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
@@ -46,3 +47,4 @@ public class RestUserController {
         return "Sign Up is successful. Welcome dear " + user.getName();
     }
 }
+*/

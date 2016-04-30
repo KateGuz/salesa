@@ -1,5 +1,5 @@
 package com.salesa.controllerREST;
-
+/*
 import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
@@ -49,4 +49,4 @@ public class RestAdvertsController {
             return stringBuilder.toString();
         }
     }
-}
+}*/

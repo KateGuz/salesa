@@ -1,4 +1,5 @@
 package com.salesa.controllerREST;
+/*
 
 import com.salesa.entity.Category;
 import com.salesa.entity.User;
@@ -58,3 +59,4 @@ public class RestCategoryController {
         }
     }
 }
+*/
