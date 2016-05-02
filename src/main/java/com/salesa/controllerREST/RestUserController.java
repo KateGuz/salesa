@@ -1,5 +1,4 @@
 package com.salesa.controllerREST;
-/*
 
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
@@ -22,7 +21,7 @@ public class RestUserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/signIn", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/signIn", method = RequestMethod.PUT)
     public String signInREST(@RequestParam("email") String email,
                              @RequestParam("pass") String pass, HttpSession session) {
         log.info("Received request for api: Sign In - email:[" + email + "], password:[" + pass + "].");
@@ -34,7 +33,7 @@ public class RestUserController {
         return "Sign In is unsuccessful. Check correctly your @mail or password.";
     }
 
-    @RequestMapping(value = "/signUp", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/signUp", method = RequestMethod.PUT)
     public String signUpREST(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email,
                              @RequestParam(name = "pass") String pass, HttpSession session) {
         log.info("Received request for api: Sign Up - name:[" + name +"], email:[" + email + "], password:[" + pass + "].");
@@ -47,4 +46,3 @@ public class RestUserController {
         return "Sign Up is successful. Welcome dear " + user.getName();
     }
 }
-*/

@@ -1,5 +1,4 @@
 package com.salesa.controllerREST;
-/*
 
 import com.salesa.entity.Category;
 import com.salesa.entity.User;
@@ -20,7 +19,7 @@ public class RestCategoryController {
     @Autowired
     private UserService userService;
     @Autowired
-    private CategoryParser categoryParcer;
+    private CategoryParser categoryParser;
     @Autowired
     private UserParser userParser;
 
@@ -32,10 +31,10 @@ public class RestCategoryController {
         log.info("Received request for api: list of categories.");
         Category categoryById = categoryCache.getCategoryById(id);
         if (header.contains("/json")) {
-            return categoryParcer.toJSON(categoryById);
+            return categoryParser.toJSON(categoryById);
         }
         if (header.contains("/xml")) {
-            return categoryParcer.toXML(categoryById);
+            return categoryParser.toXML(categoryById);
         } else {
             return categoryById.toString();
         }
@@ -59,4 +58,3 @@ public class RestCategoryController {
         }
     }
 }
-*/

@@ -89,7 +89,6 @@ public class AdvertJdbcDao implements AdvertDao {
         advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
         return advertPageData;
     }
-
     @Override
     public int saveAdvert(Advert advert){
         log.info("advert " + advert);
