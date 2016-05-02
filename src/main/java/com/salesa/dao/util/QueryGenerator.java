@@ -8,29 +8,25 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.salesa.dao.impl.AdvertJdbcDao.*;
+import static com.salesa.dao.impl.AdvertJdbcDao.MAX_ADVERTS_PER_PAGE;
 
 @Service
 public class QueryGenerator {
     private static final char END_SEPARATOR = ';';
     private static final String WHERE_STATEMENT = " WHERE ";
     private static final String AND_STATEMENT = " AND ";
-
-
     @Autowired
     private String getAdvertsTemplateSQL;
-
     @Autowired
     private String addPagingTemplateSQL;
-
     @Autowired
     private String getAdvertByIdSQL;
-
     @Autowired
     private String getAdvertsByUserIdSQL;
-
     @Autowired
     private String getUserByIdSQL;
+    @Autowired
+    private String getAllAdvertsSQL;
 
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
         this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
@@ -38,6 +34,21 @@ public class QueryGenerator {
 
     public void setAddPagingTemplateSQL(String addPagingTemplateSQL) {
         this.addPagingTemplateSQL = addPagingTemplateSQL;
+    }
+
+    public QueryAndParams generateAll(AdvertFilter advertFilter) {
+        StringBuilder query = new StringBuilder(getAllAdvertsSQL);
+        Map<String, Object> params = new HashMap<>();
+        addPagination(advertFilter.getPage(), query, params);
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);
+
+    }
+
+    public QueryAndParams generateAllAdverts() {
+        StringBuilder query = new StringBuilder(getAdvertsByUserIdSQL);
+        Map<String, Object> params = new HashMap<>();
+        return new QueryAndParams(query.toString(), params);
     }
 
     public QueryAndParams generateAdvertQuery(AdvertFilter advertFilter) {

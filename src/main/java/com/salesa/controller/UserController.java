@@ -32,6 +32,7 @@ public class UserController {
         log.info("Query get user by userId: " + userId);
         User user = userService.get(userId);
         List<Advert> adverts = advertService.getByUserId(userId);
+        Collections.reverse(adverts);
         List<Feedback> feedbacks = userService.getByUserId(userId);
         Collections.reverse(feedbacks);
         model.addAttribute("user", user);

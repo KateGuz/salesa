@@ -1,5 +1,6 @@
 package com.salesa.controller;
 
+import com.google.gson.Gson;
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.UserService;
@@ -28,7 +29,10 @@ public class UserSecurityController {
     private UserSecurity userSecurity;
 
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    public ResponseEntity<Void> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "pass") String password, HttpSession session) {
+    public ResponseEntity<String> singUp(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email, @RequestParam(name = "pass") String password, HttpSession session) {
+        if (name.equals("") || email.equals("") || password.equals("")) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         log.info("signing up, name " + name + " email " + email + " password " + password);
         User user = new User();
         user.setEmail(email);
@@ -37,23 +41,22 @@ public class UserSecurityController {
         user.setId(userService.save(user));
         userSecurity.addSession(session.getId(), user);
         session.setAttribute("loggedUser", user);
-        ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
-        return result;
+        String loggedUser = new Gson().toJson(user);
+        return new ResponseEntity<>(loggedUser, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
-    public ResponseEntity<Void> singIn(@RequestParam("email") String email, @RequestParam("pass") String password, HttpSession session) {
+    public ResponseEntity<String> singIn(@RequestParam("email") String email, @RequestParam("pass") String password, HttpSession session) {
         log.info("signing in,  " + email + " password " + password);
 
         User user = userService.get(email);
         if (!(user.getPassword().equals(password))) {
-        ResponseEntity<Void> result = new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
-            return result;
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         userSecurity.addSession(session.getId(), user);
         session.setAttribute("loggedUser", user);
-        ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
-        return result;
+        String loggedUser = new Gson().toJson(user);
+        return new ResponseEntity<>(loggedUser, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/signOut", method = RequestMethod.GET)
@@ -62,15 +65,6 @@ public class UserSecurityController {
         userSecurity.deleteSession(session.getId());
         log.info("signing out");
         return "redirect:/";
-    }
-
-    @RequestMapping(value = "/validateEmail", method = RequestMethod.POST)
-    public String validate(HttpServletRequest request) {
-        String mail = request.getParameter("email");
-        if(userService.getEmail(mail) == mail){
-            return "";
-        }
-        return "";
     }
 
 }

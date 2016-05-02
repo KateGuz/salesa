@@ -4,7 +4,6 @@ import com.salesa.dao.AdvertDao;
 import com.salesa.entity.Advert;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
-import com.salesa.service.cache.CategoryCache;
 import com.salesa.util.AdvertPageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +28,14 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public List<Advert> getByUserId(int userId){
         return advertDao.getByUserId(userId);
+    }
+
+    @Override
+    public AdvertPageData getAll(AdvertFilter advertFilter) {
+        return advertDao.getAll(advertFilter);
+    }
+    public int saveAdvert(Advert advert){
+        advertDao.saveAdvert(advert);
+        return advert.getId();
     }
 }

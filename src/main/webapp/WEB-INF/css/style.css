@@ -282,7 +282,6 @@ input.form-control {
 
 .user-img.thumbnail {
     margin: 0px -15px 0 -15px;
-
 }
 
 .user-img.thumbnail img {
@@ -357,10 +356,12 @@ input.form-control {
     min-height: 65px;
     max-width: inherit;
     margin: 10px 0 10px auto;
+    border-color: #ccc;
+    border-radius: 4px;
 }
 
-.feedback-form form {
-    margin: 0 0 0 -15px;
+.feedback-form {
+    margin: 0 19px 0 15px;
 }
 
 .feedback-img-list-item {
@@ -457,6 +458,88 @@ input.form-control {
 
 }
 
+
+#thumbnail .thumbnail {
+    background-color: #f9f9f9;
+}
+
+.btn-group p {
+    margin: 6px 10px 0 0;
+    float: left;
+}
+
+nav.category-filter-row {
+    padding: 7px;
+    margin: 0 0 20px 0;
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 4px;
+}
+
+.btn-group.nav.navbar-nav {
+    padding: 0 10px 0 0;
+}
+
+ul.dropdown-menu {
+    min-width: 100%;
+}
+
+ul.nav.navbar-right {
+    display: inline-flex;
+}
+#user-advert-status {
+    display: inline-block;
+    text-align: left;
+    float: left;
+}
+
+#user-advert-status h6 {
+    color: #c7254e;;
+}
+
+
+#user-advert-price {
+    display: inline-block;
+    text-align: right;
+    float: right;
+    font-weight: bold;
+}
+
+.user-advert-status-hr {
+    margin-bottom: 10px;
+    border: 1px solid #e7e7e7;
+}
+
+img.media-object.thumbnail.feedback-img-list-item {
+    margin: auto;
+}
+
+.create{
+    background-color: #48c083;
+    color: white;
+    font-family: Roboto, monospace;
+    font-size: 15%;
+    border: 0;
+    border-radius: 6px;
+    width: 150px;
+    height: 35px;;
+    display: inline-block;
+    text-align: center;
+}
+
+.create a{
+    color: white;
+}
+
+.create:hover {
+    background-color: #3d9c67;
+}
+
+/*modal*/
+.modal{
+    display: none;
+}
+
 .modal-content {
     /*height: 335px;*/
     width: 320px;
@@ -500,7 +583,14 @@ textarea {
     outline-width: 0;
 }
 
-.modal-body .button {
+.modal-body #btn-log, #btn-reg{
+    background-color: #48c083;
+    color: white;
+    width: 100px;
+    float: right;
+}
+
+/*.modal-body .button {
     background-color: #48c083;
     font-family: Roboto, monospace;
     font-size: 15%;
@@ -511,7 +601,7 @@ textarea {
     height: 25px;;
     float: right;
     margin-top: 10px;
-}
+}*/
 
 .btn-send{
     margin-top: -1px !important;
@@ -528,6 +618,7 @@ textarea {
 .modal-body p {
     margin: 35px 0 15px 0;
     color: #a0a0a0;
+
 }
 
 .modal-body a {
@@ -545,6 +636,7 @@ textarea {
     text-decoration: underline;
 }
 
+
 button.close {
     -webkit-appearance: none;
     cursor: pointer;
@@ -557,61 +649,59 @@ button.close:focus {
     outline-width: 0;
 }
 
-/*#success-reg {
+.wrap-modal .modal-body{
+    margin: 15px !important;
+}
+
+.wrap-modal .modal-body p {
+    margin: 0 25px 0 25px !important;
+    text-align: center !important;
+}
+
+.out{
     display: none;
-}*/
-
-#thumbnail .thumbnail {
-    background-color: #f9f9f9;
 }
 
-.btn-group p {
-    margin: 6px 10px 0 0;
+.wrap-category{
+    width: 65%;
     float: left;
 }
-
-nav.category-filter-row {
-    padding: 7px;
-    margin: 0 0 20px 0;
-    background-color: rgb(248, 248, 248);
-    border: 1px solid rgb(228, 228, 228);
-    border-radius: 4px;
-}
-
-.btn-group.nav.navbar-nav {
-    padding: 0 10px 0 0;
-}
-
-ul.dropdown-menu {
-    min-width: 100%;
-}
-
-ul.nav.navbar-right {
-    display: inline-flex;
-}
-#user-advert-status {
-    display: inline-block;
-    text-align: left;
-    float: left;
-}
-
-#user-advert-status h6 {
-    color: #c7254e;;
-}
-
-#user-advert-price {
-    display: inline-block;
-    text-align: right;
+.wrap-status{
+    width: 35%;
     float: right;
-    font-weight: bold;
 }
 
-.user-advert-status-hr {
-    margin-bottom: 10px;
-    border: 1px solid #e7e7e7;
+#description{
+    margin: 20px 0 22px 0;
 }
 
-img.media-object.thumbnail.feedback-img-list-item {
-    margin: auto;
+#title, #price, #currency, #category, #status{
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 25px;
+}
+
+input{
+    padding-left: 5px;
+}
+
+/*.upload{
+    margin: 20px 0 10px 0 ;
+    height: 60px;
+    border-radius: 4px;
+}*/
+.save{
+    margin-top: 15px;
+    background-color: #48c083;
+    color: white;
+    height: 25px;
+    border-radius: 4px;
+    border: #48c083;
+    width: 100px;
+}
+.text-bar{
+    align-content: center;
+    margin-top: 5px;
 }
 

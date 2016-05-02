@@ -3,14 +3,17 @@ package com.salesa.dao.impl;
 import com.salesa.dao.AdvertDao;
 import com.salesa.dao.mapper.AdvertDetailsMapper;
 import com.salesa.dao.mapper.AdvertMapper;
+import com.salesa.dao.mapper.AdvertRestMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
+import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.util.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +34,9 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Autowired
     private String getAdvertsCountSQL;
+
+    @Autowired
+    private String saveAdvertSQL;
 
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
@@ -68,6 +74,38 @@ public class AdvertJdbcDao implements AdvertDao {
     public List<Advert> getByUserId(int userId){
         QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
         return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params,new AdvertMapper());
+    }
+
+    @Override
+    public AdvertPageData getAll(AdvertFilter advertFilter) {
+        QueryAndParams queryAndParams = queryGenerator.generateAll(advertFilter);
+        List<AdvertRest> advertRests = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertRestMapper());
+
+        int advertsCount = namedParameterJdbcTemplate.queryForObject(getAdvertsCountSQL, new HashMap<>(), Integer.class);
+        int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
+
+        AdvertPageData advertPageData = new AdvertPageData();
+        advertPageData.setAdvertRests(advertRests);
+        advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
+        return advertPageData;
+    }
+
+    @Override
+    public int saveAdvert(Advert advert){
+        log.info("advert " + advert);
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("title", advert.getTitle());
+        mapSqlParameterSource.addValue("text", advert.getText());
+        mapSqlParameterSource.addValue("categoryId", advert.getCategory().getId());
+        mapSqlParameterSource.addValue("price", advert.getPrice());
+        mapSqlParameterSource.addValue("currency", advert.getCurrency());
+        mapSqlParameterSource.addValue("status", advert.getStatus());
+        mapSqlParameterSource.addValue("modificationDate", advert.getModificationDate());
+        mapSqlParameterSource.addValue("userId", advert.getUser().getId());
+
+        namedParameterJdbcTemplate.update(saveAdvertSQL, mapSqlParameterSource);
+        return advert.getId();
+
     }
 
 }

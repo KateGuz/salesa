@@ -16,4 +16,5 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getAll() {
         return categoryCache.getCategoryTree();
     }
+
 }
