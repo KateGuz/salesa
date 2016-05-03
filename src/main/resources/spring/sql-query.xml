@@ -88,6 +88,10 @@
         <constructor-arg
                 value="INSERT INTO advert (title, text, categoryId, price, currency, status, modificationDate, userId) VALUES(:title, :text, :categoryId, :price, :currency, :status, :modificationDate, :userId);"/>
     </bean>
+    <bean id="updateAdvertSQL" class="java.lang.String">
+        <constructor-arg
+                value="UPDATE  advert SET title=:title, text=:text, categoryId=:categoryId, price=:price, currency=:currency, status=:status, modificationDate=:modificationDate WHERE id=:id;"/>
+    </bean>
 
 </beans>
 

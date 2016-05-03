@@ -704,4 +704,7 @@ input{
     align-content: center;
     margin-top: 5px;
 }
+  .error {
+      color: #dc2d20;
+  }
 
