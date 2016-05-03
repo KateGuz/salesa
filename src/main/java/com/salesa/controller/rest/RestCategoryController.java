@@ -1,4 +1,4 @@
-package com.salesa.controllerREST;
+package com.salesa.controller.rest;
 
 import com.salesa.entity.Category;
 import com.salesa.entity.User;

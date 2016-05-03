@@ -134,7 +134,7 @@
                                         &nbsp;
                                     </p>
                                     <div class="thumbnail">
-                                        <img src="/img/1.png" alt="advert's photo">
+                                        <img src="/advert/${advert.id}/image" alt="advert's photo">
                                     </div>
                                     <div class="wrap-title">
                                         <p class="title">${advert.title}</p>

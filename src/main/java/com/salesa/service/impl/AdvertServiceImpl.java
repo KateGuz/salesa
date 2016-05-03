@@ -2,6 +2,7 @@ package com.salesa.service.impl;
 
 import com.salesa.dao.AdvertDao;
 import com.salesa.entity.Advert;
+import com.salesa.entity.Image;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.util.AdvertPageData;
@@ -15,18 +16,19 @@ import java.util.List;
 public class AdvertServiceImpl implements AdvertService {
     @Autowired
     private AdvertDao advertDao;
-    
+
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
         return advertDao.get(advertFilter);
     }
+
     @Override
-    public Advert get(int advertId){
+    public Advert get(int advertId) {
         return advertDao.get(advertId);
     }
 
     @Override
-    public List<Advert> getByUserId(int userId){
+    public List<Advert> getByUserId(int userId) {
         return advertDao.getByUserId(userId);
     }
 
@@ -34,8 +36,21 @@ public class AdvertServiceImpl implements AdvertService {
     public AdvertPageData getAll(AdvertFilter advertFilter) {
         return advertDao.getAll(advertFilter);
     }
-    public int saveAdvert(Advert advert){
+
+    public int saveAdvert(Advert advert) {
         advertDao.saveAdvert(advert);
         return advert.getId();
     }
+
+    @Override
+    public void saveAdvertImage(Image image, int advertId) {
+        advertDao.saveAdvertImage(image, advertId);
+    }
+
+    @Override
+    public Image getAdvertImage(int advertId) {
+        return advertDao.getAdvertImage(advertId);
+    }
+
+
 }

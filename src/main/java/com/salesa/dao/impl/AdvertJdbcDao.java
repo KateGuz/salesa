@@ -4,10 +4,12 @@ import com.salesa.dao.AdvertDao;
 import com.salesa.dao.mapper.AdvertDetailsMapper;
 import com.salesa.dao.mapper.AdvertMapper;
 import com.salesa.dao.mapper.AdvertRestMapper;
+import com.salesa.dao.mapper.ImageMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
 import com.salesa.entity.AdvertRest;
+import com.salesa.entity.Image;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.util.AdvertPageData;
 import org.slf4j.Logger;
@@ -23,6 +25,7 @@ import java.util.Map;
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
+    public static final ImageMapper IMAGE_ROW_MAPPER = new ImageMapper();
     private final Logger log = LoggerFactory.getLogger(getClass());
     public static final int MAX_ADVERTS_PER_PAGE = 9;
 
@@ -38,6 +41,12 @@ public class AdvertJdbcDao implements AdvertDao {
     @Autowired
     private String saveAdvertSQL;
 
+    @Autowired
+    private String saveAdvertImageSQL;
+
+    @Autowired
+    private String getAdvertImageSQL;
+
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertFilter);
@@ -49,7 +58,7 @@ public class AdvertJdbcDao implements AdvertDao {
 
         Integer advertsCount;
         Map<String, Object> paramMap = new HashMap<>();
-        if(advertFilter.getCategoryId() > 0) {
+        if (advertFilter.getCategoryId() > 0) {
             paramMap.put("categoryId", advertFilter.getCategoryId());
             String andStatement = " AND categoryId = :categoryId;";
             advertsCount = namedParameterJdbcTemplate.queryForObject(getAdvertsCountSQL + andStatement, paramMap, Integer.class);
@@ -65,15 +74,15 @@ public class AdvertJdbcDao implements AdvertDao {
     }
 
     @Override
-    public Advert get(int advertId){
+    public Advert get(int advertId) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertId);
         return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new AdvertDetailsMapper());
     }
 
     @Override
-    public List<Advert> getByUserId(int userId){
+    public List<Advert> getByUserId(int userId) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
-        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params,new AdvertMapper());
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
     }
 
     @Override
@@ -91,8 +100,8 @@ public class AdvertJdbcDao implements AdvertDao {
     }
 
     @Override
-    public int saveAdvert(Advert advert){
-        log.info("advert " + advert);
+    public int saveAdvert(Advert advert) {
+        log.info("Saving advert {}", advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("title", advert.getTitle());
         mapSqlParameterSource.addValue("text", advert.getText());
@@ -104,8 +113,25 @@ public class AdvertJdbcDao implements AdvertDao {
         mapSqlParameterSource.addValue("userId", advert.getUser().getId());
 
         namedParameterJdbcTemplate.update(saveAdvertSQL, mapSqlParameterSource);
+        log.info("saving  advert finished");
         return advert.getId();
-
     }
 
+
+    public void saveAdvertImage(Image image, int advertId) {
+        log.info("Saving image for advert with id {}", advertId);
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("picture", image.getContent());
+        mapSqlParameterSource.addValue("type", image.getType());
+        mapSqlParameterSource.addValue("advertId", advertId);
+        namedParameterJdbcTemplate.update(saveAdvertImageSQL, mapSqlParameterSource);
+    }
+
+    @Override
+    public Image getAdvertImage(int advertId) {
+        log.info("query image for advert with id {}", advertId);
+        Image image = namedParameterJdbcTemplate.queryForObject(getAdvertImageSQL, new MapSqlParameterSource("advertId", advertId), IMAGE_ROW_MAPPER);
+        log.info("query image for advert with id {} finished", advertId);
+        return image;
+    }
 }

@@ -1,6 +1,6 @@
 package com.salesa.controller;
 
-import com.salesa.controllerREST.RestUserController;
+import com.salesa.controller.rest.RestUserController;
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.UserService;

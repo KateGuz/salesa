@@ -35,11 +35,11 @@
     </bean>
 
     <bean id="getAllImagesSQL" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
+        <constructor-arg value="SELECT a.id, a.content, a.type FROM advertPicture as a;"/>
     </bean>
 
     <bean id="getAdvertSQL" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
+        <constructor-arg value="SELECT a.id, a.content, a.type FROM advertPicture as a;"/>
     </bean>
 
     <bean id="getAdvertByIdSQL" class="java.lang.String">
@@ -87,6 +87,16 @@
     <bean id="saveAdvertSQL" class="java.lang.String">
         <constructor-arg
                 value="INSERT INTO advert (title, text, categoryId, price, currency, status, modificationDate, userId) VALUES(:title, :text, :categoryId, :price, :currency, :status, :modificationDate, :userId);"/>
+    </bean>
+
+    <bean id="saveAdvertImageSQL" class="java.lang.String">
+        <constructor-arg
+                value="INSERT INTO advertPicture (picture, type, advertId) VALUES(:picture, :type, :advertId);"/>
+    </bean>
+
+    <bean id="getAdvertImageSQL" class="java.lang.String">
+        <constructor-arg
+                value="SELECT id, picture, type FROM advertPicture where advertId = :advertId;"/>
     </bean>
 
 </beans>
