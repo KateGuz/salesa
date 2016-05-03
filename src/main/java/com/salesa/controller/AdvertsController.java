@@ -1,11 +1,11 @@
 package com.salesa.controller;
 
 
-import com.salesa.CurrencyConverter;
+import com.salesa.entity.CurrencyRate;
+import com.salesa.util.CurrencyConverter;
 import com.salesa.entity.Advert;
 import com.salesa.entity.User;
 import com.salesa.filter.AdvertFilter;
-import com.salesa.security.UserSecurity;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
 import com.salesa.util.AdvertPageData;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Controller
 public class AdvertsController {
@@ -31,6 +32,9 @@ public class AdvertsController {
     @Autowired
     private AdvertService advertService;
 
+    @Autowired
+    private CurrencyConverter currencyConverter;
+
 
     @RequestMapping("/")
     public String home(@RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(name = "currency", defaultValue = "UAH") String currency, Model model, HttpSession session) throws IOException {
@@ -39,16 +43,16 @@ public class AdvertsController {
         advertFilter.setPage(page);
         AdvertPageData advertPageData = advertService.get(advertFilter);
 
-        if(currency.equals("UAH")){
-            for (Advert advert : advertPageData.getAdverts()) {
-                String oldCurrency = advert.getCurrency();
-                if(oldCurrency.equals("USD")){
-                    advert.setCurrency("UAH");
-                    double oldPrice = advert.getPrice();
-                    advert.setPrice(oldPrice * CurrencyConverter.sendGET());
-                }
-            }
+        for (Advert advert : advertPageData.getAdverts()) {
+            String baseCurrency = advert.getCurrency();
+            advert.setCurrency(currency);
+            double oldPrice = advert.getPrice();
+            double newPrice = oldPrice * currencyConverter.getRate(baseCurrency, currency);
+            BigDecimal price = new BigDecimal(newPrice);
+            price = price.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+            advert.setPrice(price.doubleValue());
         }
+
         model.addAttribute("pageData", advertPageData);
 
         User user = new User();
