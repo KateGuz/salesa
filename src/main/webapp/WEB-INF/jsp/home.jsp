@@ -36,21 +36,23 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">Валюта<span class="caret"></span></a>
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">EUR</a></li>
-                                    <li><a href="#">UAH</a></li>
+                                        <li><a role="button" onclick="changeCurrency('USD')">USD</a></li>
+                                        <li><a role="button" onclick="changeCurrency('UAH')">UAH</a></li>
+                                        <li><a role="button" onclick="changeCurrency('EUR')">EUR</a></li>
                                 </ul>
                             </li>
                             <c:choose>
                                 <c:when test="${empty loggedUser.name}">
-                                    <li class="userLink"><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                    <li class="userLink"><a href="#user-security-log" data-toggle="modal"
+                                                            data-target="#user-security-log">Вход</a>
                                     </li>
                                     <li class="out"></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a>
+                                    </li>
                                     <li class="out"><a href="/signOut">Выйти</a></li>
                                 </c:otherwise>
                             </c:choose>
@@ -100,7 +102,7 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="btn-group nav navbar-nav navbar-right">
-                       <%-- <button type="button" class="btn btn-default"></button>--%>
+                        <%-- <button type="button" class="btn btn-default"></button>--%>
                         <button type="button" class="btn btn-default">Самые дешевые</button>
                         <button type="button" class="btn btn-default">Самые дорогие</button>
                         <button type="button" class="btn btn-default">Активные</button>
@@ -156,11 +158,19 @@
         <div class="size">
             <div class="text-center">
                 <ul class="pagination">
-                    <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li><a href="?page=1&currency=${selectedCurrency}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                     <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
-                        <li><a href="?page=${loop.index}" data-original-title="" title="">${loop.index}</a></li>
+                        <c:choose>
+                            <c:when test="${loop.index == activePage}">
+                                <li><a class="activePage" id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}" data-original-title=""
+                                       title="">${loop.index}</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}" data-original-title="" title="">${loop.index}</a></li>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
-                    <li><a href="?page=${pageData.pageCount}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                    <li><a href="?page=${pageData.pageCount}&currency=${selectedCurrency}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                     </li>
                 </ul>
             </div>

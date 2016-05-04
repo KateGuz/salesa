@@ -37,11 +37,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">Валюта<span class="caret"></span></a>
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">EUR</a></li>
-                                    <li><a href="#">UAH</a></li>
+                                    <li><a role="button" onclick="changeCurrencyOnUserPage('USD')">USD</a></li>
+                                    <li><a role="button" onclick="changeCurrencyOnUserPage('UAH')">UAH</a></li>
+                                    <li><a role="button" onclick="changeCurrencyOnUserPage('EUR')">EUR</a></li>
                                 </ul>
                             </li>
                             <c:choose>

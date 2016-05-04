@@ -1,9 +1,9 @@
 package com.salesa.controller;
 
 
-import com.salesa.entity.User;
+import com.salesa.util.CurrencyConverter;
+import com.salesa.entity.Advert;
 import com.salesa.filter.AdvertFilter;
-import com.salesa.security.UserSecurity;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
 import com.salesa.util.AdvertPageData;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.math.BigDecimal;
 
 @Controller
 public class AdvertsController {
@@ -28,19 +30,32 @@ public class AdvertsController {
     @Autowired
     private AdvertService advertService;
 
+    @Autowired
+    private CurrencyConverter currencyConverter;
+
 
     @RequestMapping("/")
-    public String home(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session) {
+    public String home(@RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(required = false) String currency,
+                       Model model, HttpSession session) throws IOException {
+        if(currency == null && session.getAttribute("selectedCurrency") == null) {
+            currency = "UAH";
+        }
+        if(currency == null && session.getAttribute("selectedCurrency") != null) {
+            currency = (String) session.getAttribute("selectedCurrency");
+        }
         model.addAttribute("categories", categoryService.getAll());
         AdvertFilter advertFilter = new AdvertFilter();
         advertFilter.setPage(page);
         AdvertPageData advertPageData = advertService.get(advertFilter);
+
+        for (Advert advert : advertPageData.getAdverts()) {
+            currencyConverter.updatePriceAndCurrency(advert, currency);
+        }
+
         model.addAttribute("pageData", advertPageData);
-
-        User user = new User();
-        user.setName("Test User");
-        model.addAttribute("user", user);
-
+        model.addAttribute("activePage", page);
+        model.addAttribute("selectedCurrency", currency);
+        session.setAttribute("selectedCurrency", currency);
         return "home";
     }
 

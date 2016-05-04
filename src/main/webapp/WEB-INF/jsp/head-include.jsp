@@ -14,6 +14,7 @@
     <script src="/js/registration.js"></script>
     <script src="/js/feedback.js"></script>
     <script src="/js/dislike.js"></script>
+    <script src="/js/currency.js"></script>
 
 </head>
 <body>
