@@ -1,5 +1,6 @@
 package com.salesa.controller;
 
+/*
 import com.salesa.controllerREST.RestUserController;
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
@@ -53,4 +54,4 @@ public class RestUserControllerTest {
     public void testSignUpREST() throws Exception {
 
     }
-}
+}*/

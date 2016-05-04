@@ -1,4 +1,4 @@
-$(document).ready(function (userId) {
+$(document).ready(function () {
 
         $('#addAdvert').submit(function(event) {
             var formData = {
@@ -13,7 +13,7 @@ $(document).ready(function (userId) {
                     type        : 'POST',
                     url         : '/addAdvert/',
                     data        : formData,
-                    /*dataType    : 'json'*/
+                    dataType    : 'json'
                   /*  encode          : true*/
                 })
                 .success(function(userId) {
