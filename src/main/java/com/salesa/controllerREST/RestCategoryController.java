@@ -17,11 +17,8 @@ public class RestCategoryController {
     @Autowired
     private CategoryCache categoryCache;
     @Autowired
-    private UserService userService;
-    @Autowired
     private CategoryParser categoryParser;
-    @Autowired
-    private UserParser userParser;
+
 
 
     @RequestMapping(value = "/api/category/{id}", method = RequestMethod.GET,

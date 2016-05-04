@@ -636,7 +636,6 @@ textarea {
     text-decoration: underline;
 }
 
-
 button.close {
     -webkit-appearance: none;
     cursor: pointer;
@@ -661,7 +660,7 @@ button.close:focus {
 .out{
     display: none;
 }
-
+/*addAdvert*/
 .wrap-category{
     width: 65%;
     float: left;
@@ -671,7 +670,7 @@ button.close:focus {
     float: right;
 }
 
-#description{
+#description, #text{
     margin: 20px 0 22px 0;
 }
 
@@ -707,4 +706,16 @@ input{
   .error {
       color: #dc2d20;
   }
+
+.edit{
+    float: right;
+    background-color: #5E7569;
+    color: white;
+    height: 25px;
+    border-radius: 4px;
+    border: #5E7569;
+    width: 100px;
+}
+
+
 
