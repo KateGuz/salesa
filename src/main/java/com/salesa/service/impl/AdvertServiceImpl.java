@@ -44,4 +44,8 @@ public class AdvertServiceImpl implements AdvertService {
     public void update(AdvertRest advert) {
         advertDao.update(advert);
     }
+    @Override
+    public void update(Advert advert) {
+        advertDao.update(advert);
+    }
 }

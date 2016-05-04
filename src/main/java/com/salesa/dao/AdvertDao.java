@@ -14,4 +14,5 @@ public interface AdvertDao {
     AdvertPageData getAll(AdvertFilter advertFilter);
     int saveAdvert(Advert advert);
     void update(AdvertRest advert);
+    void update(Advert advert);
 }
