@@ -33,7 +33,7 @@ public class    AddAdvertController {
     @Autowired
     private UserSecurity userSecurity;
 
-    @RequestMapping(value = "/addAdvert/", method = RequestMethod.GET)
+    @RequestMapping(value = "/addAdvert", method = RequestMethod.GET)
     public String adAdvert(Model model, HttpSession session){
         User user = userSecurity.getUserBySessionId(session.getId());
         session.setAttribute("loggedUser", user);
@@ -41,7 +41,7 @@ public class    AddAdvertController {
         return "addAdvert";
     }
 
-    @RequestMapping(value = "/addAdvert/", method = RequestMethod.POST)
+    @RequestMapping(value = "/addAdvert", method = RequestMethod.POST)
     public ResponseEntity<Integer> adAdvert(HttpServletRequest httpServletRequest, HttpSession session) throws IOException {
         String title = httpServletRequest.getParameter("title");
         String text = httpServletRequest.getParameter("text");

@@ -26,11 +26,11 @@ import java.time.LocalDateTime;
 @RestController
 public class RestAddAdvertController {
     private final Logger log = LoggerFactory.getLogger(getClass());
-    @Autowired
+    /*@Autowired
     private CategoryService categoryService;
 
     @Autowired
-    private CategoryParser categoryParser;
+    private CategoryParser categoryParser;*/
 
     @Autowired
     private AdvertService advertService;
