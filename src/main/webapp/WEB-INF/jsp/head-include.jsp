@@ -13,7 +13,6 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/registration.js"></script>
     <script src="/js/feedback.js"></script>
-    <script src="/js/saveAdvert.js"></script>
     <script src="/js/dislike.js"></script>
 
 </head>

@@ -1,6 +1,7 @@
 package com.salesa.dao;
 
 import com.salesa.entity.Advert;
+import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.util.AdvertPageData;
 
@@ -12,4 +13,5 @@ public interface AdvertDao {
     List<Advert> getByUserId(int userId);
     AdvertPageData getAll(AdvertFilter advertFilter);
     int saveAdvert(Advert advert);
+    void update(AdvertRest advert);
 }

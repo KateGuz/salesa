@@ -9,7 +9,6 @@
 <head>
     <title>Advert</title>
     <jsp:include page="head-include.jsp"/>
-    <script src="/js/saveAdvert.js"></script>
 </head>
 <body>
 <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
@@ -64,13 +63,14 @@
 </div>
 
 <c:choose>
+    <%--<c:when test="${empty loggedUser}">--%>
     <c:when test="${empty loggedUser}">
         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
             <div class="size">
                 <div class="alert alert-info" role="alert">
                     <p><a href="#user-security-log" data-toggle="modal"
                           data-target="#user-security-log"><strong>Авторизируйтесь</strong></a>, чтобы
-                        иметь возможность добавить объявление </p>
+                        иметь возможность изменять объявление.</p>
                 </div>
             </div>
         </div>
@@ -79,7 +79,9 @@
         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
             <div class="size">
                 <div class="advert-info-bar col-xs-12 well">
-                    <form id="create" method="post">
+                    <form:form modelAttribute="advert" method="post" action="/editAdvert/${advert.id}">
+                        <form:input class="hidden" path="id"/>
+                        <form:input class="hidden" path="user"/>
                         <div class="row">
                             <div class="col-sm-4 col-md-4">
                                 <div style="text-align: center" class="col-sm-12">
@@ -95,31 +97,36 @@
                                 <div class="text-bar">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <input type="text" id="title" placeholder="Заголовок" required>
+                                            <form:input type="text" path="title"/>
+                                            <c:if test="${!empty errors.title}"><p
+                                                    class="error">${errors.title}</p></c:if>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="number" id="price" placeholder="Цена" required>
+                                            <form:input type="number" path="price"/>
+                                            <c:if test="${!empty errors.price}"><p
+                                                    class="error">${errors.price}</p></c:if>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="currency">Валюта</label>
-                                            <select id="currency" required>
+                                            <form:select path="currency">
                                                 <option>USD</option>
                                                 <option>UAH</option>
                                                 <option>EUR</option>
-                                            </select>
+                                            </form:select>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                <textarea class="form-control" rows="5" id="description"
-                                          placeholder="Описание" required></textarea>
+                                            <form:textarea id="text" path="text" class="form-control" rows="5"/>
+                                            <c:if test="${!empty errors.text}"><p
+                                                    class="error">${errors.text}</p></c:if>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="wrap-category">
-                                                <label for="category">Категория:</label>
-                                                <select id="category">
+                                                <form:label for="category" path="">Категория:</form:label>
+                                                <form:select id="category" path="category">
                                                     <c:forEach items="${categories}" var="category">
                                                         <c:choose>
                                                             <c:when test="${!empty category.children}">
@@ -135,15 +142,15 @@
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </c:forEach>
-                                                </select>
+                                                </form:select>
                                             </div>
                                             <div class="wrap-status">
                                                 <label for="status">Статус:</label>
-                                                <select id="status">
+                                                <form:select id="status" path="status">
                                                     <option>Активно</option>
                                                     <option>Забронировано</option>
                                                     <option>Продано</option>
-                                                </select>
+                                                </form:select>
                                             </div>
                                         </div>
                                     </div>
@@ -151,9 +158,9 @@
                             </div>
                         </div>
                         <div align="center">
-                            <input type="submit" id="addAdvert" value="Сохранить" class="save">
+                            <input type="submit" value="Сохранить" class="save"/>
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>
