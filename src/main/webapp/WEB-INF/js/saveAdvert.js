@@ -13,8 +13,8 @@ $(document).ready(function (userId) {
                     type        : 'POST',
                     url         : '/addAdvert/',
                     data        : formData,
-                    /*dataType    : 'json'*/
-                  /*  encode          : true*/
+                    dataType    : 'json'
+                  /*encode      : true*/
                 })
                 .success(function(userId) {
                     top.location.href = '/user/' + userId ;

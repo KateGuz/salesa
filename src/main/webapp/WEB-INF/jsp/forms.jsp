@@ -95,5 +95,18 @@
     </div>
 </div>
 
+<%--dislike-dmodal--%>
+<div class="wrap-modal">
+    <div class="modal fade" id="dislike" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Ваш отзыв добавлен. Спасибо.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
