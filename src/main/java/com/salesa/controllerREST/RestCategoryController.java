@@ -40,21 +40,4 @@ public class RestCategoryController {
         }
     }
 
-    @RequestMapping(value = "/api/user/{id}", method = RequestMethod.GET,
-            headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
-            produces = {"application/xml", "application/json"})
-    public String userInfoREST(@PathVariable("id") int id, @RequestHeader("accept") String header) {
-        log.info("Received request for api: user information");
-        User user = userService.get(id);
-        user.setPassword(null);
-
-        if (header.contains("/json")) {
-            return userParser.toJSON(user);
-        }
-        if (header.contains("/xml")) {
-            return userParser.toXML(user);
-        } else {
-            return user.toString();
-        }
-    }
 }

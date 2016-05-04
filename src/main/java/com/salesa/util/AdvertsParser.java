@@ -1,5 +1,6 @@
 package com.salesa.util;
 
+import com.salesa.entity.Advert;
 import com.salesa.entity.AdvertRest;
 import com.salesa.entity.Image;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Component
-public class AdvetsParser {
+public class AdvertsParser {
     @Autowired
     private JsonMapper jsonMapper;
 
@@ -50,4 +51,9 @@ public class AdvetsParser {
         return jsonMapper.toJSON(prepare);
 
     }
+
+    /*public String toXML(List<Advert> adverts) {
+        adverts =
+        return jsonMapper.toXML();
+    }*/
 }
