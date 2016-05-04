@@ -49,16 +49,13 @@ public class AdvertsController {
             double oldPrice = advert.getPrice();
             double newPrice = oldPrice * currencyConverter.getRate(baseCurrency, currency);
             BigDecimal price = new BigDecimal(newPrice);
-            price = price.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+            price = price.setScale(2, BigDecimal.ROUND_CEILING);
             advert.setPrice(price.doubleValue());
         }
 
         model.addAttribute("pageData", advertPageData);
-
-        User user = new User();
-        user.setName("Test User");
-        model.addAttribute("user", user);
-
+        model.addAttribute("activePage", page);
+        model.addAttribute("selectedCurrency", currency);
         return "home";
     }
 
