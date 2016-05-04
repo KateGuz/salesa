@@ -1,10 +1,8 @@
 package com.salesa.controller;
 
 
-import com.salesa.entity.CurrencyRate;
 import com.salesa.util.CurrencyConverter;
 import com.salesa.entity.Advert;
-import com.salesa.entity.User;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
@@ -37,25 +35,27 @@ public class AdvertsController {
 
 
     @RequestMapping("/")
-    public String home(@RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(name = "currency", defaultValue = "UAH") String currency, Model model, HttpSession session) throws IOException {
+    public String home(@RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(required = false) String currency,
+                       Model model, HttpSession session) throws IOException {
+        if(currency == null && session.getAttribute("selectedCurrency") == null) {
+            currency = "UAH";
+        }
+        if(currency == null && session.getAttribute("selectedCurrency") != null) {
+            currency = (String) session.getAttribute("selectedCurrency");
+        }
         model.addAttribute("categories", categoryService.getAll());
         AdvertFilter advertFilter = new AdvertFilter();
         advertFilter.setPage(page);
         AdvertPageData advertPageData = advertService.get(advertFilter);
 
         for (Advert advert : advertPageData.getAdverts()) {
-            String baseCurrency = advert.getCurrency();
-            advert.setCurrency(currency);
-            double oldPrice = advert.getPrice();
-            double newPrice = oldPrice * currencyConverter.getRate(baseCurrency, currency);
-            BigDecimal price = new BigDecimal(newPrice);
-            price = price.setScale(2, BigDecimal.ROUND_CEILING);
-            advert.setPrice(price.doubleValue());
+            currencyConverter.updatePriceAndCurrency(advert, currency);
         }
 
         model.addAttribute("pageData", advertPageData);
         model.addAttribute("activePage", page);
         model.addAttribute("selectedCurrency", currency);
+        session.setAttribute("selectedCurrency", currency);
         return "home";
     }
 
