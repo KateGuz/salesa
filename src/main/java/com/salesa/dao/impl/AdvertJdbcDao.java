@@ -37,6 +37,8 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Autowired
     private String saveAdvertSQL;
+    @Autowired
+    private String updateAdvertSQL;
 
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
@@ -89,9 +91,9 @@ public class AdvertJdbcDao implements AdvertDao {
         advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
         return advertPageData;
     }
-
     @Override
     public int saveAdvert(Advert advert){
+
         log.info("advert " + advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("title", advert.getTitle());
@@ -106,6 +108,45 @@ public class AdvertJdbcDao implements AdvertDao {
         namedParameterJdbcTemplate.update(saveAdvertSQL, mapSqlParameterSource);
         return advert.getId();
 
+    }
+
+    @Override
+    public void update(AdvertRest advert) {
+        String status = advert.getStatus();
+        if(advert.getStatus().equals("Активно")){
+            status = "A";
+        } else if(advert.getStatus().equals("Забронировано")){
+            status = "H";
+        } else {
+            status = "S";
+        }
+        log.info("advert " + advert);
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("title", advert.getTitle());
+        mapSqlParameterSource.addValue("text", advert.getText());
+        mapSqlParameterSource.addValue("categoryId", advert.getCategory());
+        mapSqlParameterSource.addValue("price", advert.getPrice());
+        mapSqlParameterSource.addValue("currency", advert.getCurrency());
+        mapSqlParameterSource.addValue("status", status);
+        mapSqlParameterSource.addValue("modificationDate", advert.getModificationDate());
+        mapSqlParameterSource.addValue("id", advert.getId());
+
+        namedParameterJdbcTemplate.update(updateAdvertSQL, mapSqlParameterSource);
+    }
+    @Override
+    public void update(Advert advert) {
+        log.info("updating advert " + advert);
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("title", advert.getTitle());
+        mapSqlParameterSource.addValue("text", advert.getText());
+        mapSqlParameterSource.addValue("categoryId", advert.getCategory());
+        mapSqlParameterSource.addValue("price", advert.getPrice());
+        mapSqlParameterSource.addValue("currency", advert.getCurrency());
+        mapSqlParameterSource.addValue("status", advert.getStatus());
+        mapSqlParameterSource.addValue("modificationDate", advert.getModificationDate());
+        mapSqlParameterSource.addValue("id", advert.getId());
+
+        namedParameterJdbcTemplate.update(updateAdvertSQL, mapSqlParameterSource);
     }
 
 }

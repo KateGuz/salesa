@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 @Controller
@@ -30,7 +31,7 @@ public class FeedbackController {
 
     @RequestMapping(value = "/feedback/{userId}", method = RequestMethod.POST)
     public ResponseEntity<Void> saveFeedback(HttpServletRequest httpServletRequest, @PathVariable Integer userId) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpServletRequest.getInputStream()));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpServletRequest.getInputStream(), StandardCharsets.UTF_8));
         String feedbackText = bufferedReader.readLine();
 
         ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);

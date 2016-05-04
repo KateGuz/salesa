@@ -45,12 +45,14 @@
                             </li>
                             <c:choose>
                                 <c:when test="${empty loggedUser.name}">
-                                    <li class="userLink"><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                    <li class="userLink"><a href="#user-security-log" data-toggle="modal"
+                                                            data-target="#user-security-log">Вход</a>
                                     </li>
                                     <li class="out"></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a>
+                                    </li>
                                     <li class="out"><a href="/signOut">Выйти</a></li>
                                 </c:otherwise>
                             </c:choose>
@@ -63,13 +65,12 @@
 </div>
 <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
     <div class="size">
-        <div class="wrap-category">
-            <ol class="breadcrumb">
-                <c:forEach items="${breadcrumbsTree}" var="category">
-                    <li><a href="/category/${category.id}">${category.name}</a></li>
-                </c:forEach>
-            </ol>
-        </div>
+        <ol class="breadcrumb">
+            <c:forEach items="${breadcrumbsTree}" var="category">
+                <li><a href="/category/${category.id}">${category.name}</a></li>
+            </c:forEach>
+        </ol>
+
         <div class="advert-info-bar col-xs-12 well">
             <div class="row">
                 <div class="col-sm-4 col-md-4">
@@ -118,6 +119,15 @@
 
                 <div class="col-sm-8 col-md-8">
                     <div class="advert-text-bar">
+                        <c:choose>
+                            <c:when test="${empty loggedUser.name}">
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/editAdvert/${advert.id}">
+                                    <button class="edit">Изменить</button>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
                         <h4 class="title">${advert.title}</h4>
                         <h4>${advert.price}&nbsp;${advert.currency}</h4>
                         <p>${advert.text}</p>
@@ -127,7 +137,7 @@
                                 <font color="#48c083"><strong><h5>Активно</h5></strong></font>
                             </c:when>
                             <c:when test="${advert.status == 'H'}">
-                                <h5><strong>Забронировано</strong> </h5>
+                                <h5><strong>Забронировано</strong></h5>
                             </c:when>
                         </c:choose>
                         <br>

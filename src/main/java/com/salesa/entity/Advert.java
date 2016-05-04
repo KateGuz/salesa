@@ -16,6 +16,21 @@ public class Advert {
     private String status;
     private List<Image> images;
 
+    public Advert(int id, String title, String text, LocalDateTime modificationDate, Category category, double price, String currency, User user, String status) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.modificationDate = modificationDate;
+        this.category = category;
+        this.price = price;
+        this.currency = currency;
+        this.user = user;
+        this.status = status;
+    }
+
+    public Advert() {
+    }
+
     public void setId(int id) {
         this.id = id;
     }

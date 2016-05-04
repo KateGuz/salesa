@@ -1,8 +1,6 @@
 package com.salesa.util;
-
 import com.salesa.entity.Advert;
 import com.salesa.entity.AdvertRest;
-
 import java.util.List;
 
 public class AdvertPageData {
@@ -10,7 +8,6 @@ public class AdvertPageData {
     private List<Advert> adverts;
 
     private List<AdvertRest> advertRests;
-
     private int pageCount;
 
     public List<AdvertRest> getAdvertRests() {

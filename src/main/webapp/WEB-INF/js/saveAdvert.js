@@ -1,6 +1,6 @@
-$(document).ready(function (userId) {
+$(document).ready(function () {
 
-        $('form').submit(function(event) {
+        $('#addAdvert').submit(function(event) {
             var formData = {
                 title: $('#title').val(),
                 price: $('#price').val(),
@@ -13,8 +13,7 @@ $(document).ready(function (userId) {
                     type        : 'POST',
                     url         : '/addAdvert/',
                     data        : formData,
-                    /*dataType    : 'json'*/
-                  /*  encode          : true*/
+                    dataType    : 'json'
                 })
                 .success(function(userId) {
                     top.location.href = '/user/' + userId ;
