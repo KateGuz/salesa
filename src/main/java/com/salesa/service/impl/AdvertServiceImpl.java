@@ -35,6 +35,8 @@ public class AdvertServiceImpl implements AdvertService {
     public AdvertPageData getAll(AdvertFilter advertFilter) {
         return advertDao.getAll(advertFilter);
     }
+
+    @Override
     public int saveAdvert(Advert advert){
         advertDao.saveAdvert(advert);
         return advert.getId();

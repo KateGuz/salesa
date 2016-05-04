@@ -40,9 +40,8 @@
                                    aria-haspopup="true" aria-expanded="false">Валюта<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">USD</a></li>
+                                    <li><a href="#">EUR</a></li>
                                     <li><a href="#">UAH</a></li>
-                                    <li><a href="#">CHF</a></li>
-                                    <li><a href="#">RUB</a></li>
                                 </ul>
                             </li>
                             <c:choose>
@@ -84,19 +83,22 @@
                         <p>
                         <div class="glyphicon glyphicon-phone"></div>
                         ${user.phone} </p>
-
-                        <c:choose>
-                            <c:when test="${empty loggedUser}">
-                            </c:when>
-                            <c:when test="${loggedUser.id == user.id}">
-                                <a href="/addAdvert/"><button class="create"><strong>Ad advert</strong></button></a>
-                            </c:when>
-                            <c:otherwise>
-                                <button class="dislike-btn" onclick="addDislike(${user.id})">
-                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i></button>
-                            </c:otherwise>
-                        </c:choose>
-
+                        <div<%-- id="display"--%>>
+                            <c:choose>
+                                <c:when test="${empty loggedUser.name}">
+                                </c:when>
+                                <c:when test="${loggedUser.id == user.id}">
+                                    <a href="/addAdvert/">
+                                        <button class="create"><strong>Ad advert</strong></button>
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="dislike-btn" onclick="addDislike(${user.id})">
+                                        <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
+                                    </button>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
                     <br>
                 </div>
@@ -135,7 +137,7 @@
                                             <p>${advert.text}</p>
                                             <br>
                                             <h6><tags:localDateTime
-                                                    date="${advert.modificationDate}"/></h6>
+                                                    date="${advert.modificationDate}" pattern="${pattern}"/></h6>
                                         </div>
                                     </div>
                                 </div>

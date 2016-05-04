@@ -14,7 +14,6 @@ $(document).ready(function () {
                     url         : '/addAdvert/',
                     data        : formData,
                     dataType    : 'json'
-                  /*  encode          : true*/
                 })
                 .success(function(userId) {
                     top.location.href = '/user/' + userId ;

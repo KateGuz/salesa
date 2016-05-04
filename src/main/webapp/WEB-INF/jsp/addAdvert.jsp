@@ -37,9 +37,8 @@
                                    aria-haspopup="true" aria-expanded="false">Валюта<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">USD</a></li>
+                                    <li><a href="#">EUR</a></li>
                                     <li><a href="#">UAH</a></li>
-                                    <li><a href="#">CHF</a></li>
-                                    <li><a href="#">RUB</a></li>
                                 </ul>
                             </li>
                             <c:choose>
@@ -104,8 +103,8 @@
                                             <label for="currency">Валюта</label>
                                             <select id="currency" required>
                                                 <option>USD</option>
-                                                <option>UAH</option>
                                                 <option>EUR</option>
+                                                <option>UAH</option>
                                             </select>
                                         </div>
                                     </div>
