@@ -88,8 +88,8 @@
                                 <c:when test="${empty loggedUser.name}">
                                 </c:when>
                                 <c:when test="${loggedUser.id == user.id}">
-                                    <a href="/addAdvert/">
-                                        <button class="create"><strong>Ad advert</strong></button>
+                                    <a href="/addAdvert">
+                                        <button class="create"><strong>Add advert</strong></button>
                                     </a>
                                 </c:when>
                                 <c:otherwise>

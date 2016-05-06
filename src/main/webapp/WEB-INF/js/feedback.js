@@ -4,9 +4,7 @@ function addFeedback(userId) {
     var feedbackText = feedbackTextArea.val();
     $.post(url, feedbackText, function () {
         $('#feedback-ok').modal('show');
-        console.log("show");
         setTimeout(hideModal, 3000);
-        console.log("hide");
         feedbackTextArea.val("");
         location.reload();
     });

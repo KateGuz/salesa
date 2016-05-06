@@ -29,7 +29,7 @@ public class RestUserController {
 
 
     @RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET,
-            headers = {"Accept=application/xml", "Accept=application/json"},
+            headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
             produces = {"application/xml", "application/json"})
     public String user(@PathVariable("userId") int userId, @RequestHeader("accept") String header, HttpServletResponse responsee) throws IOException {
         log.info("Query get adverts by userId: " + userId);

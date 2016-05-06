@@ -1,6 +1,6 @@
 $(document).ready(function () {
-
-        $('#addAdvert').submit(function(event) {
+    $('#create').submit(function(event)
+   /* $('#addAdvert').submit(function(event)*/ {
             var formData = {
                 title: $('#title').val(),
                 price: $('#price').val(),

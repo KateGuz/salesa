@@ -17,7 +17,7 @@ $(document).ready(function () {
                 $('.userLink').html(`<a href="/user/${loggedUser.id}">${loggedUser.name}</a>`);
                 $('.out').html(`<a href="/signOut">Выйти</a>`).show();
                 $('.alert').hide();
-                location.reload();
+               /* location.reload();*/
             },
             error: function () {
                 message($('#error'));
@@ -43,7 +43,7 @@ $(document).ready(function () {
                 message($('#success-reg'));
                 $('.userLink').html(`<a href="/user/${loggedUser.id}">${loggedUser.name}</a>`);
                 $('.out').html(`<a href="/signOut">Выйти</a>`).show();
-                location.reload();
+               /* location.reload();*/
             },
             error: function () {
                 message($('#error'));

@@ -26,11 +26,11 @@ import java.time.LocalDateTime;
 @RestController
 public class RestAddAdvertController {
     private final Logger log = LoggerFactory.getLogger(getClass());
-    /*@Autowired
+    @Autowired
     private CategoryService categoryService;
 
     @Autowired
-    private CategoryParser categoryParser;*/
+    private CategoryParser categoryParser;
 
     @Autowired
     private AdvertService advertService;
@@ -44,7 +44,9 @@ public class RestAddAdvertController {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
         response.getWriter().println("Please, add next attributes to your advert: title, text, price, currency(USD, EUR, UAH), categoryId and status");
-        /*response.getWriter().println(categoryParser.toJSON(categoryService.getAll()));*/
+        for (Category category : categoryService.getAll()){
+            response.getWriter().println(categoryParser.toJSON(category));
+        }
     }
 
     @RequestMapping(value = "/api/addAdvert", method = RequestMethod.POST)

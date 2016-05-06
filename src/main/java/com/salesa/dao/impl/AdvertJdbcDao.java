@@ -139,7 +139,7 @@ public class AdvertJdbcDao implements AdvertDao {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("title", advert.getTitle());
         mapSqlParameterSource.addValue("text", advert.getText());
-        mapSqlParameterSource.addValue("categoryId", advert.getCategory());
+        mapSqlParameterSource.addValue("categoryId", advert.getCategory().getId());
         mapSqlParameterSource.addValue("price", advert.getPrice());
         mapSqlParameterSource.addValue("currency", advert.getCurrency());
         mapSqlParameterSource.addValue("status", advert.getStatus());

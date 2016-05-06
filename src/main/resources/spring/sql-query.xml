@@ -93,6 +93,11 @@
                 value="UPDATE  advert SET title=:title, text=:text, categoryId=:categoryId, price=:price, currency=:currency, status=:status, modificationDate=:modificationDate WHERE id=:id;"/>
     </bean>
 
+    <bean id="updateUserSQL" class="java.lang.String">
+        <constructor-arg
+                value="UPDATE  user SET name=:name, email=:email, password=:password, phone=:phone WHERE id=:id;"/>
+    </bean>
+
 </beans>
 
 
