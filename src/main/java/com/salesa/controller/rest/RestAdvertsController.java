@@ -1,9 +1,9 @@
-package com.salesa.controllerREST;
+package com.salesa.controller.rest;
 
 import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
-import com.salesa.util.AdvertPageData;
+import com.salesa.util.entity.AdvertPageData;
 import com.salesa.util.AdvertsParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

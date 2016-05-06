@@ -3,7 +3,7 @@ package com.salesa.dao;
 import com.salesa.entity.Advert;
 import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
-import com.salesa.util.AdvertPageData;
+import com.salesa.util.entity.AdvertPageData;
 
 import java.util.List;
 

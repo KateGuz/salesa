@@ -15,6 +15,10 @@ public class QueryGenerator {
     private static final char END_SEPARATOR = ';';
     private static final String WHERE_STATEMENT = " WHERE ";
     private static final String AND_STATEMENT = " AND ";
+    private static final String ORDER_BY_STATEMENT = " ORDER BY ";
+    private static final String DESC_STATEMENT = " DESC ";
+
+
     @Autowired
     private String getAdvertsTemplateSQL;
     @Autowired
@@ -42,7 +46,6 @@ public class QueryGenerator {
         addPagination(advertFilter.getPage(), query, params);
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
-
     }
 
     public QueryAndParams generateAllAdverts() {
@@ -59,6 +62,22 @@ public class QueryGenerator {
         if (advertFilter.getCategoryId() != 0) {
             query.append(AND_STATEMENT);
             addCategoryFiltering(advertFilter.getCategoryId(), query, params);
+        }
+
+        // status filter
+        if (advertFilter.isActive()) {
+            query.append(AND_STATEMENT);
+            query.append("a.status = 'A'");
+        }
+
+        // sorting
+        // todo fix bug with sorting by price in different currencies
+        if (advertFilter.isSortPriceAsc() != null) {
+            query.append(ORDER_BY_STATEMENT);
+            query.append("a.defaultPriceUAH");
+            if (!advertFilter.isSortPriceAsc()) {
+                query.append(DESC_STATEMENT);
+            }
         }
 
         // pagination

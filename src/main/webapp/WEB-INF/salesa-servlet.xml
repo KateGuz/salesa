@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.salesa.controller"/>
-    <context:component-scan base-package="com.salesa.controllerREST"/>
+    <context:component-scan base-package="com.salesa.controller.rest"/>
 
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

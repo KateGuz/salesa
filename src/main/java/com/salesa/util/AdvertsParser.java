@@ -1,8 +1,8 @@
 package com.salesa.util;
 
-import com.salesa.entity.Advert;
 import com.salesa.entity.AdvertRest;
 import com.salesa.entity.Image;
+import com.salesa.util.entity.AdvertPageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

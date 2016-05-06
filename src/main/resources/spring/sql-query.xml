@@ -10,6 +10,10 @@
         a.currency, a.userId, a.status FROM advert as a"/>
     </bean>
 
+    <bean id="updateDefaultPriceSQL" class="java.lang.String">
+        <constructor-arg value="UPDATE advert SET defaultPriceUAH = price * :rate WHERE currency = :currency;"/>
+    </bean>
+
     <bean id="getAdvertsCountSQL" class="java.lang.String">
         <constructor-arg value="SELECT count(*) as count FROM advert WHERE status != 'S'"/>
     </bean>
