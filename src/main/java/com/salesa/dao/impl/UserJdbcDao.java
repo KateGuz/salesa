@@ -92,6 +92,7 @@ public class UserJdbcDao implements UserDao {
         params.put("email", user.getEmail());
         params.put("phone", user.getPhone());
         params.put("password", user.getPassword());
+        params.put("id", user.getId());
 
         namedParameterJdbcTemplate.update(updateUserSQL, params);
     }

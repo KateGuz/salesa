@@ -13,6 +13,7 @@ public interface AdvertDao {
     List<Advert> getByUserId(int userId);
     AdvertPageData getAll(AdvertFilter advertFilter);
     int saveAdvert(Advert advert);
+    void saveAdvert(AdvertRest advert);
     void update(AdvertRest advert);
     void update(Advert advert);
 }

@@ -144,6 +144,22 @@ public class AdvertJdbcDao implements AdvertDao {
     }
 
     @Override
+    public void saveAdvert(AdvertRest advert) {
+        log.info("save advert " + advert);
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("title", advert.getTitle());
+        mapSqlParameterSource.addValue("text", advert.getText());
+        mapSqlParameterSource.addValue("categoryId", advert.getCategory());
+        mapSqlParameterSource.addValue("price", advert.getPrice());
+        mapSqlParameterSource.addValue("currency", advert.getCurrency());
+        mapSqlParameterSource.addValue("status", advert.getStatus());
+        mapSqlParameterSource.addValue("modificationDate", advert.getModificationDate());
+        mapSqlParameterSource.addValue("userId", advert.getUser());
+
+        namedParameterJdbcTemplate.update(saveAdvertSQL, mapSqlParameterSource);
+    }
+
+    @Override
     public void update(Advert advert) {
         log.info("updating advert " + advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();

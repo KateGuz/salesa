@@ -16,8 +16,6 @@ public class RestCategoryController {
     @Autowired
     private CategoryParser categoryParser;
 
-
-
     @RequestMapping(value = "/api/category/{id}", method = RequestMethod.GET,
             headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
             produces = {"application/xml", "application/json"})

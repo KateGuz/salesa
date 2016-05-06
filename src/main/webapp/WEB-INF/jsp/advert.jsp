@@ -122,6 +122,8 @@
                         <c:choose>
                             <c:when test="${empty loggedUser.name}">
                             </c:when>
+                            <c:when test="${loggedUser.id != advert.user.id}">
+                            </c:when>
                             <c:otherwise>
                                 <a href="/editAdvert/${advert.id}">
                                     <button class="edit">Изменить</button>
