@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Advert {
-
     private int id;
     private String title;
     private String text;

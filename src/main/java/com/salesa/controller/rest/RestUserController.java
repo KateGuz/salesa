@@ -1,4 +1,4 @@
-package com.salesa.controllerREST;
+package com.salesa.controller.rest;
 
 import com.salesa.entity.Advert;
 import com.salesa.entity.Feedback;

@@ -1,18 +1,13 @@
-package com.salesa.controllerREST;
+package com.salesa.controller.rest;
 
 import com.salesa.entity.Advert;
 import com.salesa.entity.Category;
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.AdvertService;
-import com.salesa.service.CategoryService;
-import com.salesa.util.CategoryParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

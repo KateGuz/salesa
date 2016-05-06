@@ -9,17 +9,17 @@ import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
 import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
-import com.salesa.util.AdvertPageData;
+import com.salesa.util.CurrencyConverter;
+import com.salesa.util.entity.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
@@ -37,6 +37,7 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Autowired
     private String saveAdvertSQL;
+
     @Autowired
     private String updateAdvertSQL;
 
@@ -51,12 +52,19 @@ public class AdvertJdbcDao implements AdvertDao {
 
         Integer advertsCount;
         Map<String, Object> paramMap = new HashMap<>();
-        if(advertFilter.getCategoryId() > 0) {
-            paramMap.put("categoryId", advertFilter.getCategoryId());
-            String andStatement = " AND categoryId = :categoryId;";
-            advertsCount = namedParameterJdbcTemplate.queryForObject(getAdvertsCountSQL + andStatement, paramMap, Integer.class);
+        String query = getAdvertsCountSQL;
+        if (advertFilter.getCategoryId() > 0 || advertFilter.isActive()) {
+            if (advertFilter.getCategoryId() > 0) {
+                paramMap.put("categoryId", advertFilter.getCategoryId());
+                query += " AND categoryId = :categoryId";
+            }
+            if (advertFilter.isActive()) {
+                query += " AND status = 'A'";
+            }
+            query += ";";
+            advertsCount = namedParameterJdbcTemplate.queryForObject(query, paramMap, Integer.class);
         } else {
-            advertsCount = namedParameterJdbcTemplate.queryForObject(getAdvertsCountSQL, new HashMap<>(), Integer.class);
+            advertsCount = namedParameterJdbcTemplate.queryForObject(query, new HashMap<>(), Integer.class);
         }
 
         int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
@@ -67,15 +75,15 @@ public class AdvertJdbcDao implements AdvertDao {
     }
 
     @Override
-    public Advert get(int advertId){
+    public Advert get(int advertId) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertId);
         return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new AdvertDetailsMapper());
     }
 
     @Override
-    public List<Advert> getByUserId(int userId){
+    public List<Advert> getByUserId(int userId) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
-        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params,new AdvertMapper());
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
     }
 
     @Override
@@ -91,8 +99,9 @@ public class AdvertJdbcDao implements AdvertDao {
         advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
         return advertPageData;
     }
+
     @Override
-    public int saveAdvert(Advert advert){
+    public int saveAdvert(Advert advert) {
 
         log.info("advert " + advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
@@ -112,10 +121,10 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Override
     public void update(AdvertRest advert) {
-        String status = advert.getStatus();
-        if(advert.getStatus().equals("Активно")){
+        String status;
+        if (advert.getStatus().equals("Активно")) {
             status = "A";
-        } else if(advert.getStatus().equals("Забронировано")){
+        } else if (advert.getStatus().equals("Забронировано")) {
             status = "H";
         } else {
             status = "S";
@@ -133,6 +142,7 @@ public class AdvertJdbcDao implements AdvertDao {
 
         namedParameterJdbcTemplate.update(updateAdvertSQL, mapSqlParameterSource);
     }
+
     @Override
     public void update(Advert advert) {
         log.info("updating advert " + advert);

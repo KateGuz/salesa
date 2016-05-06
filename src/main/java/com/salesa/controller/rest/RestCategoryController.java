@@ -1,11 +1,8 @@
-package com.salesa.controllerREST;
+package com.salesa.controller.rest;
 
 import com.salesa.entity.Category;
-import com.salesa.entity.User;
-import com.salesa.service.UserService;
 import com.salesa.service.cache.CategoryCache;
 import com.salesa.util.CategoryParser;
-import com.salesa.util.UserParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

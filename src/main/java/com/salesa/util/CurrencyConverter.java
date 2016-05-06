@@ -59,4 +59,6 @@ public class CurrencyConverter {
         advert.setPrice(price.doubleValue());
     }
 
+
+
 }
