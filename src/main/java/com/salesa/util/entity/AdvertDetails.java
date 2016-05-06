@@ -1,4 +1,4 @@
-package com.salesa.util;
+package com.salesa.util.entity;
 
 import com.salesa.entity.Advert;
 import com.salesa.entity.User;

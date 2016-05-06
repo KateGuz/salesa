@@ -102,10 +102,10 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="btn-group nav navbar-nav navbar-right">
-                        <%-- <button type="button" class="btn btn-default"></button>--%>
-                        <button type="button" class="btn btn-default">Самые дешевые</button>
-                        <button type="button" class="btn btn-default">Самые дорогие</button>
-                        <button type="button" class="btn btn-default">Активные</button>
+                        <button onclick="window.location.href='/'" type="button" class="btn btn-error">Сбросить фильтры</button>
+                        <button type="button" class="btn btn-default" onclick="sortByPrice('ASC')">Самые дешевые</button>
+                        <button type="button" class="btn btn-default" onclick="sortByPrice('DESC')">Самые дорогие</button>
+                        <button type="button" class="btn btn-default" onclick="showActive()">Активные</button>
                     </div>
                 </div>
                 </a>
@@ -158,19 +158,19 @@
         <div class="size">
             <div class="text-center">
                 <ul class="pagination">
-                    <li><a href="?page=1&currency=${selectedCurrency}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li><a href="?page=1&currency=${selectedCurrency}${filterUrl}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                     <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
                         <c:choose>
                             <c:when test="${loop.index == activePage}">
-                                <li><a class="activePage" id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}" data-original-title=""
+                                <li><a class="activePage" id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}${filterUrl}" data-original-title=""
                                        title="">${loop.index}</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}" data-original-title="" title="">${loop.index}</a></li>
+                                <li><a id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}${filterUrl}" data-original-title="" title="">${loop.index}</a></li>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-                    <li><a href="?page=${pageData.pageCount}&currency=${selectedCurrency}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                    <li><a href="?page=${pageData.pageCount}&currency=${selectedCurrency}${filterUrl}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                     </li>
                 </ul>
             </div>
