@@ -42,7 +42,7 @@ public class    AddAdvertController {
     }
 
     @RequestMapping(value = "/addAdvert", method = RequestMethod.POST)
-    public ResponseEntity<Integer> adAdvert(HttpServletRequest httpServletRequest, HttpSession session) throws IOException {
+    public ResponseEntity<Integer> addAdvert(HttpServletRequest httpServletRequest, HttpSession session) throws IOException {
         String title = httpServletRequest.getParameter("title");
         String text = httpServletRequest.getParameter("text");
         double price = Double.parseDouble(httpServletRequest.getParameter("price"));

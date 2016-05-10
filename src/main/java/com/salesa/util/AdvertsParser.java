@@ -1,7 +1,6 @@
 package com.salesa.util;
 
-import com.salesa.entity.AdvertRest;
-import com.salesa.entity.Image;
+import com.salesa.entity.Advert;
 import com.salesa.util.entity.AdvertPageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,19 +14,18 @@ public class AdvertsParser {
     @Autowired
     private JsonMapper jsonMapper;
 
-    private Object prepare(AdvertPageData advertPageData, int page) {
-        List<AdvertRest> advertRests = advertPageData.getAdvertRests();
-        HashMap<String, Object> rootJSON = new HashMap<>();
-        rootJSON.put("page", page);
+    private HashMap<String, Object> prepareJSONRootMap(AdvertPageData advertPageData, int page) {
+        List<Advert> adverts = advertPageData.getAdverts();
+        HashMap<String, Object> jsonRootMap = new HashMap<>();
+        jsonRootMap.put("page", page);
 
-        for (int i = 0; i < advertRests.size(); i++) {
-            AdvertRest advert = advertRests.get(i);
+        for (int i = 0; i < adverts.size(); i++) {
+            Advert advert = adverts.get(i);
             HashMap<String, Object> map = new HashMap<>();
-
-            List<Image> images = advert.getImages();
-            map.put("category", "/category/" + advert.getCategory());
-            map.put("user", "/user/" + advert.getUser());
-            map.put("images", images);
+//            List<Image> images = advert.getImages();
+            map.put("category", "/category/" + advert.getCategory().getId());
+            map.put("user", "/user/" + advert.getUser().getId());
+//            map.put("images", images);
             map.put("id", advert.getId());
             map.put("title", advert.getTitle());
             map.put("text", advert.getText());
@@ -35,19 +33,19 @@ public class AdvertsParser {
             map.put("price", advert.getPrice());
             map.put("currency", advert.getCurrency());
             map.put("status", advert.getStatus());
-            rootJSON.put(String.valueOf(i + 1), map);
+            jsonRootMap.put(String.valueOf(i + 1), map);
         }
-        return rootJSON;
+        return jsonRootMap;
     }
 
 
     public String toXML(AdvertPageData advertPageData, int page) {
-        Object prepare = prepare(advertPageData, page);
+        Object prepare = prepareJSONRootMap(advertPageData, page);
         return jsonMapper.toXML(prepare);
     }
 
     public String toJSON(AdvertPageData advertPageData, int page) {
-        Object prepare = prepare(advertPageData, page);
+        Object prepare = prepareJSONRootMap(advertPageData, page);
         return jsonMapper.toJSON(prepare);
 
     }

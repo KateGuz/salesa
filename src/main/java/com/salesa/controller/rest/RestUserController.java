@@ -18,6 +18,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping(value = "/v1/user/{userId}")
 public class RestUserController {
     private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
@@ -28,37 +29,31 @@ public class RestUserController {
     UserDataRest userDataRest;
 
 
-    @RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET,
-            headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
-            produces = {"application/xml", "application/json"})
-    public String user(@PathVariable("userId") int userId, @RequestHeader("accept") String header, HttpServletResponse responsee) throws IOException {
-        log.info("Query get adverts by userId: " + userId);
-        log.info("Query get feedbacks by userId: " + userId);
-        log.info("Query get user by userId: " + userId);
+    @RequestMapping(headers = {"Accept=application/json;charset=UTF-8"})
+    public String userJson(@PathVariable("userId") int userId) throws IOException {
+        log.info("Query get adverts(json) by userId: " + userId);
+        log.info("Query get feedbacks(json) by userId: " + userId);
+        log.info("Query get user(json) by userId: " + userId);
         User user = userService.get(userId);
         List<Advert> adverts = advertService.getByUserId(userId);
         Collections.reverse(adverts);
         List<Feedback> feedbacks = userService.getByUserId(userId);
         Collections.reverse(feedbacks);
-        if (header.contains("/json")) {
-            return userDataRest.toJSON(user, feedbacks, adverts);
-        }
-        if (header.contains("/xml")) {
-            return userDataRest.toXML(user, feedbacks, adverts);
-        } else {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(user);
-            stringBuilder.append("\n");
-            for (Advert advert : adverts) {
-                stringBuilder.append(advert);
-                stringBuilder.append("\n");
-            }
-            for (Feedback feedback : feedbacks) {
-                stringBuilder.append(feedback);
-                stringBuilder.append("\n");
-            }
-            return stringBuilder.toString();
-        }
 
+        return userDataRest.toJSON(user, feedbacks, adverts);
+    }
+
+    @RequestMapping(headers = {"Accept=application/xml;charset=UTF-8"})
+    public String userXML(@PathVariable("userId") int userId) throws IOException {
+        log.info("Query get adverts(xml) by userId: " + userId);
+        log.info("Query get feedbacks(xml) by userId: " + userId);
+        log.info("Query get user(xml) by userId: " + userId);
+        User user = userService.get(userId);
+        List<Advert> adverts = advertService.getByUserId(userId);
+        Collections.reverse(adverts);
+        List<Feedback> feedbacks = userService.getByUserId(userId);
+        Collections.reverse(feedbacks);
+
+        return userDataRest.toXML(user, feedbacks, adverts);
     }
 }

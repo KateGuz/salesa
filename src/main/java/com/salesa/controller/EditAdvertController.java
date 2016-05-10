@@ -1,6 +1,6 @@
 package com.salesa.controller;
 
-import com.salesa.entity.AdvertRest;
+import com.salesa.entity.Advert;
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.AdvertService;
@@ -37,7 +37,7 @@ public class EditAdvertController {
     }
 
     @RequestMapping(value = "/editAdvert/{id}", method = RequestMethod.POST)
-    public String editAdvertResult(@ModelAttribute("advert") AdvertRest advert, Model model, HttpSession session) {
+    public String editAdvertResult(@ModelAttribute("advert") Advert advert, Model model, HttpSession session) {
         HashMap<String, String> errors = new HashMap<>();
         LocalDateTime time = LocalDateTime.now();
         User user = userSecurity.getUserBySessionId(session.getId());

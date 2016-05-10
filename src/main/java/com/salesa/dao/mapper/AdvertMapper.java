@@ -1,6 +1,8 @@
 package com.salesa.dao.mapper;
 
 import com.salesa.entity.Advert;
+import com.salesa.entity.Category;
+import com.salesa.entity.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -19,6 +21,8 @@ public class AdvertMapper implements RowMapper<Advert> {
         advert.setPrice(resultSet.getDouble("price"));
         advert.setCurrency(resultSet.getString("currency"));
         advert.setStatus(resultSet.getString("status"));
+        advert.setCategory(new Category(resultSet.getInt("categoryId")));
+        advert.setUser(new User(resultSet.getInt("userId")));
 
         return advert;
     }

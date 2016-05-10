@@ -22,7 +22,7 @@ public class RestUserSecurityController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/api/signIn", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/signIn", method = RequestMethod.POST)
     public String signInREST(@RequestParam("email") String email,
                              @RequestParam("pass") String pass, HttpSession session, HttpServletResponse response) {
         log.info("Received request for api: Sign In - email:[" + email + "], password:[" + pass + "].");
@@ -35,7 +35,7 @@ public class RestUserSecurityController {
         return "Sign In is unsuccessful. Check correctly your @mail or password.";
     }
 
-    @RequestMapping(value = "/api/signUp", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/signUp", method = RequestMethod.POST)
     public String signUpREST(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email,
                              @RequestParam(name = "pass") String pass, HttpSession session, HttpServletResponse response) {
         if ((name.equals("") || email.equals("") || pass.equals("")) ) {
@@ -52,7 +52,7 @@ public class RestUserSecurityController {
         return "Sign Up is successful. Welcome dear, " + user.getName();
     }
 
-    @RequestMapping(value = "/api/signOut", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/v1/signOut", method = RequestMethod.DELETE)
     public String signOut(HttpSession session) {
         userSecurity.deleteSession(session.getId());
         log.info("signing out");

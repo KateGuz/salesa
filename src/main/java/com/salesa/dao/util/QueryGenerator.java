@@ -29,8 +29,6 @@ public class QueryGenerator {
     private String getAdvertsByUserIdSQL;
     @Autowired
     private String getUserByIdSQL;
-    @Autowired
-    private String getAllAdvertsSQL;
 
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
         this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
@@ -40,19 +38,6 @@ public class QueryGenerator {
         this.addPagingTemplateSQL = addPagingTemplateSQL;
     }
 
-    public QueryAndParams generateAll(AdvertFilter advertFilter) {
-        StringBuilder query = new StringBuilder(getAllAdvertsSQL);
-        Map<String, Object> params = new HashMap<>();
-        addPagination(advertFilter.getPage(), query, params);
-        query.append(END_SEPARATOR);
-        return new QueryAndParams(query.toString(), params);
-    }
-
-    public QueryAndParams generateAllAdverts() {
-        StringBuilder query = new StringBuilder(getAdvertsByUserIdSQL);
-        Map<String, Object> params = new HashMap<>();
-        return new QueryAndParams(query.toString(), params);
-    }
 
     public QueryAndParams generateAdvertQuery(AdvertFilter advertFilter) {
         StringBuilder query = new StringBuilder(getAdvertsTemplateSQL);
