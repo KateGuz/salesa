@@ -123,6 +123,5 @@ public class User {
                 ", dislikeAmount=" + dislikeAmount +
                 '}';
     }
-
-
 }
+
