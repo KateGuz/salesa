@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Controller
-public class    AddAdvertController {
+public class  AddAdvertController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -32,6 +32,7 @@ public class    AddAdvertController {
 
     @Autowired
     private UserSecurity userSecurity;
+
 
     @RequestMapping(value = "/addAdvert", method = RequestMethod.GET)
     public String adAdvert(Model model, HttpSession session){
@@ -71,6 +72,7 @@ public class    AddAdvertController {
         advert.setStatus(status);
         advert.setModificationDate(LocalDateTime.now());
         advert.setUser(new User(userId));
+
         advertService.saveAdvert(advert);
         return new ResponseEntity<>(userId, HttpStatus.OK);
     }

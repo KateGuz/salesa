@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @RestController
-public class RestAddAdvertController {
+public class RestAdvertController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

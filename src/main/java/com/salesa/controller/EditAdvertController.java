@@ -37,12 +37,11 @@ public class EditAdvertController {
     }
 
     @RequestMapping(value = "/editAdvert/{id}", method = RequestMethod.POST)
-    public String editAdvertResult(@ModelAttribute("advert") Advert advert, Model model, HttpSession session) {
+    public String editAdvertResult(@PathVariable("id") int id, @ModelAttribute("advert") Advert advert, Model model, HttpSession session) {
         HashMap<String, String> errors = new HashMap<>();
-        LocalDateTime time = LocalDateTime.now();
         User user = userSecurity.getUserBySessionId(session.getId());
         session.setAttribute("loggedUser", user);
-        advert.setModificationDate(time);
+
         model.addAttribute("advert", advert);
         model.addAttribute("categories", categoryService.getAll());
 
@@ -52,13 +51,14 @@ public class EditAdvertController {
         if (advert.getText().equals("")) {
             errors.put("text", "Input advert message please.");
         }
-        if (advert.getPrice() == 0.0 || advert.getPrice() == 0) {
+        if (advert.getPrice() == 0.0) {
             errors.put("price", "Input your price please.");
         }
         if (!errors.isEmpty()) {
             model.addAttribute("errors", errors);
             return "editAdvert";
         }
+        advert.setModificationDate(LocalDateTime.now());
         advertService.update(advert);
         return "redirect:/advert/" + advert.getId();
     }
