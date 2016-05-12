@@ -6,6 +6,8 @@ import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.util.CurrencyConverter;
 import com.salesa.util.entity.AdvertPageData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Service
 public class AdvertServiceImpl implements AdvertService {
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private AdvertDao advertDao;
 
@@ -37,6 +41,7 @@ public class AdvertServiceImpl implements AdvertService {
 
     private void applyPriceSorting(List<Advert> adverts, AdvertFilter advertFilter) {
         if (advertFilter.isSortPriceAsc() != null) {
+            log.info("Applying sorting for request {}", advertFilter);
             Collections.sort(adverts, PRICE_ASC_COMPARATOR);
             if (!advertFilter.isSortPriceAsc()) {
                 Collections.reverse(adverts);

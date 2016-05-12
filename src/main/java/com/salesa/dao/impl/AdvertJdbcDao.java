@@ -46,11 +46,12 @@ public class AdvertJdbcDao implements AdvertDao {
         log.info("Query adverts information for request {}", advertFilter);
 
         List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, ADVERT_MAPPER);
-        log.info("Query advert for page took {} ms", queryAndParams.query, System.currentTimeMillis() - startTime);
+        log.info("Query adverts for page took {} ms", System.currentTimeMillis() - startTime);
 
         Integer advertsCount;
         Map<String, Object> paramMap = new HashMap<>();
         String query = getAdvertsCountSQL;
+        log.info("Query page information for request {}", advertFilter);
         if (advertFilter.getCategoryId() > 0 || advertFilter.isActive()) {
             if (advertFilter.getCategoryId() > 0) {
                 paramMap.put("categoryId", advertFilter.getCategoryId());
@@ -64,6 +65,8 @@ public class AdvertJdbcDao implements AdvertDao {
         } else {
             advertsCount = namedParameterJdbcTemplate.queryForObject(query, new HashMap<>(), Integer.class);
         }
+
+        log.info("Obtained {} adverts for filter {}", advertsCount, advertFilter);
 
         int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
         AdvertPageData advertPageData = new AdvertPageData();
@@ -105,7 +108,7 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Override
     public void update(Advert advert) {
-        log.info("updating advert {}" , advert);
+        log.info("updating advert {}", advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("title", advert.getTitle());
         mapSqlParameterSource.addValue("text", advert.getText());
