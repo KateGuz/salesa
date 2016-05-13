@@ -194,12 +194,12 @@
                             </c:forEach>
 
 
-                            <c:if test="${pageData.pageCount > activePage}">
-                                <li>
-                                    <a href="?page=${pageData.pageCount}&currency=${selectedCurrency}${filterUrl}&searchText=${searchText}"
-                                       aria-label="Next"><span
-                                            aria-hidden="true">&raquo;</span></a></li>
-                            </c:if>
+                                <c:if test="${pageData.pageCount > activePage}">
+                                    <li>
+                                        <a href="?page=${pageData.pageCount}&currency=${selectedCurrency}${filterUrl}&searchText=${searchText}"
+                                           aria-label="Next"><span
+                                                aria-hidden="true">&raquo;</span></a></li>
+                                </c:if>
 
                         </c:otherwise>
                     </c:choose>

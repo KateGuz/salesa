@@ -81,4 +81,9 @@ public class AdvertServiceImpl implements AdvertService {
         advertDao.update(advert);
     }
 
+    @Override
+    public AdvertPageData search(AdvertFilter advertFilter) {
+        return advertDao.search(advertFilter);
+    }
+
 }

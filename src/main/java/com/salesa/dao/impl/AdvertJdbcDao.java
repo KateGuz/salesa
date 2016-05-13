@@ -9,37 +9,34 @@ import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
 import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
-import com.salesa.util.CurrencyConverter;
 import com.salesa.util.entity.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
     private final Logger log = LoggerFactory.getLogger(getClass());
     public static final int MAX_ADVERTS_PER_PAGE = 9;
-
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     @Autowired
     private QueryGenerator queryGenerator;
-
     @Autowired
     private String getAdvertsCountSQL;
-
     @Autowired
     private String saveAdvertSQL;
-
     @Autowired
     private String updateAdvertSQL;
+    @Autowired
+    private String searchSQLCount;
 
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
@@ -175,4 +172,20 @@ public class AdvertJdbcDao implements AdvertDao {
         namedParameterJdbcTemplate.update(updateAdvertSQL, mapSqlParameterSource);
     }
 
+    @Override
+    public AdvertPageData search(AdvertFilter advertFilter) {
+        QueryAndParams queryAndParams = queryGenerator.search(advertFilter);
+        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
+
+        String searchText = advertFilter.getSearchText();
+        String countQuery = String.format(searchSQLCount, searchText, searchText);
+
+        int advertsCount = namedParameterJdbcTemplate.queryForObject(countQuery, new HashMap<>(), Integer.class);
+        int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
+
+        AdvertPageData advertPageData = new AdvertPageData();
+        advertPageData.setAdverts(adverts);
+        advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
+        return advertPageData;
+    }
 }
