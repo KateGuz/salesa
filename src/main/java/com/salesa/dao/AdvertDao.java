@@ -16,4 +16,5 @@ public interface AdvertDao {
     void saveAdvert(AdvertRest advert);
     void update(AdvertRest advert);
     void update(Advert advert);
+    AdvertPageData search(AdvertFilter advertFilter);
 }

@@ -102,6 +102,14 @@
                 value="UPDATE  user SET name=:name, email=:email, password=:password, phone=:phone WHERE id=:id;"/>
     </bean>
 
+    <bean id="searchSQL" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM advert WHERE title RLIKE :text OR text RLIKE :text"/>
+    </bean>
+
+    <bean id="searchSQLCount" class="java.lang.String">
+        <constructor-arg value="SELECT count(*) as count FROM advert WHERE title RLIKE '%s' OR text RLIKE '%s'"/>
+    </bean>
+
 </beans>
 
 
