@@ -57,7 +57,6 @@ public class    AddAdvertController {
         }
         Integer categoryId = Integer.parseInt(httpServletRequest.getParameter("categoryId"));
         if(title == null || text == null || price == 0){
-
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("Creating advert " + title + " " + price + " " + currency);
@@ -71,6 +70,7 @@ public class    AddAdvertController {
         advert.setStatus(status);
         advert.setModificationDate(LocalDateTime.now());
         advert.setUser(new User(userId));
+        log.info("Advert to save : {}", advert);
         advertService.saveAdvert(advert);
         return new ResponseEntity<>(userId, HttpStatus.OK);
     }

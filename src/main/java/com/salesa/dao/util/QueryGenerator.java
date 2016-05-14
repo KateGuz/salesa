@@ -38,7 +38,6 @@ public class QueryGenerator {
         this.addPagingTemplateSQL = addPagingTemplateSQL;
     }
 
-
     public QueryAndParams generateAdvertQuery(AdvertFilter advertFilter) {
         StringBuilder query = new StringBuilder(getAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();

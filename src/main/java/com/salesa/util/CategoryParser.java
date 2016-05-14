@@ -1,17 +1,18 @@
 package com.salesa.util;
 
 import com.salesa.entity.Category;
+import com.salesa.util.mapper.RestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Component
+@Service
 public class CategoryParser {
     @Autowired
-    private JsonMapper jsonMapper;
+    private RestMapper restMapper;
 
     private Object prepare(Category category) {
         Category preview = new Category();
@@ -39,13 +40,13 @@ public class CategoryParser {
         return preview;
     }
 
-    public String toXML(Category category) {
+    /*public String toXML(Category category) {
         Object prepare = prepare(category);
-        return jsonMapper.toXML(prepare);
-    }
+        return restMapper.toXML(prepare);
+    }*/
 
     public String toJSON(Category category) {
         Object prepare = prepare(category);
-        return jsonMapper.toJSON(prepare);
+        return restMapper.toJSON(prepare);
     }
 }

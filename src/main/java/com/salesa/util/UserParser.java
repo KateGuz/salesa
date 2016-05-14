@@ -2,19 +2,20 @@ package com.salesa.util;
 
 
 import com.salesa.entity.User;
+import com.salesa.util.mapper.RestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserParser {
     @Autowired
-    private JsonMapper jsonMapper;
+    private RestMapper restMapper;
 
     public String toXML(User user) {
-        return jsonMapper.toXML(user);
+        return restMapper.toXML(user);
     }
 
     public String toJSON(User user) {
-        return jsonMapper.toJSON(user);
+        return restMapper.toJSON(user);
     }
 }
