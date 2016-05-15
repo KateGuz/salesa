@@ -38,8 +38,7 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     public int saveAdvert(Advert advert) {
-        advertDao.saveAdvert(advert);
-        return advert.getId();
+        return advertDao.saveAdvert(advert);
     }
 
     @Override
@@ -50,6 +49,11 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public Image getAdvertImage(int advertId) {
         return advertDao.getAdvertImage(advertId);
+    }
+
+    @Override
+    public Image getAdvertImageById(int imageId) {
+        return advertDao.getAdvertImageById(imageId);
     }
 
 

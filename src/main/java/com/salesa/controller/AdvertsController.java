@@ -1,6 +1,8 @@
 package com.salesa.controller;
 
 
+import com.salesa.entity.Advert;
+import com.salesa.entity.Image;
 import com.salesa.entity.User;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.security.UserSecurity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class AdvertsController {
@@ -36,11 +39,6 @@ public class AdvertsController {
         advertFilter.setPage(page);
         AdvertPageData advertPageData = advertService.get(advertFilter);
         model.addAttribute("pageData", advertPageData);
-
-        User user = new User();
-        user.setName("Test User");
-        model.addAttribute("user", user);
-
         return "home";
     }
 

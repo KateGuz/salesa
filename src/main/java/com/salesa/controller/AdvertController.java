@@ -2,7 +2,9 @@ package com.salesa.controller;
 
 import com.salesa.entity.Advert;
 import com.salesa.entity.Category;
+import com.salesa.entity.User;
 import com.salesa.service.AdvertService;
+import com.salesa.service.UserService;
 import com.salesa.service.cache.CategoryCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,9 @@ public class AdvertController {
     private AdvertService advertService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private CategoryCache categoryCache;
 
     @RequestMapping("/advert/{advertId}")
@@ -31,6 +36,8 @@ public class AdvertController {
         log.info("Query get advert by id: " + advertId);
         Advert advert = advertService.get(advertId);
         Category category = categoryCache.getCategoryById(advert.getCategory().getId());
+        User user = userService.get(advert.getUser().getId());
+        advert.setUser(user);
         List<Category> breadcrumbsTree = new ArrayList<>();
         do {
             breadcrumbsTree.add(category);

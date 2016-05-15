@@ -22,26 +22,13 @@ public class AdvertImageController {
     @Autowired
     private AdvertService advertService;
 
-    @RequestMapping("/advert/{advertId}/image")
-    public ResponseEntity<byte[]> getImage(@PathVariable int advertId) {
-        Image advertImage = advertService.getAdvertImage(advertId);
+    @RequestMapping("/image/{imageId}")
+    public ResponseEntity<byte[]> getImage(@PathVariable int imageId) {
+        Image advertImage = advertService.getAdvertImageById(imageId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         return new ResponseEntity<>(advertImage.getContent(), headers,
                 HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/advert/{advertId}/image", method = RequestMethod.POST)
-    public void doUpload(@PathVariable int advertId, @RequestParam("file") MultipartFile multipartFile) throws IOException {
-        Image image = new Image();
-        image.setContent(multipartFile.getBytes());
-        image.setType("X");
-        advertService.saveAdvertImage(image, advertId);
-    }
-
-    @RequestMapping("/addImage")
-    public String addImagePage() {
-        return "addAdvertImage";
     }
 
 }

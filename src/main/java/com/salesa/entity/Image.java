@@ -6,6 +6,12 @@ public class Image {
     private byte[] content;
     private String type;
 
+    public Image(int id) {
+        this.id = id;
+    }
+
+    public Image(){}
+
     public int getId() {
         return id;
     }

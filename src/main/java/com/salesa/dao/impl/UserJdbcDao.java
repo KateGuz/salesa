@@ -51,7 +51,7 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public User get(int userId) {
-        QueryAndParams queryAndParams = queryGenerator.generateUserById(userId);
+        QueryAndParams queryAndParams = queryGenerator.generateUserByIdQuery(userId);
         return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new UserMapper());
     }
 

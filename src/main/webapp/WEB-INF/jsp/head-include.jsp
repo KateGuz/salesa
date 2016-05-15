@@ -15,6 +15,7 @@
     <script src="/js/feedback.js"></script>
     <script src="/js/saveAdvert.js"></script>
     <script src="/js/dislike.js"></script>
+    <script src="/js/additionalImages.js"></script>
 
 </head>
 <body>

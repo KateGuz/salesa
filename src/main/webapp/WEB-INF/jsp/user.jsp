@@ -89,7 +89,7 @@
                             <c:when test="${empty loggedUser}">
                             </c:when>
                             <c:when test="${loggedUser.id == user.id}">
-                                <a href="/addAdvert/"><button class="create"><strong>Ad advert</strong></button></a>
+                                <a href="/addAdvert"><button class="create"><strong>Add advert</strong></button></a>
                             </c:when>
                             <c:otherwise>
                                 <button class="dislike-btn" onclick="addDislike(${user.id})">
@@ -123,10 +123,25 @@
                                         <h6 id="user-advert-price">${advert.price}&nbsp;${advert.currency}</h6>
                                         <br>
                                         <hr class="user-advert-status-hr">
+                                        <div class="col-sm-4">
 
-                                        <div class="media-left">
-                                            <img class="media-object thumbnail adv-img-list-item"
-                                                 src="/img/1.png">
+                                        <div class="thumbnail">
+                                            <c:choose>
+                                                <c:when test="${empty advert.images}">
+                                                    <img class="media-object thumbnail adv-img-list-item image-advert-user"
+                                                         src="/img/mock.png">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:forEach items="${advert.images}" var="image" varStatus="loop">
+                                                        <c:choose>
+                                                            <c:when test="${image.type == 'M'}">
+                                                                <img src="/image/${image.id}" alt="advert's photo" class="media-object thumbnail adv-img-list-item image-advert-user">
+                                                            </c:when>
+                                                        </c:choose>
+                                                    </c:forEach>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
                                         </div>
                                         <div class=" media-right">
                                             <a href="/advert/${advert.id}">
@@ -198,7 +213,7 @@
                 <div class="foot">
                     <div class="well">
                         <p>Salesa</p>
-                        <p>All Rigths Reserved</p>
+                        <p>All Rights Reserved</p>
                     </div>
                 </div>
             </footer>

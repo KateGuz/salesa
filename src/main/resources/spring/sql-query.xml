@@ -6,8 +6,9 @@
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean id="getAllAdvertsSQL" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price, a.categoryId,
-        a.currency, a.userId, a.status FROM advert as a"/>
+        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
+a.currency, a.status, a.categoryId, a.userId, aP.id as imageId, aP.type FROM advert as a LEFT JOIN advertPicture as aP
+ON (a.id = aP.advertId)"/>
     </bean>
 
     <bean id="getAdvertsCountSQL" class="java.lang.String">
@@ -16,7 +17,8 @@
 
     <bean id="getAdvertsTemplateSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
-                   a.currency, a.status FROM advert as a WHERE status != 'S'"/>
+a.currency, a.status, a.categoryId, a.userId, aP.id as imageId, aP.type FROM advert as a LEFT JOIN advertPicture as aP
+ON (a.id = aP.advertId) WHERE a.status != 'S'"/>
     </bean>
 
     <bean id="addPagingTemplateSQL" class="java.lang.String">
@@ -38,10 +40,6 @@
         <constructor-arg value="SELECT a.id, a.content, a.type FROM advertPicture as a;"/>
     </bean>
 
-    <bean id="getAdvertSQL" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.content, a.type FROM advertPicture as a;"/>
-    </bean>
-
     <bean id="getAdvertByIdSQL" class="java.lang.String">
 
         <constructor-arg value="SELECT a.id, a.title, a.text, a.price, a.currency, a.modificationDate,
@@ -56,7 +54,8 @@
 
     <bean id="getUserByIdSQL" class="java.lang.String">
         <constructor-arg
-                value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u "/>
+                value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status,
+                u.type, u.dislikeAmount FROM user as u "/>
     </bean>
 
     <bean id="getFeedbackByUserIdSQL" class="java.lang.String">
@@ -86,7 +85,7 @@
 
     <bean id="saveAdvertSQL" class="java.lang.String">
         <constructor-arg
-                value="INSERT INTO advert (title, text, categoryId, price, currency, status, modificationDate, userId) VALUES(:title, :text, :categoryId, :price, :currency, :status, :modificationDate, :userId);"/>
+                value="CALL addNewAdvert(:title, :text, :categoryId, :price, :currency, :status, :modificationDate, :userId);"/>
     </bean>
 
     <bean id="saveAdvertImageSQL" class="java.lang.String">
@@ -97,6 +96,12 @@
     <bean id="getAdvertImageSQL" class="java.lang.String">
         <constructor-arg
                 value="SELECT id, picture, type FROM advertPicture where advertId = :advertId;"/>
+    </bean>
+
+
+    <bean id="getAdvertImageByIdSQL" class="java.lang.String">
+        <constructor-arg
+                value="SELECT id, picture, type FROM advertPicture where id = :imageId;"/>
     </bean>
 
 </beans>

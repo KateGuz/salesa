@@ -1,10 +1,7 @@
 package com.salesa.dao.impl;
 
 import com.salesa.dao.AdvertDao;
-import com.salesa.dao.mapper.AdvertDetailsMapper;
-import com.salesa.dao.mapper.AdvertMapper;
-import com.salesa.dao.mapper.AdvertRestMapper;
-import com.salesa.dao.mapper.ImageMapper;
+import com.salesa.dao.mapper.*;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
@@ -15,6 +12,7 @@ import com.salesa.util.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -33,6 +31,9 @@ public class AdvertJdbcDao implements AdvertDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
     private QueryGenerator queryGenerator;
 
     @Autowired
@@ -47,13 +48,16 @@ public class AdvertJdbcDao implements AdvertDao {
     @Autowired
     private String getAdvertImageSQL;
 
+    @Autowired
+    private String getAdvertImageByIdSQL;
+
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertFilter);
 
         long startTime = System.currentTimeMillis();
         log.info("Query adverts information for request {}", advertFilter);
-        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
+        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertExtractor());
         log.info("Query advert for page took {} ms", queryAndParams.query, System.currentTimeMillis() - startTime);
 
         Integer advertsCount;
@@ -76,13 +80,13 @@ public class AdvertJdbcDao implements AdvertDao {
     @Override
     public Advert get(int advertId) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertId);
-        return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new AdvertDetailsMapper());
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertExtractor()).get(0);
     }
 
     @Override
     public List<Advert> getByUserId(int userId) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
-        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertExtractor());
     }
 
     @Override
@@ -112,9 +116,10 @@ public class AdvertJdbcDao implements AdvertDao {
         mapSqlParameterSource.addValue("modificationDate", advert.getModificationDate());
         mapSqlParameterSource.addValue("userId", advert.getUser().getId());
 
-        namedParameterJdbcTemplate.update(saveAdvertSQL, mapSqlParameterSource);
-        log.info("saving  advert finished");
-        return advert.getId();
+        int savedAdvertId = namedParameterJdbcTemplate.queryForObject(saveAdvertSQL, mapSqlParameterSource, int.class);
+
+        log.info("saving  advert with id {} finished", savedAdvertId);
+        return savedAdvertId;
     }
 
 
@@ -125,6 +130,14 @@ public class AdvertJdbcDao implements AdvertDao {
         mapSqlParameterSource.addValue("type", image.getType());
         mapSqlParameterSource.addValue("advertId", advertId);
         namedParameterJdbcTemplate.update(saveAdvertImageSQL, mapSqlParameterSource);
+    }
+
+    @Override
+    public Image getAdvertImageById(int imageId) {
+        log.info("Getting image with id {}", imageId);
+        Image image = namedParameterJdbcTemplate.queryForObject(getAdvertImageByIdSQL, new MapSqlParameterSource("imageId", imageId), IMAGE_ROW_MAPPER);
+        log.info("Query image with id {} finished", imageId);
+        return image;
     }
 
     @Override

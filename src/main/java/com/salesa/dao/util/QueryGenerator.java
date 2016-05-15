@@ -45,12 +45,6 @@ public class QueryGenerator {
 
     }
 
-    public QueryAndParams generateAllAdverts() {
-        StringBuilder query = new StringBuilder(getAdvertsByUserIdSQL);
-        Map<String, Object> params = new HashMap<>();
-        return new QueryAndParams(query.toString(), params);
-    }
-
     public QueryAndParams generateAdvertQuery(AdvertFilter advertFilter) {
         StringBuilder query = new StringBuilder(getAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();
@@ -82,27 +76,27 @@ public class QueryGenerator {
     }
 
     public QueryAndParams generateAdvertQuery(int advertId) {
-        StringBuilder query = new StringBuilder(getAdvertByIdSQL);
+        StringBuilder query = new StringBuilder(getAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();
-        params.put("a.id", advertId);
-        query.append(WHERE_STATEMENT);
-        query.append("a.id = :a.id");
+        params.put("id", advertId);
+        query.append(AND_STATEMENT);
+        query.append("a.id = :id");
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
 
     }
 
     public QueryAndParams generateAdvertByUserIdQuery(int userId) {
-        StringBuilder query = new StringBuilder(getAdvertsByUserIdSQL);
+        StringBuilder query = new StringBuilder(getAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();
         params.put("userId", userId);
-        query.append(WHERE_STATEMENT);
-        query.append("userId = :userId");
+        query.append(AND_STATEMENT);
+        query.append("a.userId = :userId");
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
     }
 
-    public QueryAndParams generateUserById(int userId) {
+    public QueryAndParams generateUserByIdQuery(int userId) {
         StringBuilder query = new StringBuilder(getUserByIdSQL);
         Map<String, Object> params = new HashMap<>();
         params.put("u.id", userId);

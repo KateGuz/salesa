@@ -46,12 +46,14 @@
                             </li>
                             <c:choose>
                                 <c:when test="${empty loggedUser.name}">
-                                    <li class="userLink"><a href="#user-security-log" data-toggle="modal" data-target="#user-security-log">Вход</a>
+                                    <li class="userLink"><a href="#user-security-log" data-toggle="modal"
+                                                            data-target="#user-security-log">Вход</a>
                                     </li>
                                     <li class="out"></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a></li>
+                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a>
+                                    </li>
                                     <li class="out"><a href="/signOut">Выйти</a></li>
                                 </c:otherwise>
                             </c:choose>
@@ -101,7 +103,7 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="btn-group nav navbar-nav navbar-right">
-                       <%-- <button type="button" class="btn btn-default"></button>--%>
+                        <%-- <button type="button" class="btn btn-default"></button>--%>
                         <button type="button" class="btn btn-default">Самые дешевые</button>
                         <button type="button" class="btn btn-default">Самые дорогие</button>
                         <button type="button" class="btn btn-default">Активные</button>
@@ -133,8 +135,21 @@
                                         </c:choose>
                                         &nbsp;
                                     </p>
-                                    <div class="thumbnail">
-                                        <img src="/advert/${advert.id}/image" alt="advert's photo">
+                                    <div class="thumbnail" >
+                                        <c:choose>
+                                            <c:when test="${empty advert.images}">
+                                                <img src="/img/mock.png" alt="advert's photo" class="image-adverts">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach items="${advert.images}" var="image" varStatus="loop">
+                                                    <c:choose>
+                                                        <c:when test="${image.type == 'M'}">
+                                                            <img src="/image/${image.id}" alt="advert's photo" class="image-adverts">
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                     <div class="wrap-title">
                                         <p class="title">${advert.title}</p>
@@ -172,7 +187,7 @@
             <div class="foot">
                 <div class="well">
                     <p>Salesa</p>
-                    <p>All Rigths Reserved</p>
+                    <p>All Rights Reserved</p>
                 </div>
             </div>
         </footer>

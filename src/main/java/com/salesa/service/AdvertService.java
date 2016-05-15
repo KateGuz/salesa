@@ -15,4 +15,5 @@ public interface AdvertService {
     int saveAdvert(Advert advert);
     void saveAdvertImage(Image image, int advertId);
     Image getAdvertImage(int advertId);
+    Image getAdvertImageById(int imageId);
 }

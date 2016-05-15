@@ -14,6 +14,6 @@ public interface AdvertDao {
     AdvertPageData getAll(AdvertFilter advertFilter);
     int saveAdvert(Advert advert);
     void saveAdvertImage(Image image, int advertId);
-
+    Image getAdvertImageById(int imageId);
     Image getAdvertImage(int advertId);
 }
