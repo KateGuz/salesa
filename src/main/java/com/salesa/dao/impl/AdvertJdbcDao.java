@@ -3,20 +3,16 @@ package com.salesa.dao.impl;
 import com.salesa.dao.AdvertDao;
 import com.salesa.dao.mapper.AdvertDetailsMapper;
 import com.salesa.dao.mapper.AdvertMapper;
-import com.salesa.dao.mapper.AdvertRestMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
-import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
-import com.salesa.util.CurrencyConverter;
 import com.salesa.util.entity.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -25,6 +21,7 @@ import java.util.*;
 public class AdvertJdbcDao implements AdvertDao {
     private final Logger log = LoggerFactory.getLogger(getClass());
     public static final int MAX_ADVERTS_PER_PAGE = 9;
+    private static final AdvertMapper ADVERT_MAPPER = new AdvertMapper();
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -47,12 +44,14 @@ public class AdvertJdbcDao implements AdvertDao {
 
         long startTime = System.currentTimeMillis();
         log.info("Query adverts information for request {}", advertFilter);
-        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
-        log.info("Query advert for page took {} ms", queryAndParams.query, System.currentTimeMillis() - startTime);
+
+        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, ADVERT_MAPPER);
+        log.info("Query adverts for page took {} ms", System.currentTimeMillis() - startTime);
 
         Integer advertsCount;
         Map<String, Object> paramMap = new HashMap<>();
         String query = getAdvertsCountSQL;
+        log.info("Query page information for request {}", advertFilter);
         if (advertFilter.getCategoryId() > 0 || advertFilter.isActive()) {
             if (advertFilter.getCategoryId() > 0) {
                 paramMap.put("categoryId", advertFilter.getCategoryId());
@@ -66,6 +65,8 @@ public class AdvertJdbcDao implements AdvertDao {
         } else {
             advertsCount = namedParameterJdbcTemplate.queryForObject(query, new HashMap<>(), Integer.class);
         }
+
+        log.info("Obtained {} adverts for filter {}", advertsCount, advertFilter);
 
         int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
         AdvertPageData advertPageData = new AdvertPageData();
@@ -84,20 +85,6 @@ public class AdvertJdbcDao implements AdvertDao {
     public List<Advert> getByUserId(int userId) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
         return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
-    }
-
-    @Override
-    public AdvertPageData getAll(AdvertFilter advertFilter) {
-        QueryAndParams queryAndParams = queryGenerator.generateAll(advertFilter);
-        List<AdvertRest> advertRests = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertRestMapper());
-
-        int advertsCount = namedParameterJdbcTemplate.queryForObject(getAdvertsCountSQL, new HashMap<>(), Integer.class);
-        int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
-
-        AdvertPageData advertPageData = new AdvertPageData();
-        advertPageData.setAdvertRests(advertRests);
-        advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
-        return advertPageData;
     }
 
     @Override
@@ -120,48 +107,8 @@ public class AdvertJdbcDao implements AdvertDao {
     }
 
     @Override
-    public void update(AdvertRest advert) {
-        String status;
-        if (advert.getStatus().equals("Активно")) {
-            status = "A";
-        } else if (advert.getStatus().equals("Забронировано")) {
-            status = "H";
-        } else {
-            status = "S";
-        }
-        log.info("advert " + advert);
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("title", advert.getTitle());
-        mapSqlParameterSource.addValue("text", advert.getText());
-        mapSqlParameterSource.addValue("categoryId", advert.getCategory());
-        mapSqlParameterSource.addValue("price", advert.getPrice());
-        mapSqlParameterSource.addValue("currency", advert.getCurrency());
-        mapSqlParameterSource.addValue("status", status);
-        mapSqlParameterSource.addValue("modificationDate", advert.getModificationDate());
-        mapSqlParameterSource.addValue("id", advert.getId());
-
-        namedParameterJdbcTemplate.update(updateAdvertSQL, mapSqlParameterSource);
-    }
-
-    @Override
-    public void saveAdvert(AdvertRest advert) {
-        log.info("save advert " + advert);
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("title", advert.getTitle());
-        mapSqlParameterSource.addValue("text", advert.getText());
-        mapSqlParameterSource.addValue("categoryId", advert.getCategory());
-        mapSqlParameterSource.addValue("price", advert.getPrice());
-        mapSqlParameterSource.addValue("currency", advert.getCurrency());
-        mapSqlParameterSource.addValue("status", advert.getStatus());
-        mapSqlParameterSource.addValue("modificationDate", advert.getModificationDate());
-        mapSqlParameterSource.addValue("userId", advert.getUser());
-
-        namedParameterJdbcTemplate.update(saveAdvertSQL, mapSqlParameterSource);
-    }
-
-    @Override
     public void update(Advert advert) {
-        log.info("updating advert " + advert);
+        log.info("updating advert {}", advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("title", advert.getTitle());
         mapSqlParameterSource.addValue("text", advert.getText());

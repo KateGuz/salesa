@@ -41,11 +41,5 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/root-context.xml</param-value>
     </context-param>
-
-    <error-page>
-        <error-code>404</error-code>
-        <location>/WEB-INF/jsp/404.jsp</location>
-    </error-page>
-
 </web-app>
 

@@ -3,6 +3,7 @@ package com.salesa.util;
 import com.salesa.entity.Advert;
 import com.salesa.entity.Feedback;
 import com.salesa.entity.User;
+import com.salesa.util.mapper.RestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import java.util.Map;
 @Component
 public class UserDataRest {
     @Autowired
-    private JsonMapper jsonMapper;
+    private RestMapper restMapper;
     public String toJSON(User user, List<Feedback> feedbacks, List<Advert> adverts){
         Map<String, Object> root = new HashMap<>();
         root.put("user", user);
@@ -28,7 +29,7 @@ public class UserDataRest {
         }
         root.put("feedbacks", feedbackMap);
 
-        return jsonMapper.toJSON(root);
+        return restMapper.toJSON(root);
     }
 
     public String toXML(User user, List<Feedback> feedbacks, List<Advert> adverts){
@@ -45,6 +46,6 @@ public class UserDataRest {
         }
         root.put("feedbacks", feedbackMap);
 
-        return jsonMapper.toXML(root);
+        return restMapper.toXML(root);
     }
 }
