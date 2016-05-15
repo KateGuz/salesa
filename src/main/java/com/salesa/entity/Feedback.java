@@ -1,14 +1,27 @@
 package com.salesa.entity;
 
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+import java.time.LocalDateTime;
+@JsonAutoDetect
 public class Feedback {
     private int id;
     private String text;
     private User author;
     private User user;
     private LocalDateTime creationDate;
+
+    public Feedback(int id, String text, User author, User user, LocalDateTime creationDate) {
+        this.id = id;
+        this.text = text;
+        this.author = author;
+        this.user = user;
+        this.creationDate = creationDate;
+    }
+
+    public Feedback() {
+    }
 
     public int getId() {
         return id;

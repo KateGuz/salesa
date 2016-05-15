@@ -33,6 +33,7 @@ public class UserSecurityController {
         if (name.equals("") || email.equals("") || password.equals("")) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         log.info("signing up, name " + name + " email " + email + " password " + password);
         User user = new User();
         user.setEmail(email);

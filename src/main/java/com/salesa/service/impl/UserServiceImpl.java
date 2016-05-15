@@ -49,4 +49,9 @@ public class UserServiceImpl implements UserService{
         userDao.updateUsersDislike(user);
     }
 
+    @Override
+    public void updateUser(User user) {
+        userDao.updateUser(user);
+    }
+
 }

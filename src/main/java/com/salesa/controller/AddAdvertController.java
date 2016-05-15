@@ -19,15 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Controller
-public class    AddAdvertController {
+public class  AddAdvertController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -57,18 +55,19 @@ public class    AddAdvertController {
         double price = Double.parseDouble(httpServletRequest.getParameter("price"));
         String currency = httpServletRequest.getParameter("currency");
         String status = httpServletRequest.getParameter("status");
-        if(status.equals("Активно")){
-            status = "A";
-        } else if(status.equals("Забронировано")){
-            status = "H";
-        } else {
-            status = "S";
+        switch (status){
+            case "Продано": status = "S";
+                break;
+            case "Забронировано": status = "H";
+                break;
+            default: status = "A";
         }
         Integer categoryId = Integer.parseInt(httpServletRequest.getParameter("categoryId"));
         if(title == null || text == null || price == 0){
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        log.info("Creating advert " + title + " " + price + " " + currency);
         int userId = userSecurity.getUserBySessionId(session.getId()).getId();
         Advert advert = new Advert();
         advert.setTitle(title);

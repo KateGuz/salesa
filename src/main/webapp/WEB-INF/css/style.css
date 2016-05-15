@@ -645,7 +645,8 @@ button.close:focus {
     display: none;
 }
 
-.wrap-category {
+/*addAdvert*/
+.wrap-category{
     width: 65%;
     float: left;
 }
@@ -655,7 +656,8 @@ button.close:focus {
     float: right;
 }
 
-#description {
+
+#description, #text{
     margin: 20px 0 22px 0;
 }
 
@@ -670,11 +672,6 @@ input {
     padding-left: 5px;
 }
 
-/*.upload{
-    margin: 20px 0 10px 0 ;
-    height: 60px;
-    border-radius: 4px;
-}*/
 .save {
     margin-top: 15px;
     background-color: #48c083;
@@ -703,6 +700,21 @@ input {
     align-content: center;
     margin-top: 5px;
 }
+  .error {
+      color: #dc2d20;
+  }
+
+.edit{
+    float: right;
+    background-color: #5E7569;
+    color: white;
+    height: 25px;
+    border-radius: 4px;
+    border: #5E7569;
+    width: 100px;
+}
+
+
 
 .image-adverts {
     height: 200px !important;

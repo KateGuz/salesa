@@ -25,6 +25,5 @@ function saveAdvertWithImage() {
         .success(function (userId) {
             console.log("Redirect to User page with id -> " + userId);
             top.location.href = '/user/' + userId;
-
         });
 }

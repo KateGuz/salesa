@@ -41,6 +41,9 @@ public class UserJdbcDao implements UserDao {
     private String updateUsersDislikesSQL;
 
     @Autowired
+    private String updateUserSQL;
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
 
@@ -73,10 +76,24 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public void updateUsersDislike(User user) {
+        log.info("Query add dislike to user: ", user.getEmail());
         Map<String, Object> params = new HashMap<>();
         params.put("dislike", user.getDislikeAmount());
         params.put("email", user.getEmail());
 
         namedParameterJdbcTemplate.update(updateUsersDislikesSQL, params);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        log.info("Query update user with id: ", user.getId());
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", user.getName());
+        params.put("email", user.getEmail());
+        params.put("phone", user.getPhone());
+        params.put("password", user.getPassword());
+        params.put("id", user.getId());
+
+        namedParameterJdbcTemplate.update(updateUserSQL, params);
     }
 }

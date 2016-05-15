@@ -10,5 +10,5 @@
     <c:set var="pattern" value="yyyy-MM-dd HH:mm"/>
 </c:if>
 
-<fmt:parseDate value="${date}" pattern="yyyy-MM-dd" var="parsedDate" type="date"/>
+<fmt:parseDate value="${date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDate" type="date"/>
 <fmt:formatDate value="${parsedDate}" type="date" pattern="${pattern}"/>

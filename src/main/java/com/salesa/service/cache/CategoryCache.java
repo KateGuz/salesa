@@ -39,7 +39,9 @@ public class CategoryCache {
     }
 
     public synchronized List<Category> getCategoryTree() {
-        return new ArrayList<>(categoryTreeCache);
+        ArrayList<Category> categories = new ArrayList<>(categoryTreeCache);
+        log.trace("categories in the cache : {}", categories);
+        return categories;
     }
 
     public synchronized Category getCategoryById(int id) {

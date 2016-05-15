@@ -9,6 +9,7 @@
 <head>
     <title>Advert</title>
     <jsp:include page="head-include.jsp"/>
+    <script src="/js/saveAdvert.js"></script>
 </head>
 <body>
 <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
@@ -33,12 +34,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">Валюта<span class="caret"></span></a>
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">UAH</a></li>
-                                    <li><a href="#">CHF</a></li>
-                                    <li><a href="#">RUB</a></li>
+                                    <li><a role="button" onclick="changeCurrencyOnAdvertPage('USD')">USD</a></li>
+                                    <li><a role="button" onclick="changeCurrencyOnAdvertPage('UAH')">UAH</a></li>
+                                    <li><a role="button" onclick="changeCurrencyOnAdvertPage('EUR')">EUR</a></li>
                                 </ul>
                             </li>
                             <c:choose>
@@ -93,8 +93,8 @@
                                             <label for="currency">Валюта</label>
                                             <select id="currency" required>
                                                 <option>USD</option>
-                                                <option>UAH</option>
                                                 <option>EUR</option>
+                                                <option>UAH</option>
                                             </select>
                                         </div>
                                     </div>

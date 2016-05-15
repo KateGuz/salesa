@@ -36,12 +36,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">Валюта<span class="caret"></span></a>
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">UAH</a></li>
-                                    <li><a href="#">CHF</a></li>
-                                    <li><a href="#">RUB</a></li>
+                                    <li><a role="button" onclick="changeCurrencyOnAdvertPage('USD')">USD</a></li>
+                                    <li><a role="button" onclick="changeCurrencyOnAdvertPage('UAH')">UAH</a></li>
+                                    <li><a role="button" onclick="changeCurrencyOnAdvertPage('EUR')">EUR</a></li>
                                 </ul>
                             </li>
                             <c:choose>
@@ -66,13 +65,12 @@
 </div>
 <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
     <div class="size">
-        <div class="wrap-category">
-            <ol class="breadcrumb">
-                <c:forEach items="${breadcrumbsTree}" var="category">
-                    <li><a href="/category/${category.id}">${category.name}</a></li>
-                </c:forEach>
-            </ol>
-        </div>
+        <ol class="breadcrumb">
+            <c:forEach items="${breadcrumbsTree}" var="category">
+                <li><a href="/category/${category.id}">${category.name}</a></li>
+            </c:forEach>
+        </ol>
+
         <div class="advert-info-bar col-xs-12 well">
             <div class="row">
                 <div class="col-sm-4 col-md-4">
@@ -133,6 +131,17 @@
 
                 <div class="col-sm-8 col-md-8">
                     <div class="advert-text-bar">
+                        <c:choose>
+                            <c:when test="${empty loggedUser.name}">
+                            </c:when>
+                            <c:when test="${loggedUser.id != advert.user.id}">
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/editAdvert/${advert.id}">
+                                    <button class="edit">Изменить</button>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
                         <h4 class="title">${advert.title}</h4>
                         <h4>${advert.price}&nbsp;${advert.currency}</h4>
                         <p>${advert.text}</p>

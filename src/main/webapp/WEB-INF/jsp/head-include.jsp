@@ -13,9 +13,10 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/registration.js"></script>
     <script src="/js/feedback.js"></script>
-    <script src="/js/saveAdvert.js"></script>
     <script src="/js/dislike.js"></script>
     <script src="/js/additionalImages.js"></script>
+    <script src="/js/currency.js"></script>
+    <script src="/js/filter.js"></script>
 
 </head>
 <body>
