@@ -28,14 +28,6 @@ public class RestCategoryController {
         return advertParser.toJSON(advertPageData, page);
     }
 
-    /*@RequestMapping(headers = {"Accept=application/xml;charset=UTF-8"})
-    public String advertsByCategoryXml(@PathVariable("categoryId") int categoryId, @RequestParam(name = "page", defaultValue = "1") int page) {
-        log.info("Query adverts(XML) information for category with id: " + categoryId);
-        AdvertFilter advertFilter = new AdvertFilter();
-        advertFilter.setCategoryId(categoryId);
-        AdvertPageData advertPageData = advertService.get(advertFilter);
-
-        return advertsParser.toXML(advertPageData, page);
-    }*/
+    // TODO: 5/14/2016 xml
 
 }

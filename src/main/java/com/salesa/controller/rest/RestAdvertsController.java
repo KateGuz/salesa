@@ -29,13 +29,5 @@ public class RestAdvertsController {
         return advertParser.toJSON(advertPageData, page);
     }
 
-    /*@RequestMapping(headers = {"Accept=application/xml;charset=UTF-8"})
-    public String advertsToXMLRest(@RequestParam(name = "page", defaultValue = "1") int page){
-        AdvertFilter advertFilter = new AdvertFilter();
-        advertFilter.setPage(page);
-        log.info("Query get adverts(XML) from REST api for filter{}", advertFilter);
-        AdvertPageData advertPageData = advertService.get(advertFilter);
-
-        return advertsParser.toXML(advertPageData, page);
-    }*/
+    // TODO: 5/14/2016 xml
 }

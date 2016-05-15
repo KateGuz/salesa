@@ -6,6 +6,8 @@ import com.salesa.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,39 +25,39 @@ public class RestUserSecurityController {
     private UserService userService;
 
     @RequestMapping(value = "/v1/signIn", method = RequestMethod.POST)
-    public String signInREST(@RequestParam("email") String email,
-                             @RequestParam("pass") String pass, HttpSession session, HttpServletResponse response) {
-        log.info("Received request for api: Sign In - email:[" + email + "], password:[" + pass + "].");
+    public ResponseEntity<String> signInREST(@RequestParam("email") String email,
+                                     @RequestParam("pass") String pass, HttpSession session, HttpServletResponse response) {
+        log.info("Sign in request  : {}" + "email = ", email);
         User user = userService.get(email);
         if (user != null && user.getPassword().equals(pass)) {
             userSecurity.addSession(session.getId(), user);
-            return "Sign In is successful. Welcome dear, " + user.getName();
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        return "Sign In is unsuccessful. Check correctly your @mail or password.";
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @RequestMapping(value = "/v1/signUp", method = RequestMethod.POST)
-    public String signUpREST(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email,
+    public ResponseEntity<String> signUpREST(@RequestParam(name = "name") String name, @RequestParam(name = "email") String email,
                              @RequestParam(name = "pass") String pass, HttpSession session, HttpServletResponse response) {
+        log.info("Sign up request  : {}" + "email = " + email + ", name = " + name);
         if ((name.equals("") || email.equals("") || pass.equals("")) ) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return "Registration is unsuccessful. Please, heck your data.";
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        log.info("Received request for api: Sign Up - name:[" + name +"], email:[" + email + "], password:[" + pass + "].");
+
         User user = new User();
         user.setEmail(email);
         user.setName(name);
         user.setPassword(pass);
+        log.info("creating new user : {}", user);
         user.setId(userService.save(user));
         userSecurity.addSession(session.getId(), user);
-        return "Sign Up is successful. Welcome dear, " + user.getName();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/v1/signOut", method = RequestMethod.DELETE)
-    public String signOut(HttpSession session) {
+    public ResponseEntity<String> signOut(HttpSession session) {
+        log.info("finishing session : {}", session.getAttributeNames());
         userSecurity.deleteSession(session.getId());
-        log.info("signing out");
-        return "Logging out! Bye!";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
