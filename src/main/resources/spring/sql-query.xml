@@ -20,10 +20,15 @@ ON (a.id = aP.advertId)"/>
         <constructor-arg value="SELECT count(*) as count FROM advert WHERE status != 'S'"/>
     </bean>
 
-    <bean id="getAdvertsTemplateSQL" class="java.lang.String">
+    <bean id="getUserAdvertsTemplateSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
 a.currency, a.status, a.categoryId, a.userId, aP.id as imageId, aP.type FROM advert as a LEFT JOIN advertPicture as aP
 ON (a.id = aP.advertId) WHERE a.status != 'S'"/>
+    </bean>
+
+    <bean id="getAdvertsTemplateSQL" class="java.lang.String">
+        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
+a.currency, a.status, a.categoryId, a.userId FROM advert as a WHERE a.status != 'S'"/>
     </bean>
 
     <bean id="addPagingTemplateSQL" class="java.lang.String">
@@ -46,11 +51,9 @@ ON (a.id = aP.advertId) WHERE a.status != 'S'"/>
     </bean>
 
     <bean id="getAdvertByIdSQL" class="java.lang.String">
-
         <constructor-arg value="SELECT a.id, a.title, a.text, a.price, a.currency, a.modificationDate,
         a.status, a.userId, u.name, u.email, u.phone, a.categoryId FROM advert as a
         inner join user as u on u.id = a.userId "/>
-
     </bean>
 
     <bean id="getAdvertsByUserIdSQL" class="java.lang.String">
@@ -103,11 +106,11 @@ ON (a.id = aP.advertId) WHERE a.status != 'S'"/>
                 value="SELECT id, picture, type FROM advertPicture where advertId = :advertId;"/>
     </bean>
 
-
     <bean id="getAdvertImageByIdSQL" class="java.lang.String">
         <constructor-arg
                 value="SELECT id, picture, type FROM advertPicture where id = :imageId;"/>
     </bean>
+
     <bean id="updateAdvertSQL" class="java.lang.String">
         <constructor-arg
                 value="UPDATE  advert SET title=:title, text=:text, categoryId=:categoryId, price=:price, currency=:currency, status=:status, modificationDate=:modificationDate WHERE id=:id;"/>

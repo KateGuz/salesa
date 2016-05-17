@@ -7,6 +7,8 @@ import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
+import com.salesa.service.ImageService;
+import com.salesa.util.DefaultPriceUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,14 @@ public class  AddAdvertController {
     private AdvertService advertService;
 
     @Autowired
+    private ImageService imageService;
+
+    @Autowired
     private UserSecurity userSecurity;
+
+    @Autowired
+    private DefaultPriceUpdater defaultPriceUpdater;
+
 
     @RequestMapping(value = "/addAdvert", method = RequestMethod.GET)
     public String addAdvert(Model model, HttpSession session){
@@ -84,16 +93,17 @@ public class  AddAdvertController {
             Image image = new Image();
             image.setContent(mainImage.getBytes());
             image.setType("M");
-            advertService.saveAdvertImage(image, savedAdvertId);
+            imageService.saveAdvertImage(image, savedAdvertId);
         }
         if(additionalImages != null){
             for (MultipartFile additionalImage : additionalImages) {
                 Image image = new Image();
                 image.setContent(additionalImage.getBytes());
                 image.setType("R");
-                advertService.saveAdvertImage(image, savedAdvertId);
+                imageService.saveAdvertImage(image, savedAdvertId);
             }
         }
+        defaultPriceUpdater.updateDefaultPrice();
         return new ResponseEntity<>(userId,HttpStatus.OK);
     }
 }

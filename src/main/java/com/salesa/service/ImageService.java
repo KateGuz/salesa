@@ -1,11 +1,11 @@
-package com.salesa.dao;
+package com.salesa.service;
 
 import com.salesa.entity.Image;
 
-import java.util.List;
+public interface ImageService {
 
-public interface ImageDao {
     void saveAdvertImage(Image image, int advertId);
     Image getAdvertImageById(int imageId);
     Image getAdvertImage(int advertId);
+
 }

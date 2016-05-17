@@ -19,7 +19,6 @@ import java.util.*;
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
-    public static final ImageMapper IMAGE_ROW_MAPPER = new ImageMapper();
     private final Logger log = LoggerFactory.getLogger(getClass());
     public static final int MAX_ADVERTS_PER_PAGE = 9;
     private static final AdvertExtractor ADVERT_EXTRACTOR = new AdvertExtractor();
@@ -37,16 +36,11 @@ public class AdvertJdbcDao implements AdvertDao {
     private String saveAdvertSQL;
 
     @Autowired
-    private String saveAdvertImageSQL;
+    private String updateAdvertSQL;
 
     @Autowired
     private String getAdvertImageSQL;
 
-    @Autowired
-    private String getAdvertImageByIdSQL;
-
-    @Autowired
-    private String updateAdvertSQL;
 
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
@@ -54,8 +48,13 @@ public class AdvertJdbcDao implements AdvertDao {
 
         long startTime = System.currentTimeMillis();
         log.info("Query adverts information for request {}", advertFilter);
-        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertExtractor());
-        log.info("Query adverts for page took {} ms", System.currentTimeMillis() - startTime);
+        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
+        log.info("Query adverts without page limit took {} ms", System.currentTimeMillis() - startTime);
+
+        //get images
+        for (Advert advert : adverts) {
+            advert.setImages(namedParameterJdbcTemplate.query(getAdvertImageSQL, new MapSqlParameterSource("advertId", advert.getId()), new ImageMapper()));
+        }
 
         Integer advertsCount;
         Map<String, Object> paramMap = new HashMap<>();
@@ -74,7 +73,6 @@ public class AdvertJdbcDao implements AdvertDao {
         } else {
             advertsCount = namedParameterJdbcTemplate.queryForObject(query, new HashMap<>(), Integer.class);
         }
-
         log.info("Obtained {} adverts for filter {}", advertsCount, advertFilter);
 
         int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
@@ -113,31 +111,6 @@ public class AdvertJdbcDao implements AdvertDao {
 
         log.info("saving  advert with id {} finished", savedAdvertId);
         return savedAdvertId;
-    }
-
-   public void saveAdvertImage(Image image, int advertId) {
-        log.info("Saving image for advert with id {}", advertId);
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("picture", image.getContent());
-        mapSqlParameterSource.addValue("type", image.getType());
-        mapSqlParameterSource.addValue("advertId", advertId);
-        namedParameterJdbcTemplate.update(saveAdvertImageSQL, mapSqlParameterSource);
-    }
-
-    @Override
-    public Image getAdvertImageById(int imageId) {
-        log.info("Getting image with id {}", imageId);
-        Image image = namedParameterJdbcTemplate.queryForObject(getAdvertImageByIdSQL, new MapSqlParameterSource("imageId", imageId), IMAGE_ROW_MAPPER);
-        log.info("Query image with id {} finished", imageId);
-        return image;
-    }
-
-    @Override
-    public Image getAdvertImage(int advertId) {
-        log.info("query image for advert with id {}", advertId);
-        Image image = namedParameterJdbcTemplate.queryForObject(getAdvertImageSQL, new MapSqlParameterSource("advertId", advertId), IMAGE_ROW_MAPPER);
-        log.info("query image for advert with id {} finished", advertId);
-        return image;
     }
 
     @Override

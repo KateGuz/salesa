@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="classpath*:spring/sql-query.xml"/>
+    <import resource="classpath:spring/sql-query.xml"/>
 
     <context:component-scan base-package="com.salesa.dao"/>
     <context:component-scan base-package="com.salesa.service"/>
@@ -30,7 +30,7 @@
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
-    <!--    <bean id="dataSource"
+    <!--<bean id="dataSource"
               class="org.springframework.jdbc.datasource.DriverManagerDataSource">
             <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
             <property name="url" value="jdbc:mysql://eu-cdbr-west-01.cleardb.com:3306/heroku_58583cdd4b7f1d5"/>

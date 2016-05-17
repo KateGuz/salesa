@@ -12,8 +12,5 @@ public interface AdvertDao {
     Advert get(int advertId);
     List<Advert> getByUserId(int userId);
     int saveAdvert(Advert advert);
-    void saveAdvertImage(Image image, int advertId);
-    Image getAdvertImageById(int imageId);
-    Image getAdvertImage(int advertId);
     void update(Advert advert);
 }

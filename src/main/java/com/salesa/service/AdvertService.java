@@ -12,8 +12,5 @@ public interface AdvertService {
     Advert get(int advertId);
     List<Advert> getByUserId(int userId);
     int saveAdvert(Advert advert);
-    void saveAdvertImage(Image image, int advertId);
-    Image getAdvertImage(int advertId);
-    Image getAdvertImageById(int imageId);
     void update(Advert advert);
 }

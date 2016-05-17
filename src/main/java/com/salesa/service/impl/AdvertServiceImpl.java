@@ -66,21 +66,6 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public void saveAdvertImage(Image image, int advertId) {
-        advertDao.saveAdvertImage(image, advertId);
-    }
-
-    @Override
-    public Image getAdvertImage(int advertId) {
-        return advertDao.getAdvertImage(advertId);
-    }
-
-    @Override
-    public Image getAdvertImageById(int imageId) {
-        return advertDao.getAdvertImageById(imageId);
-    }
-
-    @Override
     public void update(Advert advert) {
         advertDao.update(advert);
     }

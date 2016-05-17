@@ -18,15 +18,15 @@ public class QueryGenerator {
     private static final String ORDER_BY_STATEMENT = " ORDER BY ";
     private static final String DESC_STATEMENT = " DESC ";
 
-
     @Autowired
     private String getAdvertsTemplateSQL;
+
+    @Autowired
+    private String getUserAdvertsTemplateSQL;
+
     @Autowired
     private String addPagingTemplateSQL;
-    @Autowired
-    private String getAdvertByIdSQL;
-    @Autowired
-    private String getAdvertsByUserIdSQL;
+
     @Autowired
     private String getUserByIdSQL;
 
@@ -84,7 +84,7 @@ public class QueryGenerator {
     }
 
     public QueryAndParams generateAdvertQuery(int advertId) {
-        StringBuilder query = new StringBuilder(getAdvertsTemplateSQL);
+        StringBuilder query = new StringBuilder(getUserAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();
         params.put("id", advertId);
         query.append(AND_STATEMENT);
@@ -95,7 +95,7 @@ public class QueryGenerator {
     }
 
     public QueryAndParams generateAdvertByUserIdQuery(int userId) {
-        StringBuilder query = new StringBuilder(getAdvertsTemplateSQL);
+        StringBuilder query = new StringBuilder(getUserAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();
         params.put("userId", userId);
         query.append(AND_STATEMENT);
