@@ -4,6 +4,8 @@ import com.salesa.entity.Feedback;
 import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.FeedbackService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import java.time.LocalDateTime;
 
 @Controller
 public class FeedbackController {
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserSecurity userSecurity;
@@ -35,6 +38,8 @@ public class FeedbackController {
         String feedbackText = bufferedReader.readLine();
 
         ResponseEntity<Void> result = new ResponseEntity<>(HttpStatus.OK);
+
+        log.info("Making feedback for user with id {}", userId);
         Feedback feedback = new Feedback();
         feedback.setUser(new User(userId));
         feedback.setAuthor(userSecurity.getUserBySessionId(httpServletRequest.getSession().getId()));
@@ -42,6 +47,8 @@ public class FeedbackController {
         feedback.setText(feedbackText);
 
         feedbackService.saveFeedback(feedback);
+
+        log.info("Feedback was successfully saved");
         return result;
     }
 }

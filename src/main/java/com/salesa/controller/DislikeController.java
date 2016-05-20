@@ -27,12 +27,16 @@ public class DislikeController{
     @RequestMapping(value = "/dislike/{userId}", method = RequestMethod.POST)
     public ResponseEntity<Void> saveDislike(@PathVariable Integer userId) throws InterruptedException {
 
+        log.info("Start processing dislike request for user with id ", userId);
+
         Timer timer = new Timer(true);
         User user = userService.get(userId);
-        BlockedUserTask task = new BlockedUserTask(user, userService);
         int dislikeAmount = user.getDislikeAmount() + 1;
 
+        log.info("User with id {} has {} dislikes", userId, dislikeAmount);
+
         if (dislikeAmount > 9) {
+            BlockedUserTask task = new BlockedUserTask(user, userService);
             user.setStatus("B");
             user.setDislikeAmount(dislikeAmount);
             log.info("Start timer for user with status {} and dislikesCount {}", user.getStatus(), user.getDislikeAmount());
@@ -44,6 +48,7 @@ public class DislikeController{
 
         user.setDislikeAmount(dislikeAmount);
         userService.updateUsersDislike(user);
+        log.info("Finish processing dislike request for user with id {}", userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

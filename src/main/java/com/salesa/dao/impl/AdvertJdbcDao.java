@@ -86,14 +86,14 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Override
     public List<Advert> getByUserId(int userId) {
+        log.info("Getting adverts by user with id {}", userId);
         QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
         return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
     }
 
     @Override
     public int saveAdvert(Advert advert) {
-
-        log.info("advert " + advert);
+        log.info("Making query for save advert: {}", advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("title", advert.getTitle());
         mapSqlParameterSource.addValue("text", advert.getText());
@@ -105,13 +105,15 @@ public class AdvertJdbcDao implements AdvertDao {
         mapSqlParameterSource.addValue("userId", advert.getUser().getId());
 
         namedParameterJdbcTemplate.update(saveAdvertSQL, mapSqlParameterSource);
+
+        log.info("Finish saving advert: {}", advert);
         return advert.getId();
 
     }
 
     @Override
     public void update(Advert advert) {
-        log.info("updating advert {}", advert);
+        log.info("Updating advert {}", advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("title", advert.getTitle());
         mapSqlParameterSource.addValue("text", advert.getText());

@@ -2,6 +2,7 @@ function makeAdmin(userId) {
     var url = "/makeAdmin/" + userId;
     $.post(url, function () {
         message($('#makeAdmin'));
+        $('#admin-buttons').load(document.URL + ' #admin-buttons');
     });
 
     function message(a){

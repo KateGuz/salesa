@@ -5,6 +5,8 @@ import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.AdvertService;
 import com.salesa.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import java.util.HashMap;
 
 @Controller
 public class EditAdvertController {
+    private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private AdvertService advertService;
     @Autowired
@@ -29,6 +32,7 @@ public class EditAdvertController {
 
     @RequestMapping(value = "/editAdvert/{id}", method = RequestMethod.GET)
     public String editAdvertPage(@PathVariable("id") int id, Model model, HttpSession session) {
+        log.info("Applying page by request to edit advert with id {}", id);
         model.addAttribute("advert", advertService.get(id));
         model.addAttribute("categories", categoryService.getAll());
         User user = userSecurity.getUserBySessionId(session.getId());
@@ -60,6 +64,7 @@ public class EditAdvertController {
             return "editAdvert";
         }
         advertService.update(advert);
+        log.info("Advert was updated at {}", time);
         return "redirect:/advert/" + advert.getId();
     }
 }

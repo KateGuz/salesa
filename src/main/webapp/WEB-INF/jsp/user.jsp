@@ -92,12 +92,12 @@
                                     </a>
                                 </c:when>
                                 <c:otherwise>
-                                    <button<%-- id="dislike-button"--%> class="dislike-btn" onclick="addDislike(${user.id})">
+                                    <button id="dislike-button" class="dislike-btn" onclick="addDislike(${user.id})">
                                         <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
                                     </button>
                                 </c:otherwise>
                             </c:choose>
-                        <div class="admin-buttons" style="margin-top: 10px">
+                        <div class="admin-buttons" id="admin-buttons" style="margin-top: 10px">
                             <c:choose>
                                 <c:when test="${loggedUser.type == 'A'}">
                                     <c:choose>

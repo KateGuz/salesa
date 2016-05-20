@@ -70,7 +70,7 @@ public class AdvertsController {
         if (currency == null && session.getAttribute("selectedCurrency") != null) {
             currency = (String) session.getAttribute("selectedCurrency");
         }
-        log.info("Query adverts information for category with id: " + categoryId);
+        log.info("Query adverts information for category with id {}", categoryId);
         AdvertFilter advertFilter = createAdvertFilter(page, isActiveParam, isSortPriceAsc);
         advertFilter.setCategoryId(categoryId);
         AdvertPageData advertPageData = advertService.get(advertFilter);
@@ -82,6 +82,7 @@ public class AdvertsController {
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("filterUrl", createAdvertFilterUrl(advertFilter));
         session.setAttribute("selectedCurrency", currency);
+        log.info("Adverts for category with id {} were generated successfully");
         return "home";
     }
 

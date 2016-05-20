@@ -61,6 +61,7 @@ public class UserJdbcDao implements UserDao {
     @Override
     public User get(int userId) {
         QueryAndParams queryAndParams = queryGenerator.generateUserById(userId);
+        log.info("Query for user with id {}", userId);
         return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new UserMapper());
     }
 
@@ -82,12 +83,11 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public void updateUsersDislike(User user) {
-        log.info("Query add dislike to user: ", user.getEmail());
         Map<String, Object> params = new HashMap<>();
         params.put("id", user.getId());
         params.put("dislike", user.getDislikeAmount());
         params.put("status", user.getStatus());
-
+        log.info("Updating dislikes for user with params {}", params);
         namedParameterJdbcTemplate.update(updateUsersDislikesSQL, params);
     }
 
@@ -106,12 +106,12 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public void updateUserType(User user){
-        log.info("Query for updating currency user type {} by id {}", user.getType(), user.getId());
+        log.info("Query update user with id {}", user.getId());
         Map<String, Object> params = new HashMap<>();
         params.put("type", user.getType());
         params.put("id", user.getId());
         namedParameterJdbcTemplate.update(updateUserTypeSQL, params);
-        log.info("Final user type {} by id {}", user.getType(), user.getId());
+        log.info("User type was updated to {}", user.getType());
     }
 
     @Override

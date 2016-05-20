@@ -60,8 +60,9 @@ public class  AddAdvertController {
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        log.info("Creating advert " + title + " " + price + " " + currency);
+        log.info("Creating advert... Title: {}; text: {}; price: {}; currency: {}; status: {}", title, text, price, currency, status);
         int userId = userSecurity.getUserBySessionId(session.getId()).getId();
+        log.info("Author id: {}", userId);
         Advert advert = new Advert();
         advert.setTitle(title);
         advert.setText(text);
@@ -72,6 +73,7 @@ public class  AddAdvertController {
         advert.setModificationDate(LocalDateTime.now());
         advert.setUser(new User(userId));
         advertService.saveAdvert(advert);
+        log.info("Advert {} was successfully saved.");
         return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 }

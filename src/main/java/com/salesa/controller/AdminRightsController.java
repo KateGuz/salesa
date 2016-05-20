@@ -5,6 +5,8 @@ import com.salesa.entity.User;
 import com.salesa.security.UserSecurity;
 import com.salesa.service.AdvertService;
 import com.salesa.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AdminRightsController {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     UserService userService;
@@ -32,10 +36,14 @@ public class AdminRightsController {
         User admin = userSecurity.getUserBySessionId(request.getSession().getId());
         User user = userService.get(userId);
 
+
+
         if ("A".equals(admin.getType())) {
             if ("U".equals(user.getType())) {
+                log.info("Admin {} make query for adding user {} to admins", admin.getName(), user.getName());
                 user.setType("A");
             } else {
+                log.info("Admin {} make query for degrading admin {} to users", admin.getName(), user.getName());
                 user.setType("U");
             }
             userService.updateUserType(user);

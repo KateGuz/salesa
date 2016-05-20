@@ -57,6 +57,7 @@ public class UserController {
         model.addAttribute("adverts", adverts);
         model.addAttribute("feedbacks", feedbacks);
         model.addAttribute("pageData", advertPageData);
+        log.info("Return user with id {} to client", userId);
         return "user";
     }
 
