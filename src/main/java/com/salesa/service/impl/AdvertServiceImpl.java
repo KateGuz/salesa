@@ -65,4 +65,8 @@ public class AdvertServiceImpl implements AdvertService {
         advertDao.update(advert);
     }
 
+    @Override
+    public void delete(Advert advert) {
+        advertDao.delete(advert);
+    }
 }

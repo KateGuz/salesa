@@ -14,8 +14,9 @@
     </bean>
 
     <bean id="getAdvertsTemplateSQL" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
-                   a.currency, a.status, a.categoryId, a.userId FROM advert as a WHERE status != 'S'"/>
+        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price, a.currency,
+                                    a.status, a.categoryId, a.userId FROM advert a
+                                    RIGHT JOIN user u ON a.userId = u.id WHERE a.status != 'S' AND u.status != 'B'"/>
     </bean>
 
     <bean id="addPagingTemplateSQL" class="java.lang.String">
@@ -75,7 +76,7 @@
     </bean>
 
     <bean id="updateUsersDislikesSQL" class="java.lang.String">
-        <constructor-arg value="UPDATE user SET dislikeAmount=:dislike WHERE email=:email;"/>
+        <constructor-arg value="UPDATE user SET dislikeAmount = :dislike, status = :status WHERE id = :id;"/>
     </bean>
 
     <bean id="getUserByEmailSQL" class="java.lang.String">
@@ -89,14 +90,25 @@
     </bean>
     <bean id="updateAdvertSQL" class="java.lang.String">
         <constructor-arg
-                value="UPDATE  advert SET title=:title, text=:text, categoryId=:categoryId, price=:price, currency=:currency, status=:status, modificationDate=:modificationDate WHERE id=:id;"/>
+                value="UPDATE advert SET title=:title, text=:text, categoryId=:categoryId, price=:price, currency=:currency, status=:status, modificationDate=:modificationDate WHERE id=:id;"/>
     </bean>
 
     <bean id="updateUserSQL" class="java.lang.String">
         <constructor-arg
-                value="UPDATE  user SET name=:name, email=:email, password=:password, phone=:phone WHERE id=:id;"/>
+                value="UPDATE user SET name =: name, email =: email, password =: password, phone =: phone WHERE id = :id;"/>
     </bean>
 
+    <bean id="updateUserTypeSQL" class="java.lang.String">
+        <constructor-arg value="UPDATE user SET type=:type WHERE id = :id;"/>
+    </bean>
+
+    <bean id="deleteAdvertSQL" class="java.lang.String">
+        <constructor-arg value="DELETE FROM advert WHERE id = :id;"/>
+    </bean>
+
+    <bean id="deleteUserSQL" class="java.lang.String">
+        <constructor-arg value="DELETE u, a, f FROM user u RIGHT JOIN advert a ON u.id = a.UserId LEFT JOIN feedback f ON u.id = f.userId WHERE u.id = :id;"/>
+    </bean>
 </beans>
 
 

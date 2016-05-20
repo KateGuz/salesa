@@ -181,7 +181,7 @@
             <div class="foot">
                 <div class="well">
                     <p>Salesa</p>
-                    <p>All Rigths Reserved</p>
+                    <p>All Rights Reserved</p>
                 </div>
             </div>
         </footer>

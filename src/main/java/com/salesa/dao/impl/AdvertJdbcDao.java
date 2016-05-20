@@ -38,6 +38,9 @@ public class AdvertJdbcDao implements AdvertDao {
     @Autowired
     private String updateAdvertSQL;
 
+    @Autowired
+    private String deleteAdvertSQL;
+
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertFilter);
@@ -119,4 +122,12 @@ public class AdvertJdbcDao implements AdvertDao {
         namedParameterJdbcTemplate.update(updateAdvertSQL, mapSqlParameterSource);
     }
 
+    @Override
+    public void delete(Advert advert) {
+        log.info("Start deleting advert {}", advert);
+
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("id", advert.getId());
+        namedParameterJdbcTemplate.update(deleteAdvertSQL, mapSqlParameterSource);
+    }
 }

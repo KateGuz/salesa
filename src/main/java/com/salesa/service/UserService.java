@@ -13,4 +13,6 @@ public interface UserService {
     String getEmail(String email);
     void updateUsersDislike(User user);
     void updateUser(User user);
+    void updateUserType(User user);
+    void deleteUser(User user);
 }

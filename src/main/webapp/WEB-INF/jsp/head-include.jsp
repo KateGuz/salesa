@@ -16,6 +16,7 @@
     <script src="/js/dislike.js"></script>
     <script src="/js/currency.js"></script>
     <script src="/js/filter.js"></script>
+    <script src="/js/adminRights.js"></script>
 
 </head>
 <body>
