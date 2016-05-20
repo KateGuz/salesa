@@ -3,7 +3,7 @@ package com.salesa.controller.rest;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.util.entity.AdvertPageData;
-import com.salesa.util.AdvertsParser;
+import com.salesa.util.mapper.AdvertParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class RestAdvertsController {
     @Autowired
     private AdvertService advertService;
     @Autowired
-    private AdvertsParser advertsParser;
+    private AdvertParser advertParser;
 
     @RequestMapping(headers = {"Accept=application/json; charset=UTF-8"})
     public String advertsJsonRest(@RequestParam(name = "page", defaultValue = "1") int page) {
@@ -26,7 +26,7 @@ public class RestAdvertsController {
         log.info("Query adverts (JSON) from REST api for filter {}", advertFilter);
         AdvertPageData advertPageData = advertService.get(advertFilter);
 
-        return advertsParser.toJSON(advertPageData, page);
+        return advertParser.toJSON(advertPageData, page);
     }
 
 //    @RequestMapping(headers = {"Accept=application/xml; charset=UTF-8"})

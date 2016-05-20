@@ -6,17 +6,21 @@ import java.util.List;
 import com.salesa.entity.Advert;
 import com.salesa.entity.CurrencyRate;
 import com.salesa.service.cache.CurrencyRateCache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CurrencyConverter {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private CurrencyRateCache currencyRateCache;
 
     public double calculateRate(String baseCurrency, String targetCurrency) {
-        if(baseCurrency.equals(targetCurrency)){
+        if (baseCurrency.equals(targetCurrency)) {
             return 1;
         }
 
@@ -49,7 +53,15 @@ public class CurrencyConverter {
         return rate;
     }
 
-    public void updatePriceAndCurrency(Advert advert, String currency){
+    public void updatePriceAndCurrency(List<Advert> adverts, String currency) {
+        log.info("Updating price information for adverts. Adverts count : {}, currency : {}",
+                adverts.size(), currency);
+        for (Advert advert : adverts) {
+            updatePriceAndCurrency(advert, currency);
+        }
+    }
+
+    public void updatePriceAndCurrency(Advert advert, String currency) {
         String baseCurrency = advert.getCurrency();
         advert.setCurrency(currency);
         double oldPrice = advert.getPrice();
@@ -58,7 +70,6 @@ public class CurrencyConverter {
         price = price.setScale(2, BigDecimal.ROUND_CEILING);
         advert.setPrice(price.doubleValue());
     }
-
 
 
 }
