@@ -39,6 +39,12 @@ public class AdvertController {
 
     @RequestMapping("/advert/{advertId}")
     public String advert(@PathVariable("advertId") int advertId, Model model, HttpSession session, @RequestParam(required = false) String currency) {
+        if (currency == null && session.getAttribute("selectedCurrency") == null) {
+            currency = "UAH";
+        }
+        if (currency == null && session.getAttribute("selectedCurrency") != null) {
+            currency = (String) session.getAttribute("selectedCurrency");
+        }
         if (currency != null) {
             session.setAttribute("selectedCurrency", currency);
         }

@@ -31,6 +31,9 @@ public class ImageJdbcDao implements ImageDao {
     @Autowired
     private String getAdvertImageByIdSQL;
 
+    @Autowired
+    private String deleteImageSQL;
+
     @Override
     public Image getAdvertImageById(int imageId) {
         log.info("Getting image with id {}", imageId);
@@ -40,11 +43,16 @@ public class ImageJdbcDao implements ImageDao {
     }
 
     @Override
-    public Image getAdvertImage(int advertId) {
-        log.info("query image for advert with id {}", advertId);
-        Image image = namedParameterJdbcTemplate.queryForObject(getAdvertImageSQL, new MapSqlParameterSource("advertId", advertId), IMAGE_ROW_MAPPER);
-        log.info("query image for advert with id {} finished", advertId);
-        return image;
+    public List<Image> getAdvertImages(int advertId) {
+        log.info("query images for advert with id {}", advertId);
+        List<Image> images = namedParameterJdbcTemplate.query(getAdvertImageSQL, new MapSqlParameterSource("advertId", advertId), IMAGE_ROW_MAPPER);
+        log.info("query images for advert with id {} finished", advertId);
+        return images;
+    }
+
+    @Override
+    public void remove(int imageId) {
+        namedParameterJdbcTemplate.update(deleteImageSQL, new MapSqlParameterSource("imageId", imageId));
     }
 
     @Override

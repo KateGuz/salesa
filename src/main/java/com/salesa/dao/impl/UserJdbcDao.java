@@ -85,13 +85,14 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         log.info("Query update user with id: ", user.getId());
         Map<String, Object> params = new HashMap<>();
         params.put("name", user.getName());
         params.put("email", user.getEmail());
         params.put("phone", user.getPhone());
         params.put("password", user.getPassword());
+        params.put("avatar", user.getAvatar());
         params.put("id", user.getId());
 
         namedParameterJdbcTemplate.update(updateUserSQL, params);

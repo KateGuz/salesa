@@ -6,6 +6,8 @@ import com.salesa.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ImageServiceImpl implements ImageService {
 
@@ -23,7 +25,12 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image getAdvertImage(int advertId) {
-        return imageDao.getAdvertImage(advertId);
+    public List<Image> getAdvertImages(int advertId) {
+        return imageDao.getAdvertImages(advertId);
+    }
+
+    @Override
+    public void remove(int imageId) {
+        imageDao.remove(imageId);
     }
 }

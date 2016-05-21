@@ -12,6 +12,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Arrays;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/WEB-INF/root-context.xml"})
@@ -39,9 +40,9 @@ public class OperateImageITest {
 
     @Test
     public void testGetAdvertImage() throws Exception {
-        Image advertImage = imageDao.getAdvertImage(1);
+        List<Image> advertImages = imageDao.getAdvertImages(1);
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("src/test/resources/img/testGetAdvertImage.jpg"));
-        bufferedOutputStream.write(advertImage.getContent());
+        bufferedOutputStream.write(advertImages.get(0).getContent());
         bufferedOutputStream.close();
     }
 

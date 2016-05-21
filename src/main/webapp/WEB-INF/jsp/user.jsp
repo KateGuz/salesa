@@ -37,7 +37,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span
+                                        class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a role="button" onclick="changeCurrencyOnUserPage('USD')">USD</a></li>
                                     <li><a role="button" onclick="changeCurrencyOnUserPage('UAH')">UAH</a></li>
@@ -70,35 +71,71 @@
             <div class="col-xs-12">
                 <div class="user-info-bar col-sm-4 col-md-4">
                     <div class="user-img thumbnail">
-                        <img src="/img/mock-user.png" alt="avatar">
+                        <c:choose>
+                            <c:when test="${!empty user.avatar}">
+                                <img src="/avatar/${user.id}" alt="avatar">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="/img/mock-user.png" alt="avatar">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div style="text-align: center">
-                        <h4>
-                            <div class="glyphicon glyphicon-user"></div>
-                            ${user.name}
-                        </h4>
-                        <p>
-                        <div class="glyphicon glyphicon-envelope"></div>
-                        ${user.email} </p>
-                        <p>
-                        <div class="glyphicon glyphicon-phone"></div>
-                        ${user.phone} </p>
-                        <div<%-- id="display"--%>>
-                            <c:choose>
-                                <c:when test="${empty loggedUser.name}">
-                                </c:when>
-                                <c:when test="${loggedUser.id == user.id}">
+                        <c:choose>
+                            <c:when test="${loggedUser.id == user.id}">
+                                <p class="title-text">
+                                    Выберите аватарку:
+                                </p>
+                                <input type="file" id="avatar" class="center-block choose-file">
+                                <h4>
+                                    <div class="glyphicon glyphicon-user"></div>
+                                    <input type="text" id="name" value="${user.name}" required>
+                                </h4>
+                                <p>
+                                <div class="glyphicon glyphicon-envelope"></div>
+                                <input type="text" id="email" value="${user.email}" required>
+                                </p>
+                                <c:choose>
+                                    <c:when test="${!empty user.phone}">
+                                        <p>
+                                        <div class="glyphicon glyphicon-phone"></div>
+                                        <input type="text" id="phone" value="${user.phone}">
+                                        </p>
+                                    </c:when>
+                                </c:choose>
+                                <p>
+                                <div class="glyphicon glyphicon-eye-close"></div>
+                                <input type="checkbox" id="checkbox" checked onclick="showPassword()">
+                                <input type="password" id="password" value="${user.password}">
+                                </p>
+                                <input type="button" class="save-changes save" onclick="editProfile(${user.id})"
+                                       value="Save changes"/>
+                                <p>
                                     <a href="/addAdvert">
                                         <button class="create"><strong>Add advert</strong></button>
                                     </a>
-                                </c:when>
-                                <c:otherwise>
-                                    <button class="dislike-btn" onclick="addDislike(${user.id})">
-                                        <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
+                                </p>
+                            </c:when>
+                            <c:otherwise>
+                                <h4>
+                                    <div class="glyphicon glyphicon-user"></div>
+                                        ${user.name}
+                                </h4>
+                                <p>
+                                <div class="glyphicon glyphicon-envelope"></div>
+                                ${user.email} </p>
+                                <p>
+                                <c:choose>
+                                    <c:when test="${!empty user.phone}">
+                                        <div class="glyphicon glyphicon-phone"></div>
+                                        ${user.phone} </p>
+                                    </c:when>
+                                </c:choose>
+                                <button class="dislike-btn" onclick="addDislike(${user.id})">
+                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <br>
                 </div>
@@ -127,32 +164,48 @@
                                         <hr class="user-advert-status-hr">
                                         <div class="col-sm-4">
 
-                                        <div class="thumbnail">
-                                            <c:choose>
-                                                <c:when test="${empty advert.images}">
-                                                    <img class="media-object thumbnail adv-img-list-item image-advert-user"
-                                                         src="/img/mock.png">
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:forEach items="${advert.images}" var="image" varStatus="loop">
-                                                        <c:choose>
-                                                            <c:when test="${image.type == 'M'}">
-                                                                <img src="/image/${image.id}" alt="advert's photo" class="media-object thumbnail adv-img-list-item image-advert-user">
-                                                            </c:when>
-                                                        </c:choose>
-                                                    </c:forEach>
-                                                </c:otherwise>
-                                            </c:choose>
+                                            <div class="thumbnail">
+                                                <c:choose>
+                                                    <c:when test="${empty advert.images}">
+                                                        <img class="media-object thumbnail adv-img-list-item image-advert-user"
+                                                             src="/img/mock.png">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:forEach items="${advert.images}" var="image"
+                                                                   varStatus="loop">
+                                                            <c:choose>
+                                                                <c:when test="${image.type == 'M'}">
+                                                                    <img src="/image/${image.id}" alt="advert's photo"
+                                                                         class="media-object thumbnail adv-img-list-item image-advert-user">
+                                                                </c:when>
+                                                            </c:choose>
+                                                        </c:forEach>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
                                         </div>
-                                        </div>
-                                        <div class=" media-right">
+                                        <div class="col-sm-8">
                                             <a href="/advert/${advert.id}">
                                                 <h4 class="media-heading">${advert.title}</h4>
                                             </a>
                                             <p>${advert.text}</p>
                                             <br>
-                                            <h6><tags:localDateTime
-                                                    date="${advert.modificationDate}" pattern="${pattern}"/></h6>
+                                            <div>
+                                                <h6 class="float-left"><tags:localDateTime
+                                                        date="${advert.modificationDate}"
+                                                        pattern="${pattern}"/></h6>
+                                                <c:choose>
+                                                    <c:when test="${loggedUser.id == user.id}">
+                                                        <a class="float-right"
+                                                           onclick="deleteAdvert(${advert.id}, ${user.id})">
+                                                            <button class="delete">Delete advert</button>
+                                                        </a>
+                                                        <a class="float-right" href="/editAdvert/${advert.id}">
+                                                            <button class="save">Edit advert</button>
+                                                        </a>
+                                                    </c:when>
+                                                </c:choose>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

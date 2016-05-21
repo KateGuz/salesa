@@ -11,8 +11,10 @@ import com.salesa.util.entity.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -40,6 +42,9 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Autowired
     private String getAdvertImageSQL;
+
+    @Autowired
+    private String deleteAdvertSQL;
 
 
     @Override
@@ -127,6 +132,11 @@ public class AdvertJdbcDao implements AdvertDao {
         mapSqlParameterSource.addValue("id", advert.getId());
 
         namedParameterJdbcTemplate.update(updateAdvertSQL, mapSqlParameterSource);
+    }
+
+    @Override
+    public void delete(int advertId) {
+        namedParameterJdbcTemplate.update(deleteAdvertSQL, new MapSqlParameterSource("advertId", advertId));
     }
 
 }

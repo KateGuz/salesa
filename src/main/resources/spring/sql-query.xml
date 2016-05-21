@@ -113,12 +113,22 @@ a.currency, a.status, a.categoryId, a.userId FROM advert as a WHERE a.status != 
 
     <bean id="updateAdvertSQL" class="java.lang.String">
         <constructor-arg
-                value="UPDATE  advert SET title=:title, text=:text, categoryId=:categoryId, price=:price, currency=:currency, status=:status, modificationDate=:modificationDate WHERE id=:id;"/>
+                value="UPDATE advert SET title=:title, text=:text, categoryId=:categoryId, price=:price, currency=:currency, status=:status, modificationDate=:modificationDate WHERE id=:id;"/>
     </bean>
 
     <bean id="updateUserSQL" class="java.lang.String">
         <constructor-arg
-                value="UPDATE  user SET name=:name, email=:email, password=:password, phone=:phone WHERE id=:id;"/>
+                value="UPDATE user SET name=:name, email=:email, password=:password, phone=:phone, avatar=:avatar WHERE id=:id;"/>
+    </bean>
+
+    <bean id="deleteAdvertSQL" class="java.lang.String">
+        <constructor-arg
+                value="DELETE FROM advert WHERE id=:advertId;"/>
+    </bean>
+
+    <bean id="deleteImageSQL" class="java.lang.String">
+        <constructor-arg
+                value="DELETE FROM advertPicture WHERE id=:imageId;"/>
     </bean>
 
 </beans>

@@ -287,7 +287,6 @@ input.form-control {
 
 .user-img.thumbnail img {
     height: 250px;
-    width: 250px;
 }
 
 .user-advert-lab h4 {
@@ -491,10 +490,11 @@ ul.nav.navbar-right {
     display: inline-block;
     text-align: left;
     float: left;
+    padding-left: 15px;
 }
 
 #user-advert-status h6 {
-    color: #c7254e;;
+    color: #c7254e;
 }
 
 #user-advert-price {
@@ -502,6 +502,7 @@ ul.nav.navbar-right {
     text-align: right;
     float: right;
     font-weight: bold;
+    padding-right: 15px;
 }
 
 .user-advert-status-hr {
@@ -525,13 +526,20 @@ img.media-object.thumbnail.feedback-img-list-item {
     display: inline-block;
     text-align: center;
 }
+.save-changes {
+    background-color: #5E7569 !important;
+    margin-bottom: 20px;
+}
+.save-changes:hover{
+    background-color: #222222 !important;
+}
 
 .create a {
     color: white;
 }
 
 .create:hover {
-    background-color: #3d9c67;
+    background-color: #2b542c;
 }
 
 .modal {
@@ -673,7 +681,7 @@ input {
 }
 
 .save {
-    margin-top: 15px;
+    margin-top: 5px;
     background-color: #48c083;
     color: white;
     height: 25px;
@@ -681,6 +689,23 @@ input {
     border: #48c083;
     width: 100px;
 }
+.save:hover{
+    background-color: #2b542c;
+}
+
+.delete {
+    margin-top: 5px;
+    background-color: #c9302c;
+    color: white;
+    height: 25px;
+    border-radius: 4px;
+    border: #48c083;
+    width: 100px;
+}
+.delete:hover{
+    background-color: #761c19;
+}
+
 
 .save-image {
     margin-top: 15px;
@@ -706,12 +731,16 @@ input {
 
 .edit{
     float: right;
-    background-color: #5E7569;
+    background-color: #48c083;
     color: white;
     height: 25px;
     border-radius: 4px;
     border: #5E7569;
     width: 100px;
+}
+
+.edit:hover{
+    background-color: #2b542c;
 }
 
 
@@ -729,10 +758,9 @@ input {
 .slider {
     height: 220px !important;
     width: auto !important;
-    margin-bottom: 0;
     padding-right: 5%;
     padding-left: 5%;
-    margin-right: 0 !important;
+    margin: auto !important;
 }
 .image-default{
     margin: auto !important;
@@ -740,11 +768,25 @@ input {
 .title-text{
     font-size: 10pt;
     color: #5e5e5e;
-    padding-top: 58px;
+    padding-top: 20px;
 }
 .left-padding{
     padding-left: 50px;
 }
 .save-advert{
     margin-top: 50px;
+}
+.float-right{
+    display: inline-block;
+    float: right;
+    margin-left: 20px;
+}
+
+.float-left{
+    display: inline-block;
+    float: left;
+}
+.edit-button{
+    margin-bottom: 5px;
+    margin-top: 5px;
 }

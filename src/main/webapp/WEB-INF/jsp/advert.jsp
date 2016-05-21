@@ -121,9 +121,14 @@
                             <p>
                             <div class="glyphicon glyphicon-envelope"></div>
                             email: ${advert.user.email}
-                            <p>
-                            <div class="glyphicon glyphicon-phone"></div>
-                            phone: ${advert.user.phone}
+                            <c:choose>
+                                <c:when test="${!empty advert.user.phone}">
+                                    <p>
+                                    <div class="glyphicon glyphicon-phone"></div>
+                                    <input type="text" id="phone" value="${advert.user.phone}">
+                                    </p>
+                                </c:when>
+                            </c:choose>
                         </div>
 
                     </div>
