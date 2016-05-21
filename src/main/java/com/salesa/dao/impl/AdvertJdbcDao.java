@@ -1,44 +1,42 @@
 package com.salesa.dao.impl;
 
 import com.salesa.dao.AdvertDao;
-import com.salesa.dao.mapper.*;
+import com.salesa.dao.mapper.AdvertExtractor;
+import com.salesa.dao.mapper.AdvertMapper;
+import com.salesa.dao.mapper.ImageMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
-import com.salesa.entity.Image;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.util.entity.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
     private final Logger log = LoggerFactory.getLogger(getClass());
     public static final int MAX_ADVERTS_PER_PAGE = 9;
     private static final AdvertExtractor ADVERT_EXTRACTOR = new AdvertExtractor();
-
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     @Autowired
     private QueryGenerator queryGenerator;
-
     @Autowired
     private String getAdvertsCountSQL;
-
     @Autowired
     private String saveAdvertSQL;
-
     @Autowired
     private String updateAdvertSQL;
+    @Autowired
+    private String searchSQLCount;
 
     @Autowired
     private String getAdvertImageSQL;
@@ -135,8 +133,24 @@ public class AdvertJdbcDao implements AdvertDao {
     }
 
     @Override
+    public AdvertPageData search(AdvertFilter advertFilter) {
+        QueryAndParams queryAndParams = queryGenerator.search(advertFilter);
+        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
+
+        String searchText = advertFilter.getSearchText();
+        String countQuery = String.format(searchSQLCount, searchText, searchText);
+
+        int advertsCount = namedParameterJdbcTemplate.queryForObject(countQuery, new HashMap<>(), Integer.class);
+        int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
+
+        AdvertPageData advertPageData = new AdvertPageData();
+        advertPageData.setAdverts(adverts);
+        advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
+        return advertPageData;
+    }
+
+    @Override
     public void delete(int advertId) {
         namedParameterJdbcTemplate.update(deleteAdvertSQL, new MapSqlParameterSource("advertId", advertId));
     }
-
 }

@@ -13,5 +13,6 @@ public interface AdvertDao {
     List<Advert> getByUserId(int userId);
     int saveAdvert(Advert advert);
     void update(Advert advert);
+    AdvertPageData search(AdvertFilter advertFilter);
     void delete(int advertId);
 }

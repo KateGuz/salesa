@@ -131,6 +131,14 @@ a.currency, a.status, a.categoryId, a.userId FROM advert as a WHERE a.status != 
                 value="DELETE FROM advertPicture WHERE id=:imageId;"/>
     </bean>
 
+    <bean id="searchSQL" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM advert WHERE title RLIKE :text OR text RLIKE :text"/>
+    </bean>
+
+    <bean id="searchSQLCount" class="java.lang.String">
+        <constructor-arg value="SELECT count(*) as count FROM advert WHERE title RLIKE '%s' OR text RLIKE '%s'"/>
+    </bean>
+
 </beans>
 
 
