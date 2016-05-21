@@ -74,33 +74,45 @@
         <div class="advert-info-bar col-xs-12 well">
             <div class="row">
                 <div class="col-sm-4 col-md-4">
-                    <div class="advert-img-bar thumbnail">
-                        <div id="carousel" class="carousel slide">
-                            <ol class="carousel-indicators">
-                                <li class="active" data-target="#carousel" data-slide-to="0"></li>
-                                <li data-target="#carousel" data-slide-to="1"></li>
-                                <li data-target="#carousel" data-slide-to="2"></li>
-                            </ol>
-
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img src="/img/2.png" alt="">
+                    <div class="thumbnail">
+                        <c:choose>
+                            <c:when test="${empty advert.images}">
+                                <img class="media-object thumbnail adv-img-list-item slider image-default"
+                                     src="/img/mock.png">
+                            </c:when>
+                            <c:when test="${advert.images.size() == 1}">
+                                <img src="/image/${advert.images[0].id}" alt="advert's photo"
+                                     class="media-object thumbnail adv-img-list-item slider">
+                            </c:when>
+                            <c:otherwise>
+                                <div id="carousel" class="carousel slide">
+                                    <div class="carousel-inner slider-bg">
+                                        <c:forEach items="${advert.images}" var="image" varStatus="loop">
+                                            <c:choose>
+                                                <c:when test="${image.type == 'M'}">
+                                                    <div class="item active">
+                                                        <img src="/image/${image.id}" alt="advert's photo"
+                                                             class="media-object thumbnail adv-img-list-item slider">
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="item">
+                                                        <img src="/image/${image.id}" alt="advert's photo"
+                                                             class="media-object thumbnail adv-img-list-item slider">
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+                                    <a href="#carousel" class="left carousel-control" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                    <a href="#carousel" class="right carousel-control" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
                                 </div>
-                                <div class="item">
-                                    <img src="/img/3.png" alt="">
-                                </div>
-                                <div class="item">
-                                    <img src="/img/1.png" alt="">
-                                </div>
-                            </div>
-
-                            <a href="#carousel" class="left carousel-control" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a href="#carousel" class="right carousel-control" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
+                            </c:otherwise>
+                        </c:choose>
                         <div style="text-align: center" class="col-sm-12">
                             <h4>
                                 <div class="glyphicon glyphicon-user"></div>
@@ -109,9 +121,14 @@
                             <p>
                             <div class="glyphicon glyphicon-envelope"></div>
                             email: ${advert.user.email}
-                            <p>
-                            <div class="glyphicon glyphicon-phone"></div>
-                            phone: ${advert.user.phone}
+                            <c:choose>
+                                <c:when test="${!empty advert.user.phone}">
+                                    <p>
+                                    <div class="glyphicon glyphicon-phone"></div>
+                                    <input type="text" id="phone" value="${advert.user.phone}">
+                                    </p>
+                                </c:when>
+                            </c:choose>
                         </div>
 
                     </div>
@@ -158,7 +175,7 @@
             <div class="foot">
                 <div class="well">
                     <p>Salesa</p>
-                    <p>All Rigths Reserved</p>
+                    <p>All Rights Reserved</p>
                 </div>
             </div>
         </footer>

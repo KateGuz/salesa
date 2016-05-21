@@ -2,11 +2,12 @@ package com.salesa.service.impl;
 
 import com.salesa.dao.AdvertDao;
 import com.salesa.entity.Advert;
-import com.salesa.entity.AdvertRest;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.util.CurrencyConverter;
 import com.salesa.util.entity.AdvertPageData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import java.util.List;
 
 @Service
 public class AdvertServiceImpl implements AdvertService {
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private AdvertDao advertDao;
 
@@ -38,6 +41,7 @@ public class AdvertServiceImpl implements AdvertService {
 
     private void applyPriceSorting(List<Advert> adverts, AdvertFilter advertFilter) {
         if (advertFilter.isSortPriceAsc() != null) {
+            log.info("Applying sorting for request {}", advertFilter);
             Collections.sort(adverts, PRICE_ASC_COMPARATOR);
             if (!advertFilter.isSortPriceAsc()) {
                 Collections.reverse(adverts);
@@ -56,29 +60,18 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public AdvertPageData getAll(AdvertFilter advertFilter) {
-        return advertDao.getAll(advertFilter);
-    }
-
-    @Override
     public int saveAdvert(Advert advert) {
-        advertDao.saveAdvert(advert);
-        return advert.getId();
-    }
-
-    @Override
-    public void saveAdvert(AdvertRest advert) {
-        advertDao.saveAdvert(advert);
-    }
-
-    @Override
-    public void update(AdvertRest advert) {
-        advertDao.update(advert);
+        return advertDao.saveAdvert(advert);
     }
 
     @Override
     public void update(Advert advert) {
         advertDao.update(advert);
+    }
+
+    @Override
+    public void delete(int advertId) {
+        advertDao.delete(advertId);
     }
 
     @Override

@@ -10,7 +10,7 @@ a {
     text-decoration: none;
 }
 
-a:hover,a:focus {
+a:hover, a:focus {
     text-decoration: underline;
     outline: none;
 }
@@ -24,8 +24,9 @@ ul {
 button {
     font-size: 12px !important;
 }
+
 button:focus,
-button::selection{
+button::selection {
     outline: none;
 }
 
@@ -123,7 +124,6 @@ input.form-control {
     border-radius: 4px;
     outline: none;
 }
-
 
 .sort-ul-wrap ul li p {
     margin-right: 30px;
@@ -239,6 +239,7 @@ input.form-control {
 .pages-user {
     margin: 10px auto 40px;
 }
+
 /*footer*/
 .foot {
     margin-top: 20px;
@@ -246,7 +247,7 @@ input.form-control {
     text-align: center;
 }
 
-.breadcrumb>li+li:before {
+.breadcrumb > li + li:before {
     padding: 0 5px;
     color: #ccc;
     content: ">";
@@ -286,13 +287,13 @@ input.form-control {
 
 .user-img.thumbnail img {
     height: 250px;
-    width: 250px;
 }
 
 .user-advert-lab h4 {
     text-align: center;
     margin: auto;
 }
+
 .user-advert-list {
     margin: 0 0 0 -40px;
 }
@@ -334,10 +335,10 @@ input.form-control {
 .feedback-btn:hover {
     background-color: #4FCF8E;
 }
+
 .feedback-btn:focus {
     outline: none;
 }
-
 
 .feedback-list-bar h3 {
     font-size: 18px;
@@ -392,7 +393,6 @@ input.form-control {
     background-color: rgb(228, 228, 228);
 }
 
-
 .divider {
     position: absolute;
     left: 90%;
@@ -408,7 +408,6 @@ input.form-control {
     border-left: 1px solid #9d9d9d;
     margin: 5px;
 }
-
 
 .advert-info-bar hr {
     border: none; /* Убираем границу для браузера Firefox */
@@ -458,7 +457,6 @@ input.form-control {
 
 }
 
-
 #thumbnail .thumbnail {
     background-color: #f9f9f9;
 }
@@ -487,22 +485,24 @@ ul.dropdown-menu {
 ul.nav.navbar-right {
     display: inline-flex;
 }
+
 #user-advert-status {
     display: inline-block;
     text-align: left;
     float: left;
+    padding-left: 15px;
 }
 
 #user-advert-status h6 {
-    color: #c7254e;;
+    color: #c7254e;
 }
-
 
 #user-advert-price {
     display: inline-block;
     text-align: right;
     float: right;
     font-weight: bold;
+    padding-right: 15px;
 }
 
 .user-advert-status-hr {
@@ -514,7 +514,7 @@ img.media-object.thumbnail.feedback-img-list-item {
     margin: auto;
 }
 
-.create{
+.create {
     background-color: #48c083;
     color: white;
     font-family: Roboto, monospace;
@@ -526,17 +526,23 @@ img.media-object.thumbnail.feedback-img-list-item {
     display: inline-block;
     text-align: center;
 }
+.save-changes {
+    background-color: #5E7569 !important;
+    margin-bottom: 20px;
+}
+.save-changes:hover{
+    background-color: #222222 !important;
+}
 
-.create a{
+.create a {
     color: white;
 }
 
 .create:hover {
-    background-color: #3d9c67;
+    background-color: #2b542c;
 }
 
-/*modal*/
-.modal{
+.modal {
     display: none;
 }
 
@@ -569,7 +575,6 @@ textarea {
     outline-width: 0;
 }
 
-
 .modal-body textarea {
     margin: 15px 0 10px 0;
     border-radius: 8px;
@@ -583,27 +588,14 @@ textarea {
     outline-width: 0;
 }
 
-.modal-body #btn-log, #btn-reg{
+.modal-body #btn-log, #btn-reg {
     background-color: #48c083;
     color: white;
     width: 100px;
     float: right;
 }
 
-/*.modal-body .button {
-    background-color: #48c083;
-    font-family: Roboto, monospace;
-    font-size: 15%;
-    border: 0;
-    border-radius: 6px;
-    color: white;
-    width: 100px;
-    height: 25px;;
-    float: right;
-    margin-top: 10px;
-}*/
-
-.btn-send{
+.btn-send {
     margin-top: -1px !important;
 }
 
@@ -648,7 +640,7 @@ button.close:focus {
     outline-width: 0;
 }
 
-.wrap-modal .modal-body{
+.wrap-modal .modal-body {
     margin: 15px !important;
 }
 
@@ -657,41 +649,39 @@ button.close:focus {
     text-align: center !important;
 }
 
-.out{
+.out {
     display: none;
 }
+
 /*addAdvert*/
 .wrap-category{
     width: 65%;
     float: left;
 }
-.wrap-status{
+
+.wrap-status {
     width: 35%;
     float: right;
 }
+
 
 #description, #text{
     margin: 20px 0 22px 0;
 }
 
-#title, #price, #currency, #category, #status{
+#title, #price, #currency, #category, #status {
     color: #555;
     border: 1px solid #ccc;
     border-radius: 4px;
     height: 25px;
 }
 
-input{
+input {
     padding-left: 5px;
 }
 
-/*.upload{
-    margin: 20px 0 10px 0 ;
-    height: 60px;
-    border-radius: 4px;
-}*/
-.save{
-    margin-top: 15px;
+.save {
+    margin-top: 5px;
     background-color: #48c083;
     color: white;
     height: 25px;
@@ -699,7 +689,39 @@ input{
     border: #48c083;
     width: 100px;
 }
-.text-bar{
+.save:hover{
+    background-color: #2b542c;
+}
+
+.delete {
+    margin-top: 5px;
+    background-color: #c9302c;
+    color: white;
+    height: 25px;
+    border-radius: 4px;
+    border: #48c083;
+    width: 100px;
+}
+.delete:hover{
+    background-color: #761c19;
+}
+
+
+.save-image {
+    margin-top: 15px;
+    background-color: #48c083;
+    color: white;
+    height: 25px;
+    border-radius: 4px;
+    border: #48c083;
+    width: 200px;
+}
+
+.choose-file {
+    width: 175px;
+}
+
+.text-bar {
     align-content: center;
     margin-top: 5px;
 }
@@ -709,7 +731,7 @@ input{
 
 .edit{
     float: right;
-    background-color: #5E7569;
+    background-color: #48c083;
     color: white;
     height: 25px;
     border-radius: 4px;
@@ -717,5 +739,54 @@ input{
     width: 100px;
 }
 
+.edit:hover{
+    background-color: #2b542c;
+}
 
 
+
+.image-adverts {
+    height: 200px !important;
+}
+
+.image-advert-user {
+    width: 200px;
+    height: auto;
+    margin-bottom: 0;
+}
+
+.slider {
+    height: 220px !important;
+    width: auto !important;
+    padding-right: 5%;
+    padding-left: 5%;
+    margin: auto !important;
+}
+.image-default{
+    margin: auto !important;
+}
+.title-text{
+    font-size: 10pt;
+    color: #5e5e5e;
+    padding-top: 20px;
+}
+.left-padding{
+    padding-left: 50px;
+}
+.save-advert{
+    margin-top: 50px;
+}
+.float-right{
+    display: inline-block;
+    float: right;
+    margin-left: 20px;
+}
+
+.float-left{
+    display: inline-block;
+    float: left;
+}
+.edit-button{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}

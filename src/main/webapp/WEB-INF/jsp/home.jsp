@@ -139,8 +139,21 @@
                                         </c:choose>
                                         &nbsp;
                                     </p>
-                                    <div class="thumbnail">
-                                        <img src="/img/1.png" alt="advert's photo">
+                                    <div class="thumbnail" >
+                                        <c:choose>
+                                            <c:when test="${empty advert.images}">
+                                                <img src="/img/mock.png" alt="advert's photo" class="image-adverts">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach items="${advert.images}" var="image" varStatus="loop">
+                                                    <c:choose>
+                                                        <c:when test="${image.type == 'M'}">
+                                                            <img src="/image/${image.id}" alt="advert's photo" class="image-adverts">
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                     <div class="wrap-title">
                                         <p class="title">${advert.title}</p>
@@ -212,7 +225,7 @@
             <div class="foot">
                 <div class="well">
                     <p>Salesa</p>
-                    <p>All Rigths Reserved</p>
+                    <p>All Rights Reserved</p>
                 </div>
             </div>
         </footer>

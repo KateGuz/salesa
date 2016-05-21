@@ -33,6 +33,12 @@ public class UserController {
 
     @RequestMapping("/user/{userId}")
     public String user(@PathVariable("userId") int userId, Model model, @RequestParam(required = false) String currency, HttpSession session){
+        if (currency == null && session.getAttribute("selectedCurrency") == null) {
+            currency = "UAH";
+        }
+        if (currency == null && session.getAttribute("selectedCurrency") != null) {
+            currency = (String) session.getAttribute("selectedCurrency");
+        }
         if (currency != null) {
             session.setAttribute("selectedCurrency", currency);
         }

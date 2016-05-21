@@ -1,5 +1,9 @@
 package com.salesa.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.salesa.util.mapper.UserSerializer;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,6 +15,8 @@ public class Advert {
     private Category category;
     private double price;
     private String currency;
+    @JsonSerialize(using = UserSerializer.class)
+//    @JsonDeserialize(using = )
     private User user;
     private String status;
     private List<Image> images;
