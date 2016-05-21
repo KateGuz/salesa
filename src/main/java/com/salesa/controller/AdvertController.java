@@ -37,7 +37,7 @@ public class AdvertController {
         if (currency != null) {
             session.setAttribute("selectedCurrency", currency);
         }
-        log.info("Query get advert by id: " + advertId);
+        log.info("Query get advert by id {}", advertId);
         Advert advert = advertService.get(advertId);
         String defaultCurrency = (String) session.getAttribute("selectedCurrency");
 
@@ -53,6 +53,7 @@ public class AdvertController {
         model.addAttribute("advert", advert);
         model.addAttribute("breadcrumbsTree", breadcrumbsTree);
         model.addAttribute("selectedCurrency", defaultCurrency);
+        log.info("Queried advert {}", advert);
         return "advert";
     }
 }

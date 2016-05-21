@@ -75,7 +75,7 @@
         </div>
     </c:when>
     <c:otherwise>
-        <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+        <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0" id="advert-info">
             <div class="size">
                 <div class="advert-info-bar col-xs-12 well">
                     <form id="create" method="post">
@@ -165,7 +165,7 @@
             <div class="foot">
                 <div class="well">
                     <p>Salesa</p>
-                    <p>All Rigths Reserved</p>
+                    <p>All Rights Reserved</p>
                 </div>
             </div>
         </footer>

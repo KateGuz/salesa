@@ -6,7 +6,8 @@ function addFeedback(userId) {
         $('#feedback-ok').modal('show');
         setTimeout(hideModal, 3000);
         feedbackTextArea.val("");
-        location.reload();
+        $('#users-feedback').load(document.URL + ' #users-feedback');
+        //document.getElementById('users-feedback').classList.add('show-div');
     });
     function hideModal(){
         $('#feedback-ok ').modal('hide');

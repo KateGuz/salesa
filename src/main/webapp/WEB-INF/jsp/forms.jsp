@@ -101,12 +101,47 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>Ваш отзыв добавлен. Спасибо.</p>
+                    <p>Ваш отзыв добавлен, спасибо.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="wrap-modal">
+    <div class="modal fade" id="makeAdmin" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Пользователь был назначен админом, спасибо.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap-modal">
+    <div class="modal fade" id="deleteAdvert" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Объявление было удалено, спасибо.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap-modal">
+    <div class="modal fade" id="deleteUser" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Пользователь был удалён, спасибо.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
