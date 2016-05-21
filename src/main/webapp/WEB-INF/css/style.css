@@ -674,7 +674,7 @@ button.close:focus {
     margin: 20px 0 22px 0;
 }
 
-#title, #price, #currency, #category, #status{
+#title, #price, #currency, #category, #status, #format{
     color: #555;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -716,6 +716,35 @@ input{
     border: #5E7569;
     width: 100px;
 }
+.submitReport{
+    background-color: #48c083;
+    font-weight: bold;
+    color: white;
+    height: 25px;
+    border-radius: 6px;
+    border: #48c083;
+}
+
+.wrap-format, .wrap-currency{
+    width: 100%;
+}
+
+#format, #currency{
+    float: right;
+}
+.reportRequest{
+    margin-top: 15px;
+    background-color: #7b8182;
+    font-family: Roboto, monospace;
+    color: white;
+    border: 0;
+    border-radius: 6px;
+    width: 150px;
+    height: 35px;;
+    display: inline-block;
+    text-align: center;
+}
+
 
 
 

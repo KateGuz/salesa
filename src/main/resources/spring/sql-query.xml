@@ -97,6 +97,24 @@
                 value="UPDATE  user SET name=:name, email=:email, password=:password, phone=:phone WHERE id=:id;"/>
     </bean>
 
+    <bean id="getAdvertsForReport" class="java.lang.String">
+        <constructor-arg value="SELECT c.advertId, c.advertTitle, c.advertText, c.advertPrice, c.advertCurrency, c.advertStatus,
+                                   c.advertModificationDate, c.userName, c.userEmail FROM change_status as c
+                                   WHERE advertModificationDate BETWEEN "/>
+    </bean>
+
+    <bean id="saveReportSQL" class="java.lang.String">
+        <constructor-arg value="CALL saveReportAndGetId(:name, :document);"/>
+    </bean>
+
+    <bean id="getReportByIdSQL" class="java.lang.String">
+        <constructor-arg value="SELECT r.id, r.name, r.document FROM report as r WHERE r.id = :id;"/>
+    </bean>
+
+    <bean id="deleteReportsSQL" class="java.lang.String">
+        <constructor-arg value="DELETE FROM report;"/>
+    </bean>
+
 </beans>
 
 

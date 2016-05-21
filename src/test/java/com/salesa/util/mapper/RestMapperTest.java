@@ -1,4 +1,4 @@
-package com.salesa.util;
+package com.salesa.util.mapper;
 
 import com.salesa.entity.Advert;
 import com.salesa.entity.Category;

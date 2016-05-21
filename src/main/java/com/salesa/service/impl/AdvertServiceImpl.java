@@ -70,4 +70,9 @@ public class AdvertServiceImpl implements AdvertService {
         advertDao.update(advert);
     }
 
+    @Override
+    public List<Advert> getForReport(String dateFrom, String dateTo) {
+        return advertDao.getForReport(dateFrom, dateTo);
+    }
+
 }

@@ -87,7 +87,7 @@ public class RestAdvertController {
         }
 
         advert.setModificationDate(LocalDateTime.now());
-        log.info("Updating advert : {}" + advert);
+        log.info("Updating advert : {}", advert);
         advertService.update(advert);
         return new ResponseEntity<>(HttpStatus.OK);
     }

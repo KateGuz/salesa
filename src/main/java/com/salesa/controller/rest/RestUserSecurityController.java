@@ -27,7 +27,7 @@ public class RestUserSecurityController {
     @RequestMapping(value = "/v1/signIn", method = RequestMethod.POST)
     public ResponseEntity<String> signInREST(@RequestParam("email") String email,
                                      @RequestParam("pass") String pass, HttpSession session, HttpServletResponse response) {
-        log.info("Sign in request  : {}" + "email = ", email);
+        log.info("Sign in request:" + " email = ", email + " pass = " + pass);
         User user = userService.get(email);
         if (user != null && user.getPassword().equals(pass)) {
             userSecurity.addSession(session.getId(), user);
@@ -56,7 +56,7 @@ public class RestUserSecurityController {
 
     @RequestMapping(value = "/v1/signOut", method = RequestMethod.DELETE)
     public ResponseEntity<String> signOut(HttpSession session) {
-        log.info("finishing session : {}", session.getAttributeNames());
+        log.info("finishing session : ", session.getId());
         userSecurity.deleteSession(session.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }

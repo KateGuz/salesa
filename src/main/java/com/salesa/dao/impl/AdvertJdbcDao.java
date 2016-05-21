@@ -3,6 +3,7 @@ package com.salesa.dao.impl;
 import com.salesa.dao.AdvertDao;
 import com.salesa.dao.mapper.AdvertDetailsMapper;
 import com.salesa.dao.mapper.AdvertMapper;
+import com.salesa.dao.mapper.ReportDataMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
@@ -120,6 +121,13 @@ public class AdvertJdbcDao implements AdvertDao {
         mapSqlParameterSource.addValue("id", advert.getId());
 
         namedParameterJdbcTemplate.update(updateAdvertSQL, mapSqlParameterSource);
+    }
+
+    @Override
+    public List<Advert> getForReport(String dateFrom, String dateTo) {
+        log.info("getting adverts for report, period from " + dateFrom + " till " + dateTo);
+        QueryAndParams queryAndParams = queryGenerator.generateAdvertsForReport(dateFrom, dateTo);
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new ReportDataMapper());
     }
 
 }

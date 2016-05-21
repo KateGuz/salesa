@@ -12,4 +12,5 @@ public interface AdvertDao {
     List<Advert> getByUserId(int userId);
     int saveAdvert(Advert advert);
     void update(Advert advert);
+    List<Advert> getForReport(String dateFrom, String dateTo);
 }

@@ -83,14 +83,20 @@
                         <p>
                         <div class="glyphicon glyphicon-phone"></div>
                         ${user.phone} </p>
-                        <div<%-- id="display"--%>>
+                        <div>
                             <c:choose>
                                 <c:when test="${empty loggedUser.name}">
                                 </c:when>
                                 <c:when test="${loggedUser.id == user.id}">
                                     <a href="/addAdvert">
-                                        <button class="create"><strong>Add advert</strong></button>
+                                        <button class="create"><strong>Создать объявление</strong></button>
                                     </a>
+                                    <c:choose>
+                                        <c:when test="${loggedUser.type == 'A'}">
+                                            <a href="#reportGeneration" data-toggle="modal"
+                                               data-target="#reportGeneration"><button class="reportRequest"><strong>Создать отчет</strong></button></a>
+                                        </c:when>
+                                    </c:choose>
                                 </c:when>
                                 <c:otherwise>
                                     <button class="dislike-btn" onclick="addDislike(${user.id})">

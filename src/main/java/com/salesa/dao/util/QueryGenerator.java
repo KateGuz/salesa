@@ -29,6 +29,8 @@ public class QueryGenerator {
     private String getAdvertsByUserIdSQL;
     @Autowired
     private String getUserByIdSQL;
+    @Autowired
+    private String getAdvertsForReport;
 
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
         this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
@@ -114,4 +116,18 @@ public class QueryGenerator {
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
     }
+
+    public QueryAndParams generateAdvertsForReport(String dateFrom, String dateTo){
+        StringBuilder query = new StringBuilder(getAdvertsForReport);
+        Map <String, Object> params = new HashMap<>();
+        params.put("dateFrom", dateFrom);
+        query.append(":dateFrom");
+        query.append(AND_STATEMENT);
+        params.put("dateTo", dateTo);
+        query.append(":dateTo");
+       // query.append(" 23:59:59");
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);
+    }
+
 }
