@@ -36,8 +36,6 @@ public class Report {
     public String toString() {
         return "Report{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", document=" + Arrays.toString(document) +
-                '}';
+                ", name='" + name + '}';
     }
 }

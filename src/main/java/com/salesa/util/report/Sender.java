@@ -27,7 +27,20 @@ public class Sender {
     }
 
     public void send(ReportRequest reportRequest, int reportId) throws Exception {
-        log.info("sending report for request: {} ", reportRequest);
+        log.info("sending report for request: {}", reportRequest);
+        Message message = createMessage(reportRequest, reportId);
+        Transport.send(message);
+    }
+
+    public void sendWithoutReport(ReportRequest reportRequest) throws Exception {
+        log.info("sending mail without report for request: {}", reportRequest);
+        String NO_REPORT = "There is no any information for choosen period";
+        Message message = createMessage(reportRequest, 0);
+        message.setText(NO_REPORT);
+        Transport.send(message);
+    }
+
+    private Message createMessage(ReportRequest reportRequest, int reportId) throws Exception {
         String subject = "report about sales from ";
         String text = "click the following link to download report http://localhost:8080/report/";
         Session session = Session.getInstance(props, new Authenticator() {
@@ -36,13 +49,11 @@ public class Sender {
             }
         });
         Message message = new MimeMessage(session);
-        message.setFrom(
-                new InternetAddress(name));
+        message.setFrom(new InternetAddress(name));
         message.addRecipient(Message.RecipientType.TO,
                 new InternetAddress(reportRequest.getEmailTo()));
         message.setSubject(subject + reportRequest.getDateFrom() + " till " + reportRequest.getDateFrom());
         message.setText(text + reportId);
-
-        Transport.send(message);
+        return message;
     }
 }

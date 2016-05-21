@@ -15,28 +15,28 @@ import static org.junit.Assert.assertEquals;
 
 public class RestMapperTest {
     private RestMapper restMapper = new RestMapper();
-    private final String EXPECTED_JSON = "[ {\n" +
-            "  \"id\" : 1,\n" +
-            "  \"title\" : \"title1\",\n" +
-            "  \"text\" : \"Text1\",\n" +
-            "  \"modificationDate\" : \"2016-08-16T12:15\",\n" +
-            "  \"category\" : \"/category/1\",\n" +
-            "  \"price\" : 500.0,\n" +
-            "  \"currency\" : \"EUR\",\n" +
-            "  \"user\" : \"/user/1\",\n" +
-            "  \"status\" : \"H\",\n" +
-            "  \"images\" : null\n" +
-            "}, {\n" +
-            "  \"id\" : 2,\n" +
-            "  \"title\" : \"title2\",\n" +
-            "  \"text\" : \"Text2\",\n" +
-            "  \"modificationDate\" : \"2016-08-17T12:15\",\n" +
-            "  \"category\" : \"/category/2\",\n" +
-            "  \"price\" : 1000.0,\n" +
-            "  \"currency\" : \"USD\",\n" +
-            "  \"user\" : \"/user/2\",\n" +
-            "  \"status\" : \"A\",\n" +
-            "  \"images\" : null\n" +
+    private final String EXPECTED_JSON = "[ {" +
+            "  \"id\" : 1, " +
+            "  \"title\" : \"title1\", " +
+            "  \"text\" : \"Text1\", " +
+            "  \"modificationDate\" : \"2016-08-16T12:15\", " +
+            "  \"category\" : \"/category/1\", " +
+            "  \"price\" : 500.0, " +
+            "  \"currency\" : \"EUR\", " +
+            "  \"user\" : \"/user/1\", " +
+            "  \"status\" : \"H\", " +
+            "  \"images\" : null " +
+            "}, { " +
+            "  \"id\" : 2, " +
+            "  \"title\" : \"title2\", " +
+            "  \"text\" : \"Text2\", " +
+            "  \"modificationDate\" : \"2016-08-17T12:15\", " +
+            "  \"category\" : \"/category/2\", " +
+            "  \"price\" : 1000.0, " +
+            "  \"currency\" : \"USD\", " +
+            "  \"user\" : \"/user/2\", " +
+            "  \"status\" : \"A\", " +
+            "  \"images\" : null " +
             "} ]";
     @Test
     public void testObjectToJson(){
@@ -59,6 +59,6 @@ public class RestMapperTest {
         String actual =  restMapper.toJSON(adverts);
         System.out.println(actual);
         //compare
-        assertEquals(EXPECTED_JSON, actual);
+        assertEquals(EXPECTED_JSON.replaceAll(" ", ""), actual);
     }
 }

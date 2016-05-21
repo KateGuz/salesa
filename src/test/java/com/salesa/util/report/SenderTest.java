@@ -11,8 +11,14 @@ public class SenderTest {
     private String dateTo = "2016-05-17";
     private String dateFrom = "2016-05-01";
     private ReportRequest reportRequest = new ReportRequest("xlsx", dateFrom, dateTo, emailTo, "USD");
+
     @Test
     public void testSendEmail() throws Exception {
        sender.send(reportRequest, 5);
+    }
+
+    @Test
+    public void testSendEmailWithoutReport() throws Exception {
+        sender.sendWithoutReport(reportRequest);
     }
 }

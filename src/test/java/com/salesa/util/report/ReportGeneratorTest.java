@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,13 +24,15 @@ import static org.junit.Assert.*;
 public class ReportGeneratorTest {
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-M-yyyy_hh-mm-ss");
     private ReportGenerator reportGenerator = new ReportGenerator();
-    private List<Advert> generateAdvert(int count){
+    private final String SEPARATOR = File.separator;
+
+    private List<Advert> generateAdvert(int count) {
         List<Advert> adverts = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
             Advert advert = new Advert();
             advert.setId(i);
             advert.setPrice(500 * i);
-            advert.setText("Text" + i);
+            advert.setText("текст на русском" + i);
             advert.setTitle("title" + i);
             User user = new User();
             user.setName("user" + i);
@@ -40,11 +43,13 @@ public class ReportGeneratorTest {
         }
         return adverts;
     }
+
+
     @Test
     public void testAdvertsWriteIntoExcelFile() throws Exception {
         //prepare
-        byte [] document = reportGenerator.writeIntoExcel(generateAdvert(2));
-        String path = "D:\\Chickitosik";
+        byte[] document = reportGenerator.writeIntoExcel(generateAdvert(2));
+        String path = "reports" + SEPARATOR;
         String fileName = DATE_FORMAT.format(LocalDateTime.now()) + ".xlsx";
         //then
         File file = new File(path, fileName);
@@ -55,14 +60,14 @@ public class ReportGeneratorTest {
         //when
         assertTrue(file.exists());
         assertEquals(fileName, file.getName());
-        assertEquals(path + "\\" + fileName, file.getAbsolutePath());
+        assertEquals(path + fileName, file.getPath());
     }
 
     @Test
     public void testWriteAdvertsIntoPDF() throws Exception {
         //prepare
-        byte [] document = reportGenerator.writeIntoPdf(generateAdvert(2));
-        String path = "D:\\Chickitosik";
+        byte[] document = reportGenerator.writeIntoPdf(generateAdvert(2));
+        String path = "reports" + SEPARATOR;
         String fileName = DATE_FORMAT.format(LocalDateTime.now()) + ".pdf";
         //then
         File file = new File(path, DATE_FORMAT.format(LocalDateTime.now()) + ".pdf");
@@ -73,6 +78,7 @@ public class ReportGeneratorTest {
         //when
         assertTrue(file.exists());
         assertEquals(fileName, file.getName());
-        assertEquals(path + "\\" + fileName, file.getAbsolutePath());
+        assertEquals(path  + fileName, file.getPath());
     }
+
 }

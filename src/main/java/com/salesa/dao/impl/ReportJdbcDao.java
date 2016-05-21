@@ -31,12 +31,12 @@ public class ReportJdbcDao implements ReportDao{
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("name", report.getName());
         mapSqlParameterSource.addValue("document", report.getDocument());
-        return namedParameterJdbcTemplate.update(saveReportSQL, mapSqlParameterSource);
+        return namedParameterJdbcTemplate.queryForObject(saveReportSQL, mapSqlParameterSource, Integer.class);
     }
 
     @Override
     public Report get(int id){
-        log.info("getting report from database with id = ", id);
+        log.info("getting report from database with id =  {}", id);
         return namedParameterJdbcTemplate.queryForObject(getReportByIdSQL, new MapSqlParameterSource("id", id), new ReportMapper());
     }
 

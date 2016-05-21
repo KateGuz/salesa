@@ -1,14 +1,15 @@
 package com.salesa.util.report;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Phrase;
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.salesa.entity.Advert;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.List;
+
+import static com.lowagie.text.ElementTags.FONT;
+
 
 @Service
 public class ReportGenerator {
@@ -35,12 +39,14 @@ public class ReportGenerator {
 
     public byte[] writeIntoPdf(List<Advert> adverts) {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            Document document = new Document();
+            Document document = new Document(PageSize.A4.rotate());
             log.info("creating pdf file for report");
             PdfWriter.getInstance(document, out);
             document.open();
+
             //header
             PdfPTable table = new PdfPTable(HEADER.length);
+
             PdfPCell[] header = new PdfPCell[HEADER.length];
             for (int i = 0; i < HEADER.length; i++) {
                 header[i] = new PdfPCell(new Phrase(HEADER[i]));
@@ -50,6 +56,7 @@ public class ReportGenerator {
             //content
             int i = 1;
             for (Advert advert : adverts) {
+
                 table.addCell(String.valueOf(i++));
                 table.addCell(advert.getTitle());
                 table.addCell(advert.getText());
@@ -58,6 +65,7 @@ public class ReportGenerator {
                 table.addCell(advert.getUser().getName());
                 table.addCell(advert.getUser().getEmail());
             }
+            table.getDefaultCell().setMinimumHeight(20);
             document.add(table);
             document.close();
             return out.toByteArray();
@@ -75,6 +83,7 @@ public class ReportGenerator {
         font.setFontName("Arial");
         font.setBoldweight(Font.BOLDWEIGHT_BOLD);
         font.setColor(Font.COLOR_NORMAL);
+
         Sheet sheet = book.createSheet("sells");
         Cell[] cells = new Cell[HEADER.length];
         //header

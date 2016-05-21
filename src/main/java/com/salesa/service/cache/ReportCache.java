@@ -57,6 +57,9 @@ public class ReportCache {
         log.info("creating reports has been started");
         for (ReportRequest reportRequest : reportRequestCache) {
             List<Advert> adverts = advertService.getForReport(reportRequest.getDateFrom(), reportRequest.getDateTo());
+            if(adverts.isEmpty()){
+                sender.sendWithoutReport(reportRequest);
+            }
             for (Advert advert : adverts) {
                 currencyConverter.updatePriceAndCurrency(advert, reportRequest.getCurrency());
             }
@@ -74,7 +77,7 @@ public class ReportCache {
         reportRequestCache.clear();
     }
 
-   @Scheduled(cron = "15 15 15 MAY MON 2016")
+   @Scheduled(cron = "15 15 15 ? MAY MON")
     private void deleteReports() {
         reportService.deleteAll();
     }
