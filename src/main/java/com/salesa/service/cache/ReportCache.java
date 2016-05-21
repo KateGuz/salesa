@@ -70,10 +70,11 @@ public class ReportCache {
             }
             sender.send(reportRequest, reportService.save(report));
         }
+        log.info("cleaning cache");
         reportRequestCache.clear();
     }
 
-   // @Scheduled(cron = "15 15 15 MAY MON 2016")
+   @Scheduled(cron = "15 15 15 MAY MON 2016")
     private void deleteReports() {
         reportService.deleteAll();
     }
