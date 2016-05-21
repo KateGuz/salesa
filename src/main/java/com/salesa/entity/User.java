@@ -1,6 +1,6 @@
 package com.salesa.entity;
 
-import java.io.InputStream;
+import java.util.List;
 
 public class User {
     private int id;
@@ -8,10 +8,35 @@ public class User {
     private String email;
     private String password;
     private String phone;
-    private InputStream avatar;
+    private byte[] avatar;
     private String status;
     private String type;
     private int dislikeAmount;
+    private List<Advert> adverts;
+
+    public User() {
+    }
+
+    public User(int id, String name, String email, String password, String phone, String status, String type, int dislikeAmount) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.status = status;
+        this.type = type;
+        this.dislikeAmount = dislikeAmount;
+    }
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
@@ -53,11 +78,11 @@ public class User {
         this.phone = phone;
     }
 
-    public InputStream getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(InputStream avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
@@ -100,3 +125,4 @@ public class User {
                 '}';
     }
 }
+

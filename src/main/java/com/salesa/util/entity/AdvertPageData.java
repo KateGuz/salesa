@@ -1,5 +1,4 @@
-package com.salesa.util;
-
+package com.salesa.util.entity;
 import com.salesa.entity.Advert;
 
 import java.util.List;
@@ -23,5 +22,13 @@ public class AdvertPageData {
 
     public void setAdverts(List<Advert> adverts) {
         this.adverts = adverts;
+    }
+
+    @Override
+    public String toString() {
+        return "AdvertPageData{" +
+                "adverts=" + adverts +
+                ", pageCount=" + pageCount +
+                '}';
     }
 }

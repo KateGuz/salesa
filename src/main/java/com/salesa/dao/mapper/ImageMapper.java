@@ -12,7 +12,7 @@ public class ImageMapper implements RowMapper<Image> {
         Image image = new Image();
 
         image.setId(resultset.getInt("id"));
-        image.setPicture(resultset.getBinaryStream("picture"));
+        image.setContent(resultset.getBytes("picture"));
         image.setType(resultset.getString("type"));
 
         return image;

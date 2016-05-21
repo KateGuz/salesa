@@ -2,54 +2,73 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Home</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link media="all" rel="stylesheet" href="/css/style.css" type="text/css"/>
-    <link rel="icon" type="image/png" href="/img/salesa.png"/>
-    <link rel="apple-touch-icon" href="/img/salesa.png"/>
-    <script type="text/javascript" src="/js/jquery-1.12.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
+    <jsp:include page="head-include.jsp"/>
 </head>
-
 <body>
-<header>
-    <div class="container">
+
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
         <nav class="navbar navbar-default">
             <div class="row">
-                <div class="navbar-header col-sm-2">
-                    <a class="navbar-brand" href="#">Salesa</a>
+                <div class="navbar-header col-sm-4">
+                    <a class="navbar-brand" href="/">Salesa</a>
                 </div>
-                <div class="form-wrap col-sm-4 col-sm-offset-2">
+                <div class="col-sm-4">
                     <form class="navbar-form " role="search">
-                        <div class="form-group">
+                        <div class="input-group">
                             <input type="text" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default go" type="submit">Поиск</button>
+                            </span>
                         </div>
-                        <button type="submit" class="go">Поиск</button>
                     </form>
                 </div>
-                <div class="menu-ul-wrap col-sm-3 col-sm-offset-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Связаться с нами</a></li>
-                        <li><a href="#">Вход</a></li>
-                    </ul>
+                <div class=" col-sm-4">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                        <li><a role="button" onclick="changeCurrency('USD')">USD</a></li>
+                                        <li><a role="button" onclick="changeCurrency('UAH')">UAH</a></li>
+                                        <li><a role="button" onclick="changeCurrency('EUR')">EUR</a></li>
+                                </ul>
+                            </li>
+                            <c:choose>
+                                <c:when test="${empty loggedUser.name}">
+                                    <li class="userLink"><a href="#user-security-log" data-toggle="modal"
+                                                            data-target="#user-security-log">Вход</a>
+                                    </li>
+                                    <li class="out"></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="userLink"><a href="/user/${loggedUser.id}">${loggedUser.name}&nbsp;</a>
+                                    </li>
+                                    <li class="out"><a href="/signOut">Выйти</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
     </div>
-</header>
-<div class="container">
-    <nav class="navbar navbar-default sort">
-        <div class="row">
-            <div class="category-ul-wrap col-sm-2 ">
-                <ul class="nav navbar-nav">
+</div>
+
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
+        <nav class="category-filter-row">
+            <div class="row">
+                <div class="col-sm-2">
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -58,109 +77,130 @@
                         </button>
                         <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                             <c:forEach items="${categories}" var="category">
-                                <c:if test="${category.parent.id == 0}">
-                                    <li class="dropdown-submenu">
-                                        <a tabindex="-1" href="/category/${category.id}">${category.name}</a>
-                                        <ul class="dropdown-menu">
-                                            <c:forEach items="${categories}" var="subCategory">
-                                                <c:if test="${subCategory.parent.id == category.id}">
-                                                    <li><a href="/category/${subCategory.id}">${subCategory.name}</a>
+                                <c:choose>
+                                    <c:when test="${!empty category.children}">
+                                        <li class="dropdown-submenu">
+                                            <a tabindex="-1"
+                                               href="/category/${category.id}">${category.name}</a>
+                                            <ul class="dropdown-menu">
+                                                <c:forEach items="${category.children}" var="subCategory">
+                                                    <li>
+                                                        <a href="/category/${subCategory.id}">${subCategory.name}</a>
                                                     </li>
-                                                </c:if>
-                                            </c:forEach>
-                                        </ul>
-                                    </li>
-                                </c:if>
+                                                </c:forEach>
+                                            </ul>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a href="/category/${category.id}">${category.name}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </ul>
                     </div>
-                </ul>
-            </div>
-            <div class="sort-ul-wrap col-sm-7 col-sm-offset-3">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <p>Сортировать по:</p>
-                    </li>
-                    <li>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">Новые</button>
-                            <button type="button" class="btn btn-default">Самые дешевые</button>
-                            <button type="button" class="btn btn-default">Самые дорогие</button>
-                            <button type="button" class="btn btn-default">Активные</button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="fuck-off-ad-block">
-
-        <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
-            <c:if test="${loop.index  % 3 == 0}">
-                <div class="row">
-            </c:if>
-            <div class="col-sm-4 col-xs-12">
-                <div class="well">
-                    <p class="status">
-                        <c:choose>
-                            <c:when test="${advert.status == 'A'}">
-                                <font color="#48c083">Активно</font>
-                            </c:when>
-                            <c:when test="${advert.status == 'H'}">
-                                Забронировано
-                            </c:when>
-                        </c:choose>
-                    </p>
-                    <div class="img-wrapper">
-                        <img src="/img/1.png" alt="advert's photo">
-                    </div>
-                    <div class="wrap-title">
-                        <p class="title">${advert.title}</p>
-                    </div>
-                    <div class="date-price-wrap">
-                        <fmt:parseDate value="${advert.modificationDate}" pattern="yy-MM-dd" var="parsedDate"
-                                       type="time"/>
-                        <p class="date"><c:out value="${parsedDate}"/></p>
-                        <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
+                </div>
+                <div class="col-sm-10">
+                    <div class="btn-group nav navbar-nav navbar-right">
+                        <button onclick="window.location.href='/'" type="button" class="btn btn-error">Сбросить фильтры</button>
+                        <button type="button" class="btn btn-default" onclick="sortByPrice('ASC')">Самые дешевые</button>
+                        <button type="button" class="btn btn-default" onclick="sortByPrice('DESC')">Самые дорогие</button>
+                        <button type="button" class="btn btn-default" onclick="showActive()">Активные</button>
                     </div>
                 </div>
+                </a>
             </div>
-            <c:if test="${(loop.index + 1) % 3  == 0}">
-                </div>
-            </c:if>
-        </c:forEach>
-
+        </nav>
     </div>
-
-    <div class="pages">
-        <div class="text-center">
-            <ul class="pagination">
-                <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
-                    <li><a href="?page=${loop.index}" data-original-title="" title="">${loop.index}</a></li>
-                </c:forEach>
-                <li><a href="?page=${pageData.pageCount}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-                </li>
-            </ul>
-
-        </div>
-    </div>
-    <footer>
-        <div class="foot">
-            <div class="well">
-                <p>Salesa</p>
-                <p>All Rigths Reserved</p>
-            </div>
-        </div>
-    </footer>
 </div>
-<script>
-    var adHeight = $('.img-wrapper').height();
-    if (adHeight < 170) {
-        var margintop = (170 - adHeight) / 2;
-        $('.img-wrapper img').css('margin-top', margintop);
-    }
-</script>
+
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="size">
+        <div class="row">
+            <c:forEach items="${pageData.adverts}" var="advert" varStatus="loop">
+                <div class="display-block">
+                    <div id="thumbnail" class="col-xxs-12 col-xs-6 col-sm-4  col-md-4  col-lg-4">
+                        <div class="test">
+                            <a href="/advert/${advert.id}">
+                                <div class="well">
+                                    <p class="status">
+                                        <c:choose>
+                                            <c:when test="${advert.status == 'A'}">
+                                                <font color="#48c083">Активно</font>
+                                            </c:when>
+                                            <c:when test="${advert.status == 'H'}">
+                                                Забронировано
+                                            </c:when>
+                                        </c:choose>
+                                        &nbsp;
+                                    </p>
+                                    <div class="thumbnail" >
+                                        <c:choose>
+                                            <c:when test="${empty advert.images}">
+                                                <img src="/img/mock.png" alt="advert's photo" class="image-adverts">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach items="${advert.images}" var="image" varStatus="loop">
+                                                    <c:choose>
+                                                        <c:when test="${image.type == 'M'}">
+                                                            <img src="/image/${image.id}" alt="advert's photo" class="image-adverts">
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <div class="wrap-title">
+                                        <p class="title">${advert.title}</p>
+                                    </div>
+                                    <div class="date-price-wrap">
+                                        <p class="date"><tags:localDateTime date="${advert.modificationDate}"/></p>
+                                        <p class="price">${advert.price} &nbsp; ${advert.currency}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</div>
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    <div class="pages">
+        <div class="size">
+            <div class="text-center">
+                <ul class="pagination">
+                    <li><a href="?page=1&currency=${selectedCurrency}${filterUrl}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
+                        <c:choose>
+                            <c:when test="${loop.index == activePage}">
+                                <li><a class="activePage" id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}${filterUrl}" data-original-title=""
+                                       title="">${loop.index}</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}${filterUrl}" data-original-title="" title="">${loop.index}</a></li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <li><a href="?page=${pageData.pageCount}&currency=${selectedCurrency}${filterUrl}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="size">
+        <footer>
+            <div class="foot">
+                <div class="well">
+                    <p>Salesa</p>
+                    <p>All Rights Reserved</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<jsp:include page="forms.jsp"/>
 
 </body>
 

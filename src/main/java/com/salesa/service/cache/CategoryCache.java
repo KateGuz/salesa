@@ -15,7 +15,8 @@ import java.util.List;
 public class CategoryCache {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private List<Category> categoryCache = new ArrayList<>();
+    private List<Category> categoryTreeCache = new ArrayList<>();
+    private List<Category> allCategoriesCache = new ArrayList<>();
 
     @Autowired
     private CategoryDao categoryDao;
@@ -24,12 +25,26 @@ public class CategoryCache {
     @Scheduled(fixedRate = 1000 * 60 * 60 * 4)
     private synchronized void invalidate() {
         log.info("Start invalidating of category cache");
-        categoryCache.clear();
-        categoryCache.addAll(categoryDao.getAll());
-        log.info("Category cache is invalidated, {} categories have been put to cache", categoryCache.size());
+        categoryTreeCache.clear();
+        categoryTreeCache.addAll(categoryDao.getAll());
+        allCategoriesCache.clear();
+        for (Category parent : categoryTreeCache) {
+            allCategoriesCache.add(parent);
+            List<Category> children = parent.getChildren();
+            if (children != null) {
+                allCategoriesCache.addAll(children);
+            }
+        }
+        log.info("Category cache is invalidated, {} categories have been put to cache", categoryTreeCache.size());
     }
 
-    public synchronized List<Category> getAll() {
-        return new ArrayList<>(categoryCache);
+    public synchronized List<Category> getCategoryTree() {
+        ArrayList<Category> categories = new ArrayList<>(categoryTreeCache);
+        log.trace("categories in the cache : {}", categories);
+        return categories;
+    }
+
+    public synchronized Category getCategoryById(int id) {
+        return allCategoriesCache.stream().filter((t) -> t.getId() == id).findAny().get();
     }
 }
