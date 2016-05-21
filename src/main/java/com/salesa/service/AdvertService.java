@@ -1,6 +1,7 @@
 package com.salesa.service;
 
 import com.salesa.entity.Advert;
+import com.salesa.entity.Image;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.util.entity.AdvertPageData;
 
@@ -12,5 +13,5 @@ public interface AdvertService {
     List<Advert> getByUserId(int userId);
     int saveAdvert(Advert advert);
     void update(Advert advert);
-    void delete(Advert advert);
+    void delete(int advertId);
 }

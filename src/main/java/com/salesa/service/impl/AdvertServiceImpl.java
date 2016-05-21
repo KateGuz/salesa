@@ -2,6 +2,7 @@ package com.salesa.service.impl;
 
 import com.salesa.dao.AdvertDao;
 import com.salesa.entity.Advert;
+import com.salesa.entity.Image;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.service.AdvertService;
 import com.salesa.util.CurrencyConverter;
@@ -65,8 +66,7 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public int saveAdvert(Advert advert) {
         log.info("Applying saving for advert {}", advert);
-        advertDao.saveAdvert(advert);
-        return advert.getId();
+        return advertDao.saveAdvert(advert);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public void delete(Advert advert) {
-        advertDao.delete(advert);
+    public void delete(int advertId) {
+        advertDao.delete(advertId);
     }
 }

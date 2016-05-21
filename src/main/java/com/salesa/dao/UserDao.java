@@ -10,7 +10,7 @@ public interface UserDao {
     int save(User user);
     User get(String email);
     void updateUsersDislike(User user);
-    void updateUser(User user);
     void updateUserType(User user);
     void deleteUser(User user);
+    void update(User user);
 }

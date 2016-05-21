@@ -37,7 +37,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span
+                                        class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a role="button" onclick="changeCurrencyOnUserPage('USD')">USD</a></li>
                                     <li><a role="button" onclick="changeCurrencyOnUserPage('UAH')">UAH</a></li>
@@ -70,54 +71,71 @@
             <div class="col-xs-12">
                 <div class="user-info-bar col-sm-4 col-md-4">
                     <div class="user-img thumbnail">
-                        <img src="/img/mock-user.png" alt="avatar">
+                        <c:choose>
+                            <c:when test="${!empty user.avatar}">
+                                <img src="/avatar/${user.id}" alt="avatar">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="/img/mock-user.png" alt="avatar">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-                    <div style="text-align: center" id="buttons">
-                        <h4>
-                            <div class="glyphicon glyphicon-user"></div>
-                            ${user.name}
-                        </h4>
-                        <p>
-                        <div class="glyphicon glyphicon-envelope"></div>
-                        ${user.email} </p>
-                        <p>
-                        <div class="glyphicon glyphicon-phone"></div>
-                        ${user.phone} </p>
-                            <c:choose>
-                                <c:when test="${empty loggedUser.name}">
-                                </c:when>
-                                <c:when test="${loggedUser.id == user.id}">
+                    <div style="text-align: center">
+                        <c:choose>
+                            <c:when test="${loggedUser.id == user.id}">
+                                <p class="title-text">
+                                    Выберите аватарку:
+                                </p>
+                                <input type="file" id="avatar" class="center-block choose-file">
+                                <h4>
+                                    <div class="glyphicon glyphicon-user"></div>
+                                    <input type="text" id="name" value="${user.name}" required>
+                                </h4>
+                                <p>
+                                <div class="glyphicon glyphicon-envelope"></div>
+                                <input type="text" id="email" value="${user.email}" required>
+                                </p>
+                                <c:choose>
+                                    <c:when test="${!empty user.phone}">
+                                        <p>
+                                        <div class="glyphicon glyphicon-phone"></div>
+                                        <input type="text" id="phone" value="${user.phone}">
+                                        </p>
+                                    </c:when>
+                                </c:choose>
+                                <p>
+                                <div class="glyphicon glyphicon-eye-close"></div>
+                                <input type="checkbox" id="checkbox" checked onclick="showPassword()">
+                                <input type="password" id="password" value="${user.password}">
+                                </p>
+                                <input type="button" class="save-changes save" onclick="editProfile(${user.id})"
+                                       value="Save changes"/>
+                                <p>
                                     <a href="/addAdvert">
                                         <button class="create"><strong>Add advert</strong></button>
                                     </a>
-                                </c:when>
-                                <c:otherwise>
-                                    <button id="dislike-button" class="dislike-btn" onclick="addDislike(${user.id})">
-                                        <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                        <div class="admin-buttons" id="admin-buttons" style="margin-top: 10px">
-                            <c:choose>
-                                <c:when test="${loggedUser.type == 'A'}">
-                                    <c:choose>
-                                        <c:when test="${user.type == 'U'}">
-                                            <button class="to-admin-btn" onclick="makeAdmin(${user.id})">
-                                                <i class="glyphicon">to admin</i>
-                                            </button>
-                                        </c:when>
-                                        <c:when test="${user.type == 'A'}">
-                                            <button class="to-user-btn" onclick="makeAdmin(${user.id})">
-                                                <i class="glyphicon">to user</i>
-                                            </button>
-                                        </c:when>
-                                    </c:choose>
-                                    <button class="delete-button" onclick="deleteUser(${user.id})">
-                                        <i class="glyphicon">delete user</i>
-                                    </button>
-                                </c:when>
-                            </c:choose>
-                        </div>
+                                </p>
+                            </c:when>
+                            <c:otherwise>
+                                <h4>
+                                    <div class="glyphicon glyphicon-user"></div>
+                                        ${user.name}
+                                </h4>
+                                <p>
+                                <div class="glyphicon glyphicon-envelope"></div>
+                                ${user.email} </p>
+                                <p>
+                                <c:choose>
+                                    <c:when test="${!empty user.phone}">
+                                        <div class="glyphicon glyphicon-phone"></div>
+                                        ${user.phone} </p>
+                                    </c:when>
+                                </c:choose>
+                                <button class="dislike-btn" onclick="addDislike(${user.id})">
+                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <br>
                 </div>
@@ -177,13 +195,12 @@
                                                     <h6><tags:localDateTime
                                                             date="${advert.modificationDate}" pattern="${pattern}"/></h6>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </c:forEach>
                                 </ol>
                             </div>
-
-
                             <div class="feedback-list-bar" id="feedback-list">
                                 <h3>Отзывы о пользователе</h3>
                                 <c:choose>

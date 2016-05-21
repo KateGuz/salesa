@@ -4,7 +4,6 @@ import com.salesa.entity.Advert;
 import com.salesa.entity.Category;
 import com.salesa.entity.User;
 import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,6 +11,8 @@ public class AdvertMapper implements RowMapper<Advert> {
 
     @Override
     public Advert mapRow(ResultSet resultSet, int i) throws SQLException {
+
+
         Advert advert = new Advert();
 
         advert.setId(resultSet.getInt("id"));

@@ -63,7 +63,7 @@ public class RestEditUserController {
         if(password != null){
             user.setPassword(password);
         }
-        userService.updateUser(user);
+        userService.update(user);
         return "Your changes was successfully saved \n" + user.toString();
     }
 }

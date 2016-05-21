@@ -1,6 +1,6 @@
 package com.salesa.entity;
 
-import java.io.InputStream;
+import java.util.List;
 
 public class User {
     private int id;
@@ -8,10 +8,11 @@ public class User {
     private String email;
     private String password;
     private String phone;
-    private InputStream avatar;
+    private byte[] avatar;
     private String status;
     private String type;
     private int dislikeAmount;
+    private List<Advert> adverts;
 
     public User() {
     }
@@ -77,11 +78,11 @@ public class User {
         this.phone = phone;
     }
 
-    public InputStream getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(InputStream avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 

@@ -1,4 +1,4 @@
-function saveAdvertWithImage() {
+function editAdvert(advertId) {
     var formData = new FormData();
     formData.append('title', $('#title').val());
     formData.append('price', $('#price').val());
@@ -9,14 +9,14 @@ function saveAdvertWithImage() {
     formData.append('mainImage', $('#advertImage')[0].files[0]);
 
     var files = $('#otherAdvertImages').prop('files');
-    for(var i=0;i<files.length;i++){
+    for (var i = 0; i < files.length; i++) {
         formData.append('otherImages', files[i]);
     }
     $.ajax({
             headers: {
-                Accept : "application/json; charset=utf-8"
+                Accept: "application/json; charset=utf-8"
             },
-            url: '/addAdvert',
+            url: '/editAdvert/' + advertId,
             data: formData,
             processData: false,
             contentType: false,

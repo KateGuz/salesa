@@ -2,7 +2,9 @@ package com.salesa.controller;
 
 import com.salesa.entity.Advert;
 import com.salesa.entity.Category;
+import com.salesa.entity.User;
 import com.salesa.service.AdvertService;
+import com.salesa.service.UserService;
 import com.salesa.service.cache.CategoryCache;
 import com.salesa.util.CurrencyConverter;
 import org.slf4j.Logger;
@@ -27,6 +29,9 @@ public class AdvertController {
     private AdvertService advertService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private CategoryCache categoryCache;
 
     @Autowired
@@ -34,6 +39,12 @@ public class AdvertController {
 
     @RequestMapping("/advert/{advertId}")
     public String advert(@PathVariable("advertId") int advertId, Model model, HttpSession session, @RequestParam(required = false) String currency) {
+        if (currency == null && session.getAttribute("selectedCurrency") == null) {
+            currency = "UAH";
+        }
+        if (currency == null && session.getAttribute("selectedCurrency") != null) {
+            currency = (String) session.getAttribute("selectedCurrency");
+        }
         if (currency != null) {
             session.setAttribute("selectedCurrency", currency);
         }
@@ -44,6 +55,8 @@ public class AdvertController {
         currencyConverter.updatePriceAndCurrency(advert, defaultCurrency);
 
         Category category = categoryCache.getCategoryById(advert.getCategory().getId());
+        User user = userService.get(advert.getUser().getId());
+        advert.setUser(user);
         List<Category> breadcrumbsTree = new ArrayList<>();
         do {
             breadcrumbsTree.add(category);

@@ -60,8 +60,7 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public User get(int userId) {
-        QueryAndParams queryAndParams = queryGenerator.generateUserById(userId);
-        log.info("Query for user with id {}", userId);
+        QueryAndParams queryAndParams = queryGenerator.generateUserByIdQuery(userId);
         return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new UserMapper());
     }
 
@@ -92,13 +91,14 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         log.info("Query update user with id: ", user.getId());
         Map<String, Object> params = new HashMap<>();
         params.put("name", user.getName());
         params.put("email", user.getEmail());
         params.put("phone", user.getPhone());
         params.put("password", user.getPassword());
+        params.put("avatar", user.getAvatar());
         params.put("id", user.getId());
 
         namedParameterJdbcTemplate.update(updateUserSQL, params);
