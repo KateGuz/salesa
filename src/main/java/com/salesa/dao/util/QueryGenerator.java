@@ -1,11 +1,14 @@
 package com.salesa.dao.util;
 
 
+import com.salesa.entity.Category;
 import com.salesa.filter.AdvertFilter;
+import com.salesa.service.cache.CategoryCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.salesa.dao.impl.AdvertJdbcDao.MAX_ADVERTS_PER_PAGE;
@@ -29,6 +32,9 @@ public class QueryGenerator {
 
     @Autowired
     private String getUserByIdSQL;
+
+    @Autowired
+    private CategoryCache categoryCache;
 
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
         this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
@@ -72,8 +78,17 @@ public class QueryGenerator {
     }
 
     private void addCategoryFiltering(int categoryId, StringBuilder query, Map<String, Object> params) {
+
         params.put("categoryId", categoryId);
-        query.append("categoryId = :categoryId");
+        query.append("categoryId IN (:categoryId");
+        Category targetCategory = categoryCache.getCategoryById(categoryId);
+        List<Category> children = targetCategory.getChildren();
+        if(children != null){
+            for (Category child : children) {
+                query.append(", " + child.getId());
+            }
+        }
+        query.append(")");
     }
 
     private void addPagination(int page, StringBuilder query, Map<String, Object> params) {
