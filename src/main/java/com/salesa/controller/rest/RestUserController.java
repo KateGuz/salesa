@@ -1,64 +1,64 @@
 package com.salesa.controller.rest;
 
-import com.salesa.entity.Advert;
-import com.salesa.entity.Feedback;
 import com.salesa.entity.User;
-import com.salesa.service.AdvertService;
+import com.salesa.security.UserSecurity;
 import com.salesa.service.UserService;
-import com.salesa.util.UserDataRest;
+import com.salesa.util.UserParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 
 @RestController
+@RequestMapping(value = "/v1/user/{userId}")
 public class RestUserController {
     private final Logger log = LoggerFactory.getLogger(getClass());
-    @Autowired
-    private AdvertService advertService;
+
     @Autowired
     private UserService userService;
     @Autowired
-    UserDataRest userDataRest;
-
-
-    @RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET,
-            headers = {"Accept=application/xml;charset=UTF-8", "Accept=application/json;charset=UTF-8"},
-            produces = {"application/xml", "application/json"})
-    public String user(@PathVariable("userId") int userId, @RequestHeader("accept") String header, HttpServletResponse responsee) throws IOException {
-        log.info("Query get adverts by userId: " + userId);
-        log.info("Query get feedbacks by userId: " + userId);
-        log.info("Query get user by userId: " + userId);
+    private UserSecurity userSecurity;
+    @Autowired
+    private UserParser userParser;
+    @RequestMapping(value = "/v1/user/{userId}", method = RequestMethod.GET, headers = {"Content-type=application/json;charset=UTF-8"})
+    public String getUserJson(@PathVariable("userId") int userId) throws IOException {
         User user = userService.get(userId);
-        List<Advert> adverts = advertService.getByUserId(userId);
-        Collections.reverse(adverts);
-        List<Feedback> feedbacks = userService.getByUserId(userId);
-        Collections.reverse(feedbacks);
-        if (header.contains("/json")) {
-            return userDataRest.toJSON(user, feedbacks, adverts);
-        }
-        if (header.contains("/xml")) {
-            return userDataRest.toXML(user, feedbacks, adverts);
-        } else {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(user);
-            stringBuilder.append("\n");
-            for (Advert advert : adverts) {
-                stringBuilder.append(advert);
-                stringBuilder.append("\n");
-            }
-            for (Feedback feedback : feedbacks) {
-                stringBuilder.append(feedback);
-                stringBuilder.append("\n");
-            }
-            return stringBuilder.toString();
-        }
+        log.info("Getting json for user : {}", user);
+        return userParser.toJSON(user);
+    }
 
+    // TODO: 5/14/2016 xml 
+    @RequestMapping(value = "/v1/user/{userId}", method = RequestMethod.PUT)
+    public ResponseEntity<String> editUser(@PathVariable("userId") int userId, HttpSession session, HttpServletRequest request) throws IOException {
+        if(userSecurity.getUserBySessionId(session.getId()).getId() != userId){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        User user = userService.get(userId);
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        if(name != null){
+            user.setName(name);
+        }
+        if(phone != null){
+            user.setPhone(phone);
+        }
+        if(email != null){
+            user.setEmail(email);
+        }
+        if(password != null){
+            user.setPassword(password);
+        }
+        log.info("User to update : {}", user);
+        userService.update(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

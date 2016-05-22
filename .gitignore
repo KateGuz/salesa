@@ -3,7 +3,7 @@ target/
 ## Directory-based project format:
 .idea/
 # if you remove the above rule, at least ignore the following:
-
+reports/
 # User-specific stuff:
 # .idea/workspace.xml
 # .idea/tasks.xml

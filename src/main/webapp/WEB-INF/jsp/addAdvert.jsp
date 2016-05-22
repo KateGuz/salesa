@@ -20,9 +20,9 @@
                     <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="col-sm-4">
-                    <form class="navbar-form " role="search">
+                    <form class="navbar-form " role="search" action="/search">
                         <div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="searchText">
                             <span class="input-group-btn">
                                 <button class="btn btn-default go" type="submit">Поиск</button>
                             </span>
@@ -78,7 +78,7 @@
         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0" id="advert-info">
             <div class="size">
                 <div class="advert-info-bar col-xs-12 well">
-                    <form id="create" method="post">
+                    <form id="create">
                         <div class="row">
                             <div class="col-sm-8 col-md-8 left-padding">
                                 <div class="text-bar">

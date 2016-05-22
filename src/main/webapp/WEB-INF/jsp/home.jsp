@@ -22,9 +22,9 @@
                     <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="col-sm-4">
-                    <form class="navbar-form " role="search">
+                    <form class="navbar-form " role="search" action="/search">
                         <div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="searchText">
                             <span class="input-group-btn">
                                 <button class="btn btn-default go" type="submit">Поиск</button>
                             </span>
@@ -36,11 +36,12 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span
+                                        class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                        <li><a role="button" onclick="changeCurrency('USD')">USD</a></li>
-                                        <li><a role="button" onclick="changeCurrency('UAH')">UAH</a></li>
-                                        <li><a role="button" onclick="changeCurrency('EUR')">EUR</a></li>
+                                    <li><a role="button" onclick="changeCurrency('USD')">USD</a></li>
+                                    <li><a role="button" onclick="changeCurrency('UAH')">UAH</a></li>
+                                    <li><a role="button" onclick="changeCurrency('EUR')">EUR</a></li>
                                 </ul>
                             </li>
                             <c:choose>
@@ -102,9 +103,13 @@
                 </div>
                 <div class="col-sm-10">
                     <div class="btn-group nav navbar-nav navbar-right">
-                        <button onclick="window.location.href='/'" type="button" class="btn btn-error">Сбросить фильтры</button>
-                        <button type="button" class="btn btn-default" onclick="sortByPrice('ASC')">Самые дешевые</button>
-                        <button type="button" class="btn btn-default" onclick="sortByPrice('DESC')">Самые дорогие</button>
+                        <button onclick="window.location.href='/'" type="button" class="btn btn-error">Сбросить
+                            фильтры
+                        </button>
+                        <button type="button" class="btn btn-default" onclick="sortByPrice('ASC')">Самые дешевые
+                        </button>
+                        <button type="button" class="btn btn-default" onclick="sortByPrice('DESC')">Самые дорогие
+                        </button>
                         <button type="button" class="btn btn-default" onclick="showActive()">Активные</button>
                     </div>
                 </div>
@@ -171,20 +176,46 @@
         <div class="size">
             <div class="text-center">
                 <ul class="pagination">
-                    <li><a href="?page=1&currency=${selectedCurrency}${filterUrl}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                    <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
-                        <c:choose>
-                            <c:when test="${loop.index == activePage}">
-                                <li><a class="activePage" id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}${filterUrl}" data-original-title=""
-                                       title="">${loop.index}</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li><a id="?page=${loop.index}" href="?page=${loop.index}&currency=${selectedCurrency}${filterUrl}" data-original-title="" title="">${loop.index}</a></li>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    <li><a href="?page=${pageData.pageCount}&currency=${selectedCurrency}${filterUrl}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-                    </li>
+
+                    <c:choose>
+                        <c:when test="${pageData.pageCount == 1}">
+                            <%--So dont display any pages buttons--%>
+                        </c:when>
+                        <c:otherwise>
+
+                            <c:if test="${activePage != 1}">
+                                <li><a href="?page=1&currency=${selectedCurrency}${filterUrl}&searchText=${searchText}"
+                                       aria-label="Previous"><span
+                                        aria-hidden="true">&laquo;</span></a></li>
+                            </c:if>
+
+
+                            <c:forEach begin="1" end="${pageData.pageCount}" varStatus="loop">
+                                <c:choose>
+                                    <c:when test="${loop.index == activePage}">
+                                        <li><a class="activePage" id="?page=${loop.index}"
+                                               href="?page=${loop.index}&currency=${selectedCurrency}${filterUrl}&searchText=${searchText}"
+                                               data-original-title=""
+                                               title="">${loop.index}</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a id="?page=${loop.index}"
+                                               href="?page=${loop.index}&currency=${selectedCurrency}${filterUrl}&searchText=${searchText}"
+                                               data-original-title="" title="">${loop.index}</a></li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+
+
+                            <c:if test="${pageData.pageCount > activePage}">
+                                <li>
+                                    <a href="?page=${pageData.pageCount}&currency=${selectedCurrency}${filterUrl}&searchText=${searchText}"
+                                       aria-label="Next"><span
+                                            aria-hidden="true">&raquo;</span></a></li>
+                            </c:if>
+
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
         </div>

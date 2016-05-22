@@ -1,7 +1,7 @@
 package com.salesa.filter;
 
 public class AdvertFilter {
-
+    private String searchText;
     private int page;
     private int categoryId;
     private boolean active;
@@ -39,10 +39,23 @@ public class AdvertFilter {
         this.categoryId = categoryId;
     }
 
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public Boolean getSortPriceAsc() {
+        return sortPriceAsc;
+    }
+
     @Override
     public String toString() {
         return "AdvertFilter{" +
-                "page=" + page +
+                "searchText='" + searchText + '\'' +
+                ", page=" + page +
                 ", categoryId=" + categoryId +
                 ", active=" + active +
                 ", sortPriceAsc=" + sortPriceAsc +

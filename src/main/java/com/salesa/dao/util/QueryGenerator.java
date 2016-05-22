@@ -23,7 +23,6 @@ public class QueryGenerator {
     private static final String AND_STATEMENT = " AND ";
     private static final String ORDER_BY_STATEMENT = " ORDER BY ";
     private static final String DESC_STATEMENT = " DESC ";
-
     @Autowired
     private String getAdvertsTemplateSQL;
 
@@ -37,7 +36,14 @@ public class QueryGenerator {
     private String getUserByIdSQL;
 
     @Autowired
+    private String getAdvertsForReport;
+    @Autowired
+    private String getAllAdvertsSQL;
+    @Autowired
+    private String searchSQL;
+    @Autowired
     private CategoryCache categoryCache;
+
 
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
         this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
@@ -45,6 +51,14 @@ public class QueryGenerator {
 
     public void setAddPagingTemplateSQL(String addPagingTemplateSQL) {
         this.addPagingTemplateSQL = addPagingTemplateSQL;
+    }
+
+    public QueryAndParams generateAll(AdvertFilter advertFilter) {
+        StringBuilder query = new StringBuilder(getAllAdvertsSQL);
+        Map<String, Object> params = new HashMap<>();
+        addPagination(advertFilter.getPage(), query, params);
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);
     }
 
     public QueryAndParams generateAdvertQuery(AdvertFilter advertFilter) {
@@ -133,4 +147,25 @@ public class QueryGenerator {
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
     }
+
+    public QueryAndParams generateAdvertsForReport(String dateFrom, String dateTo){
+        StringBuilder query = new StringBuilder(getAdvertsForReport);
+        Map <String, Object> params = new HashMap<>();
+        params.put("dateFrom", dateFrom);
+        query.append(":dateFrom");
+        query.append(AND_STATEMENT);
+        params.put("dateTo", dateTo);
+        query.append(":dateTo");
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);
+    }
+
+    public QueryAndParams search(AdvertFilter advertFilter) {
+        StringBuilder query = new StringBuilder(searchSQL);
+        Map<String, Object> params = new HashMap<>();
+        params.put("text", advertFilter.getSearchText());
+        addPagination(advertFilter.getPage(), query, params);
+        return new QueryAndParams(query.toString(), params);
+    }
 }
+

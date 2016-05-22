@@ -105,7 +105,7 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public void updateUserType(User user){
+    public void updateUserType(User user) {
         log.info("Query update user with id {}", user.getId());
         Map<String, Object> params = new HashMap<>();
         params.put("type", user.getType());
@@ -115,10 +115,11 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public void deleteUser(User user){
+    public void deleteUser(User user) {
         log.info("Query for deleting user by id: ", user.getId());
         Map<String, Object> params = new HashMap<>();
         params.put("id", user.getId());
         namedParameterJdbcTemplate.update(deleteUserSQL, params);
     }
+
 }

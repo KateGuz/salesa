@@ -21,8 +21,6 @@ public class EditProfileController {
     @Autowired
     private UserService userService;
 
-
-
     @RequestMapping(value = "/editProfile/{id}", method = RequestMethod.POST)
     public ResponseEntity<Integer> editAdvert(HttpServletRequest httpServletRequest,
                                               @PathVariable("id") int userId,

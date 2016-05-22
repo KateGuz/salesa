@@ -5,7 +5,6 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-
     <bean id="getAllAdvertsSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
 a.currency, a.status, a.categoryId, a.userId, aP.id as imageId, aP.type FROM advert as a LEFT JOIN advertPicture as aP
@@ -128,10 +127,6 @@ ON (a.id = aP.advertId) WHERE a.status != 'S'"/>
         <constructor-arg value="DELETE FROM advert WHERE id=:advertId;"/>
     </bean>
 
-    <!--<bean id="deleteAdvertSQL" class="java.lang.String">-->
-    <!--<constructor-arg value="DELETE FROM advert WHERE id = :id;"/>-->
-    <!--</bean>-->
-
     <bean id="deleteImageSQL" class="java.lang.String">
         <constructor-arg
                 value="DELETE FROM advertPicture WHERE id=:imageId;"/>
@@ -146,6 +141,33 @@ ON (a.id = aP.advertId) WHERE a.status != 'S'"/>
         <constructor-arg
                 value="DELETE u, a, f FROM user u RIGHT JOIN advert a ON u.id = a.UserId LEFT JOIN feedback f ON u.id = f.userId WHERE u.id = :id;"/>
     </bean>
+
+    <bean id="getAdvertsForReport" class="java.lang.String">
+        <constructor-arg value="SELECT c.advertId, c.advertTitle, c.advertText, c.advertPrice, c.advertCurrency, c.advertStatus,
+                                   c.advertModificationDate, c.userName, c.userEmail FROM change_status as c
+                                   WHERE advertModificationDate BETWEEN "/>
+    </bean>
+
+    <bean id="saveReportSQL" class="java.lang.String">
+        <constructor-arg value="CALL saveReportAndGetId(:name, :document);"/>
+    </bean>
+
+    <bean id="getReportByIdSQL" class="java.lang.String">
+        <constructor-arg value="SELECT r.id, r.name, r.document FROM report as r WHERE r.id = :id;"/>
+    </bean>
+
+    <bean id="deleteReportsSQL" class="java.lang.String">
+        <constructor-arg value="DELETE FROM report;"/>
+    </bean>
+
+    <bean id="searchSQL" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM advert WHERE title RLIKE :text OR text RLIKE :text"/>
+    </bean>
+
+    <bean id="searchSQLCount" class="java.lang.String">
+        <constructor-arg value="SELECT count(*) as count FROM advert WHERE title RLIKE '%s' OR text RLIKE '%s'"/>
+    </bean>
+
 </beans>
 
 

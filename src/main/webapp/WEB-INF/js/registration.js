@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#btn-log').click(function () {
-        if ($("#email").val() === '' || $("#password").val() === '') {
+        if ($("#email").val() === '' || $("#pass").val() === '') {
             $('#btn-log').on("click", function (e) {
                 e.preventDefault;
             });
@@ -11,7 +11,7 @@ $(document).ready(function () {
             dataType: 'json',
             data: {
                 email: $("#email").val(),
-                pass: $("#password").val()
+                pass: $("#pass").val()
             },
             success: function (loggedUser) {
                 $('.userLink').html('<a href="/user/${loggedUser.id}">${loggedUser.name}</a>');
