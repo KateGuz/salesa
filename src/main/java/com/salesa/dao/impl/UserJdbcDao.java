@@ -44,6 +44,12 @@ public class UserJdbcDao implements UserDao {
     private String updateUserSQL;
 
     @Autowired
+    private String updateUserTypeSQL;
+
+    @Autowired
+    private String deleteUserSQL;
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
 
@@ -76,11 +82,11 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public void updateUsersDislike(User user) {
-        log.info("Query add dislike to user: ", user.getEmail());
         Map<String, Object> params = new HashMap<>();
+        params.put("id", user.getId());
         params.put("dislike", user.getDislikeAmount());
-        params.put("email", user.getEmail());
-
+        params.put("status", user.getStatus());
+        log.info("Updating dislikes for user with params {}", params);
         namedParameterJdbcTemplate.update(updateUsersDislikesSQL, params);
     }
 
@@ -96,5 +102,23 @@ public class UserJdbcDao implements UserDao {
         params.put("id", user.getId());
 
         namedParameterJdbcTemplate.update(updateUserSQL, params);
+    }
+
+    @Override
+    public void updateUserType(User user){
+        log.info("Query update user with id {}", user.getId());
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", user.getType());
+        params.put("id", user.getId());
+        namedParameterJdbcTemplate.update(updateUserTypeSQL, params);
+        log.info("User type was updated to {}", user.getType());
+    }
+
+    @Override
+    public void deleteUser(User user){
+        log.info("Query for deleting user by id: ", user.getId());
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", user.getId());
+        namedParameterJdbcTemplate.update(deleteUserSQL, params);
     }
 }

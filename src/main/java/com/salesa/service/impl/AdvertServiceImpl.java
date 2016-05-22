@@ -33,6 +33,7 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public AdvertPageData get(AdvertFilter advertFilter) {
+        log.info("Applying query to get adverts by request {}", advertFilter);
         AdvertPageData advertPageData = advertDao.get(advertFilter);
         List<Advert> adverts = advertPageData.getAdverts();
         // sorting
@@ -52,21 +53,25 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public Advert get(int advertId) {
+        log.info("Applying query to get advert with id {}", advertId);
         return advertDao.get(advertId);
     }
 
     @Override
     public List<Advert> getByUserId(int userId) {
+        log.info("Applying query to get adverts by user with id {}", userId);
         return advertDao.getByUserId(userId);
     }
 
     @Override
     public int saveAdvert(Advert advert) {
+        log.info("Applying saving for advert {}", advert);
         return advertDao.saveAdvert(advert);
     }
 
     @Override
     public void update(Advert advert) {
+        log.info("Applying query to update advert: {}", advert);
         advertDao.update(advert);
     }
 
@@ -74,5 +79,4 @@ public class AdvertServiceImpl implements AdvertService {
     public void delete(int advertId) {
         advertDao.delete(advertId);
     }
-
 }

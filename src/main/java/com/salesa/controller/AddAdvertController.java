@@ -76,8 +76,9 @@ public class  AddAdvertController {
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        log.info("Creating advert " + title + " " + price + " " + currency);
+        log.info("Creating advert... Title: {}; text: {}; price: {}; currency: {}; status: {}", title, text, price, currency, status);
         int userId = userSecurity.getUserBySessionId(session.getId()).getId();
+        log.info("Author id: {}", userId);
         Advert advert = new Advert();
         advert.setTitle(title);
         advert.setText(text);
@@ -87,6 +88,7 @@ public class  AddAdvertController {
         advert.setStatus(status);
         advert.setModificationDate(LocalDateTime.now());
         advert.setUser(new User(userId));
+
         int savedAdvertId = advertService.saveAdvert(advert);
 
         if(mainImage != null) {
@@ -103,6 +105,7 @@ public class  AddAdvertController {
                 imageService.saveAdvertImage(image, savedAdvertId);
             }
         }
+        log.info("Advert {} was successfully saved.");
         defaultPriceUpdater.updateDefaultPrice();
         return new ResponseEntity<>(userId,HttpStatus.OK);
     }

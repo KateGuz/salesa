@@ -17,12 +17,16 @@ $(document).ready(function () {
                 $('.userLink').html('<a href="/user/${loggedUser.id}">${loggedUser.name}</a>');
                 $('.out').html('<a href="/signOut">Выйти</a>').show();
                 $('.alert').hide();
-               /* location.reload();*/
             },
             error: function () {
                 message($('#error'));
             }
         });
+
+        $('#buttons').load(document.URL + ' #buttons');
+        $('#adverts-list').load(document.URL + ' #adverts-list');
+        $('#feedback-list').load(document.URL + ' #feedback-list');
+        $('#advert-info').load(document.URL + ' #advert-info');
     });
     $('#btn-reg').click(function () {
         if ($("#reg-name").val() === '' || $("#reg-email").val() === '' || $("#reg-password").val() === '') {
@@ -43,15 +47,16 @@ $(document).ready(function () {
                 message($('#success-reg'));
                 $('.userLink').html('<a href="/user/${loggedUser.id}">${loggedUser.name}</a>');
                 $('.out').html('<a href="/signOut">Выйти</a>').show();
-
             },
             error: function () {
                 message($('#error'));
             }
         });
-
+        $('#advert-info').load(document.URL + ' #advert-info');
+        $('#buttons').load(document.URL + ' #buttons');
+        $('#adverts-list').load(document.URL + ' #adverts-list');
+        $('#feedback-list').load(document.URL + ' #feedback-list');
     });
-
     function message(a) {
         a.modal('show');
         setTimeout(function () {

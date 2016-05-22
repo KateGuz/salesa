@@ -34,7 +34,7 @@ public class UserSecurityController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        log.info("signing up, name " + name + " email " + email + " password " + password);
+        log.info("Signing up with name {}, email {} and password {}", name, email, password);
         User user = new User();
         user.setEmail(email);
         user.setName(name);
@@ -43,12 +43,13 @@ public class UserSecurityController {
         userSecurity.addSession(session.getId(), user);
         session.setAttribute("loggedUser", user);
         String loggedUser = new Gson().toJson(user);
+        log.info("Successful signing up for user {}", user);
         return new ResponseEntity<>(loggedUser, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
     public ResponseEntity<String> singIn(@RequestParam("email") String email, @RequestParam("pass") String password, HttpSession session) {
-        log.info("signing in,  " + email + " password " + password);
+        log.info("Signing in with email {} and password {}", email, password);
 
         User user = userService.get(email);
         if (!(user.getPassword().equals(password))) {
@@ -57,14 +58,15 @@ public class UserSecurityController {
         userSecurity.addSession(session.getId(), user);
         session.setAttribute("loggedUser", user);
         String loggedUser = new Gson().toJson(user);
+        log.info("Successful signing in for user {}", user);
         return new ResponseEntity<>(loggedUser, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/signOut", method = RequestMethod.GET)
     public String signOut(HttpSession session) {
+        log.info("Signing out");
         session.removeAttribute("loggedUser");
         userSecurity.deleteSession(session.getId());
-        log.info("signing out");
         return "redirect:/";
     }
 

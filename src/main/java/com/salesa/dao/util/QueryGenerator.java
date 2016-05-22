@@ -3,6 +3,8 @@ package com.salesa.dao.util;
 
 import com.salesa.entity.Category;
 import com.salesa.filter.AdvertFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.salesa.service.cache.CategoryCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import static com.salesa.dao.impl.AdvertJdbcDao.MAX_ADVERTS_PER_PAGE;
 
 @Service
 public class QueryGenerator {
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private static final char END_SEPARATOR = ';';
     private static final String WHERE_STATEMENT = " WHERE ";
     private static final String AND_STATEMENT = " AND ";
@@ -99,12 +102,14 @@ public class QueryGenerator {
     }
 
     public QueryAndParams generateAdvertQuery(int advertId) {
+        log.info("Start generating query to get advert by id {}", advertId);
         StringBuilder query = new StringBuilder(getUserAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();
         params.put("id", advertId);
         query.append(AND_STATEMENT);
         query.append("a.id = :id");
         query.append(END_SEPARATOR);
+        log.info("Query to get advert with id {} was generated successfully", advertId);
         return new QueryAndParams(query.toString(), params);
 
     }

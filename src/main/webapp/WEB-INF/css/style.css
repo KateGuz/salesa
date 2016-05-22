@@ -254,7 +254,7 @@ input.form-control {
 }
 
 /*user-page*/
-.dislike-btn {
+.dislike-btn, .to-user-btn, .delete-button {
     background-color: #db5450;
     font-family: Roboto, monospace;
     font-size: 15%;
@@ -266,6 +266,32 @@ input.form-control {
     height: 25px;;
     display: inline-block;
     text-align: center;
+}
+
+.to-admin-btn {
+    background-color: #48c083;
+    font-family: Roboto, monospace;
+    font-size: 15%;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    width: 100px;
+    height: 25px;;
+    display: inline-block;
+    text-align: center;
+}
+
+.to-admin-btn:hover {
+    background-color: #4FCF8E;
+}
+
+.to-user-btn:hover {
+    background-color: #f04238;
+}
+
+.delete-button:hover {
+    background-color: #f04238;
 }
 
 .dislike-btn:hover {
@@ -500,7 +526,7 @@ ul.nav.navbar-right {
 #user-advert-price {
     display: inline-block;
     text-align: right;
-    float: right;
+    float: left;
     font-weight: bold;
     padding-right: 15px;
 }
@@ -739,11 +765,37 @@ input {
     width: 100px;
 }
 
+.price-delete{
+    float: right;
+}
+
+.deleteAdvBtn{
+    display: inline-block;
+    float: right;
+    box-sizing: content-box;
+    width: 15px;
+    height: 15px;
+    margin-top: 8px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 20%;
+    color: #f5f5f5;
+    background: #db5450;
+}
+
+.deleteAdvBtn:hover{
+    background: #f04238;
+}
+
+.hidden-div {
+    display:none;
+}
 .edit:hover{
     background-color: #2b542c;
 }
-
-
+.show-div {
+    display:inline;
+}
 
 .image-adverts {
     height: 200px !important;

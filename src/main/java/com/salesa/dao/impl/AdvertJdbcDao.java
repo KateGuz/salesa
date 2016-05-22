@@ -1,23 +1,24 @@
 package com.salesa.dao.impl;
 
 import com.salesa.dao.AdvertDao;
-import com.salesa.dao.mapper.*;
+import com.salesa.dao.mapper.AdvertExtractor;
+import com.salesa.dao.mapper.AdvertMapper;
+import com.salesa.dao.mapper.ImageMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
-import com.salesa.entity.Image;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.util.entity.AdvertPageData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
@@ -46,8 +47,8 @@ public class AdvertJdbcDao implements AdvertDao {
     @Autowired
     private String deleteAdvertSQL;
 
-
     @Override
+
     public AdvertPageData get(AdvertFilter advertFilter) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertFilter);
 
@@ -95,6 +96,7 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Override
     public List<Advert> getByUserId(int userId) {
+        log.info("Getting adverts by user with id {}", userId);
         QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
         return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, ADVERT_EXTRACTOR);
     }
@@ -120,7 +122,7 @@ public class AdvertJdbcDao implements AdvertDao {
 
     @Override
     public void update(Advert advert) {
-        log.info("updating advert {}", advert);
+        log.info("Updating advert {}", advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("title", advert.getTitle());
         mapSqlParameterSource.addValue("text", advert.getText());
@@ -138,5 +140,4 @@ public class AdvertJdbcDao implements AdvertDao {
     public void delete(int advertId) {
         namedParameterJdbcTemplate.update(deleteAdvertSQL, new MapSqlParameterSource("advertId", advertId));
     }
-
 }
