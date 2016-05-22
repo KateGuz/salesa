@@ -37,7 +37,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span
+                                        class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a role="button" onclick="changeCurrencyOnUserPage('USD')">USD</a></li>
                                     <li><a role="button" onclick="changeCurrencyOnUserPage('UAH')">UAH</a></li>
@@ -83,20 +84,20 @@
                         <p>
                         <div class="glyphicon glyphicon-phone"></div>
                         ${user.phone} </p>
-                            <c:choose>
-                                <c:when test="${empty loggedUser.name}">
-                                </c:when>
-                                <c:when test="${loggedUser.id == user.id}">
-                                    <a href="/addAdvert">
-                                        <button class="create"><strong>Add advert</strong></button>
-                                    </a>
-                                </c:when>
-                                <c:otherwise>
-                                    <button id="dislike-button" class="dislike-btn" onclick="addDislike(${user.id})">
-                                        <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
+                        <c:choose>
+                            <c:when test="${empty loggedUser.name}">
+                            </c:when>
+                            <c:when test="${loggedUser.id == user.id}">
+                                <a href="/addAdvert">
+                                    <button class="create"><strong>Add advert</strong></button>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <button id="dislike-button" class="dislike-btn" onclick="addDislike(${user.id})">
+                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
                         <div class="admin-buttons" id="admin-buttons" style="margin-top: 10px">
                             <c:choose>
                                 <c:when test="${loggedUser.type == 'A'}">
@@ -175,7 +176,8 @@
                                                     <p>${advert.text}</p>
                                                     <br>
                                                     <h6><tags:localDateTime
-                                                            date="${advert.modificationDate}" pattern="${pattern}"/></h6>
+                                                            date="${advert.modificationDate}"
+                                                            pattern="${pattern}"/></h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,15 +192,18 @@
                                     <c:when test="${empty loggedUser}">
                                         <div class="alert alert-info" role="alert">
                                             <p><a href="#user-security-log" data-toggle="modal"
-                                                  data-target="#user-security-log"><strong>Авторизируйтесь</strong></a>, чтобы
+                                                  data-target="#user-security-log"><strong>Авторизируйтесь</strong></a>,
+                                                чтобы
                                                 оставить отзыв о продавце </p>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
                                         <div class="row">
                                             <div class="feedback-form">
-                                                <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
-                                                <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
+                                                <textarea class="feedback-input"
+                                                          placeholder="Оставьте ваш отзыв"></textarea>
+                                                <button class="feedback-btn" onclick="addFeedback(${user.id})">Send
+                                                </button>
                                             </div>
                                         </div>
 
@@ -209,7 +214,8 @@
                                     <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
                                         <div class="media well">
                                             <div class="media-left">
-                                                <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png">
+                                                <img class="media-object thumbnail feedback-img-list-item"
+                                                     src="/img/1.png">
                                             </div>
                                             <div class="media-body">
                                                 <a href="/user/${feedback.author.id}">
@@ -247,7 +253,8 @@
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
-                        <li><a href="?page=${pageData.pageCount}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                        <li><a href="?page=${pageData.pageCount}" aria-label="Next"><span
+                                aria-hidden="true">&raquo;</span></a>
                         </li>
                     </ul>
                 </div>
