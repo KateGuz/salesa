@@ -120,12 +120,12 @@
                             </h4>
                             <p>
                             <div class="glyphicon glyphicon-envelope"></div>
-                            email: ${advert.user.email}
+                            ${advert.user.email}
                             <c:choose>
                                 <c:when test="${!empty advert.user.phone}">
                                     <p>
                                     <div class="glyphicon glyphicon-phone"></div>
-                                    <input type="text" id="phone" value="${advert.user.phone}">
+                                    ${advert.user.phone}
                                     </p>
                                 </c:when>
                             </c:choose>

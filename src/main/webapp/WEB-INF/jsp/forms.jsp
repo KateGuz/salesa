@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <%--  <jsp:include page="head-include.jsp"/>--%>
+    <%--  <jsp:include page="head-include.jsp"/>--%>
 </head>
 <body>
 <%--login-modal--%>
@@ -12,20 +12,21 @@
             <div class="modal-body">
                 <h3>Вход</h3>
                 <form>
-                    <input type="email" name="email" id="email" placeholder="Email" maxlength="30" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"     required>
+                    <input type="email" name="email" id="email" placeholder="Email" maxlength="30"
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                     <br>
                     <input type="password" name="pass" id="pass" placeholder="Password" required>
                     <br>
-                    <input type="submit" value ="ok" id="btn-log" data-dismiss="modal">
+                    <input type="submit" value="ok" id="btn-log" data-dismiss="modal">
                 </form>
-                    <br>
-                    <br>
-                    <p>Еще не зарегистрированы?
-                        <a href="#user-security-reg" data-toggle="modal"
-                                                  data-target="#user-security-reg"
-                                                  data-dismiss="modal">Зарегистрироваться
-                        </a>
-                    </p>
+                <br>
+                <br>
+                <p>Еще не зарегистрированы?
+                    <a href="#user-security-reg" data-toggle="modal"
+                       data-target="#user-security-reg"
+                       data-dismiss="modal">Зарегистрироваться
+                    </a>
+                </p>
             </div>
         </div>
     </div>
@@ -42,11 +43,12 @@
                 <form>
                     <input type="text" name="name" id="reg-name" placeholder="Name" required>
                     <br>
-                    <input type="email" name="email" id="reg-email" placeholder="Email" maxlength="30" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                    <input type="email" name="email" id="reg-email" placeholder="Email" maxlength="30"
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                     <br>
                     <input type="pass" name="pass" id="reg-pass" placeholder="Password" required>
                     <br>
-                    <input type="submit" id="btn-reg" value ="ok" data-dismiss="modal">
+                    <input type="submit" id="btn-reg" value="ok" data-dismiss="modal">
                 </form>
                 <br>
                 <br>
@@ -116,6 +118,11 @@
                 <div class="modal-body">
                     <p>Пользователь был назначен админом, спасибо.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <%--reportRequest-form-modal--%>
 <div class="modal fade " id="reportGeneration" role="dialog">
     <div class="modal-dialog">
@@ -129,8 +136,8 @@
                             <option>xlsx</option>
                             <option>pdf</option>
                         </select>
-                        </div>
-                        <br>
+                    </div>
+                    <br>
                     <div class="wrap-currency">
                         <label for="currency">Валюта</label>
                         <select id="currency" required>
@@ -147,22 +154,12 @@
                         <label for="dateTo">до:</label>
                         <input type="date" id="dateTo">
                     </div>
-                    <input type="email" id="emailTo" placeholder="Email" maxlength="30" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"     required>
+                    <input type="email" id="emailTo" placeholder="Email" maxlength="30"
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                     <br>
-                    <input type="submit" class="submitReport" data-dismiss="modal" onclick="generateReport()">
+                    <input type="submit" class="submitReport" data-dismiss="modal"
+                           onclick="generateReport()">
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="wrap-modal">
-    <div class="modal fade" id="deleteAdvert" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p>Объявление было удалено, спасибо.</p>
-                </div>
             </div>
         </div>
     </div>
