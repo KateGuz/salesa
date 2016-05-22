@@ -1,5 +1,4 @@
 package com.salesa.entity;
-
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.salesa.util.mapper.CategorySerializer;
 import com.salesa.util.mapper.UserSerializer;
@@ -77,7 +76,6 @@ public class Advert {
     }
 
     public int getId() {
-
         return id;
     }
 

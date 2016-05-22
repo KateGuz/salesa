@@ -40,8 +40,8 @@ public class RestMapper {
 
     public String toJSON(Object object) {
         try {
-
             String json = objectMapper.writeValueAsString(object);
+
             log.info("json request was generated : {}", json);
             return json;
         } catch (JsonProcessingException e) {
@@ -57,3 +57,4 @@ public class RestMapper {
         }
     }
 }
+

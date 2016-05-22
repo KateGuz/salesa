@@ -1,0 +1,9 @@
+DROP PROCEDURE IF EXISTS addNewAdvert;
+DELIMITER //
+CREATE PROCEDURE addNewAdvert
+(title VARCHAR(45), text VARCHAR(1000), categoryId INT, price DECIMAL, currency VARCHAR(5), status VARCHAR(1), modificationDate DATETIME, userId INT)
+    BEGIN
+	INSERT INTO advert (title, text, categoryId, price, currency, status, modificationDate, userId) VALUES (title, text, categoryId, price, currency, status, modificationDate, userId);
+    SELECT LAST_INSERT_ID();
+	END //
+DELIMITER ;

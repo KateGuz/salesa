@@ -31,27 +31,27 @@ public class RestAdvertController {
     @Autowired
     private UserSecurity userSecurity;
 
-    @RequestMapping(value = "/v1/advert/{advertId}", method = RequestMethod.GET, headers = {"Content-type=application/json;charset=UTF-8"})
+    @RequestMapping(value = "/v1/advert/{advertId}", method = RequestMethod.GET,
+            headers = {"Content-type=application/json;charset=UTF-8"})
     public String getAdvertJSON(@PathVariable("advertId") int advertId) {
         Advert advert = advertService.get(advertId);
         return advertParser.toJSON(advert);
     }
     // TODO: 5/14/2016 xml
 
-    @RequestMapping(value = "/v1/advert", method = RequestMethod.POST,
-            headers = {"Content-type=application/json;charset=UTF-8"})
+    @RequestMapping(value = "/v1/advert", method = RequestMethod.POST, headers = {"Content-type=application/json;charset=UTF-8"})
     public ResponseEntity<String> addAdvert(@RequestBody String body, HttpSession session) throws IOException {
         User user = userSecurity.getUserBySessionId(session.getId());
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
         log.info("Incoming request : {}", body);
         Advert advert = advertParser.toAdvert(body);
         log.info("Advert to save {}", advert);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/v1/editAdvert/{advertId}", method = RequestMethod.PUT)
     public ResponseEntity<String> editAdvert(@PathVariable("advertId") int advertId, HttpServletRequest request, HttpSession session) {
@@ -91,5 +91,6 @@ public class RestAdvertController {
         advertService.update(advert);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
 

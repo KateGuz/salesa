@@ -78,19 +78,9 @@
         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
             <div class="size">
                 <div class="advert-info-bar col-xs-12 well">
-                    <form id="create" method="post">
+                    <form id="create">
                         <div class="row">
-                            <div class="col-sm-4 col-md-4">
-                                <div style="text-align: center" class="col-sm-12">
-                                    <div class="thumbnail">
-                                        <img src="/img/mock.png" alt="pic">
-                                    </div>
-                                        <%--<div class="upload">--%>
-                                    <input type="file" class="upload-photo" multiple>
-                                        <%--</div>--%>
-                                </div>
-                            </div>
-                            <div class="col-sm-8 col-md-8">
+                            <div class="col-sm-8 col-md-8 left-padding">
                                 <div class="text-bar">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -148,9 +138,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div style="text-align: center" class="col-sm-12">
+                                    <p class="title-text">
+                                        Выберите основное изображение для объявления:
+                                    </p>
+                                    <input type="file" id="advertImage" class="center-block choose-file" onchange="addAdditionalImages()">
+                                    <p class="title-text">
+                                        Выберите дополнительные изображения:
+                                    </p>
+                                    <input type="file" id="otherAdvertImages" class="center-block choose-file" disabled multiple="multiple">
+                                </div>
+                            </div>
                         </div>
                         <div align="center">
-                            <input type="submit" id="addAdvert" value="Сохранить" class="save">
+                            <input type="button" onclick="saveAdvertWithImage()" value="Сохранить"
+                                   class="save save-advert">
                         </div>
                     </form>
                 </div>
@@ -165,7 +168,7 @@
             <div class="foot">
                 <div class="well">
                     <p>Salesa</p>
-                    <p>All Rigths Reserved</p>
+                    <p>All Rights Reserved</p>
                 </div>
             </div>
         </footer>

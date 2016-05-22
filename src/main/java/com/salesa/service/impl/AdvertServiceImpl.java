@@ -61,13 +61,18 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public int saveAdvert(Advert advert) {
-        advertDao.saveAdvert(advert);
-        return advert.getId();
+        return advertDao.saveAdvert(advert);
     }
 
     @Override
     public void update(Advert advert) {
         advertDao.update(advert);
+    }
+
+    @Override
+    public void delete(int advertId) {
+        advertDao.delete(advertId);
+
     }
 
     @Override

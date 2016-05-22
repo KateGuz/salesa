@@ -47,9 +47,7 @@ public class AdvertsController {
         model.addAttribute("categories", categoryService.getAll());
         AdvertFilter advertFilter = createAdvertFilter(page, isActiveParam, isSortPriceAsc);
         AdvertPageData advertPageData = advertService.get(advertFilter);
-        for (Advert advert : advertPageData.getAdverts()) {
-            currencyConverter.updatePriceAndCurrency(advert, currency);
-        }
+        currencyConverter.updatePriceAndCurrency(advertPageData.getAdverts(), currency);
         model.addAttribute("pageData", advertPageData);
         model.addAttribute("activePage", page);
         model.addAttribute("selectedCurrency", currency);
@@ -102,7 +100,7 @@ public class AdvertsController {
             builder.append("&isSortPriceAsc=");
             builder.append(advertFilter.isSortPriceAsc());
         }
-        if(advertFilter.isActive()){
+        if (advertFilter.isActive()) {
             builder.append("&isActiveParam=true");
         }
         return builder.toString();

@@ -4,7 +4,6 @@ import com.salesa.entity.Image;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.io.ByteArrayInputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -20,8 +19,7 @@ public class ImageMapperTest {
         ResultSet resultSet = Mockito.mock(ResultSet.class);
         when(resultSet.getInt("id")).thenReturn(1);
         byte[] bytes = {0, 0, 0, 1, 1, 1};
-        ByteArrayInputStream picture = new ByteArrayInputStream(bytes);
-        when(resultSet.getBinaryStream("picture")).thenReturn(picture);
+        when(resultSet.getBytes("picture")).thenReturn(bytes);
         when(resultSet.getString("type")).thenReturn("M");
 
         //when
@@ -29,7 +27,7 @@ public class ImageMapperTest {
 
         //then
         assertEquals(1, image.getId());
-        assertEquals(picture, image.getPicture());
+        assertEquals(bytes, image.getContent());
         assertEquals("M", image.getType());
     }
 

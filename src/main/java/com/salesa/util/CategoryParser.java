@@ -38,12 +38,8 @@ public class CategoryParser {
            // preview.setParent("No parent");
         }
         return preview;
-    }
 
-    /*public String toXML(Category category) {
-        Object prepare = prepare(category);
-        return restMapper.toXML(prepare);
-    }*/
+    }
 
     public String toJSON(Category category) {
         Object prepare = prepare(category);

@@ -1,11 +1,14 @@
 package com.salesa.dao.util;
 
 
+import com.salesa.entity.Category;
 import com.salesa.filter.AdvertFilter;
+import com.salesa.service.cache.CategoryCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.salesa.dao.impl.AdvertJdbcDao.MAX_ADVERTS_PER_PAGE;
@@ -18,19 +21,23 @@ public class QueryGenerator {
     private static final String ORDER_BY_STATEMENT = " ORDER BY ";
     private static final String DESC_STATEMENT = " DESC ";
 
-
     @Autowired
     private String getAdvertsTemplateSQL;
+
+    @Autowired
+    private String getUserAdvertsTemplateSQL;
+
     @Autowired
     private String addPagingTemplateSQL;
-    @Autowired
-    private String getAdvertByIdSQL;
-    @Autowired
-    private String getAdvertsByUserIdSQL;
+
     @Autowired
     private String getUserByIdSQL;
+
     @Autowired
     private String getAdvertsForReport;
+    @Autowired
+    private CategoryCache categoryCache;
+
 
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
         this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
@@ -57,7 +64,6 @@ public class QueryGenerator {
         }
 
         // sorting
-        // todo fix bug with sorting by price in different currencies
         if (advertFilter.isSortPriceAsc() != null) {
             query.append(ORDER_BY_STATEMENT);
             query.append("a.defaultPriceUAH");
@@ -75,8 +81,17 @@ public class QueryGenerator {
     }
 
     private void addCategoryFiltering(int categoryId, StringBuilder query, Map<String, Object> params) {
+
         params.put("categoryId", categoryId);
-        query.append("categoryId = :categoryId");
+        query.append("categoryId IN (:categoryId");
+        Category targetCategory = categoryCache.getCategoryById(categoryId);
+        List<Category> children = targetCategory.getChildren();
+        if(children != null){
+            for (Category child : children) {
+                query.append(", " + child.getId());
+            }
+        }
+        query.append(")");
     }
 
     private void addPagination(int page, StringBuilder query, Map<String, Object> params) {
@@ -87,27 +102,27 @@ public class QueryGenerator {
     }
 
     public QueryAndParams generateAdvertQuery(int advertId) {
-        StringBuilder query = new StringBuilder(getAdvertByIdSQL);
+        StringBuilder query = new StringBuilder(getUserAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();
-        params.put("a.id", advertId);
-        query.append(WHERE_STATEMENT);
-        query.append("a.id = :a.id");
+        params.put("id", advertId);
+        query.append(AND_STATEMENT);
+        query.append("a.id = :id");
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
 
     }
 
     public QueryAndParams generateAdvertByUserIdQuery(int userId) {
-        StringBuilder query = new StringBuilder(getAdvertsByUserIdSQL);
+        StringBuilder query = new StringBuilder(getUserAdvertsTemplateSQL);
         Map<String, Object> params = new HashMap<>();
         params.put("userId", userId);
-        query.append(WHERE_STATEMENT);
-        query.append("userId = :userId");
+        query.append(AND_STATEMENT);
+        query.append("a.userId = :userId");
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
     }
 
-    public QueryAndParams generateUserById(int userId) {
+    public QueryAndParams generateUserByIdQuery(int userId) {
         StringBuilder query = new StringBuilder(getUserByIdSQL);
         Map<String, Object> params = new HashMap<>();
         params.put("u.id", userId);
@@ -125,7 +140,6 @@ public class QueryGenerator {
         query.append(AND_STATEMENT);
         params.put("dateTo", dateTo);
         query.append(":dateTo");
-       // query.append(" 23:59:59");
         query.append(END_SEPARATOR);
         return new QueryAndParams(query.toString(), params);
     }

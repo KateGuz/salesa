@@ -11,5 +11,5 @@ public interface UserService {
     int save(User user);
     User get(String email);
     void updateUsersDislike(User user);
-    void updateUser(User user);
+    void update(User user);
 }

@@ -58,7 +58,7 @@ public class RestUserController {
             user.setPassword(password);
         }
         log.info("User to update : {}", user);
-        userService.updateUser(user);
+        userService.update(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
