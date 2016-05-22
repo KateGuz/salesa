@@ -156,76 +156,96 @@
                     <div class="advert-list-bar" id="adverts-list">
                         <ol class="user-advert-list">
                             <c:forEach items="${adverts}" var="advert" varStatus="loop">
-                                <div class="media">
-                                    <div class="col-sm-12">
-                                        <h6 id="user-advert-status">
-                                            <c:choose>
-                                                <c:when test="${advert.status == 'A'}">
-                                                    <font color="#48c083">Активно&nbsp;&nbsp;</font>
-                                                </c:when>
-                                                <c:when test="${advert.status == 'H'}">
-                                                    Забронировано&nbsp;
-                                                </c:when>
-                                                <c:when test="${advert.status == 'S'}">
-                                                    <font color="#сссссс">Продано&nbsp;</font>
-                                                </c:when>
-                                            </c:choose>
-                                        </h6>
-                                        <div class="price-delete">
-                                            <h6 id="user-advert-price">${advert.price}&nbsp;${advert.currency}</h6>
-                                            <c:choose>
-                                                <c:when test="${!empty loggedUser.name}">
-                                                    <c:choose>
-                                                        <c:when test="${loggedUser.type == 'A'}">
-                                                            <button class="deleteAdvBtn"
-                                                                    onclick="deleteAdvert(${advert.id})">×
-                                                            </button>
-                                                        </c:when>
-                                                    </c:choose>
-                                                </c:when>
-                                            </c:choose>
-                                            <div class="col-sm-4">
-                                                <div class="thumbnail">
-                                                    <c:choose>
-                                                    <c:when test="${empty advert.images}">
-                                                        <img class="media-object thumbnail adv-img-list-item image-advert-user"
-                                                             src="/img/mock.png">
+                            <div class="media">
+                                <div class="col-sm-12">
+                                    <h6 id="user-advert-status">
+                                        <c:choose>
+                                            <c:when test="${advert.status == 'A'}">
+                                                <font color="#48c083">Активно&nbsp;&nbsp;</font>
+                                            </c:when>
+                                            <c:when test="${advert.status == 'H'}">
+                                                Забронировано&nbsp;
+                                            </c:when>
+                                            <c:when test="${advert.status == 'S'}">
+                                                <font color="#сссссс">Продано&nbsp;</font>
+                                            </c:when>
+                                        </c:choose>
+                                    </h6>
+                                    <div class="price-delete">
+                                        <h6 id="user-advert-price">${advert.price}&nbsp;${advert.currency}</h6>
+                                        <c:choose>
+                                            <c:when test="${!empty loggedUser.name}">
+                                                <c:choose>
+                                                    <c:when test="${loggedUser.type == 'A'}">
+                                                        <button class="deleteAdvBtn"
+                                                                onclick="deleteAdvert(${advert.id})">×
+                                                        </button>
+                                                    </c:when>
+                                                </c:choose>
+                                            </c:when>
+                                        </c:choose>
+                                        <div class="col-sm-4">
+                                            <div class="thumbnail">
+                                                <c:choose>
+                                                    <c:when test="${empty loggedUser.name}">
                                                     </c:when>
                                                     <c:otherwise>
-                                                    <c:forEach
-                                                            items="${advert.images}"
-                                                            var="image"
-                                                            varStatus="loop">
                                                         <c:choose>
-                                                            <c:when test="${image.type == 'M'}">
-                                                                <img src="/image/${image.id}"
-                                                                     alt="advert's photo"
-                                                                     class="media-object thumbnail adv-img-list-item image-advert-user">
+                                                            <c:when test="${loggedUser.type == 'U'}"></c:when>
+                                                            <c:when test="${loggedUser.type == 'A'}">
+                                                                <button class="deleteAdvBtn"
+                                                                        onclick="deleteAdvert(${advert.id})">×
+                                                                </button>
                                                             </c:when>
                                                         </c:choose>
-                                                    </c:forEach>
-                                                </div>
-                                                </c:otherwise>
+                                                    </c:otherwise>
                                                 </c:choose>
                                             </div>
-                                        </div>
-                                        <div class=" media-right">
-                                            <a href="/advert/${advert.id}">
-                                                <h4 class="media-heading">${advert.title}</h4>
-                                            </a>
-                                            <p>${advert.text}</p>
                                             <br>
-                                            <h6><tags:localDateTime
-                                                    date="${advert.modificationDate}"
-                                                    pattern="${pattern}"/></h6>
-                                        </div>
+                                            <hr class="user-advert-status-hr">
 
+                                            <div class="media-left">
+                                                <img class="media-object thumbnail adv-img-list-item"
+                                                     src="/img/1.png">
+                                            </div>
+                                            <div class=" media-right">
+                                                <a href="/advert/${advert.id}">
+                                                    <h4 class="media-heading">${advert.title}</h4>
+                                                </a>
+                                                <p>${advert.text}</p>
+                                                <br>
+                                                <h6><tags:localDateTime
+                                                        date="${advert.modificationDate}"
+                                                        pattern="${pattern}"/></h6>
+                                                <c:choose>
+                                                <c:when test="${empty advert.images}">
+                                                    <img class="media-object thumbnail adv-img-list-item image-advert-user"
+                                                         src="/img/mock.png">
+                                                </c:when>
+                                                <c:otherwise>
+                                                <c:forEach
+                                                        items="${advert.images}"
+                                                        var="image"
+                                                        varStatus="loop">
+                                                    <c:choose>
+                                                        <c:when test="${image.type == 'M'}">
+                                                            <img src="/image/${image.id}"
+                                                                 alt="advert's photo"
+                                                                 class="media-object thumbnail adv-img-list-item image-advert-user">
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </div>
+                                            </c:otherwise>
+                                            </c:choose>
+                                        </div>
                                     </div>
-                                </div>
-                            </c:forEach>
+                                    </c:forEach>
                         </ol>
                     </div>
-                    <div class="feedback-list-bar">
+
+
+                    <div class="feedback-list-bar" id="feedback-list">
                         <h3>Отзывы о пользователе</h3>
                         <c:choose>
                             <c:when test="${empty loggedUser}">
@@ -239,15 +259,13 @@
                             <c:otherwise>
                                 <div class="row">
                                     <div class="feedback-form">
-                                            <textarea class="feedback-input"
-                                                      placeholder="Оставьте ваш отзыв"></textarea>
+                                        <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
                                         <button class="feedback-btn" onclick="addFeedback(${user.id})">Send
                                         </button>
                                     </div>
                                 </div>
                             </c:otherwise>
                         </c:choose>
-
                         <ol class="user-advert-list" id="users-feedback">
                             <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
                                 <div class="media well">
@@ -295,7 +313,6 @@
                             </ul>
                         </div>
                     </div>
-
                     <footer>
                         <div class="foot">
                             <div class="well">
@@ -304,6 +321,7 @@
                             </div>
                         </div>
                     </footer>
+
                 </div>
             </div>
         </div>
