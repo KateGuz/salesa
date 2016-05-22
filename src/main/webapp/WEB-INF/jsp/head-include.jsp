@@ -17,11 +17,13 @@
     <script src="/js/additionalImages.js"></script>
     <script src="/js/currency.js"></script>
     <script src="/js/filter.js"></script>
+    <script src="/js/saveAdvert.js"></script>
     <script src="/js/editAdvert.js"></script>
     <script src="/js/saveAdvert.js"></script>
     <script src="/js/deleteAdvert.js"></script>
     <script src="/js/editProfile.js"></script>
     <script src="/js/showPassword.js"></script>
+    <script src="/js/generateReport.js"></script>
 </head>
 <body>
 

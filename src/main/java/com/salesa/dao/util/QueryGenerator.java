@@ -33,10 +33,14 @@ public class QueryGenerator {
     private String getUserByIdSQL;
 
     @Autowired
+    private String getAdvertsForReport;
+    @Autowired
     private String getAllAdvertsSQL;
     @Autowired
     private String searchSQL;
+    @Autowired
     private CategoryCache categoryCache;
+
 
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
         this.getAdvertsTemplateSQL = getAdvertsTemplateSQL;
@@ -139,6 +143,18 @@ public class QueryGenerator {
         return new QueryAndParams(query.toString(), params);
     }
 
+    public QueryAndParams generateAdvertsForReport(String dateFrom, String dateTo){
+        StringBuilder query = new StringBuilder(getAdvertsForReport);
+        Map <String, Object> params = new HashMap<>();
+        params.put("dateFrom", dateFrom);
+        query.append(":dateFrom");
+        query.append(AND_STATEMENT);
+        params.put("dateTo", dateTo);
+        query.append(":dateTo");
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);
+    }
+
     public QueryAndParams search(AdvertFilter advertFilter) {
         StringBuilder query = new StringBuilder(searchSQL);
         Map<String, Object> params = new HashMap<>();
@@ -147,3 +163,4 @@ public class QueryGenerator {
         return new QueryAndParams(query.toString(), params);
     }
 }
+

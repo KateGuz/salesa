@@ -72,6 +72,12 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public void delete(int advertId) {
         advertDao.delete(advertId);
+
+    }
+
+    @Override
+    public List<Advert> getForReport(String dateFrom, String dateTo) {
+        return advertDao.getForReport(dateFrom, dateTo);
     }
 
     @Override
@@ -80,3 +86,4 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
 }
+

@@ -45,7 +45,6 @@ public class  AddAdvertController {
     @Autowired
     private DefaultPriceUpdater defaultPriceUpdater;
 
-
     @RequestMapping(value = "/addAdvert", method = RequestMethod.GET)
     public String addAdvert(Model model, HttpSession session){
         User user = (User) session.getAttribute("loggedUser");
@@ -73,7 +72,6 @@ public class  AddAdvertController {
         }
         Integer categoryId = Integer.parseInt(httpServletRequest.getParameter("categoryId"));
         if(title == null || text == null || price == 0){
-
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("Creating advert " + title + " " + price + " " + currency);

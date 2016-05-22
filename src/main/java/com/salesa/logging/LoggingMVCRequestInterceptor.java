@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 public class LoggingMVCRequestInterceptor extends HandlerInterceptorAdapter {
+
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -20,12 +21,14 @@ public class LoggingMVCRequestInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         MDC.put("requestId", UUID.randomUUID().toString());
         String sessionId = request.getSession().getId();
         User user = userSecurity.getUserBySessionId(sessionId);
         if (user != null) {
             MDC.put("user", user.getEmail());
         } else {
+
             MDC.put("user", "guest");
         }
         log.info("start processing request for url {}", request.getRequestURI());

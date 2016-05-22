@@ -1,12 +1,12 @@
 package com.salesa.dao.impl;
 
 import com.salesa.dao.AdvertDao;
-import com.salesa.dao.mapper.AdvertExtractor;
 import com.salesa.dao.mapper.AdvertMapper;
-import com.salesa.dao.mapper.ImageMapper;
+import com.salesa.dao.mapper.ReportDataMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
+import com.salesa.dao.mapper.*;
 import com.salesa.filter.AdvertFilter;
 import com.salesa.util.entity.AdvertPageData;
 import org.slf4j.Logger;
@@ -111,7 +111,6 @@ public class AdvertJdbcDao implements AdvertDao {
         mapSqlParameterSource.addValue("userId", advert.getUser().getId());
 
         int savedAdvertId = namedParameterJdbcTemplate.queryForObject(saveAdvertSQL, mapSqlParameterSource, int.class);
-
         log.info("saving  advert with id {} finished", savedAdvertId);
         return savedAdvertId;
     }
@@ -153,4 +152,14 @@ public class AdvertJdbcDao implements AdvertDao {
     public void delete(int advertId) {
         namedParameterJdbcTemplate.update(deleteAdvertSQL, new MapSqlParameterSource("advertId", advertId));
     }
+
+
+    @Override
+    public List<Advert> getForReport(String dateFrom, String dateTo) {
+        log.info("getting adverts for report, period from " + dateFrom + " till " + dateTo);
+        QueryAndParams queryAndParams = queryGenerator.generateAdvertsForReport(dateFrom, dateTo);
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new ReportDataMapper());
+    }
 }
+
+

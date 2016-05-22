@@ -19,8 +19,6 @@ import java.io.IOException;
 
 @Controller
 public class SearchController {
-    String alterTable = "ALTER TABLE `salesa`.`advert` \n" +
-            "ADD FULLTEXT INDEX `index4` (`title` ASC, `searchText` ASC);";
     private final Logger log = LoggerFactory.getLogger(getClass());
     @Autowired
     private CategoryCache categoryCache;

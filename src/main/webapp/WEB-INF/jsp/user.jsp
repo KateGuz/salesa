@@ -112,8 +112,16 @@
                                        value="Save changes"/>
                                 <p>
                                     <a href="/addAdvert">
-                                        <button class="create"><strong>Add advert</strong></button>
+                                        <button class="create"><strong>Создать объявление</strong></button>
                                     </a>
+                                    <c:choose>
+                                        <c:when test="${loggedUser.type == 'A'}">
+                                            <a href="#reportGeneration" data-toggle="modal"
+                                               data-target="#reportGeneration">
+                                                <button class="reportRequest"><strong>Создать отчет</strong></button>
+                                            </a>
+                                        </c:when>
+                                    </c:choose>
                                 </p>
                             </c:when>
                             <c:otherwise>
@@ -139,7 +147,6 @@
                     </div>
                     <br>
                 </div>
-
                 <div class="col-sm-8 col-md-8">
                     <div class="advert-list-bar">
                         <ol class="user-advert-list">
@@ -175,7 +182,8 @@
                                                                    varStatus="loop">
                                                             <c:choose>
                                                                 <c:when test="${image.type == 'M'}">
-                                                                    <img src="/image/${image.id}" alt="advert's photo"
+                                                                    <img src="/image/${image.id}"
+                                                                         alt="advert's photo"
                                                                          class="media-object thumbnail adv-img-list-item image-advert-user">
                                                                 </c:when>
                                                             </c:choose>
@@ -219,14 +227,16 @@
                             <c:when test="${empty loggedUser}">
                                 <div class="alert alert-info" role="alert">
                                     <p><a href="#user-security-log" data-toggle="modal"
-                                          data-target="#user-security-log"><strong>Авторизируйтесь</strong></a>, чтобы
+                                          data-target="#user-security-log"><strong>Авторизируйтесь</strong></a>,
+                                        чтобы
                                         оставить отзыв о продавце </p>
                                 </div>
                             </c:when>
                             <c:otherwise>
                                 <div class="row">
                                     <div class="feedback-form">
-                                        <textarea class="feedback-input" placeholder="Оставьте ваш отзыв"></textarea>
+                                            <textarea class="feedback-input"
+                                                      placeholder="Оставьте ваш отзыв"></textarea>
                                         <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
                                     </div>
                                 </div>
@@ -256,6 +266,7 @@
                         </ol>
                     </div>
                 </div>
+
             </div>
 
             <div class="separator-box">
@@ -268,7 +279,7 @@
                 <div class="foot">
                     <div class="well">
                         <p>Salesa</p>
-                        <p>All Rights Reserved</p>
+                        <p>All Rigths Reserved</p>
                     </div>
                 </div>
             </footer>
