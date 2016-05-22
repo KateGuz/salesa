@@ -25,4 +25,14 @@ public class ReportServiceImpl implements ReportService{
     public void deleteAll() {
         reportDao.deleteAll();
     }
+
+    @Override
+    public int getCountActive(String dateFrom, String dateTo) {
+        return reportDao.getCountActive(dateFrom, dateTo);
+    }
+
+    @Override
+    public int getCountOnHold(String dateFrom, String dateTo) {
+        return reportDao.getCountOnHold(dateFrom, dateTo);
+    }
 }

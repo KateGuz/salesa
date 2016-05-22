@@ -1,7 +1,10 @@
 package com.salesa.dao.impl;
 
 import com.salesa.dao.ReportDao;
+import com.salesa.dao.mapper.ReportDataMapper;
 import com.salesa.dao.mapper.ReportMapper;
+import com.salesa.dao.util.QueryAndParams;
+import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Report;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +28,8 @@ public class ReportJdbcDao implements ReportDao{
     private String getReportByIdSQL;
     @Autowired
     private String deleteReportsSQL;
+    @Autowired
+    private QueryGenerator queryGenerator;
 
     public int save(Report report){
         log.info("saving report : {}", report);
@@ -44,5 +49,19 @@ public class ReportJdbcDao implements ReportDao{
     public void deleteAll() {
         log.info("deleting all reports");
         jdbcTemplate.execute(deleteReportsSQL);
+    }
+
+    @Override
+    public int getCountActive(String dateFrom, String dateTo) {
+        log.info("counting active adverts, period from " + dateFrom + " till " + dateTo);
+        QueryAndParams queryAndParams = queryGenerator.generateActive(dateFrom, dateTo);
+        return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, int.class);
+    }
+
+    @Override
+    public int getCountOnHold(String dateFrom, String dateTo) {
+        log.info("counting on hold adverts, period from " + dateFrom + " till " + dateTo);
+        QueryAndParams queryAndParams = queryGenerator.generateOnHold(dateFrom, dateTo);
+        return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, int.class);
     }
 }
