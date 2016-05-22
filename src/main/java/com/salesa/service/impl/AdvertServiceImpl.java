@@ -65,8 +65,7 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public int saveAdvert(Advert advert) {
         log.info("Applying saving for advert {}", advert);
-        advertDao.saveAdvert(advert);
-        return advert.getId();
+        return advertDao.saveAdvert(advert);
     }
 
     @Override
@@ -76,7 +75,19 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public void delete(Advert advert) {
-        advertDao.delete(advert);
+    public void delete(int advertId) {
+        advertDao.delete(advertId);
+
+    }
+
+    @Override
+    public List<Advert> getForReport(String dateFrom, String dateTo) {
+        return advertDao.getForReport(dateFrom, dateTo);
+    }
+
+    @Override
+    public AdvertPageData search(AdvertFilter advertFilter) {
+        return advertDao.search(advertFilter);
     }
 }
+

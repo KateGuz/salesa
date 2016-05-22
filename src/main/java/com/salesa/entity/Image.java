@@ -1,12 +1,16 @@
 package com.salesa.entity;
 
 
-import java.io.InputStream;
-
 public class Image {
     private int id;
-    private InputStream picture;
+    private byte[] content;
     private String type;
+
+    public Image(int id) {
+        this.id = id;
+    }
+
+    public Image(){}
 
     public int getId() {
         return id;
@@ -16,12 +20,12 @@ public class Image {
         this.id = id;
     }
 
-    public InputStream getPicture() {
-        return picture;
+    public void setContent(byte[] content) {
+        this.content = content;
     }
 
-    public void setPicture(InputStream picture) {
-        this.picture = picture;
+    public byte[] getContent() {
+        return content;
     }
 
     public String getType() {
@@ -36,7 +40,6 @@ public class Image {
     public String toString() {
         return "Image{" +
                 "id=" + id +
-                ", picture=" + picture +
                 ", type='" + type + '\'' +
                 '}';
     }

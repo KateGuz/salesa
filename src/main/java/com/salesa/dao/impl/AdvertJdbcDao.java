@@ -1,8 +1,10 @@
 package com.salesa.dao.impl;
 
 import com.salesa.dao.AdvertDao;
-import com.salesa.dao.mapper.AdvertDetailsMapper;
+import com.salesa.dao.mapper.AdvertExtractor;
 import com.salesa.dao.mapper.AdvertMapper;
+import com.salesa.dao.mapper.ImageMapper;
+import com.salesa.dao.mapper.ReportDataMapper;
 import com.salesa.dao.util.QueryAndParams;
 import com.salesa.dao.util.QueryGenerator;
 import com.salesa.entity.Advert;
@@ -15,13 +17,16 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 @Repository
 public class AdvertJdbcDao implements AdvertDao {
     private final Logger log = LoggerFactory.getLogger(getClass());
     public static final int MAX_ADVERTS_PER_PAGE = 9;
-    private static final AdvertMapper ADVERT_MAPPER = new AdvertMapper();
+    private static final AdvertExtractor ADVERT_EXTRACTOR = new AdvertExtractor();
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -39,6 +44,12 @@ public class AdvertJdbcDao implements AdvertDao {
     private String updateAdvertSQL;
 
     @Autowired
+    private String searchSQLCount;
+
+    @Autowired
+    private String getAdvertImageSQL;
+
+    @Autowired
     private String deleteAdvertSQL;
 
     @Override
@@ -47,9 +58,13 @@ public class AdvertJdbcDao implements AdvertDao {
 
         long startTime = System.currentTimeMillis();
         log.info("Query adverts information for request {}", advertFilter);
+        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
+        log.info("Query adverts without page limit took {} ms", System.currentTimeMillis() - startTime);
 
-        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, ADVERT_MAPPER);
-        log.info("Query adverts for page took {} ms", System.currentTimeMillis() - startTime);
+        //get images
+        for (Advert advert : adverts) {
+            advert.setImages(namedParameterJdbcTemplate.query(getAdvertImageSQL, new MapSqlParameterSource("advertId", advert.getId()), new ImageMapper()));
+        }
 
         Integer advertsCount;
         Map<String, Object> paramMap = new HashMap<>();
@@ -68,7 +83,6 @@ public class AdvertJdbcDao implements AdvertDao {
         } else {
             advertsCount = namedParameterJdbcTemplate.queryForObject(query, new HashMap<>(), Integer.class);
         }
-
         log.info("Obtained {} adverts for filter {}", advertsCount, advertFilter);
 
         int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
@@ -81,19 +95,19 @@ public class AdvertJdbcDao implements AdvertDao {
     @Override
     public Advert get(int advertId) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertId);
-        return namedParameterJdbcTemplate.queryForObject(queryAndParams.query, queryAndParams.params, new AdvertDetailsMapper());
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, ADVERT_EXTRACTOR).get(0);
     }
 
     @Override
     public List<Advert> getByUserId(int userId) {
         log.info("Getting adverts by user with id {}", userId);
         QueryAndParams queryAndParams = queryGenerator.generateAdvertByUserIdQuery(userId);
-        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, ADVERT_EXTRACTOR);
     }
 
     @Override
     public int saveAdvert(Advert advert) {
-        log.info("Making query for save advert: {}", advert);
+        log.info("Saving advert {}", advert);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("title", advert.getTitle());
         mapSqlParameterSource.addValue("text", advert.getText());
@@ -104,11 +118,9 @@ public class AdvertJdbcDao implements AdvertDao {
         mapSqlParameterSource.addValue("modificationDate", advert.getModificationDate());
         mapSqlParameterSource.addValue("userId", advert.getUser().getId());
 
-        namedParameterJdbcTemplate.update(saveAdvertSQL, mapSqlParameterSource);
-
-        log.info("Finish saving advert: {}", advert);
-        return advert.getId();
-
+        int savedAdvertId = namedParameterJdbcTemplate.queryForObject(saveAdvertSQL, mapSqlParameterSource, int.class);
+        log.info("saving  advert with id {} finished", savedAdvertId);
+        return savedAdvertId;
     }
 
     @Override
@@ -128,11 +140,34 @@ public class AdvertJdbcDao implements AdvertDao {
     }
 
     @Override
-    public void delete(Advert advert) {
-        log.info("Start deleting advert {}", advert);
+    public AdvertPageData search(AdvertFilter advertFilter) {
+        QueryAndParams queryAndParams = queryGenerator.search(advertFilter);
+        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
 
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("id", advert.getId());
-        namedParameterJdbcTemplate.update(deleteAdvertSQL, mapSqlParameterSource);
+        String searchText = advertFilter.getSearchText();
+        String countQuery = String.format(searchSQLCount, searchText, searchText);
+
+        int advertsCount = namedParameterJdbcTemplate.queryForObject(countQuery, new HashMap<>(), Integer.class);
+        int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
+
+        AdvertPageData advertPageData = new AdvertPageData();
+        advertPageData.setAdverts(adverts);
+        advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
+        return advertPageData;
     }
+
+    @Override
+    public void delete(int advertId) {
+        namedParameterJdbcTemplate.update(deleteAdvertSQL, new MapSqlParameterSource("advertId", advertId));
+    }
+
+    @Override
+    public List<Advert> getForReport(String dateFrom, String dateTo) {
+        log.info("getting adverts for report, period from " + dateFrom + " till " + dateTo);
+        QueryAndParams queryAndParams = queryGenerator.generateAdvertsForReport(dateFrom, dateTo);
+        return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new ReportDataMapper());
+    }
+
 }
+
+

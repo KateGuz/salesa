@@ -19,9 +19,9 @@
                     <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="col-sm-4">
-                    <form class="navbar-form " role="search">
+                    <form class="navbar-form " role="search" action="/search">
                         <div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="searchText">
                             <span class="input-group-btn">
                                 <button class="btn btn-default go" type="submit">Поиск</button>
                             </span>
@@ -33,7 +33,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span class="caret"></span></a>
+                                   aria-haspopup="true" aria-expanded="false">${selectedCurrency}<span
+                                        class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a role="button" onclick="changeCurrencyOnAdvertPage('USD')">USD</a></li>
                                     <li><a role="button" onclick="changeCurrencyOnAdvertPage('UAH')">UAH</a></li>
@@ -62,7 +63,6 @@
 </div>
 
 <c:choose>
-    <%--<c:when test="${empty loggedUser}">--%>
     <c:when test="${empty loggedUser}">
         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
             <div class="size">
@@ -78,88 +78,141 @@
         <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
             <div class="size">
                 <div class="advert-info-bar col-xs-12 well">
-                    <form:form modelAttribute="advert" method="post" action="/editAdvert/${advert.id}">
-                        <form:input class="hidden" path="id"/>
-                        <form:input class="hidden" path="user"/>
+                    <form id="create" method="post">
                         <div class="row">
-                            <div class="col-sm-4 col-md-4">
-                                <div style="text-align: center" class="col-sm-12">
-                                    <div class="thumbnail">
-                                        <img src="/img/mock.png" alt="pic">
-                                    </div>
-                                        <%--<div class="upload">--%>
-                                    <input type="file" class="upload-photo" multiple>
-                                        <%--</div>--%>
-                                </div>
-                            </div>
-                            <div class="col-sm-8 col-md-8">
+                            <div class="col-sm-8 col-md-8 left-padding">
                                 <div class="text-bar">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <form:input type="text" path="title"/>
-                                            <c:if test="${!empty errors.title}"><p
-                                                    class="error">${errors.title}</p></c:if>
+                                            <input type="text" id="title" value="${advert.title}" required>
                                         </div>
                                         <div class="col-md-4">
-                                            <form:input type="number" path="price"/>
-                                            <c:if test="${!empty errors.price}"><p
-                                                    class="error">${errors.price}</p></c:if>
+                                            <input type="number" id="price" value="${advert.price}" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="currency">Валюта</label>
-                                            <form:select path="currency">
-                                                <option>USD</option>
-                                                <option>UAH</option>
-                                                <option>EUR</option>
-                                            </form:select>
+                                            <select id="currency" required>
+                                                <c:choose>
+                                                    <c:when test="${advert.currency == 'USD'}">
+                                                        <option selected>USD</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option>USD</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <c:choose>
+                                                    <c:when test="${advert.currency == 'EUR'}">
+                                                        <option selected>EUR</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option>EUR</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <c:choose>
+                                                    <c:when test="${advert.currency == 'UAH'}">
+                                                        <option selected>UAH</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option>UAH</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <form:textarea id="text" path="text" class="form-control" rows="5"/>
-                                            <c:if test="${!empty errors.text}"><p
-                                                    class="error">${errors.text}</p></c:if>
+                                <textarea class="form-control" rows="5" id="description" required>${advert.text}</textarea>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="wrap-category">
-                                                <form:label for="category" path="">Категория:</form:label>
-                                                <form:select id="category" path="category">
+                                                <label for="category">Категория:</label>
+                                                <select id="category">
                                                     <c:forEach items="${categories}" var="category">
                                                         <c:choose>
                                                             <c:when test="${!empty category.children}">
                                                                 <optgroup label="${category.name}">
                                                                     <c:forEach items="${category.children}"
                                                                                var="subCategory">
-                                                                        <option value="${subCategory.id}">${subCategory.name}</option>
+                                                                        <c:choose>
+                                                                            <c:when test="${advert.category.id == subCategory.id}">
+                                                                                <option selected value="${subCategory.id}">${subCategory.name}</option>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <option value="${subCategory.id}">${subCategory.name}</option>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </c:forEach>
                                                                 </optgroup>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <option value="${category.id}">${category.name}</option>
+                                                                <c:choose>
+                                                                    <c:when test="${advert.category.id == subCategory.id}">
+                                                                        <option selected value="${category.id}">${category.name}</option>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <option value="${category.id}">${category.name}</option>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </c:forEach>
-                                                </form:select>
+                                                </select>
                                             </div>
                                             <div class="wrap-status">
                                                 <label for="status">Статус:</label>
-                                                <form:select id="status" path="status">
-                                                    <option>Активно</option>
-                                                    <option>Забронировано</option>
-                                                    <option>Продано</option>
-                                                </form:select>
+                                                <select id="status">
+                                                    <c:choose>
+                                                        <c:when test="${advert.currency == 'EUR'}">
+                                                            <option value="A" selected>Активно</option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option value="A">Активно</option>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <c:choose>
+                                                        <c:when test="${advert.currency == 'USD'}">
+                                                            <option value="H" selected>Забронировано</option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option value="H">Забронировано</option>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <c:choose>
+                                                        <c:when test="${advert.currency == 'UAH'}">
+                                                            <option value="S" selected>Продано</option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option value="S">Продано</option>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div style="text-align: center" class="col-sm-12">
+                                    <p class="title-text">
+                                        Выберите основное изображение для объявления:
+                                    </p>
+                                    <input type="file" id="advertImage" class="center-block choose-file"
+                                           onchange="addAdditionalImages()">
+                                    <p class="title-text">
+                                        Выберите дополнительные изображения:
+                                    </p>
+                                    <input type="file" id="otherAdvertImages" class="center-block choose-file" disabled
+                                           multiple="multiple">
+                                </div>
+                            </div>
                         </div>
                         <div align="center">
-                            <input type="submit" value="Сохранить" class="save"/>
+                            <input type="button" onclick="editAdvert(${advert.id})" value="Сохранить"
+                                   class="save save-advert">
                         </div>
-                    </form:form>
+                    </form>
                 </div>
             </div>
         </div>

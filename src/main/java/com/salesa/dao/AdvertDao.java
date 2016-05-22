@@ -12,5 +12,7 @@ public interface AdvertDao {
     List<Advert> getByUserId(int userId);
     int saveAdvert(Advert advert);
     void update(Advert advert);
-    void delete(Advert advert);
+    List<Advert> getForReport(String dateFrom, String dateTo);
+    AdvertPageData search(AdvertFilter advertFilter);
+    void delete(int advertId);
 }

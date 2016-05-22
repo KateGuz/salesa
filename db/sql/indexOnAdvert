@@ -1,0 +1,1 @@
+ALTER TABLE salesa.advert ADD FULLTEXT INDEX index4 (title ASC, text ASC);

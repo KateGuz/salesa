@@ -4,9 +4,9 @@ package com.salesa.util;
 import com.salesa.entity.User;
 import com.salesa.util.mapper.RestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserParser {
     @Autowired
     private RestMapper restMapper;

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#btn-log').click(function () {
-        if ($("#email").val() === '' || $("#password").val() === '') {
+        if ($("#email").val() === '' || $("#pass").val() === '') {
             $('#btn-log').on("click", function (e) {
                 e.preventDefault;
             });
@@ -11,11 +11,11 @@ $(document).ready(function () {
             dataType: 'json',
             data: {
                 email: $("#email").val(),
-                pass: $("#password").val()
+                pass: $("#pass").val()
             },
             success: function (loggedUser) {
-                $('.userLink').html(`<a href="/user/${loggedUser.id}">${loggedUser.name}</a>`);
-                $('.out').html(`<a href="/signOut">Выйти</a>`).show();
+                $('.userLink').html('<a href="/user/${loggedUser.id}">${loggedUser.name}</a>');
+                $('.out').html('<a href="/signOut">Выйти</a>').show();
                 $('.alert').hide();
             },
             error: function () {
@@ -45,8 +45,8 @@ $(document).ready(function () {
             },
             success: function (loggedUser) {
                 message($('#success-reg'));
-                $('.userLink').html(`<a href="/user/${loggedUser.id}">${loggedUser.name}</a>`);
-                $('.out').html(`<a href="/signOut">Выйти</a>`).show();
+                $('.userLink').html('<a href="/user/${loggedUser.id}">${loggedUser.name}</a>');
+                $('.out').html('<a href="/signOut">Выйти</a>').show();
             },
             error: function () {
                 message($('#error'));

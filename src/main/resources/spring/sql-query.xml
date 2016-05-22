@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="getAllAdvertsSQL" class="java.lang.String">
+        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
+a.currency, a.status, a.categoryId, a.userId, aP.id as imageId, aP.type FROM advert as a LEFT JOIN advertPicture as aP
+ON (a.id = aP.advertId)"/>
+    </bean>
 
     <bean id="updateDefaultPriceSQL" class="java.lang.String">
         <constructor-arg value="UPDATE advert SET defaultPriceUAH = price * :rate WHERE currency = :currency;"/>
@@ -13,10 +19,18 @@
         <constructor-arg value="SELECT count(*) as count FROM advert WHERE status != 'S'"/>
     </bean>
 
+    <bean id="getUserAdvertsTemplateSQL" class="java.lang.String">
+        <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,
+a.currency, a.status, a.categoryId, a.userId, aP.id as imageId, aP.type FROM advert as a LEFT JOIN advertPicture as aP
+ON (a.id = aP.advertId) WHERE a.status != 'S'"/>
+    </bean>
+
     <bean id="getAdvertsTemplateSQL" class="java.lang.String">
         <constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price, a.currency,
                                     a.status, a.categoryId, a.userId FROM advert a
                                     RIGHT JOIN user u ON a.userId = u.id WHERE a.status != 'S' AND u.status != 'B'"/>
+        <!--<constructor-arg value="SELECT a.id, a.title, a.text, a.modificationDate, a.price,-->
+        <!--a.currency, a.status, a.categoryId, a.userId FROM advert as a WHERE a.status != 'S'"/>-->
     </bean>
 
     <bean id="addPagingTemplateSQL" class="java.lang.String">
@@ -35,19 +49,13 @@
     </bean>
 
     <bean id="getAllImagesSQL" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
-    </bean>
-
-    <bean id="getAdvertSQL" class="java.lang.String">
-        <constructor-arg value="SELECT a.id, a.picture, a.type FROM advertPicture as a;"/>
+        <constructor-arg value="SELECT a.id, a.content, a.type FROM advertPicture as a;"/>
     </bean>
 
     <bean id="getAdvertByIdSQL" class="java.lang.String">
-
         <constructor-arg value="SELECT a.id, a.title, a.text, a.price, a.currency, a.modificationDate,
         a.status, a.userId, u.name, u.email, u.phone, a.categoryId FROM advert as a
         inner join user as u on u.id = a.userId "/>
-
     </bean>
 
     <bean id="getAdvertsByUserIdSQL" class="java.lang.String">
@@ -56,7 +64,8 @@
 
     <bean id="getUserByIdSQL" class="java.lang.String">
         <constructor-arg
-                value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status, u.type, u.dislikeAmount FROM user as u "/>
+                value="SELECT u.id, u.name, u.email, u.password, u.phone, u.avatar, u.status,
+                u.type, u.dislikeAmount FROM user as u "/>
     </bean>
 
     <bean id="getFeedbackByUserIdSQL" class="java.lang.String">
@@ -86,8 +95,24 @@
 
     <bean id="saveAdvertSQL" class="java.lang.String">
         <constructor-arg
-                value="INSERT INTO advert (title, text, categoryId, price, currency, status, modificationDate, userId) VALUES(:title, :text, :categoryId, :price, :currency, :status, :modificationDate, :userId);"/>
+                value="CALL addNewAdvert(:title, :text, :categoryId, :price, :currency, :status, :modificationDate, :userId);"/>
     </bean>
+
+    <bean id="saveAdvertImageSQL" class="java.lang.String">
+        <constructor-arg
+                value="INSERT INTO advertPicture (picture, type, advertId) VALUES(:picture, :type, :advertId);"/>
+    </bean>
+
+    <bean id="getAdvertImageSQL" class="java.lang.String">
+        <constructor-arg
+                value="SELECT id, picture, type FROM advertPicture where advertId = :advertId;"/>
+    </bean>
+
+    <bean id="getAdvertImageByIdSQL" class="java.lang.String">
+        <constructor-arg
+                value="SELECT id, picture, type FROM advertPicture where id = :imageId;"/>
+    </bean>
+
     <bean id="updateAdvertSQL" class="java.lang.String">
         <constructor-arg
                 value="UPDATE advert SET title=:title, text=:text, categoryId=:categoryId, price=:price, currency=:currency, status=:status, modificationDate=:modificationDate WHERE id=:id;"/>
@@ -95,20 +120,54 @@
 
     <bean id="updateUserSQL" class="java.lang.String">
         <constructor-arg
-                value="UPDATE user SET name =: name, email =: email, password =: password, phone =: phone WHERE id = :id;"/>
+                value="UPDATE user SET name=:name, email=:email, password=:password, phone=:phone, avatar=:avatar WHERE id=:id;"/>
+    </bean>
+
+    <bean id="deleteAdvertSQL" class="java.lang.String">
+        <constructor-arg value="DELETE FROM advert WHERE id=:advertId;"/>
+    </bean>
+
+    <bean id="deleteImageSQL" class="java.lang.String">
+        <constructor-arg
+                value="DELETE FROM advertPicture WHERE id=:imageId;"/>
     </bean>
 
     <bean id="updateUserTypeSQL" class="java.lang.String">
         <constructor-arg value="UPDATE user SET type=:type WHERE id = :id;"/>
     </bean>
 
-    <bean id="deleteAdvertSQL" class="java.lang.String">
-        <constructor-arg value="DELETE FROM advert WHERE id = :id;"/>
-    </bean>
 
     <bean id="deleteUserSQL" class="java.lang.String">
-        <constructor-arg value="DELETE u, a, f FROM user u RIGHT JOIN advert a ON u.id = a.UserId LEFT JOIN feedback f ON u.id = f.userId WHERE u.id = :id;"/>
+        <constructor-arg
+                value="DELETE u, a, f FROM user u RIGHT JOIN advert a ON u.id = a.UserId LEFT JOIN feedback f ON u.id = f.userId WHERE u.id = :id;"/>
     </bean>
+
+    <bean id="getAdvertsForReport" class="java.lang.String">
+        <constructor-arg value="SELECT c.advertId, c.advertTitle, c.advertText, c.advertPrice, c.advertCurrency, c.advertStatus,
+                                   c.advertModificationDate, c.userName, c.userEmail FROM change_status as c
+                                   WHERE advertModificationDate BETWEEN "/>
+    </bean>
+
+    <bean id="saveReportSQL" class="java.lang.String">
+        <constructor-arg value="CALL saveReportAndGetId(:name, :document);"/>
+    </bean>
+
+    <bean id="getReportByIdSQL" class="java.lang.String">
+        <constructor-arg value="SELECT r.id, r.name, r.document FROM report as r WHERE r.id = :id;"/>
+    </bean>
+
+    <bean id="deleteReportsSQL" class="java.lang.String">
+        <constructor-arg value="DELETE FROM report;"/>
+    </bean>
+
+    <bean id="searchSQL" class="java.lang.String">
+        <constructor-arg value="SELECT * FROM advert WHERE title RLIKE :text OR text RLIKE :text"/>
+    </bean>
+
+    <bean id="searchSQLCount" class="java.lang.String">
+        <constructor-arg value="SELECT count(*) as count FROM advert WHERE title RLIKE '%s' OR text RLIKE '%s'"/>
+    </bean>
+
 </beans>
 
 

@@ -52,6 +52,7 @@ public class UserSecurityController {
         log.info("Signing in with email {} and password {}", email, password);
 
         User user = userService.get(email);
+        log.info(user.toString());
         if (!(user.getPassword().equals(password))) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

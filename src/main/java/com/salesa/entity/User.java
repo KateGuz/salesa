@@ -1,14 +1,12 @@
 package com.salesa.entity;
 
-import java.io.InputStream;
-
 public class User {
     private int id;
     private String name;
     private String email;
     private String password;
     private String phone;
-    private InputStream avatar;
+    private byte[] avatar;
     private String status;
     private String type;
     private int dislikeAmount;
@@ -77,11 +75,11 @@ public class User {
         this.phone = phone;
     }
 
-    public InputStream getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(InputStream avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 

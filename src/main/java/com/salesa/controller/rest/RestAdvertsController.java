@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/adverts")
+@RequestMapping(value = "/v1/adverts")
 public class RestAdvertsController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -19,26 +19,15 @@ public class RestAdvertsController {
     @Autowired
     private AdvertParser advertParser;
 
-    @RequestMapping(headers = {"Accept=application/json; charset=UTF-8"})
+    @RequestMapping(headers = {"Accept=application/json;charset=UTF-8"})
     public String advertsJsonRest(@RequestParam(name = "page", defaultValue = "1") int page) {
         AdvertFilter advertFilter = new AdvertFilter();
         advertFilter.setPage(page);
-        log.info("Query adverts (JSON) from REST api for filter {}", advertFilter);
+        log.info("Query get adverts(JSON) from REST api for filter{}", advertFilter);
         AdvertPageData advertPageData = advertService.get(advertFilter);
 
         return advertParser.toJSON(advertPageData, page);
     }
 
-//    @RequestMapping(headers = {"Accept=application/xml; charset=UTF-8"})
-//    public String advertsXmlRest(@RequestParam(name = "page", defaultValue = "1") int page) {
-//        AdvertFilter advertFilter = new AdvertFilter();
-//        advertFilter.setPage(page);
-//        log.info("Query adverts (XML) from REST api for filter {}", advertFilter);
-//        AdvertPageData advertPageData = advertService.getAll(advertFilter);
-//
-//        if (advertPageData.getAdvertRests().size() == 0) {
-//            return "There are not adverts on this page.";
-//        }
-//        return advertsParser.toXML(advertPageData, page);
-//    }
+    // TODO: 5/14/2016 xml
 }

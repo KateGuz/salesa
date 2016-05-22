@@ -59,7 +59,7 @@ public class AdminRightsController {
         Advert advert = advertService.get(advertId);
 
         if ("A".equals(admin.getType())) {
-            advertService.delete(advert);
+            advertService.delete(advert.getId());
             return new ResponseEntity<>(HttpStatus.OK);
         }
 

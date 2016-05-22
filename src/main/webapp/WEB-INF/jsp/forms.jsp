@@ -14,7 +14,7 @@
                 <form>
                     <input type="email" name="email" id="email" placeholder="Email" maxlength="30" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"     required>
                     <br>
-                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <input type="password" name="pass" id="pass" placeholder="Password" required>
                     <br>
                     <input type="submit" value ="ok" id="btn-log" data-dismiss="modal">
                 </form>
@@ -44,7 +44,7 @@
                     <br>
                     <input type="email" name="email" id="reg-email" placeholder="Email" maxlength="30" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                     <br>
-                    <input type="password" name="password" id="reg-password" placeholder="Password" required>
+                    <input type="pass" name="pass" id="reg-pass" placeholder="Password" required>
                     <br>
                     <input type="submit" id="btn-reg" value ="ok" data-dismiss="modal">
                 </form>
@@ -108,6 +108,7 @@
     </div>
 </div>
 
+
 <div class="wrap-modal">
     <div class="modal fade" id="makeAdmin" role="dialog">
         <div class="modal-dialog">
@@ -115,6 +116,41 @@
                 <div class="modal-body">
                     <p>Пользователь был назначен админом, спасибо.</p>
                 </div>
+<%--reportRequest-form-modal--%>
+<div class="modal fade " id="reportGeneration" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <form id="createReport">
+                    <div class="wrap-format">
+                        <label for="format">Формат</label>
+                        <select id="format" required>
+                            <option>xlsx</option>
+                            <option>pdf</option>
+                        </select>
+                        </div>
+                        <br>
+                    <div class="wrap-currency">
+                        <label for="currency">Валюта</label>
+                        <select id="currency" required>
+                            <option>USD</option>
+                            <option>EUR</option>
+                            <option>UAH</option>
+                        </select>
+                    </div>
+                    <div class="wrap-date">
+                        <label for="dateFrom">от :</label>
+                        <input type="date" id="dateFrom">
+                    </div>
+                    <div class="wrap-date">
+                        <label for="dateTo">до:</label>
+                        <input type="date" id="dateTo">
+                    </div>
+                    <input type="email" id="emailTo" placeholder="Email" maxlength="30" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"     required>
+                    <br>
+                    <input type="submit" class="submitReport" data-dismiss="modal" onclick="generateReport()">
+                </form>
             </div>
         </div>
     </div>
