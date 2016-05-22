@@ -80,4 +80,10 @@ public class AdvertServiceImpl implements AdvertService {
         return advertDao.getForReport(dateFrom, dateTo);
     }
 
+    @Override
+    public AdvertPageData search(AdvertFilter advertFilter) {
+        return advertDao.search(advertFilter);
+    }
+
 }
+

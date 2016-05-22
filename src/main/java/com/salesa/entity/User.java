@@ -1,7 +1,5 @@
 package com.salesa.entity;
 
-import java.util.List;
-
 public class User {
     private int id;
     private String name;
@@ -12,8 +10,6 @@ public class User {
     private String status;
     private String type;
     private int dislikeAmount;
-    private List<Advert> adverts;
-
 
     public User() {
     }
