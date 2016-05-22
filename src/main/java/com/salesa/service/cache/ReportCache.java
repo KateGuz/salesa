@@ -67,7 +67,7 @@ public class ReportCache {
             if ("xlsx".equals(reportRequest.getFormat())) {
                 report.setName(DATE_FORMAT.format(LocalDateTime.now()) + ".xlsx");
                 report.setDocument(reportGenerator.writeIntoExcel(adverts));
-            } else {
+            } if("pdf".equals(reportRequest.getFormat())){
                 report.setName(DATE_FORMAT.format(LocalDateTime.now()) + ".pdf");
                 report.setDocument(reportGenerator.writeIntoPdf(adverts));
             }

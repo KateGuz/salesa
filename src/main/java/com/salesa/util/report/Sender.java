@@ -42,7 +42,7 @@ public class Sender {
 
     private Message createMessage(ReportRequest reportRequest, int reportId) throws Exception {
         String subject = "report about sales from ";
-        String text = "click the following link to download report http://localhost:8080/report/";
+        StringBuilder text = new StringBuilder("click the following link to download report http://localhost:8080/report/");
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(name, pass);
@@ -53,7 +53,12 @@ public class Sender {
         message.addRecipient(Message.RecipientType.TO,
                 new InternetAddress(reportRequest.getEmailTo()));
         message.setSubject(subject + reportRequest.getDateFrom() + " till " + reportRequest.getDateFrom());
-        message.setText(text + reportId);
+        if ("xlsx".equals(reportRequest.getFormat())) {
+            text.append("xlsx/").append(reportId);
+        } else {
+            text.append("pdf/").append(reportId);
+        }
+        message.setText(text.toString());
         return message;
     }
 }
