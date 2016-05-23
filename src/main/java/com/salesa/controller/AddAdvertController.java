@@ -21,13 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Controller
-public class  AddAdvertController {
+public class AddAdvertController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -46,8 +47,11 @@ public class  AddAdvertController {
     private DefaultPriceUpdater defaultPriceUpdater;
 
     @RequestMapping(value = "/addAdvert", method = RequestMethod.GET)
-    public String addAdvert(Model model, HttpSession session){
+    public String addAdvert(Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedUser");
+        if ("B".equals(user.getStatus())) {
+            return "404";
+        }
         model.addAttribute("loggedUserId", user.getId());
         model.addAttribute("categories", categoryService.getAll());
         return "addAdvert";
@@ -57,21 +61,24 @@ public class  AddAdvertController {
     @RequestMapping(value = "/addAdvert", method = RequestMethod.POST)
     public ResponseEntity<Integer> addAdvert(HttpServletRequest httpServletRequest, HttpSession session,
                                              @RequestParam(name = "mainImage", required = false) MultipartFile mainImage,
-                                             @RequestParam(name="otherImages", required = false) MultipartFile[] additionalImages) throws IOException {
+                                             @RequestParam(name = "otherImages", required = false) MultipartFile[] additionalImages) throws IOException {
         String title = httpServletRequest.getParameter("title");
         String text = httpServletRequest.getParameter("text");
         double price = Double.parseDouble(httpServletRequest.getParameter("price"));
         String currency = httpServletRequest.getParameter("currency");
         String status = httpServletRequest.getParameter("status");
-        switch (status){
-            case "Продано": status = "S";
+        switch (status) {
+            case "Продано":
+                status = "S";
                 break;
-            case "Забронировано": status = "H";
+            case "Забронировано":
+                status = "H";
                 break;
-            default: status = "A";
+            default:
+                status = "A";
         }
         Integer categoryId = Integer.parseInt(httpServletRequest.getParameter("categoryId"));
-        if(title == null || text == null || price == 0){
+        if (title == null || text == null || price == 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         log.info("Creating advert... Title: {}; text: {}; price: {}; currency: {}; status: {}", title, text, price, currency, status);
@@ -89,13 +96,13 @@ public class  AddAdvertController {
 
         int savedAdvertId = advertService.saveAdvert(advert);
 
-        if(mainImage != null) {
+        if (mainImage != null) {
             Image image = new Image();
             image.setContent(mainImage.getBytes());
             image.setType("M");
             imageService.saveAdvertImage(image, savedAdvertId);
         }
-        if(additionalImages != null){
+        if (additionalImages != null) {
             for (MultipartFile additionalImage : additionalImages) {
                 Image image = new Image();
                 image.setContent(additionalImage.getBytes());
@@ -105,6 +112,6 @@ public class  AddAdvertController {
         }
         log.info("Advert {} was successfully saved.");
         defaultPriceUpdater.updateDefaultPrice();
-        return new ResponseEntity<>(userId,HttpStatus.OK);
+        return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 }

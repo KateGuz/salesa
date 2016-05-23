@@ -3,8 +3,7 @@ function addDislike(userId) {
     
     $.post(url, function () {
         message($('#dislike'));
-        document.getElementById('dislike-button').classList.add('hidden-div');
-        /*document.getElementById('dislike-button').disabled=true;*/
+        $('#dislike-button').attr("disabled", "");
     });
 
     function message(a){

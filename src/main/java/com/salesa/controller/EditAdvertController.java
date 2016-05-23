@@ -51,9 +51,13 @@ public class EditAdvertController {
     @RequestMapping(value = "/editAdvert/{id}", method = RequestMethod.GET)
     public String showEditAdvert(@PathVariable("id") int id, Model model, HttpSession session) {
         log.info("Applying page by request to edit advert with id {}", id);
+        User user = userSecurity.getUserBySessionId(session.getId());
+        Advert advert = advertService.get(id);
+        if(advert.getUser().getId() != user.getId()){
+            return "404";
+        }
         model.addAttribute("advert", advertService.get(id));
         model.addAttribute("categories", categoryService.getAll());
-        User user = userSecurity.getUserBySessionId(session.getId());
         session.setAttribute("loggedUser", user);
         return "editAdvert";
     }

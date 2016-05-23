@@ -21,23 +21,30 @@ public class LoggingMVCRequestInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (!validateRequestForResources(request)) {
+            MDC.put("requestId", UUID.randomUUID().toString());
+            String sessionId = request.getSession().getId();
+            User user = userSecurity.getUserBySessionId(sessionId);
+            if (user != null) {
+                MDC.put("user", user.getEmail());
+            } else {
 
-        MDC.put("requestId", UUID.randomUUID().toString());
-        String sessionId = request.getSession().getId();
-        User user = userSecurity.getUserBySessionId(sessionId);
-        if (user != null) {
-            MDC.put("user", user.getEmail());
-        } else {
-
-            MDC.put("user", "guest");
+                MDC.put("user", "guest");
+            }
+            log.info("start processing request for url {}", request.getRequestURI());
         }
-        log.info("start processing request for url {}", request.getRequestURI());
         return super.preHandle(request, response, handler);
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        log.info("finish processing request for url {}", request.getRequestURI());
+        if (!validateRequestForResources(request)) {
+            log.info("finish processing request for url {}", request.getRequestURI());
+        }
         super.afterCompletion(request, response, handler, ex);
+    }
+
+    private boolean validateRequestForResources(HttpServletRequest httpServletRequest) {
+        return httpServletRequest.getRequestURI().matches(".*(/js/|/css/|/img/|/fonts/).*");
     }
 }

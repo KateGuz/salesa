@@ -41,7 +41,7 @@ public class ReportCache {
         return reportRequestCache;
     }
 
-    @Scheduled(fixedRate = 1000 * 60 * 5)
+    @Scheduled(fixedRate = 1000 * 60)
     private synchronized void checkReport() throws Exception {
         if (reportRequestCache.isEmpty()) {
             log.info("there are no any request for report");

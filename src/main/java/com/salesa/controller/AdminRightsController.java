@@ -36,8 +36,6 @@ public class AdminRightsController {
         User admin = userSecurity.getUserBySessionId(request.getSession().getId());
         User user = userService.get(userId);
 
-
-
         if ("A".equals(admin.getType())) {
             if ("U".equals(user.getType())) {
                 log.info("Admin {} make query for adding user {} to admins", admin.getName(), user.getName());
@@ -53,26 +51,12 @@ public class AdminRightsController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/deleteAdvert/{advertId}", method = RequestMethod.POST)
-    public ResponseEntity<Void> deleteAdvert(HttpServletRequest request, @PathVariable Integer advertId){
-        User admin = userSecurity.getUserBySessionId(request.getSession().getId());
-        Advert advert = advertService.get(advertId);
-
-        if ("A".equals(admin.getType())) {
-            advertService.delete(advert.getId());
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-    @RequestMapping(value = "/deleteUser/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteUser/{userId}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteUser(HttpServletRequest request, @PathVariable Integer userId){
         User admin = userSecurity.getUserBySessionId(request.getSession().getId());
-        User user = userService.get(userId);
 
         if ("A".equals(admin.getType())) {
-            userService.deleteUser(user);
+            userService.deleteUser(userId);
             return new ResponseEntity<>(HttpStatus.OK);
         }
 

@@ -116,7 +116,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>Пользователь был назначен админом, спасибо.</p>
+                    <p>Права пользователя были изменены, спасибо.</p>
                 </div>
             </div>
         </div>
@@ -155,7 +155,7 @@
                         <input type="date" id="dateTo">
                     </div>
                     <input type="email" id="emailTo" placeholder="Email" maxlength="30"
-                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required value="${loggedUser.email}">
                     <br>
                     <input type="submit" class="submitReport" data-dismiss="modal"
                            onclick="generateReport()">
@@ -171,6 +171,18 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <p>Пользователь был удалён, спасибо.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap-modal">
+    <div class="modal fade" id="saveChanges" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Ваши изменения сохранены.</p>
                 </div>
             </div>
         </div>

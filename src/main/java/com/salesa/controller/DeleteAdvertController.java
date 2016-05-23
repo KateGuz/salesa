@@ -1,5 +1,6 @@
 package com.salesa.controller;
 
+import com.salesa.entity.Advert;
 import com.salesa.entity.User;
 import com.salesa.service.AdvertService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,11 @@ public class DeleteAdvertController {
 
 
     @RequestMapping(value = "/deleteAdvert/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Integer> deleteAdvert(@PathVariable("id") int id, HttpSession session) {
+    public ResponseEntity<Integer> deleteAdvert(@PathVariable("id") int id, HttpSession session) throws Exception {
+        Advert advert = advertService.get(id);
+        int userId = advert.getUser().getId();
         advertService.delete(id);
-        User user = (User) session.getAttribute("loggedUser");
-        return new ResponseEntity<>(user.getId(), HttpStatus.OK);
+        return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 
 

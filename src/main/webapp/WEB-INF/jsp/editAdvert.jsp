@@ -80,7 +80,7 @@
                 <div class="advert-info-bar col-xs-12 well">
                     <form id="create" method="post">
                         <div class="row">
-                            <div class="col-sm-8 col-md-8 left-padding">
+                            <div class="col-sm-7 col-md-7 left-padding">
                                 <div class="text-bar">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -121,7 +121,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                <textarea class="form-control" rows="5" id="description" required>${advert.text}</textarea>
+                                            <textarea class="form-control" rows="5" id="description"
+                                                      required>${advert.text}</textarea>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -137,7 +138,8 @@
                                                                                var="subCategory">
                                                                         <c:choose>
                                                                             <c:when test="${advert.category.id == subCategory.id}">
-                                                                                <option selected value="${subCategory.id}">${subCategory.name}</option>
+                                                                                <option selected
+                                                                                        value="${subCategory.id}">${subCategory.name}</option>
                                                                             </c:when>
                                                                             <c:otherwise>
                                                                                 <option value="${subCategory.id}">${subCategory.name}</option>
@@ -149,7 +151,8 @@
                                                             <c:otherwise>
                                                                 <c:choose>
                                                                     <c:when test="${advert.category.id == subCategory.id}">
-                                                                        <option selected value="${category.id}">${category.name}</option>
+                                                                        <option selected
+                                                                                value="${category.id}">${category.name}</option>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <option value="${category.id}">${category.name}</option>
@@ -193,15 +196,59 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4 col-md-4">
+                            <div class="col-sm-5 col-md-5">
                                 <div style="text-align: center" class="col-sm-12">
+
+
+                                    <div class="thumbnail">
+                                        <c:choose>
+                                            <c:when test="${empty advert.images}">
+                                                <img class="media-object thumbnail adv-img-list-item slider image-default"
+                                                     src="/img/mock.png">
+                                            </c:when>
+                                            <c:when test="${advert.images.size() == 1}">
+                                                <img src="/image/${advert.images[0].id}" alt="advert's photo"
+                                                     class="media-object thumbnail adv-img-list-item slider">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div id="carousel" class="carousel slide">
+                                                    <div class="carousel-inner slider-bg">
+                                                        <c:forEach items="${advert.images}" var="image" varStatus="loop">
+                                                            <c:choose>
+                                                                <c:when test="${image.type == 'M'}">
+                                                                    <div class="item active">
+                                                                        <img src="/image/${image.id}" alt="advert's photo"
+                                                                             class="media-object thumbnail adv-img-list-item slider">
+                                                                    </div>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <div class="item">
+                                                                        <img src="/image/${image.id}" alt="advert's photo"
+                                                                             class="media-object thumbnail adv-img-list-item slider">
+                                                                    </div>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:forEach>
+                                                    </div>
+                                                    <a href="#carousel" class="left carousel-control" data-slide="prev">
+                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                    </a>
+                                                    <a href="#carousel" class="right carousel-control" data-slide="next">
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </a>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+
+
                                     <p class="title-text">
-                                        Выберите основное изображение для объявления:
+                                        Выберите новое основное изображение для объявления:
                                     </p>
                                     <input type="file" id="advertImage" class="center-block choose-file"
                                            onchange="addAdditionalImages()">
                                     <p class="title-text">
-                                        Выберите дополнительные изображения:
+                                        Выберите новые дополнительные изображения:
                                     </p>
                                     <input type="file" id="otherAdvertImages" class="center-block choose-file" disabled
                                            multiple="multiple">
