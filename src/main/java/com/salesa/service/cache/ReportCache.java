@@ -64,12 +64,14 @@ public class ReportCache {
                 currencyConverter.updatePriceAndCurrency(advert, reportRequest.getCurrency());
             }
             Report report = new Report();
+            int onHold = reportService.getCountOnHold(reportRequest.getDateFrom(), reportRequest.getDateTo());
+            int active = reportService.getCountActive(reportRequest.getDateFrom(), reportRequest.getDateTo());
             if ("xlsx".equals(reportRequest.getFormat())) {
                 report.setName(DATE_FORMAT.format(LocalDateTime.now()) + ".xlsx");
-                report.setDocument(reportGenerator.writeIntoExcel(adverts));
+                report.setDocument(reportGenerator.writeIntoExcel(adverts, onHold, active));
             } if("pdf".equals(reportRequest.getFormat())){
                 report.setName(DATE_FORMAT.format(LocalDateTime.now()) + ".pdf");
-                report.setDocument(reportGenerator.writeIntoPdf(adverts));
+                report.setDocument(reportGenerator.writeIntoPdf(adverts, onHold, active));
             }
             sender.send(reportRequest, reportService.save(report));
         }

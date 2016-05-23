@@ -161,12 +161,21 @@ ON (a.id = aP.advertId) WHERE a.status != 'S'"/>
     </bean>
 
     <bean id="searchSQL" class="java.lang.String">
-        <constructor-arg value="SELECT * FROM advert WHERE title RLIKE :text OR text RLIKE :text"/>
+        <constructor-arg value="SELECT * FROM advert INNER JOIN user ON advert.userId = user.id  WHERE (title RLIKE :text OR text RLIKE :text) AND (advert.status != 'S' AND user.status != 'B')"/>
     </bean>
 
     <bean id="searchSQLCount" class="java.lang.String">
-        <constructor-arg value="SELECT count(*) as count FROM advert WHERE title RLIKE '%s' OR text RLIKE '%s'"/>
+        <constructor-arg value="SELECT count(*) as count FROM advert  INNER JOIN user ON advert.userId = user.id WHERE (title RLIKE '%s' OR text RLIKE '%s') AND (advert.status != 'S' AND user.status != 'B')"/>
     </bean>
+
+    <bean id="countOnHoldSQL" class="java.lang.String">
+        <constructor-arg value="SELECT  COUNT(advertStatus) FROM change_status  where advertStatus = 'H' and advertModificationDate between "/>
+    </bean>
+
+    <bean id="countActiveSQL" class="java.lang.String">
+        <constructor-arg value="SELECT  COUNT(advertStatus) FROM change_status  where advertStatus = 'A' and advertModificationDate between"/>
+    </bean>
+
 
 </beans>
 
