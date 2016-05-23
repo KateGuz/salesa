@@ -40,7 +40,6 @@ public class ReportGenerator {
             log.info("creating pdf file for report");
             PdfWriter.getInstance(document, out);
             document.open();
-
             Paragraph sold = new Paragraph("amount of sold: " + adverts.size());
             document.add(sold);
             document.add( Chunk.NEWLINE );
