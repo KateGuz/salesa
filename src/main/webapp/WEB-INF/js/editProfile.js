@@ -18,7 +18,7 @@ function editProfile(userId) {
             type: 'POST'
         })
         .success(function (userId) {
-            console.log("Redirect to User page with id -> " + userId);
             top.location.href = '/user/' + userId;
         });
+    
 }

@@ -115,10 +115,10 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public void deleteUser(User user) {
-        log.info("Query for deleting user by id: ", user.getId());
+    public void deleteUser(int userId) {
+        log.info("Query for deleting user by id: ", userId);
         Map<String, Object> params = new HashMap<>();
-        params.put("id", user.getId());
+        params.put("id", userId);
         namedParameterJdbcTemplate.update(deleteUserSQL, params);
     }
 

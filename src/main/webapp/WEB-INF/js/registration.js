@@ -14,7 +14,7 @@ $(document).ready(function () {
                 pass: $("#pass").val()
             },
             success: function (loggedUser) {
-                $('.userLink').html('<a href="/user/${loggedUser.id}">${loggedUser.name}</a>');
+                $('.userLink').html("<a href='/user/" + loggedUser.id + "'>" + loggedUser.name +"</a>");
                 $('.out').html('<a href="/signOut">Выйти</a>').show();
                 $('.alert').hide();
             },
@@ -45,7 +45,7 @@ $(document).ready(function () {
             },
             success: function (loggedUser) {
                 message($('#success-reg'));
-                $('.userLink').html('<a href="/user/${loggedUser.id}">${loggedUser.name}</a>');
+                $('.userLink').html("<a href='/user/" + loggedUser.id + "'>" + loggedUser.name +"</a>");
                 $('.out').html('<a href="/signOut">Выйти</a>').show();
             },
             error: function () {

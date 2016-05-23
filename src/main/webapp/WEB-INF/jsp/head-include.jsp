@@ -21,6 +21,7 @@
     <script src="/js/saveAdvert.js"></script>
     <script src="/js/editAdvert.js"></script>
     <script src="/js/deleteAdvert.js"></script>
+    <script src="/js/deleteUser.js"></script>
     <script src="/js/editProfile.js"></script>
     <script src="/js/showPassword.js"></script>
     <script src="/js/generateReport.js"></script>

@@ -4,6 +4,7 @@ import com.salesa.entity.Advert;
 import com.salesa.entity.Feedback;
 import com.salesa.entity.User;
 import com.salesa.service.AdvertService;
+import com.salesa.service.DislikeService;
 import com.salesa.service.UserService;
 import com.salesa.util.CurrencyConverter;
 import org.slf4j.Logger;
@@ -27,6 +28,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private DislikeService dislikeService;
 
     @Autowired
     private CurrencyConverter currencyConverter;
@@ -57,6 +61,14 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("adverts", adverts);
         model.addAttribute("feedbacks", feedbacks);
+        User sender = (User)session.getAttribute("loggedUser");
+        if(sender != null) {
+            boolean ableToDislike = false;
+            if (dislikeService.checkDislike(sender.getId(), user.getId()) == 0) {
+                ableToDislike = true;
+            }
+            model.addAttribute("ableToDislike", ableToDislike);
+        }
         return "user";
     }
 

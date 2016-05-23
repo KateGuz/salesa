@@ -136,10 +136,17 @@ ON (a.id = aP.advertId) WHERE a.status != 'S'"/>
         <constructor-arg value="UPDATE user SET type=:type WHERE id = :id;"/>
     </bean>
 
+    <bean id="updateDislikeTableSQL" class="java.lang.String">
+        <constructor-arg value="INSERT INTO dislike(senderId, receiverId) values(:senderId, :receiverId);"/>
+    </bean>
+
+    <bean id="checkDislikeSQL" class="java.lang.String">
+        <constructor-arg value="SELECT COUNT(*) FROM dislike WHERE senderId=:senderId AND receiverId=:receiverId;"/>
+    </bean>
 
     <bean id="deleteUserSQL" class="java.lang.String">
         <constructor-arg
-                value="DELETE u, a, f FROM user u RIGHT JOIN advert a ON u.id = a.UserId LEFT JOIN feedback f ON u.id = f.userId WHERE u.id = :id;"/>
+                value="DELETE FROM user WHERE id = :id;"/>
     </bean>
 
     <bean id="getAdvertsForReport" class="java.lang.String">

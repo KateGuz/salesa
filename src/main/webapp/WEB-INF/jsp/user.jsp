@@ -23,9 +23,9 @@
                     <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="col-sm-4">
-                    <form class="navbar-form " role="search">
+                    <form class="navbar-form " role="search" action="/search">
                         <div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="searchText">
                             <span class="input-group-btn">
                                 <button class="btn btn-default go" type="submit">Поиск</button>
                             </span>
@@ -102,6 +102,12 @@
                                         <input type="text" id="phone" value="${user.phone}">
                                         </p>
                                     </c:when>
+                                    <c:otherwise>
+                                        <p>
+                                        <div class="glyphicon glyphicon-phone"></div>
+                                        <input type="text" id="phone" value="">
+                                        </p>
+                                    </c:otherwise>
                                 </c:choose>
                                 <p>
                                 <div class="glyphicon glyphicon-eye-close"></div>
@@ -111,10 +117,26 @@
                                 <input type="button" class="save-changes save" onclick="editProfile(${user.id})"
                                        value="Save changes"/>
                                 <p>
-                                    <a href="/addAdvert">
-                                        <button class="create"><strong>Add advert</strong></button>
-                                    </a>
+                                    <c:choose>
+                                        <c:when test="${loggedUser.status != 'B'}">
+                                            <a href="/addAdvert">
+                                                <button class="create"><strong>Add advert</strong></button>
+                                            </a>
+                                        </c:when>
+                                        <c:otherwise>
+                                           <p>К сожалению, Вы временно заблокированы.</p>
+                                                <button disabled class="create"><strong>Add advert</strong></button>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </p>
+                                <c:choose>
+                                    <c:when test="${loggedUser.type == 'A'}">
+                                        <a href="#reportGeneration" data-toggle="modal"
+                                           data-target="#reportGeneration">
+                                            <button class="reportRequest"><strong>Создать отчет</strong></button>
+                                        </a>
+                                    </c:when>
+                                </c:choose>
                             </c:when>
                             <c:otherwise>
                                 <h4>
@@ -131,18 +153,39 @@
                                         ${user.phone} </p>
                                     </c:when>
                                 </c:choose>
-                                <button class="dislike-btn" onclick="addDislike(${user.id})">
-                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
-                                </button>
+                                <c:choose>
+                                    <c:when test="${!empty loggedUser}">
+                                        <c:choose>
+                                            <c:when test="${ableToDislike == true}">
+                                                <button  id="dislike-button" class="dislike-btn" onclick="addDislike(${user.id})">
+                                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button  disabled id="dislike-button" class="dislike-btn" onclick="addDislike(${user.id})">
+                                                    <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:when>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${loggedUser.type == 'A'}">
+                                        <c:choose>
+                                            <c:when test="${user.type == 'U'}">
+                                                <input type="button" class="save" id="make-admin"
+                                                       onclick="makeAdmin(${user.id})" value="Сделать админом"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="button" class="save"
+                                                       onclick="makeAdmin(${user.id})" value="Лишить админских
+                                                прав"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <input type="button" class="delete" onclick="deleteUser(${user.id})" value="Удалить юзера"/>
+                                    </c:when>
+                                </c:choose>
                             </c:otherwise>
-                        </c:choose>
-                        <c:choose>
-                            <c:when test="${loggedUser.type == 'A'}">
-                                <a href="#reportGeneration" data-toggle="modal"
-                                   data-target="#reportGeneration">
-                                    <button class="reportRequest"><strong>Создать отчет</strong></button>
-                                </a>
-                            </c:when>
                         </c:choose>
                     </div>
                     <br>
@@ -210,6 +253,12 @@
                                                         </a>
                                                         <a class="float-right" href="/editAdvert/${advert.id}">
                                                             <button class="save">Edit advert</button>
+                                                        </a>
+                                                    </c:when>
+                                                    <c:when test="${loggedUser.type == 'A'}">
+                                                        <a class="float-right"
+                                                           onclick="deleteAdvert(${advert.id}, ${user.id})">
+                                                            <button class="delete">Delete advert</button>
                                                         </a>
                                                     </c:when>
                                                 </c:choose>
