@@ -1,8 +1,5 @@
 package com.salesa.entity;
 
-import java.io.InputStream;
-import java.util.Arrays;
-
 public class Report {
     private int id;
     private String name;

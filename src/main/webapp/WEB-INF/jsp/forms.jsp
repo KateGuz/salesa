@@ -46,7 +46,7 @@
                     <input type="email" name="email" id="reg-email" placeholder="Email" maxlength="30"
                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                     <br>
-                    <input type="pass" name="pass" id="reg-pass" placeholder="Password" required>
+                    <input type="password" name="pass" id="reg-password" placeholder="Password" required>
                     <br>
                     <input type="submit" id="btn-reg" value="ok" data-dismiss="modal">
                 </form>

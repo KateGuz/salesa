@@ -1,7 +1,6 @@
 package com.salesa.util.report;
 
 import com.lowagie.text.*;
-import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -18,16 +17,14 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.util.List;
 
-import static com.lowagie.text.ElementTags.FONT;
-
 
 @Service
 public class ReportGenerator {
     private final String[] HEADER = {"#", "Title", "Description", "Price", "Currency", "Name", "Email"};
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    public byte[] writeIntoExcel(List<Advert> adverts) {
-        Workbook book = buildExcelDocument(adverts);
+    public byte[] writeIntoExcel(List<Advert> adverts, int hold, int act) {
+        Workbook book = buildExcelDocument(adverts,  hold,  act);
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             book.write(out);
             return out.toByteArray();
@@ -37,12 +34,15 @@ public class ReportGenerator {
         return null;
     }
 
-    public byte[] writeIntoPdf(List<Advert> adverts) {
+    public byte[] writeIntoPdf(List<Advert> adverts, int onHold, int active) {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             Document document = new Document(PageSize.A4.rotate());
             log.info("creating pdf file for report");
             PdfWriter.getInstance(document, out);
             document.open();
+            Paragraph sold = new Paragraph("amount of sold: " + adverts.size());
+            document.add(sold);
+            document.add( Chunk.NEWLINE );
 
             //header
             PdfPTable table = new PdfPTable(HEADER.length);
@@ -67,6 +67,12 @@ public class ReportGenerator {
             }
             table.getDefaultCell().setMinimumHeight(20);
             document.add(table);
+            document.add( Chunk.NEWLINE );
+            Paragraph hold = new Paragraph("amount of on hold adverts: " + onHold);
+            document.add(hold);
+            document.add( Chunk.NEWLINE );
+            Paragraph act = new Paragraph("amount of on active adverts: " + active);
+            document.add(act);
             document.close();
             return out.toByteArray();
 
@@ -76,7 +82,7 @@ public class ReportGenerator {
         return null;
     }
 
-    private XSSFWorkbook buildExcelDocument(List<Advert> adverts) {
+    private XSSFWorkbook buildExcelDocument(List<Advert> adverts, int hold, int act) {
         log.info("creating excel file for report");
         Workbook book = new XSSFWorkbook();
         Font font = book.createFont();
@@ -84,10 +90,13 @@ public class ReportGenerator {
         font.setBoldweight(Font.BOLDWEIGHT_BOLD);
         font.setColor(Font.COLOR_NORMAL);
 
-        Sheet sheet = book.createSheet("sells");
+        Sheet sells = book.createSheet("sells");
+        Row title = sells.createRow(0);
+        title.createCell(0).setCellValue("sold");
+        title.createCell(1).setCellValue(adverts.size());
         Cell[] cells = new Cell[HEADER.length];
         //header
-        Row head = sheet.createRow(0);
+        Row head = sells.createRow(1);
         for (int i = 0; i < HEADER.length; i++) {
             cells[i] = head.createCell(i);
             cells[i].setCellValue(HEADER[i]);
@@ -95,7 +104,7 @@ public class ReportGenerator {
 
         //content
         for (int i = 0; i < adverts.size(); i++) {
-            Row row = sheet.createRow(i + 1);
+            Row row = sells.createRow(i + 2);
             row.createCell(0).setCellValue(i + 1);
             row.createCell(1).setCellValue(adverts.get(i).getTitle());
             row.createCell(2).setCellValue(adverts.get(i).getText());
@@ -104,6 +113,13 @@ public class ReportGenerator {
             row.createCell(5).setCellValue(adverts.get(i).getUser().getName());
             row.createCell(6).setCellValue(adverts.get(i).getUser().getEmail());
         }
+
+        Row onHold = sells.createRow(adverts.size() + 2);
+        onHold.createCell(0).setCellValue("on hold");
+        onHold.createCell(1).setCellValue(hold);
+        Row active = sells.createRow(onHold.getRowNum() + 1);
+        active.createCell(0).setCellValue("active");
+        active.createCell(1).setCellValue(act);
 
         return (XSSFWorkbook) book;
     }

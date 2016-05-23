@@ -26,6 +26,7 @@ public class ReportGeneratorTest {
             advert.setPrice(500 * i);
             advert.setText("текст на русском" + i);
             advert.setTitle("title" + i);
+            advert.setStatus(i % 2 == 0 ? "S" : "H");
             User user = new User();
             user.setName("user" + i);
             user.setEmail(user.getName() + "@" + "com");
@@ -40,7 +41,7 @@ public class ReportGeneratorTest {
     @Test
     public void testAdvertsWriteIntoExcelFile() throws Exception {
         //prepare
-        byte[] document = reportGenerator.writeIntoExcel(generateAdvert(2));
+        byte[] document = reportGenerator.writeIntoExcel(generateAdvert(2), 5, 6);
         String path = "reports" + SEPARATOR;
         String fileName = DATE_FORMAT.format(LocalDateTime.now()) + ".xlsx";
         //then
@@ -58,7 +59,7 @@ public class ReportGeneratorTest {
     @Test
     public void testWriteAdvertsIntoPDF() throws Exception {
         //prepare
-        byte[] document = reportGenerator.writeIntoPdf(generateAdvert(2));
+        byte[] document = reportGenerator.writeIntoPdf(generateAdvert(2), 5, 7);
         String path = "reports" + SEPARATOR;
         String fileName = DATE_FORMAT.format(LocalDateTime.now()) + ".pdf";
         //then

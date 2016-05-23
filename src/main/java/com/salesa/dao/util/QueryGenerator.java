@@ -43,6 +43,10 @@ public class QueryGenerator {
     private String searchSQL;
     @Autowired
     private CategoryCache categoryCache;
+    @Autowired
+    private String countActiveSQL;
+    @Autowired
+    private String countOnHoldSQL;
 
 
     public void setGetAdvertsTemplateSQL(String getAdvertsTemplateSQL) {
@@ -166,6 +170,30 @@ public class QueryGenerator {
         params.put("text", advertFilter.getSearchText());
         addPagination(advertFilter.getPage(), query, params);
         return new QueryAndParams(query.toString(), params);
+    }
+
+    public QueryAndParams generateOnHold(String dateFrom, String dateTo){
+        StringBuilder query = new StringBuilder(countOnHoldSQL);
+        Map <String, Object> params = new HashMap<>();
+        params.put("dateFrom", dateFrom);
+        query.append(":dateFrom");
+        query.append(AND_STATEMENT);
+        params.put("dateTo", dateTo);
+        query.append(":dateTo");
+        query.append(END_SEPARATOR);
+        return new QueryAndParams(query.toString(), params);
+    }
+
+    public QueryAndParams generateActive(String dateFrom, String dateTo){
+        StringBuilder queryActive = new StringBuilder(countActiveSQL);
+        Map <String, Object> params = new HashMap<>();
+        params.put("dateFrom", dateFrom);
+        queryActive.append(":dateFrom");
+        queryActive.append(AND_STATEMENT);
+        params.put("dateTo", dateTo);
+        queryActive.append(":dateTo");
+        queryActive.append(END_SEPARATOR);
+        return new QueryAndParams(queryActive.toString(), params);
     }
 }
 

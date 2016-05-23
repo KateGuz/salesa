@@ -21,10 +21,10 @@
                 <div class="col-sm-4">
                     <form class="navbar-form " role="search" action="/search">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="searchText">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default go" type="submit">Поиск</button>
-                            </span>
+                            <input type="text" class="form-control" name="searchText" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default go" type="submit">Поиск</button>
+                                </span>
                         </div>
                     </form>
                 </div>
@@ -83,14 +83,14 @@
                             <div class="col-sm-7 col-md-7 left-padding">
                                 <div class="text-bar">
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <input type="text" id="title" value="${advert.title}" required>
+                                        <div class="col-md-6">
+                                            <input type="text" id="title" size="30" value="${advert.title}" required>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input type="number" id="price" value="${advert.price}" required>
+                                        <div class="col-md-3 ">
+                                            <input type="number" id="price" size = "5" value="${advert.price}" required>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="currency">Валюта</label>
+                                        <div class="col-md-3">
+                                           <%-- <label for="currency">Валюта</label>--%>
                                             <select id="currency" required>
                                                 <c:choose>
                                                     <c:when test="${advert.currency == 'USD'}">

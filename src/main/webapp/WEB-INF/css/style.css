@@ -869,3 +869,14 @@ input {
     margin-bottom: 5px;
     margin-top: 5px;
 }
+
+.wrap-info{
+    border: 1px solid rgba(72, 192, 131, 0.69);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+.wrap-info input {
+    border-radius: 5px;
+}
