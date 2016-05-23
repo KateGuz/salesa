@@ -87,34 +87,44 @@
                                     Выберите аватарку:
                                 </p>
                                 <input type="file" id="avatar" class="center-block choose-file">
-                                <h4>
+                                <div class="wrap-info">
+                                    <p>
                                     <div class="glyphicon glyphicon-user"></div>
-                                    <input type="text" id="name" value="${user.name}" required>
-                                </h4>
-                                <p>
-                                <div class="glyphicon glyphicon-envelope"></div>
-                                <input type="text" id="email" value="${user.email}" required>
-                                </p>
-                                <c:choose>
-                                    <c:when test="${!empty user.phone}">
-                                        <p>
-                                        <div class="glyphicon glyphicon-phone"></div>
-                                        <input type="text" id="phone" value="${user.phone}">
-                                        </p>
-                                    </c:when>
-                                </c:choose>
-                                <p>
-                                <div class="glyphicon glyphicon-eye-close"></div>
-                                <input type="checkbox" id="checkbox" checked onclick="showPassword()">
-                                <input type="password" id="password" value="${user.password}">
-                                </p>
-                                <input type="button" class="save-changes save" onclick="editProfile(${user.id})"
-                                       value="Save changes"/>
+                                        <input type="text" id="name" size= "20" value="${user.name}" required>
+                                    </p>
+                                    <p>
+                                    <div class="glyphicon glyphicon-envelope"></div>
+                                    <input type="text" id="email" size= "20" value="${user.email}" required>
+                                    </p>
+                                    <c:choose>
+                                        <c:when test="${!empty user.phone}">
+                                            <p>
+                                            <div class="glyphicon glyphicon-phone"></div>
+                                            <input type="text" id="phone" size= "20" value="${user.phone}">
+                                            </p>
+                                        </c:when>
+                                    </c:choose>
+                                    <p>
+                                    <div class="glyphicon glyphicon-eye-close"></div>
+                                    <input type="checkbox" id="checkbox" checked onclick="showPassword()">
+                                    <input type="password" id="password" size= "15" value="${user.password}">
+                                    </p>
+                                    <input type="button" class="save-changes save" onclick="editProfile(${user.id})"
+                                           value="Save changes"/>
+                                </div>
                                 <p>
                                     <a href="/addAdvert">
                                         <button class="create"><strong>Add advert</strong></button>
                                     </a>
                                 </p>
+                                <c:choose>
+                                    <c:when test="${loggedUser.type == 'A'}">
+                                        <a href="#reportGeneration" data-toggle="modal"
+                                           data-target="#reportGeneration">
+                                            <button class="reportRequest"><strong>Создать отчет</strong></button>
+                                        </a>
+                                    </c:when>
+                                </c:choose>
                             </c:when>
                             <c:otherwise>
                                 <h4>
@@ -131,19 +141,12 @@
                                         ${user.phone} </p>
                                     </c:when>
                                 </c:choose>
-                                <button class="dislike-btn" onclick="addDislike(${user.id})">
+                                <%--<button class="dislike-btn" onclick="addDislike(${user.id})">
                                     <i class="glyphicon glyphicon-thumbs-down"> Dislike</i>
-                                </button>
+                                </button>--%>
                             </c:otherwise>
                         </c:choose>
-                        <c:choose>
-                            <c:when test="${loggedUser.type == 'A'}">
-                                <a href="#reportGeneration" data-toggle="modal"
-                                   data-target="#reportGeneration">
-                                    <button class="reportRequest"><strong>Создать отчет</strong></button>
-                                </a>
-                            </c:when>
-                        </c:choose>
+
                     </div>
                     <br>
                 </div>
