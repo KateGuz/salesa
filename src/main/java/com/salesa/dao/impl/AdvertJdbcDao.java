@@ -93,6 +93,27 @@ public class AdvertJdbcDao implements AdvertDao {
     }
 
     @Override
+    public AdvertPageData search(AdvertFilter advertFilter) {
+        QueryAndParams queryAndParams = queryGenerator.search(advertFilter);
+        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
+
+        //get images
+        for (Advert advert : adverts) {
+            advert.setImages(namedParameterJdbcTemplate.query(getAdvertImageSQL, new MapSqlParameterSource("advertId", advert.getId()), new ImageMapper()));
+        }
+
+        String searchText = advertFilter.getSearchText();
+        String countQuery = String.format(searchSQLCount, searchText, searchText);
+
+        int advertsCount = namedParameterJdbcTemplate.queryForObject(countQuery, new HashMap<>(), Integer.class);
+        int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
+
+        AdvertPageData advertPageData = new AdvertPageData();
+        advertPageData.setAdverts(adverts);
+        advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
+        return advertPageData;
+    }
+    @Override
     public Advert get(int advertId) {
         QueryAndParams queryAndParams = queryGenerator.generateAdvertQuery(advertId);
         return namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, ADVERT_EXTRACTOR).get(0);
@@ -139,22 +160,7 @@ public class AdvertJdbcDao implements AdvertDao {
         namedParameterJdbcTemplate.update(updateAdvertSQL, mapSqlParameterSource);
     }
 
-    @Override
-    public AdvertPageData search(AdvertFilter advertFilter) {
-        QueryAndParams queryAndParams = queryGenerator.search(advertFilter);
-        List<Advert> adverts = namedParameterJdbcTemplate.query(queryAndParams.query, queryAndParams.params, new AdvertMapper());
 
-        String searchText = advertFilter.getSearchText();
-        String countQuery = String.format(searchSQLCount, searchText, searchText);
-
-        int advertsCount = namedParameterJdbcTemplate.queryForObject(countQuery, new HashMap<>(), Integer.class);
-        int pageCount = advertsCount / MAX_ADVERTS_PER_PAGE;
-
-        AdvertPageData advertPageData = new AdvertPageData();
-        advertPageData.setAdverts(adverts);
-        advertPageData.setPageCount(advertsCount % MAX_ADVERTS_PER_PAGE == 0 ? pageCount : pageCount + 1);
-        return advertPageData;
-    }
 
     @Override
     public void delete(int advertId) {

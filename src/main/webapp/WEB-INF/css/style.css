@@ -516,6 +516,9 @@ ul.nav.navbar-right {
     float: left;
     padding-left: 15px;
 }
+#make-admin {
+   width: 150px;
+}
 
 #user-advert-status h6 {
     color: #c7254e;
@@ -524,7 +527,7 @@ ul.nav.navbar-right {
 #user-advert-price {
     display: inline-block;
     text-align: right;
-    float: left;
+    float: right;
     font-weight: bold;
     padding-right: 15px;
 }
@@ -553,6 +556,8 @@ img.media-object.thumbnail.feedback-img-list-item {
 .save-changes {
     background-color: #5E7569 !important;
     margin-bottom: 20px;
+    margin-top: 10px !important;
+    width: 200px !important;
 }
 .save-changes:hover{
     background-color: #222222 !important;

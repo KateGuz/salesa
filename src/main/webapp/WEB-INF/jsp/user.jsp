@@ -84,62 +84,63 @@
                     </div>
                     <div style="text-align: center">
                         <c:choose>
-                        <c:when test="${loggedUser.id == user.id}">
-                        <p class="title-text">
-                            Выберите аватарку:
-                        </p>
-                        <input type="file" id="avatar" class="center-block choose-file">
-                        <div class="wrap-info">
-                            <p>
-                            <div class="glyphicon glyphicon-user"></div>
-                            <input type="text" id="name" size="20" value="${user.name}" required>
-                            <p>
-                            <div class="glyphicon glyphicon-envelope"></div>
-                            <input type="text" id="email" size="20" value="${user.email}" required>
-                            </p>
-                            <c:choose>
-                                <c:when test="${!empty user.phone}">
+                            <c:when test="${loggedUser.id == user.id}">
+                                <p class="title-text">
+                                    Выберите аватарку:
+                                </p>
+                                <input type="file" id="avatar" class="center-block choose-file">
+                                <div class="wrap-info">
                                     <p>
-                                    <div class="glyphicon glyphicon-phone"></div>
-                                    <input type="text" id="phone" size="20" value="${user.phone}">
-                                    </p>
-                                </c:when>
-                                <c:otherwise>
+                                    <div class="glyphicon glyphicon-user"></div>
+                                    <input type="text" id="name" size="20" value="${user.name}" required>
                                     <p>
-                                    <div class="glyphicon glyphicon-phone"></div>
-                                    <input type="text" id="phone" size="20" value="">
+                                    <div class="glyphicon glyphicon-envelope"></div>
+                                    <input type="text" id="email" size="20" value="${user.email}" required>
                                     </p>
-                                </c:otherwise>
-                            </c:choose>
-                            <p>
-                            <div class="glyphicon glyphicon-eye-close"></div>
-                            <input type="checkbox" id="checkbox" checked onclick="showPassword()">
-                            <input type="password" id="password" size="15" value="${user.password}">
-                            </p>
-                            <input type="button" class="save-changes save" onclick="editProfile(${user.id})"
-                                   value="Сохранить изменения"/>
-
-                            <p>
+                                    <c:choose>
+                                        <c:when test="${!empty user.phone}">
+                                            <p>
+                                            <div class="glyphicon glyphicon-phone"></div>
+                                            <input type="text" id="phone" size="20" value="${user.phone}">
+                                            </p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p>
+                                            <div class="glyphicon glyphicon-phone"></div>
+                                            <input type="text" id="phone" size="20" value="">
+                                            </p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <p>
+                                    <div class="glyphicon glyphicon-eye-close"></div>
+                                    <input type="checkbox" id="checkbox" checked onclick="showPassword()">
+                                    <input type="password" id="password" size="15" value="${user.password}">
+                                    </p>
+                                    <input type="button" class="save-changes save" onclick="editProfile(${user.id})"
+                                           value="Сохранить изменения"/>
+                                </div>
+                                    <p>
+                                <br>
                                 <c:choose>
-                                <c:when test="${loggedUser.status != 'B'}">
-                                <a href="/addAdvert">
-                                    <button class="create"><strong>Add advert</strong></button>
-                                </a>
-                                </c:when>
-                                <c:otherwise>
-                            <p>К сожалению, Вы временно заблокированы.</p>
-                            <button disabled class="create"><strong>Add advert</strong></button>
-                            </c:otherwise>
-                            </c:choose>
-                            </p>
-                            <c:choose>
-                                <c:when test="${loggedUser.type == 'A'}">
-                                    <a href="#reportGeneration" data-toggle="modal"
-                                       data-target="#reportGeneration">
-                                        <button class="reportRequest"><strong>Создать отчет</strong></button>
-                                    </a>
-                                </c:when>
-                            </c:choose>
+                                    <c:when test="${loggedUser.status != 'B'}">
+                                        <a href="/addAdvert">
+                                            <button class="create"><strong>Создать объявление</strong></button>
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>К сожалению, Вы временно заблокированы.</p>
+                                        <button disabled class="create"><strong>Создать объявление</strong></button>
+                                    </c:otherwise>
+                                </c:choose>
+                                </p>
+                                <c:choose>
+                                    <c:when test="${loggedUser.type == 'A'}">
+                                        <a href="#reportGeneration" data-toggle="modal"
+                                           data-target="#reportGeneration">
+                                            <button class="reportRequest"><strong>Создать отчет</strong></button>
+                                        </a>
+                                    </c:when>
+                                </c:choose>
                             </c:when>
                             <c:otherwise>
                                 <h4>
@@ -192,156 +193,156 @@
                                     </c:when>
                                 </c:choose>
                             </c:otherwise>
-                            </c:choose>
-                        </div>
+                        </c:choose>
+
                         <br>
                     </div>
+                </div>
+                <div class="col-sm-8 col-md-8">
+                    <div class="advert-list-bar">
+                        <ol class="user-advert-list">
+                            <c:forEach items="${adverts}" var="advert" varStatus="loop">
+                                <div class="media">
+                                    <div class="col-sm-12">
+                                        <h6 id="user-advert-status">
+                                            <c:choose>
+                                                <c:when test="${advert.status == 'A'}">
+                                                    <font color="#48c083">Активно&nbsp;&nbsp;</font>
+                                                </c:when>
+                                                <c:when test="${advert.status == 'H'}">
+                                                    Забронировано&nbsp;
+                                                </c:when>
+                                                <c:when test="${advert.status == 'S'}">
+                                                    <font color="#сссссс">Продано&nbsp;</font>
+                                                </c:when>
+                                            </c:choose>
+                                        </h6>
+                                        <h6 id="user-advert-price">${advert.price}&nbsp;${advert.currency}</h6>
+                                        <br>
+                                        <hr class="user-advert-status-hr">
+                                        <div class="col-sm-4">
 
-                    <div class="col-sm-8 col-md-8">
-                        <div class="advert-list-bar">
-                            <ol class="user-advert-list">
-                                <c:forEach items="${adverts}" var="advert" varStatus="loop">
-                                    <div class="media">
-                                        <div class="col-sm-12">
-                                            <h6 id="user-advert-status">
+                                            <div class="thumbnail">
                                                 <c:choose>
-                                                    <c:when test="${advert.status == 'A'}">
-                                                        <font color="#48c083">Активно&nbsp;&nbsp;</font>
+                                                    <c:when test="${empty advert.images}">
+                                                        <img class="media-object thumbnail adv-img-list-item image-advert-user"
+                                                             src="/img/mock.png">
                                                     </c:when>
-                                                    <c:when test="${advert.status == 'H'}">
-                                                        Забронировано&nbsp;
-                                                    </c:when>
-                                                    <c:when test="${advert.status == 'S'}">
-                                                        <font color="#сссссс">Продано&nbsp;</font>
-                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:forEach items="${advert.images}" var="image"
+                                                                   varStatus="loop">
+                                                            <c:choose>
+                                                                <c:when test="${image.type == 'M'}">
+                                                                    <img src="/image/${image.id}"
+                                                                         alt="advert's photo"
+                                                                         class="media-object thumbnail adv-img-list-item image-advert-user">
+                                                                </c:when>
+                                                            </c:choose>
+                                                        </c:forEach>
+                                                    </c:otherwise>
                                                 </c:choose>
-                                            </h6>
-                                            <h6 id="user-advert-price">${advert.price}&nbsp;${advert.currency}</h6>
-                                            <br>
-                                            <hr class="user-advert-status-hr">
-                                            <div class="col-sm-4">
-
-                                                <div class="thumbnail">
-                                                    <c:choose>
-                                                        <c:when test="${empty advert.images}">
-                                                            <img class="media-object thumbnail adv-img-list-item image-advert-user"
-                                                                 src="/img/mock.png">
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <c:forEach items="${advert.images}" var="image"
-                                                                       varStatus="loop">
-                                                                <c:choose>
-                                                                    <c:when test="${image.type == 'M'}">
-                                                                        <img src="/image/${image.id}"
-                                                                             alt="advert's photo"
-                                                                             class="media-object thumbnail adv-img-list-item image-advert-user">
-                                                                    </c:when>
-                                                                </c:choose>
-                                                            </c:forEach>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <a href="/advert/${advert.id}">
-                                                    <h4 class="media-heading">${advert.title}</h4>
-                                                </a>
-                                                <p>${advert.text}</p>
-                                                <br>
-                                                <div>
-                                                    <h6 class="float-left"><tags:localDateTime
-                                                            date="${advert.modificationDate}"
-                                                            pattern="${pattern}"/></h6>
-                                                    <c:choose>
-                                                        <c:when test="${loggedUser.id == user.id}">
-                                                            <a class="float-right"
-                                                               onclick="deleteAdvert(${advert.id}, ${user.id})">
-                                                                <button class="delete">Delete advert</button>
-                                                            </a>
-                                                            <a class="float-right" href="/editAdvert/${advert.id}">
-                                                                <button class="save">Edit advert</button>
-                                                            </a>
-                                                        </c:when>
-                                                        <c:when test="${loggedUser.type == 'A'}">
-                                                            <a class="float-right"
-                                                               onclick="deleteAdvert(${advert.id}, ${user.id})">
-                                                                <button class="delete">Delete advert</button>
-                                                            </a>
-                                                        </c:when>
-                                                    </c:choose>
-                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </c:forEach>
-                            </ol>
-                        </div>
-
-                        <div class="feedback-list-bar">
-                            <h3>Отзывы о пользователе</h3>
-                            <c:choose>
-                                <c:when test="${empty loggedUser}">
-                                    <div class="alert alert-info" role="alert">
-                                        <p><a href="#user-security-log" data-toggle="modal"
-                                              data-target="#user-security-log"><strong>Авторизируйтесь</strong></a>,
-                                            чтобы
-                                            оставить отзыв о продавце </p>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="row">
-                                        <div class="feedback-form">
-                                            <textarea class="feedback-input"
-                                                      placeholder="Оставьте ваш отзыв"></textarea>
-                                            <button class="feedback-btn" onclick="addFeedback(${user.id})">Send</button>
-                                        </div>
-                                    </div>
-
-                                </c:otherwise>
-                            </c:choose>
-
-                            <ol class="user-advert-list">
-                                <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
-                                    <div class="media well">
-                                        <div class="media-left">
-                                            <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png">
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="/user/${feedback.author.id}">
-                                                <h4 class="media-heading">${feedback.author.name}</h4>
+                                        <div class="col-sm-8">
+                                            <a href="/advert/${advert.id}">
+                                                <h4 class="media-heading">${advert.title}</h4>
                                             </a>
-                                            <p>${feedback.text}</p>
+                                            <p>${advert.text}</p>
                                             <br>
                                             <div>
-                                                <h6 class="media-heading">
-                                                    <tags:localDateTime date="${feedback.creationDate}"/></h6>
+                                                <h6 class="float-left"><tags:localDateTime
+                                                        date="${advert.modificationDate}"
+                                                        pattern="${pattern}"/></h6>
+                                                <c:choose>
+                                                    <c:when test="${loggedUser.id == user.id}">
+                                                        <a class="float-right"
+                                                           onclick="deleteAdvert(${advert.id}, ${user.id})">
+                                                            <button class="delete">Удалить</button>
+                                                        </a>
+                                                        <a class="float-right" href="/editAdvert/${advert.id}">
+                                                            <button class="save">Редактировать</button>
+                                                        </a>
+                                                    </c:when>
+                                                    <c:when test="${loggedUser.type == 'A'}">
+                                                        <a class="float-right"
+                                                           onclick="deleteAdvert(${advert.id}, ${user.id})">
+                                                            <button class="delete">Удалить</button>
+                                                        </a>
+                                                    </c:when>
+                                                </c:choose>
                                             </div>
                                         </div>
                                     </div>
-                                </c:forEach>
-                            </ol>
-                        </div>
+                                </div>
+                            </c:forEach>
+                        </ol>
+                    </div>
+
+                    <div class="feedback-list-bar">
+                        <h3>Отзывы о пользователе</h3>
+                        <c:choose>
+                            <c:when test="${empty loggedUser}">
+                                <div class="alert alert-info" role="alert">
+                                    <p><a href="#user-security-log" data-toggle="modal"
+                                          data-target="#user-security-log"><strong>Авторизируйтесь</strong></a>,
+                                        чтобы
+                                        оставить отзыв о продавце </p>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="row">
+                                    <div class="feedback-form">
+                                            <textarea class="feedback-input"
+                                                      placeholder="Оставьте ваш отзыв"></textarea>
+                                        <button class="feedback-btn" onclick="addFeedback(${user.id})">Отправить</button>
+                                    </div>
+                                </div>
+
+                            </c:otherwise>
+                        </c:choose>
+
+                        <ol class="user-advert-list">
+                            <c:forEach items="${feedbacks}" var="feedback" varStatus="loop">
+                                <div class="media well">
+                                    <div class="media-left">
+                                        <img class="media-object thumbnail feedback-img-list-item" src="/img/1.png">
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="/user/${feedback.author.id}">
+                                            <h4 class="media-heading">${feedback.author.name}</h4>
+                                        </a>
+                                        <p>${feedback.text}</p>
+                                        <br>
+                                        <div>
+                                            <h6 class="media-heading">
+                                                <tags:localDateTime date="${feedback.creationDate}"/></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </ol>
                     </div>
                 </div>
-
-                <div class="separator-box">
-                    <div class="text-center">
-                        <ul class="pagination"></ul>
-                    </div>
-                </div>
-
-                <footer>
-                    <div class="foot">
-                        <div class="well">
-                            <p>Salesa</p>
-                            <p>All Rights Reserved</p>
-                        </div>
-                    </div>
-                </footer>
             </div>
+
+            <div class="separator-box">
+                <div class="text-center">
+                    <ul class="pagination"></ul>
+                </div>
+            </div>
+
+            <footer>
+                <div class="foot">
+                    <div class="well">
+                        <p>Salesa</p>
+                        <p>All Rights Reserved</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 </div>
+
 <jsp:include page="forms.jsp"/>
 
 <div class="wrap-modal">

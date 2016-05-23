@@ -65,7 +65,7 @@
     </div>
 </div>
 
-<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+<%--<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
     <div class="size">
         <nav class="category-filter-row">
             <div class="row">
@@ -117,7 +117,7 @@
             </div>
         </nav>
     </div>
-</div>
+</div>--%>
 
 <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
     <div class="size">
@@ -140,7 +140,20 @@
                                         &nbsp;
                                     </p>
                                     <div class="thumbnail">
-                                        <img src="/img/1.png" alt="advert's photo">
+                                        <c:choose>
+                                            <c:when test="${empty advert.images}">
+                                                <img src="/img/mock.png" alt="advert's photo" class="image-adverts">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach items="${advert.images}" var="image" varStatus="loop">
+                                                    <c:choose>
+                                                        <c:when test="${image.type == 'M'}">
+                                                            <img src="/image/${image.id}" alt="advert's photo" class="image-adverts">
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                     <div class="wrap-title">
                                         <p class="title">${advert.title}</p>
