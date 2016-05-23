@@ -23,12 +23,12 @@
                     <a class="navbar-brand" href="/">Salesa</a>
                 </div>
                 <div class="col-sm-4">
-                    <form class="navbar-form " role="search">
+                    <form class="navbar-form " role="search" action="/search">
                         <div class="input-group">
-                            <input type="text" class="form-control">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default go" type="submit">Поиск</button>
-                            </span>
+                            <input type="text" class="form-control" name="searchText" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default go" type="submit">Поиск</button>
+                                </span>
                         </div>
                     </form>
                 </div>
