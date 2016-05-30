@@ -20,4 +20,9 @@ delete user | :x:	 | :x: | :white_check_mark:
 make admin another user | :x:	 | :x: | :white_check_mark:
 getting reports | :x:	 | :x: | :white_check_mark:
 
-**Some screenshots: **
+**Preview: **
+![own profile](/screenshots/Screenshot_1.png)
+![own profile](/screenshots/Screenshot_1.png)
+![own profile](/screenshots/Screenshot_1.png)
+![own profile](/screenshots/Screenshot_1.png)
+![own profile](/screenshots/Screenshot_1.png)
