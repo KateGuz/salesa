@@ -20,4 +20,4 @@ delete user | :x:	 | :x: | :white_check_mark:
 make admin another user | :x:	 | :x: | :white_check_mark:
 getting reports | :x:	 | :x: | :white_check_mark:
 
-**Some screenshots: **
+*Some screenshots: *
