@@ -31,5 +31,3 @@ getting reports | :x:	 | :x: | :white_check_mark:
 ![other user's profile with feedback](/screenshots/Screenshot_7.png)
 ### add/edit advert
 ![add-edit-advert](/screenshots/Screenshot_12.png) ![add-edit-advert](/screenshots/Screenshot_2.png)
-
-
