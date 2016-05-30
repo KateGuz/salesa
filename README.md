@@ -21,11 +21,15 @@ make admin another user | :x:	 | :x: | :white_check_mark:
 getting reports | :x:	 | :x: | :white_check_mark:
 
 ### Preview:
+### home page
 ![home](/screenshots/Screenshot_8.png)
-![registration](/screenshots/Screenshot_4.png)
+### log in, registration
+![registration](/screenshots/Screenshot_4.png) ![login](/screenshots/Screenshot_3.png)
+### own profile
 ![own profile](/screenshots/Screenshot_1.png)
+### other user's profile (when you admin)
 ![other user's profile with feedback](/screenshots/Screenshot_7.png)
-![add-edit-advert](/screenshots/Screenshot_12.png)
-![add-edit-advert](/screenshots/Screenshot_2.png)
+### add/edit advert
+![add-edit-advert](/screenshots/Screenshot_12.png) ![add-edit-advert](/screenshots/Screenshot_2.png)
 
 
