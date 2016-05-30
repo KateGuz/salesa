@@ -1,7 +1,7 @@
 # salesa
 ## Online platform for buying and selling goods.
-## There are three types of users here:
 
+## There are three types of users here:
 
 
 Functionality | Guest | User | Admin
@@ -20,9 +20,12 @@ delete user | :x:	 | :x: | :white_check_mark:
 make admin another user | :x:	 | :x: | :white_check_mark:
 getting reports | :x:	 | :x: | :white_check_mark:
 
-**Preview: **
+### Preview:
+![home](/screenshots/Screenshot_8.png)
+![registration](/screenshots/Screenshot_4.png)
 ![own profile](/screenshots/Screenshot_1.png)
-![own profile](/screenshots/Screenshot_1.png)
-![own profile](/screenshots/Screenshot_1.png)
-![own profile](/screenshots/Screenshot_1.png)
-![own profile](/screenshots/Screenshot_1.png)
+![other user's profile with feedback](/screenshots/Screenshot_7.png)
+![add-edit-advert](/screenshots/Screenshot_12.png)
+![add-edit-advert](/screenshots/Screenshot_2.png)
+
+
