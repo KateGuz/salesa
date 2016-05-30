@@ -127,7 +127,7 @@
                                                 </select>
                                             </div>
                                             <div class="wrap-status">
-                                                <label for="status">Статус:</label>
+                                                   <%-- <label for="status">Статус:</label>--%>
                                                 <select id="status">
                                                     <option>Активно</option>
                                                     <option>Забронировано</option>
